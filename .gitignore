@@ -1,0 +1,12 @@
+# Remove editor configuration file
+.DS_Store
+.vscode
+.idea
+.idea_modules
+
+# Remove private configuration
+**/config.php
+
+# Composer
+**/composer.lock
+**/vendor/

@@ -1,0 +1,37 @@
+name: Update Deploy branch
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    name: Update deploy branch
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Commit changes to deploy
+        run: |
+          git config --global user.name 'GithubActionBOT'
+          git config --global user.email 'TecWEBBoyz@users.noreply.github.com'
+
+      - name: Fetch deploy branch & commit changes
+        run: |
+          git fetch origin deploy
+          git checkout deploy
+
+          git checkout origin/main -- www
+          git add www
+          git commit -m "Update deploy branch with latest main changes"
+
+      - name: Push changes to deploy branch
+        run: |
+          git push origin deploy
