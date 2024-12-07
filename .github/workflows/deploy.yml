@@ -29,7 +29,9 @@ jobs:
           git checkout deploy
 
           git checkout origin/main -- www
-          git add www
+          mv www/* .
+          rm -rf www
+          git add .
           git commit -m "Update deploy branch with latest main changes"
 
       - name: Push changes to deploy branch
