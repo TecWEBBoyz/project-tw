@@ -19,96 +19,92 @@ RUN apk add --update --no-cache bash coreutils git make openssh patch unzip zip
 #2 DONE 0.0s
 
 #3 [internal] load metadata for docker.io/library/php:8.2.24-cli-alpine
-#3 DONE 0.6s
+#3 DONE 0.4s
 
 #4 [internal] load .dockerignore
 #4 transferring context: 2B done
 #4 DONE 0.0s
 
-#5 [1/2] FROM docker.io/library/php:8.2.24-cli-alpine@sha256:cdb4bde1bc0d2e81c1b6275c9e6cee655a6360e4d850bf8a4cbe2412ae3c95c2
-#5 DONE 0.0s
+#5 importing cache manifest from docker.pkg.github.com/tecwebboyz/project-tw/php-actions_composer_project-tw:php-8.2.24-build2.1.0
+#5 ERROR: failed to configure registry cache importer: unexpected status from HEAD request to https://docker.pkg.github.com/v2/tecwebboyz/project-tw/php-actions_composer_project-tw/manifests/php-8.2.24-build2.1.0: 401 Unauthorized
 
-#6 importing cache manifest from docker.pkg.github.com/tecwebboyz/project-tw/php-actions_composer_project-tw:php-8.2.24-build2.1.0
-#6 ERROR: failed to configure registry cache importer: unexpected status from HEAD request to https://docker.pkg.github.com/v2/tecwebboyz/project-tw/php-actions_composer_project-tw/manifests/php-8.2.24-build2.1.0: 401 Unauthorized
-
-#5 [1/2] FROM docker.io/library/php:8.2.24-cli-alpine@sha256:cdb4bde1bc0d2e81c1b6275c9e6cee655a6360e4d850bf8a4cbe2412ae3c95c2
-#5 resolve docker.io/library/php:8.2.24-cli-alpine@sha256:cdb4bde1bc0d2e81c1b6275c9e6cee655a6360e4d850bf8a4cbe2412ae3c95c2 done
-#5 sha256:cdb4bde1bc0d2e81c1b6275c9e6cee655a6360e4d850bf8a4cbe2412ae3c95c2 1.86kB / 1.86kB done
-#5 sha256:bb15916673af8229814dcc44164d4616a6141bc5b586ae9362e741d64c6e4c91 0B / 3.28MB 0.1s
-#5 sha256:27eca7f323dc3dece8db605b569e9c86a67c65a7b530def8ce9f01473a875f20 2.20kB / 2.20kB done
-#5 sha256:c3c19d716415e74f249914d4c595491d6c0a8242a7265031201f5757b2b809cf 9.06kB / 9.06kB done
-#5 sha256:43c4264eed91be63b206e17d93e75256a6097070ce643c5e8f0379998b44f170 1.05MB / 3.62MB 0.1s
-#5 sha256:9feb3258c4c6a46b7e182fa372bfe03ff37fd0fdf7f6894ca97b564fc382d7d4 0B / 943B 0.1s
-#5 sha256:bb15916673af8229814dcc44164d4616a6141bc5b586ae9362e741d64c6e4c91 3.28MB / 3.28MB 0.2s done
-#5 sha256:43c4264eed91be63b206e17d93e75256a6097070ce643c5e8f0379998b44f170 3.62MB / 3.62MB 0.1s done
-#5 sha256:9feb3258c4c6a46b7e182fa372bfe03ff37fd0fdf7f6894ca97b564fc382d7d4 943B / 943B 0.1s done
-#5 extracting sha256:43c4264eed91be63b206e17d93e75256a6097070ce643c5e8f0379998b44f170 0.1s done
-#5 sha256:32e436918c34ed4c536bdbaeace5213a8aaeb796ec65951fe681a10758ae2677 223B / 223B 0.2s done
-#5 sha256:c20aee302f78733f29a1aab06e21f568de268649dce468803fe3893f86778817 0B / 499B 0.2s
-#5 sha256:14b6974b37323387584ee3677fc2200fb09e101404c8487e78f90844edcf3950 0B / 12.13MB 0.2s
-#5 sha256:c20aee302f78733f29a1aab06e21f568de268649dce468803fe3893f86778817 499B / 499B 0.2s done
-#5 extracting sha256:bb15916673af8229814dcc44164d4616a6141bc5b586ae9362e741d64c6e4c91 0.1s
-#5 sha256:ead3688ee7cb123004ec8cb1e4c2fba260a0140efeb5f7a3b673c8aa573b3a50 0B / 2.45kB 0.3s
-#5 sha256:4e70f4ee1fac08274fbc313e2559df99a4c88635e5e954b7d516d41451b2921d 0B / 17.35MB 0.3s
-#5 sha256:14b6974b37323387584ee3677fc2200fb09e101404c8487e78f90844edcf3950 12.13MB / 12.13MB 0.3s done
-#5 extracting sha256:bb15916673af8229814dcc44164d4616a6141bc5b586ae9362e741d64c6e4c91 0.1s done
-#5 sha256:ead3688ee7cb123004ec8cb1e4c2fba260a0140efeb5f7a3b673c8aa573b3a50 2.45kB / 2.45kB 0.3s done
-#5 sha256:4e70f4ee1fac08274fbc313e2559df99a4c88635e5e954b7d516d41451b2921d 17.35MB / 17.35MB 0.5s done
-#5 sha256:640e9712ea2f3ca7d9fc13e38e4246af735d6c242e5dac88f09fc75c0da8aaa3 19.71kB / 19.71kB 0.4s done
-#5 extracting sha256:9feb3258c4c6a46b7e182fa372bfe03ff37fd0fdf7f6894ca97b564fc382d7d4 done
-#5 extracting sha256:32e436918c34ed4c536bdbaeace5213a8aaeb796ec65951fe681a10758ae2677 done
-#5 extracting sha256:14b6974b37323387584ee3677fc2200fb09e101404c8487e78f90844edcf3950 0.1s done
-#5 extracting sha256:c20aee302f78733f29a1aab06e21f568de268649dce468803fe3893f86778817 done
-#5 extracting sha256:4e70f4ee1fac08274fbc313e2559df99a4c88635e5e954b7d516d41451b2921d 0.1s
-#5 extracting sha256:4e70f4ee1fac08274fbc313e2559df99a4c88635e5e954b7d516d41451b2921d 0.6s done
-#5 extracting sha256:ead3688ee7cb123004ec8cb1e4c2fba260a0140efeb5f7a3b673c8aa573b3a50
-#5 extracting sha256:ead3688ee7cb123004ec8cb1e4c2fba260a0140efeb5f7a3b673c8aa573b3a50 done
-#5 extracting sha256:640e9712ea2f3ca7d9fc13e38e4246af735d6c242e5dac88f09fc75c0da8aaa3 done
-#5 DONE 1.4s
+#6 [1/2] FROM docker.io/library/php:8.2.24-cli-alpine@sha256:cdb4bde1bc0d2e81c1b6275c9e6cee655a6360e4d850bf8a4cbe2412ae3c95c2
+#6 resolve docker.io/library/php:8.2.24-cli-alpine@sha256:cdb4bde1bc0d2e81c1b6275c9e6cee655a6360e4d850bf8a4cbe2412ae3c95c2 done
+#6 sha256:c3c19d716415e74f249914d4c595491d6c0a8242a7265031201f5757b2b809cf 9.06kB / 9.06kB done
+#6 sha256:bb15916673af8229814dcc44164d4616a6141bc5b586ae9362e741d64c6e4c91 0B / 3.28MB 0.1s
+#6 sha256:32e436918c34ed4c536bdbaeace5213a8aaeb796ec65951fe681a10758ae2677 0B / 223B 0.1s
+#6 sha256:cdb4bde1bc0d2e81c1b6275c9e6cee655a6360e4d850bf8a4cbe2412ae3c95c2 1.86kB / 1.86kB done
+#6 sha256:27eca7f323dc3dece8db605b569e9c86a67c65a7b530def8ce9f01473a875f20 2.20kB / 2.20kB done
+#6 sha256:43c4264eed91be63b206e17d93e75256a6097070ce643c5e8f0379998b44f170 3.15MB / 3.62MB 0.1s
+#6 sha256:9feb3258c4c6a46b7e182fa372bfe03ff37fd0fdf7f6894ca97b564fc382d7d4 943B / 943B 0.1s done
+#6 sha256:bb15916673af8229814dcc44164d4616a6141bc5b586ae9362e741d64c6e4c91 3.28MB / 3.28MB 0.1s done
+#6 sha256:32e436918c34ed4c536bdbaeace5213a8aaeb796ec65951fe681a10758ae2677 223B / 223B 0.1s done
+#6 sha256:43c4264eed91be63b206e17d93e75256a6097070ce643c5e8f0379998b44f170 3.62MB / 3.62MB 0.1s done
+#6 extracting sha256:43c4264eed91be63b206e17d93e75256a6097070ce643c5e8f0379998b44f170 0.1s done
+#6 sha256:14b6974b37323387584ee3677fc2200fb09e101404c8487e78f90844edcf3950 5.24MB / 12.13MB 0.2s
+#6 sha256:c20aee302f78733f29a1aab06e21f568de268649dce468803fe3893f86778817 499B / 499B 0.2s done
+#6 sha256:4e70f4ee1fac08274fbc313e2559df99a4c88635e5e954b7d516d41451b2921d 7.77MB / 17.35MB 0.2s
+#6 sha256:ead3688ee7cb123004ec8cb1e4c2fba260a0140efeb5f7a3b673c8aa573b3a50 0B / 2.45kB 0.2s
+#6 sha256:14b6974b37323387584ee3677fc2200fb09e101404c8487e78f90844edcf3950 12.13MB / 12.13MB 0.3s done
+#6 sha256:4e70f4ee1fac08274fbc313e2559df99a4c88635e5e954b7d516d41451b2921d 17.35MB / 17.35MB 0.3s done
+#6 sha256:ead3688ee7cb123004ec8cb1e4c2fba260a0140efeb5f7a3b673c8aa573b3a50 2.45kB / 2.45kB 0.2s done
+#6 extracting sha256:bb15916673af8229814dcc44164d4616a6141bc5b586ae9362e741d64c6e4c91 0.1s done
+#6 sha256:640e9712ea2f3ca7d9fc13e38e4246af735d6c242e5dac88f09fc75c0da8aaa3 19.71kB / 19.71kB 0.3s done
+#6 extracting sha256:9feb3258c4c6a46b7e182fa372bfe03ff37fd0fdf7f6894ca97b564fc382d7d4 done
+#6 extracting sha256:32e436918c34ed4c536bdbaeace5213a8aaeb796ec65951fe681a10758ae2677
+#6 extracting sha256:32e436918c34ed4c536bdbaeace5213a8aaeb796ec65951fe681a10758ae2677 done
+#6 extracting sha256:14b6974b37323387584ee3677fc2200fb09e101404c8487e78f90844edcf3950 0.1s done
+#6 extracting sha256:c20aee302f78733f29a1aab06e21f568de268649dce468803fe3893f86778817 done
+#6 extracting sha256:4e70f4ee1fac08274fbc313e2559df99a4c88635e5e954b7d516d41451b2921d
+#6 extracting sha256:4e70f4ee1fac08274fbc313e2559df99a4c88635e5e954b7d516d41451b2921d 0.4s done
+#6 extracting sha256:ead3688ee7cb123004ec8cb1e4c2fba260a0140efeb5f7a3b673c8aa573b3a50 done
+#6 extracting sha256:640e9712ea2f3ca7d9fc13e38e4246af735d6c242e5dac88f09fc75c0da8aaa3
+#6 extracting sha256:640e9712ea2f3ca7d9fc13e38e4246af735d6c242e5dac88f09fc75c0da8aaa3 done
+#6 DONE 1.2s
 
 #7 [2/2] RUN apk add --update --no-cache bash coreutils git make openssh patch unzip zip
-#7 0.203 fetch https://dl-cdn.alpinelinux.org/alpine/v3.20/main/x86_64/APKINDEX.tar.gz
-#7 0.353 fetch https://dl-cdn.alpinelinux.org/alpine/v3.20/community/x86_64/APKINDEX.tar.gz
-#7 0.593 (1/24) Installing bash (5.2.26-r0)
-#7 0.620 Executing bash-5.2.26-r0.post-install
-#7 0.623 (2/24) Installing coreutils-env (9.5-r1)
-#7 0.639 (3/24) Installing coreutils-fmt (9.5-r1)
-#7 0.654 (4/24) Installing coreutils-sha512sum (9.5-r1)
-#7 0.670 (5/24) Installing libattr (2.5.2-r0)
-#7 0.686 (6/24) Installing skalibs (2.14.1.1-r0)
-#7 0.702 (7/24) Installing utmps-libs (0.1.2.2-r1)
-#7 0.718 (8/24) Installing coreutils (9.5-r1)
-#7 0.754 (9/24) Installing libexpat (2.6.4-r0)
-#7 0.770 (10/24) Installing pcre2 (10.43-r0)
-#7 0.789 (11/24) Installing git (2.45.2-r0)
-#7 0.863 (12/24) Installing git-init-template (2.45.2-r0)
-#7 0.880 (13/24) Installing make (4.4.1-r2)
-#7 0.897 (14/24) Installing openssh-keygen (9.7_p1-r4)
-#7 0.915 (15/24) Installing libedit (20240517.3.1-r0)
-#7 0.932 (16/24) Installing openssh-client-common (9.7_p1-r4)
-#7 0.961 (17/24) Installing openssh-client-default (9.7_p1-r4)
-#7 0.981 (18/24) Installing openssh-sftp-server (9.7_p1-r4)
-#7 0.998 (19/24) Installing openssh-server-common (9.7_p1-r4)
-#7 1.013 (20/24) Installing openssh-server (9.7_p1-r4)
-#7 1.034 (21/24) Installing openssh (9.7_p1-r4)
-#7 1.052 (22/24) Installing patch (2.7.6-r10)
-#7 1.068 (23/24) Installing unzip (6.0-r14)
-#7 1.086 (24/24) Installing zip (3.0-r12)
-#7 1.105 Executing busybox-1.36.1-r29.trigger
-#7 1.111 OK: 37 MiB in 63 packages
-#7 DONE 1.2s
+#7 0.178 fetch https://dl-cdn.alpinelinux.org/alpine/v3.20/main/x86_64/APKINDEX.tar.gz
+#7 0.282 fetch https://dl-cdn.alpinelinux.org/alpine/v3.20/community/x86_64/APKINDEX.tar.gz
+#7 0.654 (1/24) Installing bash (5.2.26-r0)
+#7 0.681 Executing bash-5.2.26-r0.post-install
+#7 0.684 (2/24) Installing coreutils-env (9.5-r1)
+#7 0.691 (3/24) Installing coreutils-fmt (9.5-r1)
+#7 0.697 (4/24) Installing coreutils-sha512sum (9.5-r1)
+#7 0.703 (5/24) Installing libattr (2.5.2-r0)
+#7 0.710 (6/24) Installing skalibs (2.14.1.1-r0)
+#7 0.718 (7/24) Installing utmps-libs (0.1.2.2-r1)
+#7 0.724 (8/24) Installing coreutils (9.5-r1)
+#7 0.753 (9/24) Installing libexpat (2.6.4-r0)
+#7 0.761 (10/24) Installing pcre2 (10.43-r0)
+#7 0.776 (11/24) Installing git (2.45.2-r0)
+#7 0.860 (12/24) Installing git-init-template (2.45.2-r0)
+#7 0.867 (13/24) Installing make (4.4.1-r2)
+#7 0.876 (14/24) Installing openssh-keygen (9.7_p1-r4)
+#7 0.886 (15/24) Installing libedit (20240517.3.1-r0)
+#7 0.896 (16/24) Installing openssh-client-common (9.7_p1-r4)
+#7 0.918 (17/24) Installing openssh-client-default (9.7_p1-r4)
+#7 0.931 (18/24) Installing openssh-sftp-server (9.7_p1-r4)
+#7 0.938 (19/24) Installing openssh-server-common (9.7_p1-r4)
+#7 0.944 (20/24) Installing openssh-server (9.7_p1-r4)
+#7 0.957 (21/24) Installing openssh (9.7_p1-r4)
+#7 0.967 (22/24) Installing patch (2.7.6-r10)
+#7 0.975 (23/24) Installing unzip (6.0-r14)
+#7 0.986 (24/24) Installing zip (3.0-r12)
+#7 0.997 Executing busybox-1.36.1-r29.trigger
+#7 1.004 OK: 37 MiB in 63 packages
+#7 DONE 1.1s
 
 #8 exporting to image
 #8 exporting layers
 #8 exporting layers 0.7s done
-#8 writing image sha256:685997dddc8b8eca815e3ce86f05ca39790d42fdfce8b469fb0a432ef744a240 done
+#8 writing image sha256:78c9ee2b0e112014efc8d347d5a5c659ef6262bb59372a46601ce563b360440e done
 #8 naming to docker.pkg.github.com/tecwebboyz/project-tw/php-actions_composer_project-tw:php-8.2.24-build2.1.0 done
 #8 DONE 0.7s
 ------
  > importing cache manifest from docker.pkg.github.com/tecwebboyz/project-tw/php-actions_composer_project-tw:php-8.2.24-build2.1.0:
 ------
 The push refers to repository [docker.pkg.github.com/tecwebboyz/project-tw/php-actions_composer_project-tw]
-f7c8307915fe: Preparing
+3c1bf6f24e15: Preparing
 9931507d9beb: Preparing
 22a6ed7293ef: Preparing
 0a19a12e9d88: Preparing
@@ -118,11 +114,11 @@ c3ff8ad6e8a0: Preparing
 cf777ca6329b: Preparing
 c2fda8fcffde: Preparing
 63ca1fbb43ae: Preparing
-b1c6f98d3680: Waiting
 c3ff8ad6e8a0: Waiting
 cf777ca6329b: Waiting
 c2fda8fcffde: Waiting
 63ca1fbb43ae: Waiting
+b1c6f98d3680: Waiting
 denied: installation not allowed to Create organization package
 WARNING: Failed to push Docker image to "docker.pkg.github.com/tecwebboyz/project-tw/php-actions_composer_project-tw:php-8.2.24-build2.1.0", this is probably due to missing permissions on GitHub.
 Will continue as this is just an optimization to improve speed of next build.
