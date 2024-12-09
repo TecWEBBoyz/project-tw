@@ -15,7 +15,7 @@ services:
     environment:
       DEBIAN_FRONTEND: noninteractive
     command: >
-      /bin/bash -c "/setup_apache.sh"
+      /bin/bash -c "chmod +x /setup_apache.sh && /setup_apache.sh"
 
 networks:
   webnet:
