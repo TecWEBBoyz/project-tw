@@ -31,3 +31,35 @@ chmod +x install.sh
 ```bash
 ./install.sh
 ```
+
+## Avvio del Compose
+
+Per avviare l'ambiente tramite Docker Compose, eseguire i seguenti passaggi:
+
+1. Posizionarsi nella directory root del progetto.
+2. Controllare che il file `docker-compose.yml` sia configurato correttamente.
+3. Avviare Docker Compose con il comando:
+
+```bash
+docker-compose up -d
+```
+
+4. Verificare che i container siano in esecuzione:
+
+```bash
+docker-compose ps
+```
+
+## Accesso al Sito Locale
+
+Il sito sarà disponibile localmente sulla porta **8080**.
+
+Aprire il browser e accedere a:
+
+```
+http://localhost:8080
+```
+
+## Debugging
+
+TDB
