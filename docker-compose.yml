@@ -15,7 +15,7 @@ services:
     environment:
       DEBIAN_FRONTEND: noninteractive
     command: >
-      /bin/bash -c "apt-get update && apt-get install -y dos2unix && cp /setup_apache.sh /setup_apache_internal.sh && dos2unix /setup_apache_internal.sh && chmod +x /setup_apache_internal.sh && /setup_apache_internal.sh"
+      /bin/bash -c "chmod +x /setup_apache.sh && /setup_apache.sh"
 
 networks:
   webnet:
