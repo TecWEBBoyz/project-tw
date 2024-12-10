@@ -46,6 +46,13 @@ sed -i 's/error_reporting = .*/error_reporting = E_ALL/' $PHP_INI_FILE
 curl -sS https://getcomposer.org/installer | php -- \
 --install-dir=/usr/bin --filename=composer
 
+# Update del composer
+cd /var/www/html && composer update
+
+# Set Local Configurations
+rm /var/www/html/Config/config.php
+cp /var/www/html/Config/config.local.php /var/www/html/Config/config.php
+
 # Riavvio dei servizi per applicare le configurazioni
 service apache2 restart
 service mariadb restart
