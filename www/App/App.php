@@ -9,9 +9,11 @@
 
 namespace PTW;
 
+use Exception;
+
 class App
 {
-    private static array $config;
+    private static array $config = [];
 
     public static function Init(): void
     {
@@ -39,6 +41,14 @@ class App
 
     private static function LoadConfig(): void
     {
-        self::$config = require_once __DIR__ . "/../Config/config.php";
+        try {
+            if (!file_exists(__DIR__ . "/../Config/config.php"))
+                throw new Exception('config.php is missing');
+            else
+                require_once(__DIR__ . "/../Config/config.php");
+        }
+        catch(Exception $e) {
+            echo "Error: " . $e->getMessage();
+        }
     }
 }
