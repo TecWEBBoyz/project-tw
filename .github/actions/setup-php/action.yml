@@ -1,0 +1,30 @@
+name: Setup PHP
+description: Setup a PHP environment
+inputs:
+  php-version:
+    description: PHP version to install
+    required: true
+  extensions:
+    description: Extensions to enable
+    required: false
+  tools:
+    description: Tools to install
+    required: false
+runs:
+  using: "composite"
+  steps:
+    - name: Install PHP
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y software-properties-common
+        sudo add-apt-repository ppa:ondrej/php -y
+        sudo apt-get update
+        sudo apt-get install -y php${{ inputs.php-version }}
+        if [ ! -z "${{ inputs.extensions }}" ]; then
+          sudo apt-get install -y php${{ inputs.php-version }}-${{ inputs.extensions//,/ php${{ inputs.php-version }}-}}
+        fi
+        if [ ! -z "${{ inputs.tools }}" ]; then
+          for tool in ${{ inputs.tools//,/ }}; do
+            sudo apt-get install -y $tool
+          done
+        fi

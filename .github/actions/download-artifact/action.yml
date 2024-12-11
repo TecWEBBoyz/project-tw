@@ -1,0 +1,16 @@
+name: Download Artifact
+description: Download and extract an artifact
+inputs:
+  name:
+    description: Name of the artifact
+    required: true
+  path:
+    description: Path to extract the artifact
+    required: true
+runs:
+  using: "composite"
+  steps:
+    - name: Download and extract artifact
+      run: |
+        mkdir -p ${{ inputs.path }}
+        tar -xzvf ${{ inputs.name }} -C ${{ inputs.path }}
