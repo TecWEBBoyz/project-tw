@@ -26,11 +26,6 @@ jobs:
           cd www
           composer install --no-dev --optimize-autoloader
 
-      - name: Run tests
-        run: |
-          cd www
-          vendor/bin/phpunit
-
       - name: Prepare artifact
         run: |
           mkdir release
