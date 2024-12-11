@@ -15,12 +15,12 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: TecWEBBoyz/actions/checkout
+        uses: actions/checkout@v3
 
       - name: Setup PHP
-        uses: TecWEBBoyz/actions/setup-php
+        uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.1' # Specifica la versione di PHP necessaria
+          php-version: '8.1'
           extensions: mbstring, intl, pdo, pdo_mysql
           tools: composer
 
@@ -29,6 +29,7 @@ jobs:
           cd www
           composer install --no-dev --optimize-autoloader
 
+
       - name: Prepare artifact
         run: |
           mkdir release
@@ -36,7 +37,7 @@ jobs:
           tar -czvf php-app.tar.gz -C release .
 
       - name: Upload artifact
-        uses: TecWEBBoyz/actions/upload-artifact
+        uses: actions/upload-artifact@v3
         with:
           name: php-app
           path: php-app.tar.gz
@@ -48,13 +49,13 @@ jobs:
 
     steps:
       - name: Download artifact
-        uses: TecWEBBoyz/actions/download-artifact
+        uses: actions/download-artifact@v3
         with:
           name: php-app
           path: ./
 
       - name: Create release
-        uses: TecWEBBoyz/actions/release-action
+        uses: ncipollo/release-action@v1
         with:
           artifacts: php-app.tar.gz
           token: ${{ secrets.GITHUB_TOKEN }}
