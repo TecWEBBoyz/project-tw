@@ -5,6 +5,9 @@ on:
     tags:
       - "v*.*.*"
 
+permissions:
+  contents: write
+
 jobs:
   build:
     name: Build PHP App
@@ -17,7 +20,7 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.1' # Specifica la versione di PHP necessaria
+          php-version: '8.1'
           extensions: mbstring, intl, pdo, pdo_mysql
           tools: composer
 
@@ -59,3 +62,6 @@ jobs:
           name: Release ${{ github.ref_name }}
           body: |
             This is an automated release for version ${{ github.ref_name }}.
+            
+            Changelog:
+            - Placeholder for release notes.
