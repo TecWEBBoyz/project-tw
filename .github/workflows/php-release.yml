@@ -15,12 +15,12 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: ./actions/checkout # Azione locale per il checkout del codice
 
       - name: Setup PHP
-        uses: shivammathur/setup-php@v2
+        uses: ./actions/setup-php # Azione locale per configurare PHP
         with:
-          php-version: '8.1' # Specifica la versione di PHP necessaria
+          php-version: '8.1'
           extensions: mbstring, intl, pdo, pdo_mysql
           tools: composer
 
@@ -41,7 +41,7 @@ jobs:
           tar -czvf php-app.tar.gz -C release .
 
       - name: Upload artifact
-        uses: actions/upload-artifact@v3
+        uses: ./actions/upload-artifact # Azione locale per caricare artefatti
         with:
           name: php-app
           path: php-app.tar.gz
@@ -53,23 +53,20 @@ jobs:
 
     steps:
       - name: Download artifact
-        uses: actions/download-artifact@v3
+        uses: ./actions/download-artifact # Azione locale per scaricare artefatti
         with:
           name: php-app
           path: ./
 
       - name: Create release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        uses: ./actions/create-release # Azione locale per creare una release
         with:
-          tag_name: ${{ github.ref_name }}
-          release_name: Release ${{ github.ref_name }}
+          artifacts: php-app.tar.gz
+          token: ${{ secrets.GITHUB_TOKEN }}
+          tag: ${{ github.ref_name }}
+          name: Release ${{ github.ref_name }}
           body: |
             This is an automated release for version ${{ github.ref_name }}.
             
             Changelog:
             - Placeholder for release notes.
-          draft: false
-          prerelease: false
-          files: php-app.tar.gz

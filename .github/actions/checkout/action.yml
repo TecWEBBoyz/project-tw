@@ -1,7 +1,7 @@
-name: Checkout Repository
-description: Checkout the repository
+name: Checkout
+description: Checkout repository code
 runs:
   using: "composite"
   steps:
-    - name: Checkout
-      run: git clone ${{ github.repository_url }} .
+    - run: git clone ${{ github.repository_url }} .
+      shell: bash

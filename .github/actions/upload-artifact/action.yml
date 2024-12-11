@@ -2,15 +2,13 @@ name: Upload Artifact
 description: Upload an artifact
 inputs:
   name:
-    description: Name of the artifact
     required: true
   path:
-    description: Path to the artifact
     required: true
 runs:
   using: "composite"
   steps:
-    - name: Archive and upload
-      run: |
-        tar -czvf ${{ inputs.name }} ${{ inputs.path }}
-        mv ${{ inputs.name }} /tmp/
+    - run: |
+        mkdir -p artifacts
+        cp ${{ inputs.path }} artifacts/${{ inputs.name }}
+      shell: bash
