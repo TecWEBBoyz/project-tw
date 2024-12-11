@@ -1,0 +1,12 @@
+name: Checkout Code
+description: Checkout the repository
+inputs:
+  repository:
+    description: The repository to checkout
+    required: true
+    default: ${{ github.repository }}
+runs:
+  using: "composite"
+  steps:
+    - name: Checkout
+      run: git clone https://github.com/${{ inputs.repository }} .
