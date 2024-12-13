@@ -136,7 +136,20 @@ if [[ "$LATEST_VERSION" != "$CURRENT_VERSION" ]]; then
 
     log_to_file "Downloading release files..."
     wget -O "$TEMP_TAR" "$ASSET_URL"
+
+    # Verifica se il file è stato scaricato correttamente
+    if [[ ! -f "$TEMP_TAR" || ! -s "$TEMP_TAR" ]]; then
+        log_to_file "Error: Failed to download the compressed file or file is empty. Aborting process."
+        exit 1
+    fi
+
     wget -O "$TEMP_DIR/version.txt" "$VERSION_FILE_URL"
+
+    # Verifica se il file version.txt è stato scaricato correttamente
+    if [[ ! -f "$TEMP_DIR/version.txt" || ! -s "$TEMP_DIR/version.txt" ]]; then
+        log_to_file "Error: Failed to download version.txt or file is empty. Aborting process."
+        exit 1
+    fi
 
     log_to_file "Deleting all files and directories in $DEST_DIR..."
     rm -rf "$DEST_DIR"/*
