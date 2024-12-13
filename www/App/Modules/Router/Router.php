@@ -17,6 +17,9 @@ class Router
     public function __construct()
     {
         $this->baseURI = config("router.baseURL");
+
+        if ($this->baseURI == "/")
+            $this->baseURI = "";
     }
 
     public function get(string $uri, string|Closure $controller): void
@@ -37,7 +40,7 @@ class Router
         ];
     }
 
-    public function delete(string $uri, string|Closure $controller)
+    public function delete(string $uri, string|Closure $controller): void
     {
         $this->routes[] = [
             'uri' => $this->baseURI . $uri,
