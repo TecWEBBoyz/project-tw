@@ -1,0 +1,10 @@
+# Remove editor configuration file
+.DS_Store
+.vscode
+.idea
+.idea_modules
+.env
+
+# Composer
+**/composer.lock
+**/vendor/

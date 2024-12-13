@@ -1,0 +1,10 @@
+RewriteEngine On
+
+# Ignore "static" from redirect
+RewriteCond %{REQUEST_URI} ^/static/ [NC]
+RewriteRule ^ - [L]
+
+# Redirect all url to index.php
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.php [QSA,L]

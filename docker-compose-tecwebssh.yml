@@ -1,0 +1,30 @@
+services:
+  ssh_tunnel_1:
+    image: ubuntu:latest
+    container_name: ssh_tunnel_1
+    command: >
+      sh -c "
+      apt-get update && apt-get install -y openssh-client sshpass && \
+      sshpass -p '${SSH_PASSWORD}' ssh -o StrictHostKeyChecking=no -N -L 0.0.0.0:3000:tecweb.studenti.math.unipd.it:80 \
+      ${SSH_USERNAME}@ssh.studenti.math.unipd.it"
+    ports:
+      - "8080:3000"
+    stdin_open: true
+    tty: true
+    env_file:
+      - .env
+
+  ssh_tunnel_2:
+    image: ubuntu:latest
+    container_name: ssh_tunnel_2
+    command: >
+      sh -c "
+      apt-get update && apt-get install -y openssh-client sshpass && \
+      sshpass -p '${SSH_PASSWORD}' ssh -o StrictHostKeyChecking=no -N -L 0.0.0.0:22:tecweb.studenti.math.unipd.it:22 \
+      ${SSH_USERNAME}@ssh.studenti.math.unipd.it"
+    ports:
+      - "2222:22"
+    stdin_open: true
+    tty: true
+    env_file:
+      - .env

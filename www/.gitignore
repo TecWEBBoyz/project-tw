@@ -1,0 +1,5 @@
+# Docker install generated files.
+DOCKER_ENV
+Dockerfile-php-build
+docker_tag
+output.log
