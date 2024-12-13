@@ -12,6 +12,12 @@
  */
 return [
     "router" => [
-        "baseURL" => "/{USERNAME}",    // Base URL for the application (Nome utente su server, / in locale)
+        "baseURL" => "/",    // Base URL for the application (Nome utente su server, / in locale)
     ],
+    "database" => [
+        "host" => "localhost",
+        "username" => "default_user",
+        "password" => "default_password",
+        "database" => "default_database",
+    ]
 ];

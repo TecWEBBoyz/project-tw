@@ -43,6 +43,9 @@ GRANT ALL PRIVILEGES ON ${MYSQL_DATABASE}.* TO '${MYSQL_USER}'@'%';
 FLUSH PRIVILEGES;
 EOF
 
+# Esegui il file init.sql per configurare il database (assicurati che il file sia nella root)
+mysql -u root -p${MYSQL_ROOT_PASSWORD} ${MYSQL_DATABASE} < /init.sql
+
 # Configurazione di Xdebug
 XDEBUG_CONFIG_FILE="/etc/php/8.1/mods-available/xdebug.ini"
 

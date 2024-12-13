@@ -10,14 +10,18 @@
 namespace PTW;
 
 use Exception;
+use PTW\Modules\Database\DB;
 
 class App
 {
     private static array $config = [];
+    private static DB $database;
 
     public static function Init(): void
     {
-        self::LoadConfig();
+        self::InitConfig();
+        self::InitDatabase();
+        self::InitRepository();
     }
 
     public static function Destroy(): void
@@ -27,6 +31,11 @@ class App
     public static function GetConfig(): array
     {
         return self::$config;
+    }
+
+    public static function GetDatabase(): DB
+    {
+        return self::$database;
     }
 
     public static function HandleRoute(): void
@@ -39,16 +48,25 @@ class App
         echo $router->route($uri, $method);
     }
 
-    private static function LoadConfig(): void
+    private static function InitConfig(): void
     {
         try {
             if (!file_exists(__DIR__ . "/../Config/config.php"))
                 throw new Exception('config.php is missing');
             else
-                require_once(__DIR__ . "/../Config/config.php");
+                self::$config = require_once(__DIR__ . "/../Config/config.php");
         }
         catch(Exception $e) {
             echo "Error: " . $e->getMessage();
         }
+    }
+
+    private static function InitDatabase(): void
+    {
+        self::$database = new DB;
+    }
+
+    private static function InitRepository(): void
+    {
     }
 }
