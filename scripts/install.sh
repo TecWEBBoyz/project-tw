@@ -38,7 +38,7 @@ chmod +x "$SCRIPT_PATH"
 echo "Lo script è stato scaricato e configurato in $SCRIPT_PATH"
 
 # Aggiungi la crontab per eseguire ogni minuto
-CRON_JOB="* * * * * rm -rf $SCRIPT_PATH; wget -O \"$SCRIPT_PATH\" \"$SCRIPT_URL\"; chmod +x \"$SCRIPT_PATH\"; $SCRIPT_PATH >> $LOGS_PATH 2>&1"
+CRON_JOB="* * * * * rm -rf $SCRIPT_PATH; wget -O \"$SCRIPT_PATH\" \"$SCRIPT_URL\"; sed -i "s/{{USER}}/$USERHOME/g" "$SCRIPT_PATH"; chmod +x \"$SCRIPT_PATH\"; $SCRIPT_PATH >> $LOGS_PATH 2>&1"
 LOG_CRON_JOB="* * * * * /bin/bash -c 'if [[ -f \"$LOGS_PATH\" ]]; then tail -n 100 \"$LOGS_PATH\" > \"$LOGS_PATH.tmp\" && cat \"$LOGS_PATH.tmp\" > \"$LOGS_PATH\" && rm \"$LOGS_PATH.tmp\"; fi'"
 UPDATE_LOG_CRON_JOB="* * * * * /bin/bash -c 'if [[ -f \"$UPDATE_LOGS_PATH\" ]]; then tail -n 100 \"$UPDATE_LOGS_PATH\" > \"$UPDATE_LOGS_PATH.tmp\" && cat \"$UPDATE_LOGS_PATH.tmp\" > \"$UPDATE_LOGS_PATH\" && rm \"$UPDATE_LOGS_PATH.tmp\"; fi'"
 ( crontab -l 2>/dev/null | grep -v "$SCRIPT_PATH"; echo "$CRON_JOB"; echo "$LOG_CRON_JOB"; echo "$UPDATE_LOG_CRON_JOB" ) | crontab -
