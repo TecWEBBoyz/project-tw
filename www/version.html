@@ -117,7 +117,9 @@
 
         for (const file of files) {
             try {
-                const response = await fetch(file.url);
+                // Append a unique query parameter to the URL to prevent caching
+                const uniqueUrl = `${file.url}?_=${new Date().getTime()}`;
+                const response = await fetch(uniqueUrl);
                 if (!response.ok) throw new Error(`Failed to fetch ${file.url}`);
                 const content = await response.text();
 
