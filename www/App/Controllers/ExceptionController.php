@@ -7,6 +7,7 @@
 namespace PTW\Controllers;
 
 use PTW\Contracts\ControllerContract;
+use PTW\Utility\TemplateUtility;
 
 class ExceptionController implements ControllerContract
 {
@@ -14,7 +15,10 @@ class ExceptionController implements ControllerContract
     {
         switch ($error_code) {
             case "404":
-                require __DIR__ . "/../Templates/404.html";
+                TemplateUtility::getTemplate("404", [
+                    "title" => "Not Found",
+                    "description" => "This is the home page description"
+                ]);
                 break;
         }
     }
