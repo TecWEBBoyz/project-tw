@@ -58,9 +58,9 @@ class Router
 
     /**
      * Redirect the request to the right controller.
-     * 
+     *
      * If the route is not found, the method will return a 404 error.
-     * 
+     *
      * @param string $uri
      * @param string $method
      * @return string
@@ -68,7 +68,6 @@ class Router
     public function route(string $uri, string $method)
     {
         $controller = null;
-
         foreach ($this->routes as $route) {
             if (
                 $route['uri'] === $uri &&

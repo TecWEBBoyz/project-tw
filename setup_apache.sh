@@ -16,6 +16,9 @@ apt-get update && apt-get install -y \
 echo 'ServerName localhost' >> /etc/apache2/apache2.conf
 a2enmod rewrite
 
+# Aggiornamento del file di configurazione di Apache per consentire l'uso di .htaccess
+cp /000-default.conf /etc/apache2/sites-available/000-default.conf
+
 # Configurazione di MariaDB
 service mariadb start
 
@@ -75,8 +78,8 @@ curl -sS https://getcomposer.org/installer | php -- \
 cd /var/www/html && composer update
 
 # Set Local Configurations
-rm /var/www/html/Config/config.php
-cp /var/www/html/Config/config.local.php /var/www/html/Config/config.php
+rm /var/www/html/username/Config/config.php
+cp /var/www/html/username/Config/config.local.php /var/www/html/username/Config/config.php
 
 # Riavvio dei servizi per applicare le configurazioni
 service apache2 restart

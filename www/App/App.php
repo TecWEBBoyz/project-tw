@@ -45,7 +45,7 @@ class App
             if (!file_exists(__DIR__ . "/../Config/config.php"))
                 throw new Exception('config.php is missing');
             else
-                require_once(__DIR__ . "/../Config/config.php");
+                self::$config = require_once(__DIR__ . "/../Config/config.php");
         }
         catch(Exception $e) {
             echo "Error: " . $e->getMessage();
