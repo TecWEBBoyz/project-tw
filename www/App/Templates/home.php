@@ -204,6 +204,7 @@
             modal.style.display = "none";
             modalImage.src = "";
             modalDescription.textContent = "";
+            loader.style.display = "flex";
         });
     });
 </script>
