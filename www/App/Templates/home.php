@@ -145,7 +145,7 @@
 
 
     foreach ($images as $image) {
-        $detailPage = "details.php?src=" . urlencode($image['src']) . "&description=" . urlencode($image['description']) . "&alt=" . urlencode($image['alt']);
+        $detailPage = "gallerydetails?src=" . urlencode($image['src']) . "&description=" . urlencode($image['description']). "&location=" . urlencode($image['location']) . "&alt=" . urlencode($image['alt']);
         echo "<div class='gallery-item' data-description='" . htmlspecialchars($image['description'], ENT_QUOTES, 'UTF-8') . "'>
         <a href='" . htmlspecialchars($detailPage, ENT_QUOTES, 'UTF-8') . "'>
             <div class='image-wrapper'>
