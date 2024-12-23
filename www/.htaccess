@@ -11,15 +11,9 @@ RewriteRule ^(.*)$ index.php [QSA,L]
 
 # Enable Gzip Compression
 <IfModule mod_deflate.c>
-    # Compress text-based files
-    AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css application/javascript application/json application/xml
+    AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css text/javascript application/javascript application/json application/xml application/xhtml+xml application/rss+xml application/x-font-ttf font/opentype
 
-    # Compress SVG images (text-based format)
-    AddOutputFilterByType DEFLATE image/svg+xml
+    SetEnvIfNoCase Request_URI \\.(?:gif|jpe?g|png|mp4|avi|mov|mkv|mp3|ogg|webm)$ no-gzip dont-vary
 
-    # Compress other MIME types (if needed)
-    AddOutputFilterByType DEFLATE image/x-icon
-
-    # Exclude already-compressed files
-    SetEnvIfNoCase Request_URI \.(?:gif|jpe?g|png|webp|woff|woff2|tiff|bmp)$ no-gzip
+    Header append Vary Accept-Encoding
 </IfModule>
