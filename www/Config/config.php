@@ -12,6 +12,6 @@
  */
 return [
     "router" => [
-        "baseURL" => "/{USERNAME}",    // Base URL for the application (Nome utente su server, / in locale)
+        "baseURL" => "/username",    // Base URL for the application (Nome utente su server, / in locale)
     ],
 ];
