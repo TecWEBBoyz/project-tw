@@ -8,13 +8,26 @@ apt-get update && apt-get install -y \
     mariadb-server=1:10.6.7* \
     php8.1-xdebug \
     php8.1-mysql \
+    php8.1-gd \
     unzip \
     curl \
+    libjpeg-dev \
+    libpng-dev \
+    libfreetype6-dev \
     && apt-get clean
+
+# Verifica che GD sia attivo
+PHP_INI_FILE="/etc/php/8.1/apache2/php.ini"
+php -m | grep -q gd && echo "GD è correttamente abilitato" || echo "Errore: GD non è abilitato"
 
 # Configurazione di Apache
 echo 'ServerName localhost' >> /etc/apache2/apache2.conf
 a2enmod rewrite
+
+# Abilitazione del caricamento file nel php.ini
+sed -i 's/file_uploads = .*/file_uploads = On/' $PHP_INI_FILE
+sed -i 's/upload_max_filesize = .*/upload_max_filesize = 50M/' $PHP_INI_FILE
+sed -i 's/post_max_size = .*/post_max_size = 50M/' $PHP_INI_FILE
 
 # Aggiornamento del file di configurazione di Apache per consentire l'uso di .htaccess
 cp /000-default.conf /etc/apache2/sites-available/000-default.conf
@@ -64,8 +77,6 @@ EOL
 phpenmod xdebug
 
 # Modifica del file php.ini
-PHP_INI_FILE="/etc/php/8.1/apache2/php.ini"
-
 sed -i 's/display_errors = .*/display_errors = On/' $PHP_INI_FILE
 sed -i 's/log_errors = .*/log_errors = On/' $PHP_INI_FILE
 sed -i 's/error_reporting = .*/error_reporting = E_ALL/' $PHP_INI_FILE
