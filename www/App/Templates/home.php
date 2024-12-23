@@ -146,10 +146,12 @@
 
     foreach ($images as $image) {
         $detailPage = "gallerydetails?src=" . urlencode($image['src']) . "&description=" . urlencode($image['description']). "&location=" . urlencode($image['location']) . "&alt=" . urlencode($image['alt']);
+        #replace image extension with _25percent.jpg manage upper and lower case extensions
+        $imagePathResized = preg_replace('/\.(jpg|jpeg|png)$/i', '_25percent.jpg', $image['src']);
         echo "<div class='gallery-item' data-description='" . htmlspecialchars($image['description'], ENT_QUOTES, 'UTF-8') . "'>
         <a href='" . htmlspecialchars($detailPage, ENT_QUOTES, 'UTF-8') . "'>
             <div class='image-wrapper'>
-                <img class='main-image' src='" . htmlspecialchars($image['src'], ENT_QUOTES, 'UTF-8') . "' alt='" . htmlspecialchars($image['alt'], ENT_QUOTES, 'UTF-8') . "' loading='lazy'>
+                <img class='main-image' src='" . htmlspecialchars($imagePathResized, ENT_QUOTES, 'UTF-8') . "' alt='" . htmlspecialchars($image['alt'], ENT_QUOTES, 'UTF-8') . "' loading='lazy'>
             </div>
         </a>
         <div class='info'>
@@ -166,6 +168,10 @@
 <div class="modal" id="image-modal">
     <img src="" alt="Zoomed image" id="modal-image">
     <div class="modal-description" id="modal-description"></div>
+    <!-- loader -->
+    <div class="loader">
+        <div class="spinner"></div>
+    </div>
 </div>
 
 <script>
@@ -174,6 +180,7 @@
         const modal = document.getElementById("image-modal");
         const modalImage = document.getElementById("modal-image");
         const modalDescription = document.getElementById("modal-description");
+        const loader = document.querySelector(".loader");
 
         images.forEach(img => {
             img.addEventListener("click", (event) => {
@@ -182,7 +189,13 @@
                 const description = galleryItem.getAttribute("data-description");
 
                 modal.style.display = "flex";
-                modalImage.src = img.src;
+                let fullsizeImage = img.src.replace(/_.*\.(jpg|jpeg|png)$/i, '.$1');
+                modalImage.onload = () => {
+                    modalImage.style.display = "block";
+                    modalDescription.textContent = description;
+                    loader.style.display = "none";
+                };
+                modalImage.src = fullsizeImage;
                 modalDescription.textContent = description;
             });
         });
