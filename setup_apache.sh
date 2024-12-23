@@ -26,8 +26,13 @@ a2enmod rewrite
 
 # Abilitazione del caricamento file nel php.ini
 sed -i 's/file_uploads = .*/file_uploads = On/' $PHP_INI_FILE
-sed -i 's/upload_max_filesize = .*/upload_max_filesize = 50M/' $PHP_INI_FILE
-sed -i 's/post_max_size = .*/post_max_size = 50M/' $PHP_INI_FILE
+sed -i 's/upload_max_filesize = .*/upload_max_filesize = 5000M/' $PHP_INI_FILE
+sed -i 's/post_max_size = .*/post_max_size = 5000M/' $PHP_INI_FILE
+sed -i 's/max_execution_time = .*/max_execution_time = 600/' $PHP_INI_FILE
+sed -i 's/max_input_time = .*/max_input_time = 600/' $PHP_INI_FILE
+sed -i 's/memory_limit = .*/memory_limit = 512M/' $PHP_INI_FILE
+sed -i 's/;date.timezone.*/date.timezone = Europe\/Rome/' $PHP_INI_FILE
+sed -i 's/max_file_uploads = .*/max_file_uploads = 200/' $PHP_INI_FILE
 
 # Aggiornamento del file di configurazione di Apache per consentire l'uso di .htaccess
 cp /000-default.conf /etc/apache2/sites-available/000-default.conf
