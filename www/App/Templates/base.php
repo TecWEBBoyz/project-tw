@@ -67,5 +67,9 @@
     </footer>
 </div>
 
+<!-- Scripts -->
+<script src="static/js/main.js"></script>
+<script src="static/js/<?php echo $TEMPLATE_DATA['name']; ?>.js"></script>
+
 </body>
 </html>
