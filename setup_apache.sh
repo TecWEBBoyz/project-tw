@@ -24,6 +24,12 @@ php -m | grep -q gd && echo "GD è correttamente abilitato" || echo "Errore: GD 
 echo 'ServerName localhost' >> /etc/apache2/apache2.conf
 a2enmod rewrite
 
+# Abilita il modulo deflate per la compressione
+a2enmod deflate
+
+# Abilita il modulo headers per supportare le intestazioni di compressione
+a2enmod headers
+
 # Abilitazione del caricamento file nel php.ini
 sed -i 's/file_uploads = .*/file_uploads = On/' $PHP_INI_FILE
 sed -i 's/upload_max_filesize = .*/upload_max_filesize = 5000M/' $PHP_INI_FILE
