@@ -23,12 +23,22 @@ php -m | grep -q gd && echo "GD è correttamente abilitato" || echo "Errore: GD 
 # Configurazione di Apache
 echo 'ServerName localhost' >> /etc/apache2/apache2.conf
 a2enmod rewrite
+a2enmod deflate  # Abilita il modulo di compressione
 
-# Abilita il modulo deflate per la compressione
-a2enmod deflate
+# Configurazione della compressione in Apache
+cat <<EOL >> /etc/apache2/conf-available/deflate.conf
+<IfModule mod_deflate.c>
+    # Attiva la compressione per i tipi di file comuni
+    AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css text/javascript application/javascript application/json application/xml
+    # Esclude alcuni tipi di file dalla compressione
+    SetEnvIfNoCase Request_URI \.(?:gif|jpe?g|png|zip|gz|bz2|pdf|exe|mp4|avi|mov|rar)$ no-gzip
+    # Imposta le intestazioni per indicare la compressione
+    Header append Vary Accept-Encoding
+</IfModule>
+EOL
 
-# Abilita il modulo headers per supportare le intestazioni di compressione
-a2enmod headers
+# Abilita il file di configurazione della compressione
+a2enconf deflate
 
 # Abilitazione del caricamento file nel php.ini
 sed -i 's/file_uploads = .*/file_uploads = On/' $PHP_INI_FILE
