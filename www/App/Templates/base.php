@@ -7,9 +7,12 @@
         echo "No template name found!";
         die();
     }
-    if(file_exists(__DIR__ . "/$TEMPLATE_DATA[name].php")) {
-        require __DIR__ . "/$TEMPLATE_DATA[name].php";
-    } else {
+    if(!isset($TEMPLATE_DATA['templateFileName'])) {
+        echo "No template file name found!";
+        die();
+    }
+
+    if(!file_exists(__DIR__ . "/../Templates/$TEMPLATE_DATA[templateFileName]")) {
         throw new Exception("Template not found!");
     }
     isset($TEMPLATE_DATA) ?: $TEMPLATE_DATA = [];

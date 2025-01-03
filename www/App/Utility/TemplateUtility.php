@@ -8,6 +8,8 @@ class TemplateUtility
     {
         $TEMPLATE_DATA = $data;
         $TEMPLATE_DATA['name'] = $template;
+        $TEMPLATE_DATA['title'] = $data['title'] ?? "No Title";
+        $TEMPLATE_DATA['templateFileName'] ="$template.php";
         $base = require __DIR__ . "/../Templates/base.php";
         echo $base;
     }
