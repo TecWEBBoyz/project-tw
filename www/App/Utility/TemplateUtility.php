@@ -1,5 +1,7 @@
 <?php
 namespace PTW\Utility;
+use Exception;
+
 class TemplateUtility
 {
     public static function getTemplate($template, $data = []): void

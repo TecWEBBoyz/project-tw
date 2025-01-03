@@ -6,6 +6,7 @@
 
 namespace PTW\Modules\Router;
 
+use Exception;
 use function PTW\config;
 use Closure;
 
@@ -17,6 +18,7 @@ class Router
     public function __construct()
     {
         $this->baseURI = config("router.baseURL");
+        $this->debug = config("app.debug");
     }
 
     public function get(string $uri, string|Closure $controller): void
@@ -98,9 +100,20 @@ class Router
                 "404"
             ]);
         }
+        try {
+            return (string) call_user_func_array($controller, [
+                array_merge($_GET, $_POST)
+            ]);
+        }catch (Exception $e) {
+            http_response_code(500);
 
-        return (string) call_user_func_array($controller, [
-            array_merge($_GET, $_POST)
-        ]);
+            $instance = new \PTW\Controllers\ExceptionController;
+            $controller = [$instance, "get"];
+            $error_message = $e->getMessage();
+            return (string) call_user_func_array($controller, [
+                "500", $error_message
+            ]);
+        }
+
     }
 }
