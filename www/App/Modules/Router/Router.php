@@ -14,11 +14,12 @@ class Router
 {
     private array $routes = [];
     private string $baseURI;
+    private bool $debugMessages = false;
 
     public function __construct()
     {
         $this->baseURI = config("router.baseURL");
-        $this->debug = config("app.debug");
+        $this->debugMessages = config("app.debug");
     }
 
     public function get(string $uri, string|Closure $controller): void
@@ -109,7 +110,10 @@ class Router
 
             $instance = new \PTW\Controllers\ExceptionController;
             $controller = [$instance, "get"];
-            $error_message = $e->getMessage();
+            $error_message = "Internal Server Error";
+            if($this->debugMessages) {
+                $error_message = $e->getMessage();
+            }
             return (string) call_user_func_array($controller, [
                 "500", $error_message
             ]);
