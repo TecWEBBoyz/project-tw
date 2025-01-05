@@ -6,6 +6,7 @@
 
 namespace PTW\Modules\Router;
 
+use Exception;
 use function PTW\config;
 use Closure;
 
@@ -13,13 +14,15 @@ class Router
 {
     private array $routes = [];
     private string $baseURI;
+    private bool $debugMessages = false;
 
     public function __construct()
     {
         $this->baseURI = config("router.baseURL");
+        $this->debugMessages = config("app.debug");
 
-        if ($this->baseURI == "/")
-            $this->baseURI = "";
+        // if ($this->baseURI == "/")
+        //    $this->baseURI = "";
     }
 
     public function get(string $uri, string|Closure $controller): void
@@ -40,7 +43,7 @@ class Router
         ];
     }
 
-    public function delete(string $uri, string|Closure $controller): void
+    public function delete(string $uri, string|Closure $controller)
     {
         $this->routes[] = [
             'uri' => $this->baseURI . $uri,

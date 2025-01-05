@@ -15,12 +15,16 @@ use PTW\Models\DBItem;
 use PTW\Modules\Repositories\UserRepository;
 
 use function PTW\dd;
+use PTW\Utility\TemplateUtility;
 
 class HomeController implements ControllerContract
 {
     public function get(): void
     {
-        $template = require __DIR__ . "/../Templates/home.html";
+        TemplateUtility::getTemplate("home", [
+            "title" => "Home Page",
+            "description" => "This is the home page description"
+        ]);
     }
 
     public function post(): void

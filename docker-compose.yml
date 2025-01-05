@@ -3,13 +3,13 @@ services:
     image: ubuntu:22.04
     container_name: server_container
     volumes:
-      - ./www:/var/www/html
+      - ./www:/var/www/html/username
       - ./config/apache/000-default.conf:/000-default.conf
       - ./setup_apache.sh:/setup_apache.sh
       - ./init.sql:/init.sql
     working_dir: /var/www/html
     ports:
-      - "8080:80"
+      - "3000:80"
       - "3306:3306"
     networks:
       - webnet

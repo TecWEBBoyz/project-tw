@@ -57,7 +57,7 @@ Il sito sarà disponibile localmente sulla porta **8080**.
 Aprire il browser e accedere a:
 
 ```
-http://localhost:8080
+http://localhost:3000
 ```
 
 ## Debugging
