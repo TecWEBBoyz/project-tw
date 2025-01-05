@@ -13,8 +13,8 @@ CREATE TABLE user (
 -- Indice aggiuntivo per velocizzare le ricerche per email
 CREATE INDEX idx_email ON user (email);
 
-DROP TABLE IF EXISTS images;
-CREATE TABLE images (
+DROP TABLE IF EXISTS image;
+CREATE TABLE image (
     id CHAR(36) PRIMARY KEY DEFAULT UUID(),
     path VARCHAR(255) NOT NULL,
     alt VARCHAR(255) NOT NULL,
@@ -39,7 +39,7 @@ INSERT INTO user (name, email, password, role, telephone) VALUES
 ("Roberto Viola", "roberto.viola@example.com", "robertopass", "utente", "+39 320 901 2345"),
 ("Chiara Verde", "chiara.verde@example.com", "chiara_pw", "utente", "+39 320 012 3456");
 
-INSERT INTO images (path, alt, description, title, place, date) VALUES
+INSERT INTO image (path, alt, description, title, place, date) VALUES
 ("static/uploads/502A6233.JPG", "Cantante su palco con chitarra elettrica rossa", "In una notte estiva a Milano, un musicista appassionato regala un\'esibizione emozionante durante un festival locale, la sua musica si fonde con le luci rosse che riempiono l\'atmosfera e il cuore del pubblico.", "Concerto sotto le stelle", "Milano", "2023-08-15"),
 ("static/uploads/502A6394.JPG", "Uomo che suona il sax con effetti di luce", "L\'immagine racconta di un musicista immerso nella passione della sua performance, un noto sassofonista sul palco di un festival jazz, catturato mentre coinvolge il pubblico con il suo talento e carisma. L\'atmosfera è carica di emozioni e la folla è affascinata dalle melodie avvolgenti.", "Momento di Jazz Incandescente", "Perugia", "2023-07-15"),
 ("static/uploads/502A1075.JPG", "Piste innevate nelle Dolomiti sotto cime rocciose.", "Una giornata invernale nelle Dolomiti, meta ambita dagli appassionati di sci e avventura. L\'immagine cattura la tranquillità prima dell\'arrivo dei turisti, con le piste pronte per una nuova stagione.", "Inverno nelle Dolomiti di Sesto", "Sesto, Italia", "2022-12-15"),

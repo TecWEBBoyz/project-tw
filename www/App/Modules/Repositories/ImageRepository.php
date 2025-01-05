@@ -8,7 +8,7 @@ class ImageRepository extends BaseRepository
 {
     public function __construct()
     {
-        parent::__construct("images");
+        parent::__construct("image");
         $this->element_class = new Image();
     }
 }
