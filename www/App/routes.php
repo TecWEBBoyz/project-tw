@@ -19,5 +19,6 @@ $router->get("/home", \PTW\Controllers\HomeController::class . "::get");
 $router->get("/about", \PTW\Controllers\AboutController::class . "::get");
 $router->get("/test", \PTW\Controllers\TestController::class . "::get");
 $router->get("/gallerydetails", \PTW\Controllers\GalleryController::class . "::get");
+
 return $router;
 

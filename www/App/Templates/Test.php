@@ -1,3 +1,10 @@
+<?php
+/**
+ * @var string $title
+ * @var string $description
+ * */
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 

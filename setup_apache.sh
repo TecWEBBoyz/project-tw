@@ -40,6 +40,9 @@ EOL
 # Abilita il file di configurazione della compressione
 a2enconf deflate
 
+# Abilitare Headers
+a2enmod headers
+
 # Abilitazione del caricamento file nel php.ini
 sed -i 's/file_uploads = .*/file_uploads = On/' $PHP_INI_FILE
 sed -i 's/upload_max_filesize = .*/upload_max_filesize = 5000M/' $PHP_INI_FILE

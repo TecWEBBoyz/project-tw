@@ -71,7 +71,7 @@ class Router
      * @param string $method
      * @return string
      */
-    public function route(string $uri, string $method)
+    public function route(string $uri, string $method): string
     {
         $controller = null;
 
