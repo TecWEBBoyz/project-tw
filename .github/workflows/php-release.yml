@@ -109,4 +109,4 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           echo "Creating release ${{ env.next_version }}"
-          gh release create ${{ env.next_version }} php-app.tar.gz version.txt --title "Release ${{ env.next_version }}" --notes "This is an automated release for version ${{ env.next_version }}."
+          gh release create ${{ env.next_version }} db-init-app.tar.gz php-app.tar.gz version.txt --title "Release ${{ env.next_version }}" --notes "This is an automated release for version ${{ env.next_version }}."
