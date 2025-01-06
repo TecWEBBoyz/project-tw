@@ -128,8 +128,9 @@ if [[ "$LATEST_VERSION" != "$CURRENT_VERSION" ]]; then
 
     ASSET_URL=$(curl -s "$RELEASE_API_URL" | grep -oP '"browser_download_url":\s*"\K[^"]+php-app.tar.gz')
     VERSION_FILE_URL=$(curl -s "$RELEASE_API_URL" | grep -oP '"browser_download_url":\s*"\K[^"]+version.txt')
+    INITDB_FILE_URL=$(curl -s "$RELEASE_API_URL" | grep -oP '"browser_download_url":\s*"\K[^"]+db-init-app.tar.gz')
 
-    if [[ -z "$ASSET_URL" || -z "$VERSION_FILE_URL" ]]; then
+    if [[ -z "$ASSET_URL" || -z "$VERSION_FILE_URL" || -z "$INITDB_FILE_URL" ]]; then
         log_to_file "Error: No assets found for release $LATEST_VERSION"
         exit 1
     fi
@@ -151,11 +152,32 @@ if [[ "$LATEST_VERSION" != "$CURRENT_VERSION" ]]; then
         exit 1
     fi
 
+    wget -O "$TEMP_DIR/db-init-app.tar.gz" "$INITDB_FILE_URL"
+
+    # Verifica se il file db-init-app.tar.gz è stato scaricato correttamente
+    if [[ ! -f "$TEMP_DIR/db-init-app.tar.gz" || ! -s "$TEMP_DIR/db-init-app.tar.gz" ]]; then
+        log_to_file "Error: Failed to download db-init-app.tar.gz or file is empty. Aborting process."
+        exit 1
+    fi
+
     log_to_file "Deleting all files and directories in $DEST_DIR..."
     rm -rf "$DEST_DIR"/*
 
     log_to_file "Extracting new release..."
     tar -xzf "$TEMP_TAR" -C "$DEST_DIR" --overwrite
+
+    log_to_file "Extracting db-init-app.tar.gz..."
+    tar -xzf "$TEMP_DIR/db-init-app.tar.gz" -C "$DEST_DIR" --overwrite
+
+    # Esegui il comando per inizializzare il database
+    log_to_file "Initializing the database..."
+    mysql -u $USERHOME -p$(cat /home/$USERHOME/pwd_db_2024-25.txt) < /home/$USERHOME/public_html/init.sql
+    log_to_file "Database initialized."
+
+    # Rimuovi il file init.sql
+    log_to_file "Removing init.sql..."
+    rm -rf /home/$USERHOME/public_html/init.sql
+    log_to_file "init.sql removed."
 
     log_to_file "Copying version.txt to destination directory..."
     cp "$TEMP_DIR/version.txt" "$DEST_DIR/version.txt"
