@@ -163,6 +163,7 @@ if [[ "$LATEST_VERSION" != "$CURRENT_VERSION" ]]; then
     CONFIG_FILE="$DEST_DIR/Config/config.php"
     if [[ -f "$CONFIG_FILE" ]]; then
         log_to_file "Modifying config.php..."
+        sed -i "s/{DB_PASSWORD}/$(cat /home/$USERHOME/pwd_db_2024-25.txt)/g" "$CONFIG_FILE"
         sed -i "s/{USERNAME}/$USERHOME/g" "$CONFIG_FILE"
     else
         log_to_file "Warning: config.php not found at $CONFIG_FILE"
