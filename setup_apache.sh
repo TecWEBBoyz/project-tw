@@ -59,6 +59,12 @@ cp /000-default.conf /etc/apache2/sites-available/000-default.conf
 # Configurazione di MariaDB
 service mariadb start
 
+# Configura MariaDB per l'accesso remoto
+sed -i 's/^bind-address.*/bind-address = 0.0.0.0/' /etc/mysql/mariadb.conf.d/50-server.cnf
+
+# Configura il firewall per MariaDB
+ufw allow 3306
+
 # Configurazione dell'utente di default per MariaDB
 MYSQL_ROOT_PASSWORD="root_password"
 MYSQL_USER="default_user"
