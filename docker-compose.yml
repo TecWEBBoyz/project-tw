@@ -11,16 +11,23 @@ services:
     ports:
       - "3000:80"
       - "3306:3306"
-    networks:
-      - webnet
     environment:
       DEBIAN_FRONTEND: noninteractive
     command: >
       /bin/bash -c "chmod +x /setup_apache.sh && /setup_apache.sh"
 
-networks:
-  webnet:
-    driver: bridge
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    container_name: phpmyadmin_container
+    environment:
+      PMA_HOST: server
+      PMA_USER: default_user
+      PMA_PASSWORD: default_password
+      UPLOAD_LIMIT: 64M
+    ports:
+      - "8181:80"
+    depends_on:
+      - server
 
 volumes:
   db_data:
