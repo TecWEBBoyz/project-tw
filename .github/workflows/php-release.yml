@@ -66,10 +66,16 @@ jobs:
         with:
           fetch-depth: 0 # Ensures full repository history and tags are available
 
-      - name: Download artifact
+      - name: Download artifact web
         uses: actions/download-artifact@v3
         with:
           name: php-app
+          path: ./
+
+      - name: Download artifact DB
+        uses: actions/download-artifact@v3
+        with:
+          name: db-init-app
           path: ./
 
       - name: Get latest tag
