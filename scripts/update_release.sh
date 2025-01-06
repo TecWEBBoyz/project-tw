@@ -169,9 +169,9 @@ if [[ "$LATEST_VERSION" != "$CURRENT_VERSION" ]]; then
     log_to_file "Extracting db-init-app.tar.gz..."
     tar -xzf "$TEMP_DIR/db-init-app.tar.gz" -C "$DEST_DIR" --overwrite
 
-    # Esegui il comando per inizializzare il database
+    # Esegui il comando per inizializzare il database con il file init.sql
     log_to_file "Initializing the database..."
-    mysql -u $USERHOME -p$(cat /home/$USERHOME/pwd_db_2024-25.txt) < /home/$USERHOME/public_html/init.sql
+    mysql -u $USERHOME -p$(cat /home/$USERHOME/pwd_db_2024-25.txt) $USERHOME < /home/$USERHOME/public_html/init.sql
     log_to_file "Database initialized."
 
     # Rimuovi il file init.sql
