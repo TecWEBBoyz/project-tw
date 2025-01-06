@@ -34,6 +34,7 @@ jobs:
         run: |
           mkdir release
           cp -R www/* release/
+          cp -f www/Config/config.template.php www/Config/config.php
           tar -czvf php-app.tar.gz -C release .
 
       - name: Upload artifact
