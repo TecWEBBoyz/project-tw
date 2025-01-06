@@ -30,23 +30,24 @@ jobs:
           cd www
           composer install --no-dev --optimize-autoloader
 
-      - name: Prepare artifact web
-        run: |
-          mkdir release
-          cp -R www/* release/
-          cp -f www/Config/config.template.php www/Config/config.php
-          tar -czvf php-app.tar.gz -C release .
-
-      - name: Upload artifact web
-        uses: actions/upload-artifact@v3
-        with:
-          name: php-app
-          path: php-app.tar.gz
+#      - name: Prepare artifact web
+#        run: |
+#          mkdir release
+#          cp -R www/* release/
+#          cp -f www/Config/config.template.php www/Config/config.php
+#          tar -czvf php-app.tar.gz -C release .
+#
+#      - name: Upload artifact web
+#        uses: actions/upload-artifact@v3
+#        with:
+#          name: php-app
+#          path: php-app.tar.gz
 
       - name: Prepare artifact DB
         run: |
           cd ..
           mkdir db
+          ls -la
           cp -f ./init.sql db/init.sql
           tar -czvf db-init-app.tar.gz -C db .
 
