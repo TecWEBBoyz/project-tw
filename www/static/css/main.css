@@ -24,26 +24,35 @@ body {
     animation: fadeOut 2s ease-out 1s forwards;
 }
 
-.fullscreen-logo img {
+.fullscreen-logo .logo-image {
+    width: 50%;
+    height: 50%;
     max-width: 60%;
     animation: scaleUp 1.5s ease-out;
     transition: max-width 0.3s ease-in-out;
+    background: url("../images/logo.png") no-repeat center center / contain;
 }
 
 @media (max-width: 1024px) {
-    .fullscreen-logo img {
+    .fullscreen-logo .logo-image {
+        height: 60%;
+        width: 60%;
         max-width: 70%; /* Dimensione maggiore per tablet */
     }
 }
 
 @media (max-width: 768px) {
-    .fullscreen-logo img {
+    .fullscreen-logo .logo-image {
+        height: 80%;
+        width: 80%;
         max-width: 90%; /* Dimensione maggiore per schermi piccoli */
     }
 }
 
 @media (max-width: 480px) {
-    .fullscreen-logo img {
+    .fullscreen-logo .logo-image {
+        height: 90%;
+        width: 90%;
         max-width: 100%; /* Adatta completamente per dispositivi molto piccoli */
     }
 }
@@ -132,8 +141,31 @@ body {
     margin: 3px 0;
 }
 
-.navbar img {
-    max-width: 50px;
+.navbar .logo {
+    height: 60px;
+    width: 60px;
+    background: url("../images/logo-slim.png") no-repeat center center / contain;
+}
+
+@media (max-width: 1024px) {
+    .navbar .logo {
+        height: 50px;
+        width: 50px;
+    }
+}
+
+@media (max-width: 768px) {
+    .navbar .logo {
+        height: 45px;
+        width: 45px;
+    }
+}
+
+@media (max-width: 480px) {
+    .navbar .logo {
+        height: 40px;
+        width: 40px;
+    }
 }
 
 @media (max-width: 768px) {
