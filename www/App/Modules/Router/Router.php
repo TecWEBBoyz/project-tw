@@ -19,7 +19,7 @@ class Router
     public function __construct()
     {
         $this->baseURI = config("router.baseURL");
-        $this->debugMessages = config("app.debug");
+        $this->debugMessages = config("router.app.debug");
 
         // if ($this->baseURI == "/")
         //    $this->baseURI = "";
@@ -73,41 +73,50 @@ class Router
      */
     public function route(string $uri, string $method): string
     {
-        $controller = null;
+        try {
+            $controller = null;
 
-        foreach ($this->routes as $route) {
-            if (
-                $route['uri'] === $uri &&
-                $route['method'] === strtoupper($method)
-            ) {
-                $controller = $route["controller"];
+            foreach ($this->routes as $route) {
+                if (
+                    $route['uri'] === $uri &&
+                    $route['method'] === strtoupper($method)
+                ) {
+                    $controller = $route["controller"];
+                }
             }
-        }
 
-        if (is_string($controller)) {
-            $splits = explode("::", $controller);
-            if (is_array($splits)) {
-                $classname = array_shift($splits);
-                $instance = new $classname;
+            if (is_string($controller)) {
+                $splits = explode("::", $controller);
+                if (is_array($splits)) {
+                    $classname = array_shift($splits);
+                    $instance = new $classname;
 
-                $method = array_shift($splits);
-                $controller = [$instance, $method];
+                    $method = array_shift($splits);
+                    $controller = [$instance, $method];
+                }
             }
-        }
 
-        if (!$controller) {
-            http_response_code(404);
+            if (!$controller) {
+                http_response_code(404);
 
-            $instance = new \PTW\Controllers\ExceptionController;
-            $controller = [$instance, "get"];
+                $instance = new \PTW\Controllers\ExceptionController;
+                $controller = [$instance, "get"];
+
+                return (string) call_user_func_array($controller, [
+                    "404"
+                ]);
+            }
 
             return (string) call_user_func_array($controller, [
-                "404"
+                array_merge($_GET, $_POST)
             ]);
+        } catch (Exception $e) {
+            if($this->debugMessages) {
+                return "Error: " . $e->getMessage();
+            }
+            http_response_code(500);
+            header("Location: 500");
+            return "Error: " . $e->getMessage();
         }
-
-        return (string) call_user_func_array($controller, [
-            array_merge($_GET, $_POST)
-        ]);
     }
 }

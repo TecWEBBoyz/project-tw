@@ -26,11 +26,21 @@ class ExceptionController implements ControllerContract
                     "errorstring" => $errorstring,
                 ]);
                 break;
+            default:
+                TemplateUtility::getTemplate("500", [
+                    "title" => "System Error",
+                    "errorstring" => $errorstring,
+                ]);
+                break;
         }
     }
 
-    public function post(): void
+    public function error_500(): void
     {
+        TemplateUtility::getTemplate("500", [
+            "title" => "System Error",
+            "errorstring" => "",
+        ]);
     }
 
     public function put(): void
@@ -38,6 +48,10 @@ class ExceptionController implements ControllerContract
     }
 
     public function delete(): void
+    {
+    }
+
+    public function post(): void
     {
     }
 }
