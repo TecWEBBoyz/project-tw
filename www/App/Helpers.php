@@ -14,9 +14,9 @@ if (!function_exists("config")) {
      * Return the required configuration. Accept dot notation to navigate config layer.
      * 
      * @param string $key
-     * @return array|string|null
+     * @return array|string|null|bool
      */
-    function config(string $key): array|string|null
+    function config(string $key): array|string|null|bool
     {
         if (!strpos($key, '.')) {
             return App::getConfig()[$key];

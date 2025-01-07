@@ -35,8 +35,7 @@ class DB
             $this->pdo = new PDO($this->dns, config("database.username"), config("database.password"), $this->options);
             return true;
         } catch (PDOException $e) {
-            echo "Errore nella connessione al database: " . $e->getMessage();
-            return false;
+            throw new \Exception("Connection failed: " . $e->getMessage());
         }
     }
 
