@@ -16,8 +16,8 @@ $router = new Router();
 
 $router->get("/", \PTW\Controllers\HomeController::class . "::get");
 $router->get("/home", \PTW\Controllers\HomeController::class . "::get");
-$router->get("/about", \PTW\Controllers\AboutController::class . "::get");
-$router->get("/test", \PTW\Controllers\TestController::class . "::get");
+//$router->get("/about", \PTW\Controllers\AboutController::class . "::get");
+//$router->get("/test", \PTW\Controllers\TestController::class . "::get");
 $router->get("/500", \PTW\Controllers\ExceptionController::class . "::error_500");
 $router->get("/gallerydetails", \PTW\Controllers\GalleryController::class . "::get");
 

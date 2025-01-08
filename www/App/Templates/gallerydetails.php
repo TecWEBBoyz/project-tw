@@ -5,7 +5,7 @@ $alt = $_GET['alt'] ?? '';
 $location = $_GET['location'] ?? 'Unknown Location';
 ?>
 <?php if ($src): ?>
-    <img src="<?= htmlspecialchars($src) ?>" alt="<?= htmlspecialchars($alt) ?>">
+    <img src="static/uploads/<?= htmlspecialchars($src) ?>" alt="<?= htmlspecialchars($alt) ?>">
     <div class="modal-description">
         <p><?= htmlspecialchars($description) ?></p>
         <p><strong>Location:</strong> <?= htmlspecialchars($location) ?></p>
