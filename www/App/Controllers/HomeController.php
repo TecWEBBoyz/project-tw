@@ -17,7 +17,7 @@ use PTW\Modules\Repositories\UserRepository;
 use function PTW\dd;
 use PTW\Utility\TemplateUtility;
 
-class HomeController implements ControllerContract
+class HomeController extends ControllerContract
 {
     public function get(): void
     {

@@ -9,7 +9,7 @@ namespace PTW\Controllers;
 use PTW\Contracts\ControllerContract;
 use PTW\Utility\TemplateUtility;
 
-class ExceptionController implements ControllerContract
+class ExceptionController extends ControllerContract
 {
     public function get(string $error_code = "404", string $errorstring = ""): void
     {

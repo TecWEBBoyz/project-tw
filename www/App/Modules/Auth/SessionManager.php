@@ -1,5 +1,6 @@
 <?php
-namespace PTW\Models;
+
+namespace PTW\Modules\Auth;
 
 session_start();
 

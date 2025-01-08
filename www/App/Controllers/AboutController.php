@@ -8,7 +8,7 @@ namespace PTW\Controllers;
 
 use PTW\Contracts\ControllerContract;
 
-class AboutController implements ControllerContract
+class AboutController extends ControllerContract
 {
     public function get(): void
     {
