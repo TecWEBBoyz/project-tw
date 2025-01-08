@@ -1,6 +1,7 @@
 <?php
 
 use PTW\Models\ImageType;
+use function PTW\config;
 
 ?>
 
@@ -33,7 +34,7 @@ use PTW\Models\ImageType;
         echo "<div class='gallery-item' data-description='" . htmlspecialchars($image[ImageType::description->value], ENT_QUOTES, 'UTF-8') . "'>
         <a href='" . htmlspecialchars($detailPage, ENT_QUOTES, 'UTF-8') . "'>
             <div class='image-wrapper'>
-                <img class='main-image' src='" . htmlspecialchars($imagePathResized, ENT_QUOTES, 'UTF-8') . "' alt='" . htmlspecialchars($image[ImageType::alt->value], ENT_QUOTES, 'UTF-8') . "' loading='lazy'>
+                <img class='main-image' src='static/uploads/" . htmlspecialchars($imagePathResized, ENT_QUOTES, 'UTF-8') . "' alt='" . htmlspecialchars($image[ImageType::alt->value], ENT_QUOTES, 'UTF-8') . "' loading='lazy'>
             </div>
         </a>
         <div class='info'>

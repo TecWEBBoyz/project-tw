@@ -7,6 +7,10 @@ body {
     color: #fff;
 }
 
+/* Disable text selection */
+body, p, h1, h2, h3, h4, h5, h6 {
+    user-select: none;
+}
 
 /* Fullscreen Logo Animation */
 .fullscreen-logo {
@@ -127,11 +131,12 @@ body {
 
 .navbar .menu .close {
     position: absolute;
-    top: 10px;
+    top: 0px;
     right: 20px;
     font-size: 2em;
     color: white;
     cursor: pointer;
+    text-decoration: none;
 }
 
 .navbar .hamburger div {
@@ -242,4 +247,39 @@ body {
     padding: 20px;
     text-align: center;
     margin-top: auto;
+}
+
+/* Animation for Menu Appearance and Disappearance */
+.navbar .menu {
+    opacity: 0;
+    transform: translateY(-20px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.navbar .menu.hidden {
+    opacity: 0;
+    transform: translateY(-20px);
+    pointer-events: none; /* Prevent clicks when hidden */
+}
+
+.navbar .menu:not(.hidden) {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Hamburger Animation */
+.navbar .hamburger div {
+    transition: transform 0.3s ease, background-color 0.3s ease, opacity 0.3s ease;
+}
+
+.navbar .hamburger.active div:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+}
+
+.navbar .hamburger.active div:nth-child(2) {
+    opacity: 0;
+}
+
+.navbar .hamburger.active div:nth-child(3) {
+    transform: rotate(-45deg) translate(5px, -5px);
 }
