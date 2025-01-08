@@ -7,16 +7,18 @@
 namespace PTW\Controllers;
 
 use PTW\Contracts\ControllerContract;
+use PTW\Modules\Auth\Role;
+use PTW\Modules\Auth\SessionManager;
 use PTW\Utility\TemplateUtility;
 
-class TestController extends ControllerContract
+class AdminController extends ControllerContract
 {
     public function get(): void
     {
-        TemplateUtility::getTemplate("home", [
-            "title" => "Home Page",
-            "description" => "This is the home page description"
-        ]);
+        if(!$this->sessionManager->authorize(Role::Administrator)) {
+            $this->locationReplace('/login');
+        }
+        TemplateUtility::getTemplate('admin', ['title' => 'Admin Dashboard']);
     }
 
     public function post(): void

@@ -7,16 +7,16 @@
 namespace PTW\Controllers;
 
 use PTW\Contracts\ControllerContract;
-use PTW\Utility\TemplateUtility;
+use PTW\Modules\Auth\Role;
+use PTW\Modules\Auth\SessionManager;
 
-class TestController extends ControllerContract
+class LogoutController extends ControllerContract
 {
     public function get(): void
     {
-        TemplateUtility::getTemplate("home", [
-            "title" => "Home Page",
-            "description" => "This is the home page description"
-        ]);
+        #TODO implement login logic
+        $this->sessionManager->logout();
+        $this->locationReplace('/');
     }
 
     public function post(): void

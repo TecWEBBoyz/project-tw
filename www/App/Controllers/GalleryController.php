@@ -9,7 +9,7 @@ namespace PTW\Controllers;
 use PTW\Contracts\ControllerContract;
 use PTW\Utility\TemplateUtility;
 
-class GalleryController implements ControllerContract
+class GalleryController extends ControllerContract
 {
     public function get(): void
     {
