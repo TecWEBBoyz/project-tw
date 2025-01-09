@@ -50,7 +50,7 @@ jobs:
           tar -czvf db-init-app.tar.gz -C db .
 
       - name: Upload artifact DB
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: db-init-app
           path: db-init-app.tar.gz
