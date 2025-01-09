@@ -14,7 +14,12 @@ services:
     environment:
       DEBIAN_FRONTEND: noninteractive
     command: >
-      /bin/bash -c "chmod +x /setup_apache.sh && /setup_apache.sh"
+      /bin/bash -c "apt-get update && apt-get install -y dos2unix &&
+      cp /setup_apache.sh /tmp/setup_apache.sh &&
+      dos2unix /tmp/setup_apache.sh &&
+      chmod +x /tmp/setup_apache.sh &&
+      /tmp/setup_apache.sh"
+
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin:latest
