@@ -26,6 +26,12 @@ document.addEventListener('DOMContentLoaded', () => {
         }, remainingTime);
     }
 
+    function showError(message) {
+        container.innerHTML = `<div class="error-message">${message}</div>`;
+        container.style.display = '';
+        loader.style.display = 'none';
+    }
+
     function loadTemplate(templateName) {
         // Mostra il loader durante il caricamento del template
         loaderTimeout = Date.now();
@@ -102,11 +108,13 @@ document.addEventListener('DOMContentLoaded', () => {
             .catch(error => {
                 if (error !== 'Redirecting...') {
                     console.error('Error loading page:', error);
+                    showError('Errore di connessione. Assicurati di essere online e riprova.');
                 }
             })
             .finally(() => {
                 hideLoader();
             });
     }
+
     document.body.addEventListener('click', navigate);
 });
