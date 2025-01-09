@@ -50,7 +50,7 @@ jobs:
           tar -czvf db-init-app.tar.gz -C db .
 
       - name: Upload artifact DB
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: db-init-app
           path: db-init-app.tar.gz
@@ -67,13 +67,13 @@ jobs:
           fetch-depth: 0 # Ensures full repository history and tags are available
 
       - name: Download artifact web
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: php-app
           path: ./
 
       - name: Download artifact DB
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: db-init-app
           path: ./
