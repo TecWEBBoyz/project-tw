@@ -5,9 +5,9 @@
  * 
  * You can define any route using the following methods:
  * - get($uri, $controller) (Implemented)
- * - post($uri, $controller) (Not implemented yet)
- * - delete($uri, $controller) (Not implemented yet)
- * - put($uri, $controller) (Not implemented yet)
+ * - post($uri, $controller) (Implemented)
+ * - put($uri, $controller) (Implemented)
+ * - delete($uri, $controller) (Implemented)
  */
 
 use PTW\Modules\Router\Router;

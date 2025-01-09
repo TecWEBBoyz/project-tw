@@ -10,6 +10,14 @@ class TemplateUtility
         $TEMPLATE_DATA['name'] = $template;
         $TEMPLATE_DATA['title'] = $data['title'] ?? "No Title";
         $TEMPLATE_DATA['templateFileName'] ="$template.php";
-        $base = require __DIR__ . "/../Templates/core/base.php";
+        $headers = getallheaders();
+        if(isset($headers['component'])) {
+            header("templateName: $template");
+            echo "<h1>".$TEMPLATE_DATA['title']."</h1>";
+            $base = require __DIR__ . "/../Templates/$template.php";
+        }
+        else {
+            $base = require __DIR__ . "/../Templates/core/base.php";
+        }
     }
 }
