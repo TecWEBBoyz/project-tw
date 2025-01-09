@@ -119,7 +119,7 @@ curl -sS https://getcomposer.org/installer | php -- \
 --install-dir=/usr/bin --filename=composer
 
 # Update del composer
-cd /var/www/html && composer update
+cd /var/www/html/username && composer update
 
 # Set Local Configurations
 rm /var/www/html/username/Config/config.php
