@@ -1,10 +1,11 @@
-document.addEventListener("DOMContentLoaded", () => {
+
+window.loadJS = () => {
+    console.log("Loading home.js");
     const images = document.querySelectorAll(".gallery-item img");
     const modal = document.getElementById("image-modal");
     const modalImage = document.getElementById("modal-image");
     const modalDescription = document.getElementById("modal-description");
     const loader = document.querySelector(".loader");
-
     images.forEach(img => {
         img.addEventListener("click", (event) => {
             event.preventDefault(); // Evita la navigazione per JavaScript abilitato
@@ -29,4 +30,7 @@ document.addEventListener("DOMContentLoaded", () => {
         modalDescription.textContent = "";
         loader.style.display = "flex";
     });
+}
+document.addEventListener("DOMContentLoaded", () => {
+    loadJS();
 });

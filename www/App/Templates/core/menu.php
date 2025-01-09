@@ -4,7 +4,7 @@ use PTW\Modules\Auth\Role;
 use PTW\Modules\Auth\SessionManager;
 
 $menuItems = [
-    ['label' => 'Home', 'link' => '', 'ariaLabel' => 'Home page link'],
+    ['label' => 'Home', 'link' => 'home', 'ariaLabel' => 'Home page link'],
     ['label' => 'About', 'link' => 'about', 'ariaLabel' => 'About us page link'],
     ['label' => 'Services', 'link' => 'services', 'ariaLabel' => 'Services page link'],
     ['label' => 'Contact', 'link' => 'contact', 'ariaLabel' => 'Contact page link'],
@@ -28,7 +28,7 @@ if ($sessionManager->isAuthenticated()) {
 }
 function renderMenu($menuItems) {
     foreach ($menuItems as $item) {
-        echo '<a href="' . htmlspecialchars($item['link']) . '" aria-label="' . htmlspecialchars($item['ariaLabel']) . '">' . htmlspecialchars($item['label']) . '</a>';
+        echo '<a class="nav-link" href="' . htmlspecialchars($item['link']) . '" aria-label="' . htmlspecialchars($item['ariaLabel']) . '">' . htmlspecialchars($item['label']) . '</a>';
     }
 }
 ?>

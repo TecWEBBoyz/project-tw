@@ -25,15 +25,15 @@ body, p, h1, h2, h3, h4, h5, h6 {
     justify-content: center;
     z-index: 1000;
     opacity: 1;
-    animation: fadeOut 2s ease-out 1s forwards;
+    animation: fadeOut 0.5s ease-out 0.5s forwards;
 }
 
 .fullscreen-logo .logo-image {
     width: 50%;
     height: 50%;
     max-width: 60%;
-    animation: scaleUp 1.5s ease-out;
-    transition: max-width 0.3s ease-in-out;
+    animation: scaleUp 0.5s ease-out;
+    transition: max-width 0.15s ease-in-out;
     background: url("../images/logo.png") no-repeat center center / contain;
 }
 
@@ -86,6 +86,7 @@ body, p, h1, h2, h3, h4, h5, h6 {
 
 /* Container */
 .container {
+    position: relative;
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 20px;
@@ -236,6 +237,7 @@ body, p, h1, h2, h3, h4, h5, h6 {
 
 /* Contenuto principale */
 .content {
+    position: relative;
     flex: 1;
     overflow-y: auto; /* Permette lo scroll solo quando necessario */
 }
@@ -282,4 +284,36 @@ body, p, h1, h2, h3, h4, h5, h6 {
 
 .navbar .hamburger.active div:nth-child(3) {
     transform: rotate(-45deg) translate(5px, -5px);
+}
+
+/* CSS per il loader */
+.content-loader {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.content-loader .spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid rgba(255, 255, 255, 0.3);
+    border-top-color: white;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
 }
