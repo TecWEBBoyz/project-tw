@@ -38,7 +38,7 @@ jobs:
           tar -czvf php-app.tar.gz -C release .
 
       - name: Upload artifact web
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: php-app
           path: php-app.tar.gz
