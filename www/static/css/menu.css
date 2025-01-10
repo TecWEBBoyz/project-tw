@@ -1,0 +1,14 @@
+#menu ul {
+    list-style-type: none;
+}
+
+#menu ul li {
+    display: inline-block;
+}
+
+@media (max-width: 768px) {
+    #menu ul li {
+        display: list-item;
+        text-align: center;
+    }
+}

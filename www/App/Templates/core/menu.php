@@ -27,9 +27,11 @@ if ($sessionManager->isAuthenticated()) {
 //    $menuItems[] = ['label' => 'Register', 'link' => 'register', 'ariaLabel' => 'Register page link'];
 }
 function renderMenu($menuItems) {
+    echo '<nav id="menu"><ul><span lang="eng">';
     foreach ($menuItems as $item) {
-        echo '<a class="nav-link" href="' . htmlspecialchars($item['link']) . '" aria-label="' . htmlspecialchars($item['ariaLabel']) . '">' . htmlspecialchars($item['label']) . '</a>';
+        echo '<li><a class="nav-link" href="' . htmlspecialchars($item['link']) . '" aria-label="' . htmlspecialchars($item['ariaLabel']) . '">' . htmlspecialchars($item['label']) . '</a></li>';
     }
+    echo '</span></ul></nav>';
 }
 ?>
 
