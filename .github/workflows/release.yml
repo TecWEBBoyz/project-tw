@@ -37,14 +37,6 @@ jobs:
           cp -f release/Config/config.template.php release/Config/config.php
           tar -czvf php-app.tar.gz -C release .
 
-      - name: Set up LaTeX environment and build PDF
-        uses: dante-ev/latex-action@v2
-        with:
-          root_file: docs/relazione.tex
-          compiler: pdflatex
-
-      - name: Rename and Upload PDF artifact
-        run: mv docs/relazione.pdf docs/Relazione-TecWeBBoyz.pdf
 
       - name: Upload artifact web
         uses: actions/upload-artifact@v4
@@ -64,11 +56,20 @@ jobs:
           name: db-init-app
           path: db-init-app.tar.gz
 
+      - name: Install LaTeX
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y texlive-latex-base texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended
+
+      - name: Compile LaTeX document
+        run: |
+          pdflatex docs/Relazione-TecWebBoyz.tex
+
       - name: Upload PDF artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: Relazione-TecWeBBoyz
-          path: docs/Relazione-TecWeBBoyz.pdf
+          path: Relazione-TecWeBBoyz.pdf
 
   release:
     name: Create GitHub Release
