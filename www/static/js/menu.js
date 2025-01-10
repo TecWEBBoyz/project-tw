@@ -5,11 +5,15 @@ document.addEventListener('DOMContentLoaded', () => {
     loader.className = 'content-loader';
     loader.style.display = 'none';
     loader.innerHTML = '<div class="spinner"></div>'; // Aggiungi il codice HTML dell'animazione del loader
-    content.appendChild(loader); // Aggiunge il loader all'interno di .content
 
     let loaderTimeout;
 
     function showLoader() {
+        const loaderExist = document.querySelector('.content-loader');
+        if (loaderExist) {
+            loaderExist.remove();
+        }
+        content.appendChild(loader); // Aggiunge il loader all'interno di .content
         container.style.display = 'none';
         loader.style.display = 'flex';
     }
