@@ -37,6 +37,15 @@ jobs:
           cp -f release/Config/config.template.php release/Config/config.php
           tar -czvf php-app.tar.gz -C release .
 
+      - name: Set up LaTeX environment and build PDF
+        uses: dante-ev/latex-action@v2
+        with:
+          root_file: docs/relazione.tex
+          compiler: pdflatex
+
+      - name: Rename and Upload PDF artifact
+        run: mv docs/relazione.pdf docs/Relazione-TecWeBBoyz.pdf
+
       - name: Upload artifact web
         uses: actions/upload-artifact@v4
         with:
@@ -54,6 +63,12 @@ jobs:
         with:
           name: db-init-app
           path: db-init-app.tar.gz
+
+      - name: Upload PDF artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: Relazione-TecWeBBoyz
+          path: docs/Relazione-TecWeBBoyz.pdf
 
   release:
     name: Create GitHub Release
@@ -76,6 +91,12 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: db-init-app
+          path: ./
+
+      - name: Download artifact PDF
+        uses: actions/download-artifact@v4
+        with:
+          name: Relazione-TecWeBBoyz
           path: ./
 
       - name: Get latest tag
@@ -109,4 +130,4 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           echo "Creating release ${{ env.next_version }}"
-          gh release create ${{ env.next_version }} db-init-app.tar.gz php-app.tar.gz version.txt --title "Release ${{ env.next_version }}" --notes "This is an automated release for version ${{ env.next_version }}."
+          gh release create ${{ env.next_version }} db-init-app.tar.gz php-app.tar.gz version.txt Relazione-TecWeBBoyz.pdf --title "Release ${{ env.next_version }}" --notes "This is an automated release for version ${{ env.next_version }}."
