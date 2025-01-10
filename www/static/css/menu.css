@@ -6,9 +6,20 @@
     display: inline-block;
 }
 
+#menu ul li a {
+    padding: 0.5em 0.3em 0.5em 0.3em;
+    min-height: 24px;
+}
+
 @media (max-width: 768px) {
     #menu ul li {
         display: list-item;
         text-align: center;
+        height: 3em;
+    }
+
+    #menu ul li a {
+        padding: 0.5em;
+        min-height: 44px;
     }
 }

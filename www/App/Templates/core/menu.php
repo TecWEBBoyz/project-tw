@@ -35,7 +35,7 @@ function renderMenu($menuItems) {
 }
 ?>
 
-<div class="navbar" role="navigation" aria-label="Main navigation">
+<header class="navbar">
     <div class="logo">
         <!-- Add your logo here -->
     </div>
@@ -52,5 +52,5 @@ function renderMenu($menuItems) {
         <a href="#" class="close" onclick="toggleMenu()" role="button" tabindex="0" aria-label="Close navigation menu">&times;</a>
         <?php renderMenu($menuItems); ?>
     </div>
-</div>
+</header>
 
