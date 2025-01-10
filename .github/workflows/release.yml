@@ -63,8 +63,7 @@ jobs:
 
       - name: Compile LaTeX document
         run: |
-          pdflatex docs/relazione.tex
-          mv docs/relazione.pdf Relazione-TecWeBBoyz.pdf
+          pdflatex docs/Relazione-TecWebBoyz.tex
 
       - name: Upload PDF artifact
         uses: actions/upload-artifact@v3
