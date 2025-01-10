@@ -27,9 +27,23 @@ $TEMPLATE_DATA['title'] = $TEMPLATE_DATA['title'] ?? "No Title";
     <?php require __DIR__ . "/../../Templates/core/head.php"; ?>
 </head>
 <body>
+
+<?php
+if (!isset($_SERVER['HTTP_REFERER'])) {
+?>
 <div class="fullscreen-logo">
     <div class="logo-image"></div>
 </div>
+<?php
+} else {
+?>
+    <div class="content-loader auto-hide">
+        <div class="spinner"></div>
+    </div>
+<?php
+}
+?>
+
 <?php require __DIR__ . "/../../Templates/core/menu.php"; ?>
 <div class="wrapper">
     <div class="content">
