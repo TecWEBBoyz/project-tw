@@ -63,13 +63,13 @@ jobs:
 
       - name: Compile LaTeX document
         run: |
-          pdflatex docs/Relazione-TecWebBoyz.tex
+          pdflatex docs/Relazione-TecWebBoyz.tex -output-directory=docs
 
       - name: Upload PDF artifact
         uses: actions/upload-artifact@v4
         with:
           name: Relazione-TecWeBBoyz
-          path: Relazione-TecWeBBoyz.pdf
+          path:  docs/Relazione-TecWeBBoyz.pdf
 
   release:
     name: Create GitHub Release
