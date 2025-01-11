@@ -61,6 +61,8 @@
     display: none;
     flex-direction: column;
     cursor: pointer;
+    background-color: #000000;
+    border: none; 
 }
 
 .navbar .menu .close {
@@ -80,9 +82,13 @@
     margin: 3px 0;
 }
 
-.navbar .logo {
+.navbar .logo-hide {
     height: 60px;
     width: 60px;
+    font-size: 5px;
+    text-indent: 100%;
+    white-space: nowrap;
+    overflow: hidden;
     background: url("../images/logo-slim.png") no-repeat center center / contain;
 }
 

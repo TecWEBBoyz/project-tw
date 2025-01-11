@@ -22,7 +22,7 @@ isset($TEMPLATE_DATA) ?: $TEMPLATE_DATA = [];
 $TEMPLATE_DATA['title'] = $TEMPLATE_DATA['title'] ?? "No Title";
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="it">
 <head>
     <?php require __DIR__ . "/../../Templates/core/head.php"; ?>
 </head>
@@ -46,7 +46,7 @@ if (!isset($_SERVER['HTTP_REFERER'])) {
 
 <?php require __DIR__ . "/../../Templates/core/menu.php"; ?>
 <div class="wrapper">
-    <div class="content">
+    <div class="content" id="content">
         <div class="container">
             <h1><?php echo $TEMPLATE_DATA['title']; ?></h1>
             <?php require __DIR__ . "/../$TEMPLATE_DATA[name].php"; ?>
