@@ -153,12 +153,18 @@ class AdminController extends ControllerContract
             throw new Exception("No image ID provided.");
         }
         $image = $imageRepository->GetElementByID($data['id']);
-        TemplateUtility::getTemplate('image-edit', ['title' => 'Edit Image', 'images' => [$image]]);
+        TemplateUtility::getTemplate('image-edit', ['title' => 'Edit Image', 'images' => $image]);
     }
     public function editImage($data)
     {
         $imageRepository = new \PTW\Modules\Repositories\ImageRepository();
+        if (!isset($data['id'])) {
+            throw new Exception("No image ID provided.");
+        }
         $image = $imageRepository->GetElementByID($data['id']);
+        if($image == null) {
+            echo "No image found.";
+        }
         if($data['date'] == '') {
             echo "No data provided.";
             $data['date'] = 'NULL';
@@ -168,10 +174,10 @@ class AdminController extends ControllerContract
         $imageRepository->Update($_POST['id'], $image);
     }
 
-    public function deleteImage()
+    public function deleteImage($data)
     {
         $imageRepository = new \PTW\Modules\Repositories\ImageRepository();
-        $imageRepository->Delete($_POST['id']);
+        $imageRepository->Delete($data['id']);
     }
 
     public function put(): void

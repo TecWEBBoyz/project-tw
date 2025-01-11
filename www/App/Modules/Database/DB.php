@@ -74,13 +74,15 @@ class DB
         return $this->Query($query);
     }
 
-    public function FindElementByID(string $table, string $id, array|string $columns = '*') : array
+    public function FindElementByID(string $table, string $id, array|string $columns = '*') : array | null
     {
         $columns = $this->ColumnToString($columns);
 
         $query = "SELECT {$columns} FROM {$table} WHERE id = ?";
-
-        return $this->Query($query, [$id])[0];
+        $arr = $this->Query($query, [$id]);
+        if(count($arr) > 0)
+            return $arr[0];
+        return null;
     }
 
     public function LastInsertedID() : string|int

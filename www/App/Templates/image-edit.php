@@ -1,7 +1,13 @@
 <?php
 
+
 use PTW\Models\ImageType;
 
+if(is_null($TEMPLATE_DATA["images"])) {
+    echo "<p>Nessuna immagine da modificare.</p>";
+    echo "<a href='admin/upload-form' class='button'>Carica Immagini</a>";
+    return;
+}
 $images  = $TEMPLATE_DATA["images"] ?? [];
 foreach ($images as $image) {
     $imageArray = $image->ToArray();
