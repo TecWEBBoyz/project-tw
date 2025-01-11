@@ -85,11 +85,15 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function navigate(event) {
-        const isFakeLink = event.target.closest("a").getAttribute('data-fake') === 'true';
 
-        if(isFakeLink) {
-            event.preventDefault();
-            return;
+        const a_element = event.target.closest("a");
+        if (a_element){
+            const isFakeLink = a_element.getAttribute('data-fake') === 'true';
+
+            if(isFakeLink) {
+                event.preventDefault();
+                return;
+            }
         }
 
         const link = event.target.closest('.nav-link');
