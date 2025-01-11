@@ -49,7 +49,7 @@ function renderMenu($menuItems, $mobile = false) {
     </div>
     <div class="menu hidden" role="menu" aria-hidden="true">
         <!-- Close button -->
-        <a href="close" class="close" onclick="toggleMenu()" role="button" tabindex="0" aria-label="Close navigation menu" data-fake="true">&times;</a>
+        <a href="close" class="close" onclick="hideMenu()" role="button" tabindex="0" aria-label="Close navigation menu" data-fake="true">&times;</a>
         <?php renderMenu($menuItems, true); ?>
     </div>
 </header>

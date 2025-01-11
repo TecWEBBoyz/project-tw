@@ -95,6 +95,20 @@ document.addEventListener('DOMContentLoaded', () => {
         saveMenuState(); // Save the menu state
     }
 
+    window.toggleMenu = toggleMenu;
+
+    function hideMenu() {
+        const menu = document.querySelector('.navbar .menu');
+        const hamburger = document.querySelector('.navbar .hamburger');
+        menu.classList.add('hidden');
+        hamburger.classList.remove('active');
+        menu.setAttribute('aria-hidden', true);
+        saveMenuState(); // Save the menu state
+    }
+
+    window.hideMenu = hideMenu;
+
+
     function navigateTo(href, isLoaderDisabled = false) {
         loaderTimeout = Date.now();
         if (!isLoaderDisabled) {
@@ -142,6 +156,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     function navigate(event) {
+        const a_element = event.target.closest("a");
+        if (a_element){
+            const isFakeLink = a_element.getAttribute('data-fake') === 'true';
+
+            if(isFakeLink) {
+                event.preventDefault();
+                return;
+            }
+        }
         const link = event.target.closest('.nav-link');
         if (!link || !link.hasAttribute('href')) return;
 
@@ -152,7 +175,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const isLoaderDisabled = link.getAttribute('data-loader') === 'false';
 
         if (isMobileLink) {
-            toggleMenu();
+            hideMenu();
         }
 
         event.preventDefault();
