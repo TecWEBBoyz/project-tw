@@ -1,18 +1,10 @@
-function toggleMenu() {
-    const menu = document.querySelector('.navbar .menu');
-    const hamburger = document.querySelector('.navbar .hamburger');
-    const isHidden = menu.classList.toggle('hidden');
-    hamburger.classList.toggle('active');
-    menu.setAttribute('aria-hidden', isHidden);
-}
-
 document.addEventListener('DOMContentLoaded', () => {
-    const container = document.querySelector('.container'); // Seleziona il contenitore principale per il template
-    const content = document.querySelector('.content'); // Seleziona l'area principale per il loader
+    const container = document.querySelector('.container');
+    const content = document.querySelector('.content');
     const loader = document.createElement('div');
     loader.className = 'content-loader';
     loader.style.display = 'none';
-    loader.innerHTML = '<div class="spinner"></div>'; // Aggiungi il codice HTML dell'animazione del loader
+    loader.innerHTML = '<div class="spinner"></div>';
 
     let loaderTimeout;
 
@@ -21,13 +13,13 @@ document.addEventListener('DOMContentLoaded', () => {
         if (loaderExist) {
             loaderExist.remove();
         }
-        content.appendChild(loader); // Aggiunge il loader all'interno di .content
+        content.appendChild(loader);
         container.style.display = 'none';
         loader.style.display = 'flex';
     }
 
     function hideLoader() {
-        const minDisplayTime = 100; // Tempo minimo in millisecondi
+        const minDisplayTime = 100;
 
         const elapsedTime = Date.now() - loaderTimeout;
         const remainingTime = Math.max(0, minDisplayTime - elapsedTime);
@@ -45,31 +37,21 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function loadTemplate(templateName) {
-        // Mostra il loader durante il caricamento del template
-        loaderTimeout = Date.now();
-        showLoader();
-
-        // Rimuove i file CSS precedenti specifici del template
         document.querySelectorAll("link[rel='stylesheet'][data-template]").forEach(link => link.remove());
 
-        // Aggiunge dinamicamente il file CSS
         if (templateName) {
             const link = document.createElement('link');
             link.rel = 'stylesheet';
             link.href = `static/css/${templateName}.css`;
             link.setAttribute('data-template', templateName);
-            link.onload = () => {
-                console.log(`Loaded ${templateName}.css`);
-            }
+            link.onload = () => console.log(`Loaded ${templateName}.css`);
             document.head.appendChild(link);
         }
 
-        // Rimuove i file JavaScript precedenti specifici del template
         document.querySelectorAll("script[data-template]").forEach(script => script.remove());
 
-        // Aggiunge dinamicamente il file JavaScript
         if (templateName) {
-            window.loadJS = undefined; // Resetta la funzione loadJS
+            window.loadJS = undefined;
             const script = document.createElement('script');
             script.src = `static/js/${templateName}.js`;
             script.defer = true;
@@ -79,41 +61,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (typeof window.loadJS === 'function') {
                     window.loadJS();
                 }
-            }
+            };
             document.body.appendChild(script);
         }
     }
 
-    function navigate(event) {
-
-        const a_element = event.target.closest("a");
-        if (a_element){
-            const isFakeLink = a_element.getAttribute('data-fake') === 'true';
-
-            if(isFakeLink) {
-                event.preventDefault();
-                return;
-            }
-        }
-
-        const link = event.target.closest('.nav-link');
-        if (!link || !link.hasAttribute('href')) return;
-
-        const href = link.getAttribute('href');
-        if (!href || href.startsWith('#') || href.startsWith('http')) return; // Ignora link esterni o ancore
-
-        const isMobileLink= link.getAttribute('data-mobile') === 'true';
-        const isLoaderDisabled = link.getAttribute('data-loader') === 'false';
-
-        if(isMobileLink) {
-            toggleMenu();
-        }
-
-        event.preventDefault();
-
-
+    function navigateTo(href, isLoaderDisabled = false) {
         loaderTimeout = Date.now();
-        if (isLoaderDisabled) {
+        if (!isLoaderDisabled) {
             showLoader();
         }
 
@@ -121,12 +76,11 @@ document.addEventListener('DOMContentLoaded', () => {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
-                'component': true
+                'component': true,
             },
         })
             .then(response => {
                 if (response.redirected) {
-                    // Gestisce il redirect
                     window.location.href = response.url;
                     return Promise.reject('Redirecting...');
                 }
@@ -136,7 +90,7 @@ document.addEventListener('DOMContentLoaded', () => {
             })
             .then(({ html, templateName, href }) => {
                 container.innerHTML = html;
-                window.history.pushState(null, '', href); // Aggiorna il link nella barra degli indirizzi
+                window.history.pushState({ templateName, href }, '', href);
                 loadTemplate(templateName);
             })
             .catch(error => {
@@ -150,5 +104,55 @@ document.addEventListener('DOMContentLoaded', () => {
             });
     }
 
+    function navigate(event) {
+        const link = event.target.closest('.nav-link');
+        if (!link || !link.hasAttribute('href')) return;
+
+        const href = link.getAttribute('href');
+        if (!href || href.startsWith('#') || href.startsWith('http')) return;
+
+        const isMobileLink = link.getAttribute('data-mobile') === 'true';
+        const isLoaderDisabled = link.getAttribute('data-loader') === 'false';
+
+        if (isMobileLink) {
+            toggleMenu();
+        }
+
+        event.preventDefault();
+        navigateTo(href, isLoaderDisabled);
+    }
+
+    function handlePopState(event) {
+        if (event.state) {
+            const { href, templateName } = event.state;
+            if (href && templateName) {
+                loaderTimeout = Date.now();
+                showLoader();
+
+                fetch(href,
+                    {
+                        method: 'GET',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'component': true,
+                        },
+                    })
+                    .then(response => response.text())
+                    .then(html => {
+                        container.innerHTML = html;
+                        loadTemplate(templateName);
+                    })
+                    .catch(error => {
+                        console.error('Error loading page:', error);
+                        showError('Errore di connessione. Assicurati di essere online e riprova.');
+                    })
+                    .finally(() => {
+                        hideLoader();
+                    });
+            }
+        }
+    }
+
     document.body.addEventListener('click', navigate);
+    window.addEventListener('popstate', handlePopState);
 });
