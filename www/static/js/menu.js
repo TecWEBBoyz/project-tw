@@ -1,3 +1,11 @@
+function toggleMenu() {
+    const menu = document.querySelector('.navbar .menu');
+    const hamburger = document.querySelector('.navbar .hamburger');
+    const isHidden = menu.classList.toggle('hidden');
+    hamburger.classList.toggle('active');
+    menu.setAttribute('aria-hidden', isHidden);
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     const container = document.querySelector('.container'); // Seleziona il contenitore principale per il template
     const content = document.querySelector('.content'); // Seleziona l'area principale per il loader
@@ -61,6 +69,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Aggiunge dinamicamente il file JavaScript
         if (templateName) {
+            window.loadJS = undefined; // Resetta la funzione loadJS
             const script = document.createElement('script');
             script.src = `static/js/${templateName}.js`;
             script.defer = true;
@@ -76,16 +85,33 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function navigate(event) {
+        const isFakeLink = event.target.closest("a").getAttribute('data-fake') === 'true';
+
+        if(isFakeLink) {
+            event.preventDefault();
+            return;
+        }
+
         const link = event.target.closest('.nav-link');
         if (!link || !link.hasAttribute('href')) return;
 
         const href = link.getAttribute('href');
         if (!href || href.startsWith('#') || href.startsWith('http')) return; // Ignora link esterni o ancore
 
+        const isMobileLink= link.getAttribute('data-mobile') === 'true';
+        const isLoaderDisabled = link.getAttribute('data-loader') === 'false';
+
+        if(isMobileLink) {
+            toggleMenu();
+        }
+
         event.preventDefault();
 
+
         loaderTimeout = Date.now();
-        showLoader();
+        if (isLoaderDisabled) {
+            showLoader();
+        }
 
         fetch(href, {
             method: 'GET',

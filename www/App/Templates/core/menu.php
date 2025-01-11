@@ -26,10 +26,10 @@ if ($sessionManager->isAuthenticated()) {
     $menuItems[] = ['label' => 'Login', 'link' => 'login', 'ariaLabel' => 'Login page link'];
 //    $menuItems[] = ['label' => 'Register', 'link' => 'register', 'ariaLabel' => 'Register page link'];
 }
-function renderMenu($menuItems) {
+function renderMenu($menuItems, $mobile = false) {
     echo '<nav id="menu"><ul><span lang="eng">';
     foreach ($menuItems as $item) {
-        echo '<li><a class="nav-link" href="' . htmlspecialchars($item['link']) . '" aria-label="' . htmlspecialchars($item['ariaLabel']) . '">' . htmlspecialchars($item['label']) . '</a></li>';
+        echo '<li><a class="nav-link"'.($mobile ? ' data-mobile="true" ' : ' ' ).'href="' . htmlspecialchars($item['link']) . '" aria-label="' . htmlspecialchars($item['ariaLabel']) . '">' . htmlspecialchars($item['label']) . '</a></li>';
     }
     echo '</span></ul></nav>';
 }
@@ -49,8 +49,8 @@ function renderMenu($menuItems) {
     </div>
     <div class="menu hidden" role="menu" aria-hidden="true">
         <!-- Close button -->
-        <a href="#" class="close" onclick="toggleMenu()" role="button" tabindex="0" aria-label="Close navigation menu">&times;</a>
-        <?php renderMenu($menuItems); ?>
+        <a href="close" class="close" onclick="toggleMenu()" role="button" tabindex="0" aria-label="Close navigation menu" data-fake="true">&times;</a>
+        <?php renderMenu($menuItems, true); ?>
     </div>
 </header>
 
