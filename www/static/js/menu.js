@@ -66,6 +66,35 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    function saveMenuState() {
+        const menu = document.querySelector('.navbar .menu');
+        const isHidden = menu.classList.contains('hidden');
+        localStorage.setItem('menuState', isHidden ? 'hidden' : 'visible');
+    }
+
+    function restoreMenuState() {
+        const menu = document.querySelector('.navbar .menu');
+        const savedState = localStorage.getItem('menuState');
+        if (savedState === 'hidden') {
+            menu.classList.add('hidden');
+        } else {
+            menu.classList.remove('hidden');
+        }
+    }
+
+    function clearMenuState() {
+        localStorage.removeItem('menuState');
+    }
+
+    function toggleMenu() {
+        const menu = document.querySelector('.navbar .menu');
+        const hamburger = document.querySelector('.navbar .hamburger');
+        const isHidden = menu.classList.toggle('hidden');
+        hamburger.classList.toggle('active');
+        menu.setAttribute('aria-hidden', isHidden);
+        saveMenuState(); // Save the menu state
+    }
+
     function navigateTo(href, isLoaderDisabled = false) {
         loaderTimeout = Date.now();
         if (!isLoaderDisabled) {
@@ -150,9 +179,12 @@ document.addEventListener('DOMContentLoaded', () => {
                         hideLoader();
                     });
             }
+        } else {
+            clearMenuState(); // Clear menu state when there's no navigation history
         }
     }
 
+    restoreMenuState(); // Restore the menu state on page load
     document.body.addEventListener('click', navigate);
     window.addEventListener('popstate', handlePopState);
 });
