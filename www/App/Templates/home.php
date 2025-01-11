@@ -1,7 +1,8 @@
 <?php
 
 use PTW\Models\ImageType;
-use function PTW\config;
+
+$images = $TEMPLATE_DATA['images'] ?? [];
 
 ?>
 
@@ -21,29 +22,35 @@ use function PTW\config;
 <div class="gallery">
     <?php
 
-    $repo = new \PTW\Modules\Repositories\ImageRepository();
-    $images = $repo->All();
-
     foreach ($images as $image) {
 
         $image = $image->ToArray();
 
-        $detailPage = "gallerydetails?src=" . urlencode($image[ImageType::path->value]) . "&description=" . urlencode($image[ImageType::description->value]) . "&location=" . urlencode($image[ImageType::place->value]) . "&alt=" . urlencode($image[ImageType::alt->value]) . "&date=" . urlencode($image[ImageType::date->value]);
-        #replace image extension with _25percent.jpg manage upper and lower case extensions
-        $imagePathResized = preg_replace('/\.(jpg|jpeg|png)$/i', '_25percent.jpg', $image[ImageType::path->value]);
+        $detailPage = "gallerydetails?src=" . (isset($image[ImageType::path->value]) ? urlencode($image[ImageType::path->value]) : '') .
+            "&description=" . (isset($image[ImageType::description->value]) ? urlencode($image[ImageType::description->value]) : '') .
+            "&location=" . (isset($image[ImageType::place->value]) ? urlencode($image[ImageType::place->value]) : '') .
+            "&alt=" . (isset($image[ImageType::alt->value]) ? urlencode($image[ImageType::alt->value]) : '') .
+            "&date=" . (isset($image[ImageType::date->value]) ? urlencode($image[ImageType::date->value]) : '');
+
+        # Replace image extension with _25percent.jpg, manage upper and lower case extensions
+        $imagePathResized = isset($image[ImageType::path->value]) ?
+            preg_replace('/\.(jpg|jpeg|png)$/i', '_25percent.jpg', $image[ImageType::path->value]) : '';
 
         # Add date handling
         $date = isset($image[ImageType::date->value]) ? htmlspecialchars($image[ImageType::date->value], ENT_QUOTES, 'UTF-8') : 'Unknown date';
 
-        echo "<div class='gallery-item' data-description='" . htmlspecialchars($image[ImageType::description->value], ENT_QUOTES, 'UTF-8') . "'>
+        # Handle location based on date availability
+        $location = isset($image[ImageType::place->value]) && $date !== 'Unknown date' ? htmlspecialchars($image[ImageType::place->value], ENT_QUOTES, 'UTF-8') : 'Unknown location';
+
+        echo "<div class='gallery-item' data-description='" . (isset($image[ImageType::description->value]) ? htmlspecialchars($image[ImageType::description->value], ENT_QUOTES, 'UTF-8') : '') . "'>
         <a href='" . htmlspecialchars($detailPage, ENT_QUOTES, 'UTF-8') . "'>
             <div class='image-wrapper'>
-                <img class='main-image' src='static/uploads/" . htmlspecialchars($imagePathResized, ENT_QUOTES, 'UTF-8') . "' alt='" . htmlspecialchars($image[ImageType::alt->value], ENT_QUOTES, 'UTF-8') . "' loading='lazy'>
+                <img class='main-image' src='static/uploads/" . htmlspecialchars($imagePathResized, ENT_QUOTES, 'UTF-8') . "' alt='" . (isset($image[ImageType::alt->value]) ? htmlspecialchars($image[ImageType::alt->value], ENT_QUOTES, 'UTF-8') : '') . "' loading='lazy'>
             </div>
         </a>
         <div class='info'>
-            <span>" . htmlspecialchars($image[ImageType::title->value], ENT_QUOTES, 'UTF-8') . "</span>
-            <span>Location: " . htmlspecialchars($image[ImageType::place->value], ENT_QUOTES, 'UTF-8') . "</span>
+            <span>" . (isset($image[ImageType::title->value]) ? htmlspecialchars($image[ImageType::title->value], ENT_QUOTES, 'UTF-8') : 'Unknown title') . "</span>
+            <span>Location: " . $location . "</span>
             <span>Date: " . $date . "</span>
         </div>
     </div>";

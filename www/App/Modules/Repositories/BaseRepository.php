@@ -44,6 +44,11 @@ class BaseRepository
         return $this->CreateInstances($res);
     }
 
+    public function Count(): int
+    {
+        return $this->database->Count($this->table);
+    }
+
     public function Create(DBItem $element): bool
     {
         $data = $element->ToArray();

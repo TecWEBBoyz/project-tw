@@ -17,14 +17,27 @@ DROP TABLE IF EXISTS image;
 CREATE TABLE image (
     id CHAR(36) PRIMARY KEY DEFAULT UUID(),
     path VARCHAR(255) NOT NULL,
-    alt VARCHAR(255) NOT NULL,
-    description VARCHAR(512) NOT NULL,
-    title VARCHAR(255) NOT NULL,
-    place VARCHAR(255) NOT NULL,
-    date DATE NOT NULL,
+    alt VARCHAR(255) NOT NULL DEFAULT "",
+    description VARCHAR(512) NOT NULL DEFAULT "",
+    title VARCHAR(255) NOT NULL DEFAULT "",
+    place VARCHAR(255) NOT NULL DEFAULT "",
+    date DATE DEFAULT NULL,
+    visible BOOLEAN DEFAULT FALSE,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+    updated_at TIMESTAMP NULL DEFAULT NULL
 );
+
+DELIMITER $$
+
+CREATE TRIGGER before_update_image
+    BEFORE UPDATE ON image
+    FOR EACH ROW
+BEGIN
+    SET NEW.updated_at = CURRENT_TIMESTAMP;
+END$$
+
+DELIMITER ;
+
 
 -- Esempi di dati per la tabella utente
 INSERT INTO user (name, email, password, role, telephone) VALUES
@@ -91,3 +104,7 @@ INSERT INTO image (path, alt, description, title, place, date) VALUES
 ("502A1840.JPG", "Riflesso di Londra in una vetrina", "La foto racconta un momento di introspezione urbana, catturato attraverso riflessi che sovrappongono lo storico Big Ben all\'interno di un caffè moderno. È stata scattata per esplorare il contrasto tra il passato e il presente di Londra.", "Riflessi di Londra", "Londra", "2023-10-01"),
 ("502A4640.JPG", "Band su palco con luci viola e fumo avvolgente", "Una band giovane si esibisce con passione durante un concerto estivo, portando energia e musica tra il pubblico di una piccola città. Le luci colorate e l\'atmosfera vibrante creano un\'esperienza indimenticabile per i fan.", "Concerto sotto le stelle", "Milano", "2023-07-15"),
 ("502A4682.JPG", "Musicisti su un palco illuminato da luci viola", "Una giovane band esibisce la propria energia sul palco di un festival musicale, cercando di conquistare il pubblico con il suono rock della loro chitarra e basso.", "Notte di Rock al Festival", "Bologna", "2023-07-15");
+
+UPDATE image
+SET updated_at = CURRENT_TIMESTAMP
+WHERE updated_at IS NULL;
