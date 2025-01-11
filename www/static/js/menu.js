@@ -119,7 +119,14 @@ document.addEventListener('DOMContentLoaded', () => {
             })
             .then(({ html, templateName, href }) => {
                 container.innerHTML = html;
-                window.history.pushState({ templateName, href }, '', href);
+
+                // Check if the current state is different from the previous one
+                const currentState = window.history.state;
+                const newState = { templateName, href };
+                if (!currentState || currentState.templateName !== newState.templateName || currentState.href !== newState.href) {
+                    window.history.pushState(newState, '', href);
+                }
+
                 loadTemplate(templateName);
             })
             .catch(error => {
@@ -132,6 +139,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 hideLoader();
             });
     }
+
 
     function navigate(event) {
         const link = event.target.closest('.nav-link');
