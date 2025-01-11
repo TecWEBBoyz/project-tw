@@ -18,6 +18,8 @@ $router->get("/", \PTW\Controllers\HomeController::class . "::get");
 $router->get("/home", \PTW\Controllers\HomeController::class . "::get");
 //$router->get("/about", \PTW\Controllers\AboutController::class . "::get");
 //$router->get("/test", \PTW\Controllers\TestController::class . "::get");
+$router->get("/register", \PTW\Controllers\RegisterController::class . "::get");
+$router->post("/register", \PTW\Controllers\RegisterController::class . "::post");
 $router->get("/login", \PTW\Controllers\LoginController::class . "::get");
 $router->post("/login", \PTW\Controllers\LoginController::class . "::post");
 $router->get("/logout", \PTW\Controllers\LogoutController::class . "::get");

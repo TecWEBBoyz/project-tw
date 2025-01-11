@@ -1,15 +1,149 @@
+/* Variabili colori */
+:root {
+    --color-bg: #000;
+    --color-text: #fff;
+    --color-accent: #888;
+    --color-accent-hover: #fff;
+    --color-input-bg: #222;
+    --color-input-border: #444;
+    --color-input-text: #fff;
+    --color-button-bg: #444;
+    --color-button-text: #fff;
+    --color-button-hover-bg: #555;
+}
+
 body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    background-color: #000;
-    color: #fff;
+    background-color: var(--color-bg);
+    color: var(--color-text);
 }
 
 /* Disable text selection */
 body, p, h1, h2, h3, h4, h5, h6 {
     user-select: none;
+}
+
+/* Generici stili per form */
+form {
+    width: 100%;
+    max-width: 600px;
+    margin: 20px auto;
+    background-color: var(--color-bg);
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid var(--color-input-border);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+form label {
+    display: block;
+    font-size: 1rem;
+    margin-bottom: 10px;
+    color: var(--color-text);
+}
+
+form input[type="text"],
+form input[type="email"],
+form input[type="password"],
+form textarea,
+form select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    font-size: 1rem;
+    color: var(--color-input-text);
+    background-color: var(--color-input-bg);
+    border: 1px solid var(--color-input-border);
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+form input:focus,
+form textarea:focus,
+form select:focus {
+    outline: none;
+    border-color: var(--color-accent);
+    box-shadow: 0 0 5px var(--color-accent);
+}
+
+form button {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 1rem;
+    color: var(--color-button-text);
+    background-color: var(--color-button-bg);
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+form button:hover {
+    background-color: var(--color-button-hover-bg);
+}
+
+/* Placeholder styling */
+form input::placeholder,
+form textarea::placeholder {
+    color: var(--color-accent);
+}
+
+/* Responsive form */
+@media (max-width: 768px) {
+    form {
+        padding: 15px;
+    }
+
+    form button {
+        width: 100%;
+    }
+}
+
+/* Checkbox and Radio */
+form input[type="checkbox"],
+form input[type="radio"] {
+    margin-right: 10px;
+}
+
+form .form-group {
+    margin-bottom: 20px;
+}
+
+form .form-group.inline {
+    display: flex;
+    align-items: center;
+}
+
+form .form-group.inline label {
+    margin: 0;
+    margin-left: 5px;
+}
+
+/* Helper Text */
+form .helper-text {
+    font-size: 0.875rem;
+    color: var(--color-accent);
+    margin-top: -15px;
+    margin-bottom: 15px;
+}
+
+/* Error Messages */
+form .error-message {
+    color: red;
+    font-size: 0.875rem;
+    margin-top: -10px;
+    margin-bottom: 15px;
+}
+
+/* Success Messages */
+form .success-message {
+    color: green;
+    font-size: 0.875rem;
+    margin-top: -10px;
+    margin-bottom: 15px;
 }
 
 /* Fullscreen Logo Animation */
