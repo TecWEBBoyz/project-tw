@@ -153,9 +153,8 @@ class AdminController extends ControllerContract
         if ($error) {
             TemplateUtility::getTemplate('upload', ['title' => 'Upload Images', 'error' => $error]);
         } else {
-            $imageRepository = new \PTW\Modules\Repositories\ImageRepository();
-            $images = $imageRepository->GetJustUploadedImages();
-            TemplateUtility::getTemplate('image-edit', ['title' => 'Edit Uploaded Images', 'images' => $images, "success" => "Images uploaded successfully."]);
+            ToastUtility::addToast('success', 'Immagini caricate con successo!');
+            $this->locationReplace('/admin/justuploadedimage');
         }
     }
 
@@ -198,7 +197,7 @@ class AdminController extends ControllerContract
             if ($res) {
                 throw new Exception("Error deleting image.");
             }
-            ToastUtility::addToast('success', 'Operazione completata con successo!');
+            ToastUtility::addToast('success', 'Immagine eliminata con successo.');
         } catch (Exception $e) {
             ToastUtility::addToast('error', 'Errore durante l\'eliminazione dell\'immagine.');
         }

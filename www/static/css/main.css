@@ -374,7 +374,7 @@ form .success-message {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
     font-size: 1rem;
     font-weight: bold;
-    animation: toastFadeOut 5s forwards;
+    animation: toastFadeOut 6s forwards;
 }
 
 /* Icona del Toast */
