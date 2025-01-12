@@ -2,13 +2,22 @@
 
 namespace PTW\Modules\Auth;
 
+use InvalidArgumentException;
+
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
 enum Role: string {
-    case Administrator = 'Administrator';
-    case User = 'User';
+    case admin = 'Administrator';
+    case user = 'User';
+
+    public static function fromCaseName(string $caseName): self {
+        if (defined("self::$caseName")) {
+            return constant("self::$caseName");
+        }
+        throw new InvalidArgumentException("Invalid case name: $caseName");
+    }
 }
 
 class SessionManager

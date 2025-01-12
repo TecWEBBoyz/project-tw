@@ -14,10 +14,10 @@ $menuItems = [
 
 $sessionManager = new SessionManager();
 if ($sessionManager->isAuthenticated()) {
-    if ($sessionManager->authorize(Role::User)) {
+    if ($sessionManager->authorize(Role::user)) {
         $menuItems[] = ['label' => 'Dashboard', 'link' => 'dashboard', 'ariaLabel' => ' Collegamento alla pagina Dashboard'];
     }
-    if($sessionManager->authorize(Role::Administrator)) {
+    if($sessionManager->authorize(Role::admin)) {
         $menuItems[] = ['label' => 'Admin', 'link' => 'admin', 'ariaLabel' => 'Collegamento alla pagina Admin'];
     } else {
         $menuItems[] = ['label' => 'Profile', 'link' => 'profile', 'ariaLabel' => 'Collegamento alla pagina Profile'];

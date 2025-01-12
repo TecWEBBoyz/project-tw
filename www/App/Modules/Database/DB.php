@@ -80,8 +80,24 @@ class DB
 
         $query = "SELECT {$columns} FROM {$table} WHERE id = ?";
         $arr = $this->Query($query, [$id]);
+
         if(count($arr) > 0)
             return $arr[0];
+
+        return null;
+    }
+
+    public function FindElementByUnique(string $table, string $uniqueColumn, string $uniqueValue, array|string $columns = '*') : array | null
+    {
+        $columns = $this->ColumnToString($columns);
+        $uniqueColumn = $this->ColumnToString($uniqueColumn);
+
+        $query = "SELECT {$columns} FROM {$table} WHERE {$uniqueColumn} = ?";
+        $arr = $this->Query($query, [$uniqueValue]);
+
+        if(count($arr) > 0)
+            return $arr[0];
+
         return null;
     }
 

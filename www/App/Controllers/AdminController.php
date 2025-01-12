@@ -21,7 +21,7 @@ class AdminController extends ControllerContract
 {
     public function get(): void
     {
-        if(!$this->sessionManager->authorize(Role::Administrator)) {
+        if(!$this->sessionManager->authorize(Role::admin)) {
             $this->locationReplace('/login');
         }
         TemplateUtility::getTemplate('admin', ['title' => 'Admin Dashboard']);

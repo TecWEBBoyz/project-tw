@@ -74,6 +74,12 @@ class BaseRepository
         return $this->CreateInstance($data);
     }
 
+    public function GetElementByUnique(string $uniqueCol, string $uniqueValue): DBItem|null
+    {
+        $data = $this->database->FindElementByUnique($this->table, $uniqueCol, $uniqueValue);
+        return $this->CreateInstance($data);
+    }
+
     public function CreateInstance(array|null $data): DBItem | null
     {
         if (is_null($data))

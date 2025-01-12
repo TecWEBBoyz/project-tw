@@ -15,11 +15,11 @@ class DashboardController extends ControllerContract
 {
     public function get(): void
     {
-        if($this->sessionManager->authorize(Role::Administrator)) {
+        if($this->sessionManager->authorize(Role::admin)) {
             $this->locationReplace('/admin');
             return;
         }
-        if(!$this->sessionManager->authorize(Role::User)) {
+        if(!$this->sessionManager->authorize(Role::user)) {
             $this->locationReplace('/');
             return;
         }
