@@ -13,6 +13,8 @@ use PTW\Models\ImageType;
 use PTW\Modules\Auth\Role;
 use PTW\Modules\Auth\SessionManager;
 use PTW\Utility\TemplateUtility;
+use PTW\Utility\ToastUtility;
+
 $imageRepository = new \PTW\Modules\Repositories\ImageRepository();
 
 class AdminController extends ControllerContract
@@ -30,11 +32,11 @@ class AdminController extends ControllerContract
 
     }
 
-    public function justUploadedImage()
+    public function justUploadedImage($data, $templateData = [])
     {
         $imageRepository = new \PTW\Modules\Repositories\ImageRepository();
         $images = $imageRepository->GetJustUploadedImages();
-        TemplateUtility::getTemplate('image-edit', ['title' => 'Edit Uploaded Images', 'images' => $images]);
+        TemplateUtility::getTemplate('image-edit', array_merge(['title' => 'Edit Uploaded Images', 'images' => $images], $templateData));
     }
     public function uploadForm()
     {
@@ -42,11 +44,14 @@ class AdminController extends ControllerContract
     }
     public function uploadImage(): void
     {
-        function createResizedImages($filePath, $outputDir, $fileName) {
+        $error = null;
+        function createResizedImages($filePath, $outputDir, $fileName)
+        {
             $imageInfo = getimagesize($filePath);
             $originalWidth = $imageInfo[0];
             $originalHeight = $imageInfo[1];
             $mimeType = $imageInfo['mime'];
+
             switch ($mimeType) {
                 case 'image/jpeg':
                     $sourceImage = imagecreatefromjpeg($filePath);
@@ -55,7 +60,7 @@ class AdminController extends ControllerContract
                     $sourceImage = imagecreatefrompng($filePath);
                     break;
                 default:
-                    echo "Unsupported image type for $fileName.<br>";
+                    $error = "Unsupported image type $mimeType.";
                     return;
             }
 
@@ -83,12 +88,12 @@ class AdminController extends ControllerContract
                         break;
                 }
                 imagedestroy($resizedImage);
-                echo "Resized image saved: " . basename($newFilePath) . "<br>";
             }
             imagedestroy($sourceImage);
         }
 
-        function uploadErrorToMessage($errorCode) {
+        function uploadErrorToMessage($errorCode)
+        {
             switch ($errorCode) {
                 case UPLOAD_ERR_INI_SIZE:
                     return "The uploaded file exceeds the upload_max_filesize directive in php.ini.";
@@ -108,52 +113,60 @@ class AdminController extends ControllerContract
                     return "Unknown upload error.";
             }
         }
-
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            if (isset($_FILES['images'])) {
-                $uploadDir = __DIR__ . '/../../static/uploads/';
-                if (!is_dir($uploadDir)) {
-                    mkdir($uploadDir, 0777, true);
-                }
-                $randomImagename = uniqid();
-                $ext = pathinfo($_FILES['images']['name'][0], PATHINFO_EXTENSION);
-                foreach ($_FILES['images']['name'] as $key => $name) {
-                    echo "Uploading file: $name<br>";
-                    $tmpName = $_FILES['images']['tmp_name'][$key];
-                    $error = $_FILES['images']['error'][$key];
-                    $size = $_FILES['images']['size'][$key];
-
-                    if ($error === UPLOAD_ERR_OK && $size > 0) {
-                        $fileName = basename($randomImagename.'.'.$ext);
-                        $fileName = strtolower($fileName);
-                        $filePath = $uploadDir . $fileName;
-
-                        if (move_uploaded_file($tmpName, $filePath)) {
-                            echo "File successfully uploaded: $fileName, $filePath<br>";
-                            createResizedImages($filePath, $uploadDir, $fileName);
-                        } else {
-                            echo "Error moving uploaded file: $fileName<br>";
-                        }
-                    } else {
-                        echo "Error uploading file $name: " . uploadErrorToMessage($error) . "<br>";
+        try {
+            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                if (isset($_FILES['images'])) {
+                    $uploadDir = __DIR__ . '/../../static/uploads/';
+                    if (!is_dir($uploadDir)) {
+                        mkdir($uploadDir, 0777, true);
                     }
-                }
-            } else {
-                echo "No files uploaded. Please select files.";
-            }
 
+                    foreach ($_FILES['images']['name'] as $key => $name) {
+                        $tmpName = $_FILES['images']['tmp_name'][$key];
+                        $error = $_FILES['images']['error'][$key];
+                        $size = $_FILES['images']['size'][$key];
+
+                        if ($error === UPLOAD_ERR_OK && $size > 0) {
+                            $ext = pathinfo($name, PATHINFO_EXTENSION);
+                            $randomImageName = uniqid() . '.' . strtolower($ext);
+                            $filePath = $uploadDir . $randomImageName;
+
+                            if (move_uploaded_file($tmpName, $filePath)) {
+                                createResizedImages($filePath, $uploadDir, $randomImageName);
+
+                                $imageRepository = new \PTW\Modules\Repositories\ImageRepository();
+                                $imageRepository->Create(new Image([(ImageType::path)->value => $randomImageName]));
+                            } else {
+                                $error = "Error moving uploaded file.";
+                            }
+                        } else {
+                            $error = uploadErrorToMessage($error);
+                        }
+                    }
+                } else {
+                    $error = "No images uploaded.";
+                }
+            }
+        } catch (Exception $e) {
+            $error = "Error uploading images.";
         }
-        $imageRepository = new \PTW\Modules\Repositories\ImageRepository();
-        $images = $imageRepository->Create(new Image([(ImageType::path)->value => $fileName]));
+        if ($error) {
+            TemplateUtility::getTemplate('upload', ['title' => 'Upload Images', 'error' => $error]);
+        } else {
+            $imageRepository = new \PTW\Modules\Repositories\ImageRepository();
+            $images = $imageRepository->GetJustUploadedImages();
+            TemplateUtility::getTemplate('image-edit', ['title' => 'Edit Uploaded Images', 'images' => $images, "success" => "Images uploaded successfully."]);
+        }
     }
-    public function editSingleImage($data)
+
+    public function editSingleImage($data, $templateData = [])
     {
         $imageRepository = new \PTW\Modules\Repositories\ImageRepository();
         if(!isset($data['id'])) {
             throw new Exception("No image ID provided.");
         }
         $image = $imageRepository->GetElementByID($data['id']);
-        TemplateUtility::getTemplate('image-edit', ['title' => 'Edit Image', 'images' => $image]);
+        TemplateUtility::getTemplate('image-edit', array_merge(['title' => 'Edit Image', 'images' => [$image]], $templateData));
     }
     public function editImage($data)
     {
@@ -176,8 +189,20 @@ class AdminController extends ControllerContract
 
     public function deleteImage($data)
     {
-        $imageRepository = new \PTW\Modules\Repositories\ImageRepository();
-        $imageRepository->Delete($data['id']);
+        try {
+            if (!isset($data['id'])) {
+                throw new Exception("No image ID provided.");
+            }
+            $imageRepository = new \PTW\Modules\Repositories\ImageRepository();
+            $res = $imageRepository->Delete($data['id']);
+            if ($res) {
+                throw new Exception("Error deleting image.");
+            }
+            ToastUtility::addToast('success', 'Operazione completata con successo!');
+        } catch (Exception $e) {
+            ToastUtility::addToast('error', 'Errore durante l\'eliminazione dell\'immagine.');
+        }
+        $this->previusPage();
     }
 
     public function put(): void

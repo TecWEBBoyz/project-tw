@@ -11,7 +11,10 @@ if(is_null($TEMPLATE_DATA["images"])) {
 $images  = $TEMPLATE_DATA["images"] ?? [];
 foreach ($images as $image) {
     $imageArray = $image->ToArray();
+    $imagePathResized = isset($imageArray[ImageType::path->value]) ?
+        preg_replace('/\.(jpg|jpeg|png)$/i', '_25percent.jpg', $imageArray[ImageType::path->value]) : '';
     echo "<form action='admin/update-image' method='POST'>";
+    echo "<img src='static/uploads/{$imagePathResized}' alt='{$imageArray[ImageType::alt->value]}' class='image'>";
     echo "<label for='id'>ID:</label>";
     echo "<input type='text' id='id' name='id' value='{$imageArray[ImageType::id->value]}' readonly>";
     echo "<label for='alt'>Alt:</label>";
@@ -28,7 +31,7 @@ foreach ($images as $image) {
     echo "<input type='checkbox' id='visible' name='visible' value='true'></input>";
     echo "<button type='submit' class='button'>Salva Modifiche</button>";
     echo "</form>";
-    echo "<form action='delete-image' method='POST'>";
+    echo "<form action='admin/delete-image' method='POST'>";
     echo "<input type='hidden' name='id' value='{$imageArray[ImageType::id->value]}'></input>";
     echo "<button type='submit' class='button button-danger'>Elimina</button>";
     echo "</form>";

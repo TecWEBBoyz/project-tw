@@ -348,3 +348,62 @@ form .success-message {
         visibility: hidden;
     }
 }
+
+
+/* Toast Container */
+#toast-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* Toast Message */
+.toast {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-width: 250px;
+    padding: 10px 20px;
+    background-color: #28a745; /* Verde per successo */
+    color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    font-size: 1rem;
+    font-weight: bold;
+    animation: toastFadeOut 5s forwards;
+}
+
+/* Icona del Toast */
+.toast .icon {
+    font-size: 1.5rem;
+}
+
+/* Animazione per il fade out del Toast */
+
+@keyframes toastFadeOut {
+    0% {
+        opacity: 1;
+    }
+
+    90% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+
+/* Toast per errore */
+.toast.error {
+    background-color: #dc3545; /* Rosso per errore */
+}
+
+/* Toast per successo */
+.toast.success {
+    background-color: #28a745; /* Verde per successo */
+}

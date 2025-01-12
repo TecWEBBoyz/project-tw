@@ -23,6 +23,11 @@ abstract class ControllerContract
     {
         header("Location: {$this->baseURL}{$url}");
     }
+    public function previusPage()
+    {
+        $previusPage = $_SERVER['HTTP_REFERER'];
+        header("Location: $previusPage");
+    }
     /**
      * Response to a GET request.
      *
