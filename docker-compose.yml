@@ -25,7 +25,7 @@ services:
     image: phpmyadmin/phpmyadmin:latest
     container_name: phpmyadmin_container
     environment:
-      PMA_HOST: server
+      PMA_HOST: server_container
       PMA_USER: default_user
       PMA_PASSWORD: default_password
       UPLOAD_LIMIT: 64M
