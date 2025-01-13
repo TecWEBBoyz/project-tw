@@ -147,3 +147,13 @@
         display: none;
     }
 }
+
+.navigation-help {
+    text-indent: -999em;
+    position: absolute;
+}
+
+.navigation-help:focus {
+    text-indent: 0;
+    position: static;
+}
