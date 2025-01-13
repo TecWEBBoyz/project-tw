@@ -1,0 +1,77 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: var(--color-bg);
+    color: var(--color-text);
+}
+
+.container {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: var(--color-bg);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    border: 1px solid var(--color-input-border);
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: var(--color-text);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+table thead th {
+    background-color: var(--color-button-bg);
+    color: var(--color-button-text);
+    padding: 10px;
+    text-align: left;
+}
+
+table tbody td {
+    padding: 10px;
+    border: 1px solid var(--color-input-border);
+    color: var(--color-text);
+}
+
+table tbody tr:nth-child(odd) {
+    background-color: var(--color-input-bg);
+}
+
+form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    background: none;
+    border: none;
+    box-shadow: none;
+}
+
+form button {
+    background-color: var(--color-button-bg);
+    color: var(--color-button-text);
+    padding: 8px 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+form button:hover {
+    background-color: var(--color-button-hover-bg);
+}
+
+form button i {
+    font-size: 14px;
+}
+
+.form-inline {
+    display: inline;
+}

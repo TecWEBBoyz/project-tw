@@ -1,3 +1,5 @@
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css');
+
 /* Variabili colori */
 :root {
     --color-bg: #000;
@@ -407,3 +409,4 @@ form .success-message {
 .toast.success {
     background-color: #28a745; /* Verde per successo */
 }
+

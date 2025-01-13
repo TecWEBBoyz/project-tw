@@ -31,7 +31,7 @@ if ($sessionManager->isAuthenticated()) {
 function renderMenu($menuItems, $mobile = false) {
     echo '<nav id="menu"><ul><span lang="eng">';
     foreach ($menuItems as $item) {
-        echo '<li><a class="' . htmlspecialchars($item['classes']) . '"'.($mobile ? ' data-mobile="true" ' : ' ' ).'href="' . htmlspecialchars($item['link']) . '" aria-label="' . htmlspecialchars($item['ariaLabel']) . '">' . htmlspecialchars($item['label']) . '</a></li>' . PHP_EOL;
+        echo '<li><a class="nav-link ' . htmlspecialchars($item['classes']) . '"'.($mobile ? ' data-mobile="true" ' : ' ' ).'href="' . htmlspecialchars($item['link']) . '" aria-label="' . htmlspecialchars($item['ariaLabel']) . '">' . htmlspecialchars($item['label']) . '</a></li>' . PHP_EOL;
     }
     echo '</span></ul></nav>';
 }

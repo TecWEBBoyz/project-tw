@@ -24,7 +24,9 @@ class AdminController extends ControllerContract
         if(!$this->sessionManager->authorize(Role::Administrator)) {
             $this->locationReplace('/login');
         }
-        TemplateUtility::getTemplate('admin', ['title' => 'Admin Dashboard']);
+        $imageRepository = new \PTW\Modules\Repositories\ImageRepository();
+        $images = $imageRepository->All();
+        TemplateUtility::getTemplate('admin', ['title' => 'Admin Dashboard', 'images' => $images]);
     }
 
     public function post(): void
@@ -184,6 +186,19 @@ class AdminController extends ControllerContract
         $image->SetData($image->FilterData($data));
 
         $imageRepository->Update($_POST['id'], $image);
+    }
+
+    public function editImageVisibility($data)
+    {
+        if(!isset($data['id'])) {
+            throw new Exception("No image ID provided.");
+        }
+        $imageRepository = new \PTW\Modules\Repositories\ImageRepository();
+        $image = $imageRepository->GetElementByID($data['id']);
+        $imageArray = $image->ToArray();
+        $image->SetData($image->FilterData(['visible' => $imageArray['visible'] == 1 ? 0 : 1]));
+        $imageRepository->Update($data['id'], $image);
+        $this->previusPage();
     }
 
     public function deleteImage($data)
