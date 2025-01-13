@@ -410,3 +410,74 @@ form .success-message {
     background-color: #28a745; /* Verde per successo */
 }
 
+/* Stile base per le tabelle */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    font-size: 16px;
+    background-color: var(--color-bg);
+}
+
+table thead th {
+    background-color: var(--color-button-bg);
+    color: var(--color-button-text);
+    padding: 10px;
+    text-align: left;
+    border: 1px solid var(--color-input-border);
+}
+
+table tbody td {
+    padding: 10px;
+    border: 1px solid var(--color-input-border);
+    color: var(--color-text);
+}
+
+table tbody tr:nth-child(odd) {
+    background-color: var(--color-input-bg);
+}
+
+/* Responsività per dispositivi piccoli */
+@media (max-width: 768px) {
+    table {
+        display: table; /* Mantiene il comportamento della tabella */
+        width: 100%; /* Adatta la larghezza al contenitore */
+    }
+
+    table thead {
+        display: none; /* Nasconde l'header per un design pulito */
+    }
+
+    table tbody tr {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        margin-bottom: 10px;
+        border: 1px solid var(--color-input-border);
+        border-radius: 8px;
+        background-color: var(--color-bg);
+    }
+
+    table tbody td {
+        display: flex;
+        width: 100%; /* Adatta le celle alla larghezza disponibile */
+        justify-content: space-between;
+        padding: 10px;
+        border: none;
+        border-bottom: 1px solid var(--color-input-border);
+    }
+
+    table tbody td:last-child {
+        border-bottom: 0;
+    }
+
+    table tbody td::before {
+        content: attr(data-label); /* Inserisce l'etichetta */
+        font-weight: bold;
+        color: var(--color-button-text);
+        margin-right: 10px;
+        flex-shrink: 0; /* Mantiene la larghezza del contenuto */
+        align-self: center;
+        justify-self: center;
+    }
+}
