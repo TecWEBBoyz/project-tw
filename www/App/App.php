@@ -11,17 +11,21 @@ namespace PTW;
 
 use Exception;
 use PTW\Modules\Database\DB;
+use PTW\Utility\TranslationManager;
 
 class App
 {
     private static array $config = [];
     private static DB $database;
 
+    private static TranslationManager $translationManager;
+
     public static function Init(): void
     {
         self::InitConfig();
         self::InitDatabase();
         self::InitRepository();
+        self::InitTranslationManager();
     }
 
     public static function Destroy(): void
@@ -36,6 +40,11 @@ class App
     public static function GetDatabase(): DB
     {
         return self::$database;
+    }
+
+    public static function GetTranslationManager(): TranslationManager
+    {
+        return self::$translationManager;
     }
 
     public static function HandleRoute(): void
@@ -68,5 +77,14 @@ class App
 
     private static function InitRepository(): void
     {
+    }
+
+    private static function InitTranslationManager(): void
+    {
+        self::$translationManager = TranslationManager::getInstance('en');
+        self::$translationManager->setDefaultLanguage('en');
+
+        $loaded_en = self::$translationManager->loadTranslations('/translation/translations_en.json', 'en');
+        $loaded_it = self::$translationManager->loadTranslations('/translation/translations_it.json', 'it');
     }
 }

@@ -8,6 +8,7 @@ use PTW\Utility\TemplateUtility;
 
 class AboutController extends ControllerContract
 {
+
     public function get(): void
     {
         TemplateUtility::getTemplate('about', ['title' => 'About']);
