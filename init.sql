@@ -1,4 +1,7 @@
+DROP TABLE IF EXISTS booking;
+DROP TABLE IF EXISTS image;
 DROP TABLE IF EXISTS user;
+
 CREATE TABLE user (
     id CHAR(36) PRIMARY KEY DEFAULT UUID(), -- Chiave primaria unica per ogni utente
     name VARCHAR(255) NOT NULL UNIQUE,        -- Nome dell'utente, non nullo
@@ -14,7 +17,6 @@ CREATE TABLE user (
 CREATE INDEX idx_email ON user (email);
 CREATE INDEX idx_name ON user (name);
 
-DROP TABLE IF EXISTS image;
 CREATE TABLE image (
     id CHAR(36) PRIMARY KEY DEFAULT UUID(),
     path VARCHAR(255) NOT NULL,
@@ -28,6 +30,17 @@ CREATE TABLE image (
     updated_at TIMESTAMP NULL DEFAULT NULL
 );
 
+CREATE TABLE booking (
+    id CHAR(36) PRIMARY KEY DEFAULT UUID(),
+    user CHAR(36) NOT NULL,
+    status ENUM("pending", "confirmed", "cancelled") NOT NULL DEFAULT "pending",
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP NULL DEFAULT NULL,
+    notes TEXT NOT NULL DEFAULT "",
+
+    FOREIGN KEY (user) REFERENCES user(id) ON DELETE CASCADE
+);
+
 DELIMITER $$
 
 CREATE TRIGGER before_update_image
@@ -39,6 +52,16 @@ END$$
 
 DELIMITER ;
 
+DELIMITER $$
+
+CREATE TRIGGER before_update_booking
+    BEFORE UPDATE ON booking
+    FOR EACH ROW
+BEGIN
+    SET NEW.updated_at = CURRENT_TIMESTAMP;
+END$$
+
+DELIMITER ;
 
 -- Esempi di dati per la tabella utente
 INSERT INTO user (name, email, password, role, telephone) VALUES
