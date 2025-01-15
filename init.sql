@@ -108,3 +108,6 @@ INSERT INTO image (path, alt, description, title, place, date) VALUES
 UPDATE image
 SET updated_at = CURRENT_TIMESTAMP
 WHERE updated_at IS NULL;
+
+UPDATE image
+SET visible = true;
