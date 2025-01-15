@@ -15,8 +15,6 @@ use PTW\Modules\Auth\SessionManager;
 use PTW\Utility\TemplateUtility;
 use PTW\Utility\ToastUtility;
 
-$imageRepository = new \PTW\Modules\Repositories\ImageRepository();
-
 class AdminController extends ControllerContract
 {
     public function get(): void
