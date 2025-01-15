@@ -184,6 +184,11 @@ class AdminController extends ControllerContract
             echo "No data provided.";
             $data['date'] = 'NULL';
         }
+        if ($data['visible'] == 'true') {
+            $data['visible'] = 1;
+        } else {
+            $data['visible'] = 0;
+        }
         $image->SetData($image->FilterData($data));
 
         $imageRepository->Update($_POST['id'], $image);

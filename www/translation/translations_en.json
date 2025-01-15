@@ -23,5 +23,9 @@
   "image-no-date": "No date",
   "image-drop-files-here": "Drop files here",
   "image-select-files": "Select files",
-  "image-upload": "Upload"
+  "image-upload": "Upload",
+  "image-edit-no-image-to-edit": "No image to edit",
+  "confirm": "Confirm",
+  "cancel": "Cancel",
+  "confirm-action": "Are you sure you want to {ACTION}?"
 }
