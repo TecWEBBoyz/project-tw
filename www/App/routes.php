@@ -34,5 +34,9 @@ $router->get("/dashboard", \PTW\Controllers\DashboardController::class . "::get"
 $router->get("/500", \PTW\Controllers\ExceptionController::class . "::error_500");
 $router->get("/gallerydetails", \PTW\Controllers\GalleryController::class . "::get");
 
+$router->get("/book-service", \PTW\Controllers\BookingController::class . "::get");
+$router->post("/book-service", \PTW\Controllers\BookingController::class . "::post");
+
+
 return $router;
 

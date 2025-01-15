@@ -44,7 +44,8 @@ class LoginController extends ControllerContract
         }
 
         $role = $user->ToArray()[UserType::role->value];
-        $this->sessionManager->SaveUserData(['username' => $user->ToArray()[UserType::name->value]], Role::fromCaseName($role));
+        $this->sessionManager->SaveUserData(
+            ['username' => $user->ToArray()[UserType::name->value], 'id' => $user->ToArray()[UserType::id->value]], Role::fromCaseName($role));
 
         switch ($this->sessionManager->GetUserRole())
         {

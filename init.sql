@@ -34,8 +34,10 @@ CREATE TABLE booking (
     id CHAR(36) PRIMARY KEY DEFAULT UUID(),
     user CHAR(36) NOT NULL,
     status ENUM("pending", "confirmed", "cancelled") NOT NULL DEFAULT "pending",
+    service TINYTEXT NOT NULL,
+    date DATE NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP NULL DEFAULT NULL,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     notes TEXT NOT NULL DEFAULT "",
 
     FOREIGN KEY (user) REFERENCES user(id) ON DELETE CASCADE
