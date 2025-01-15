@@ -87,18 +87,22 @@ class DB
         return null;
     }
 
-    public function FindElementByUnique(string $table, string $uniqueColumn, string $uniqueValue, array|string $columns = '*') : array | null
+    public function FindElementByColumn(string $table, string $uniqueColumn, string $uniqueValue, array|string $columns = '*') : array | null
     {
-        $columns = $this->ColumnToString($columns);
-        $uniqueColumn = $this->ColumnToString($uniqueColumn);
-
-        $query = "SELECT {$columns} FROM {$table} WHERE {$uniqueColumn} = ?";
-        $arr = $this->Query($query, [$uniqueValue]);
+        $arr = $this->FindElementsByColumn($table, $uniqueColumn, $uniqueValue);
 
         if(count($arr) > 0)
             return $arr[0];
 
         return null;
+    }
+    public function FindElementsByColumn(string $table, string $uniqueColumn, string $uniqueValue, array|string $columns = '*') : array | null
+    {
+        $columns = $this->ColumnToString($columns);
+        $uniqueColumn = $this->ColumnToString($uniqueColumn);
+
+        $query = "SELECT {$columns} FROM {$table} WHERE {$uniqueColumn} = ?";
+        return $this->Query($query, [$uniqueValue]);;
     }
 
     public function LastInsertedID() : string|int
