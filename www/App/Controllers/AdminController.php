@@ -38,6 +38,9 @@ class AdminController extends ControllerContract
     {
         $imageRepository = new \PTW\Modules\Repositories\ImageRepository();
         $images = $imageRepository->GetJustUploadedImages();
+        if(count($images) == 0) {
+            $this->locationReplace('/admin');
+        }
         TemplateUtility::getTemplate('image-edit', array_merge(['title' => 'Edit Uploaded Images', 'images' => $images], $templateData));
     }
     public function uploadForm()
@@ -186,6 +189,13 @@ class AdminController extends ControllerContract
         $image->SetData($image->FilterData($data));
 
         $imageRepository->Update($_POST['id'], $image);
+        $images = $imageRepository->GetJustUploadedImages();
+        $numberOfImages = count($images);
+        if ($numberOfImages > 0) {
+            $this->previusPage();
+        } else {
+            $this->locationReplace('/admin');
+        }
     }
 
     public function editImageVisibility($data)

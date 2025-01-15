@@ -22,7 +22,7 @@ class HomeController extends ControllerContract
     public function get(): void
     {
         $repo = new \PTW\Modules\Repositories\ImageRepository();
-        $images = $repo->All();
+        $images = $repo->GetAllVisible();
         TemplateUtility::getTemplate("home", [
             "title" => "Home Page",
             "description" => "This is the home page description",

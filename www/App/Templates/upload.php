@@ -9,5 +9,5 @@ $error = $TEMPLATE_DATA['error'] ?? null;
         <input type="file" id="image-upload" name="images[]" accept="image/*" multiple required>
     </div>
     <div class="error-message"><?= $error ?></div>
-    <button type="submit"><?php echo \PTW\translation('image-select-files') ?></button>
+    <button type="submit"><?php echo \PTW\translation('image-upload') ?></button>
 </form>

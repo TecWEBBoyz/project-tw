@@ -22,6 +22,10 @@ $images = $TEMPLATE_DATA['images'] ?? [];
 <div class="gallery">
     <?php
 
+    if (empty($images)) {
+        echo "<p>No images found!</p>";
+    }
+
     foreach ($images as $image) {
 
         $image = $image->ToArray();

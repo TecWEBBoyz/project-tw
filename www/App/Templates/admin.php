@@ -1,12 +1,12 @@
 <?php
 ?>
-<div class="upload-button-container">
+<div id="upload-button-container">
     <a href="admin/upload" class="btn btn-primary"><?php echo \PTW\translation('upload-image') ?></a>
 </div>
 
 <div class="table-responsive">
     <?php if (empty($TEMPLATE_DATA['images'])): ?>
-        <p><?php \PTW\translation('no-images') ?></p>
+        <p><?php echo \PTW\translation('no-images') ?></p>
     <?php else: ?>
         <table>
             <thead>

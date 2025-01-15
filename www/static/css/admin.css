@@ -29,3 +29,8 @@ form button i {
 .form-inline {
     display: inline;
 }
+
+#upload-button-container {
+    display: flex;
+    margin-bottom: 10px;
+}
