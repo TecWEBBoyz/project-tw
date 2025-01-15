@@ -84,8 +84,8 @@
     <div class="modal-content">
         <p id="custom-modal-message"></p>
         <div class="modal-actions">
-            <button id="confirm-action" class="btn btn-danger"><?php echo \PTW\translation('confirm'); ?></button>
             <button id="cancel-action" class="btn btn-secondary"><?php echo \PTW\translation('cancel'); ?></button>
+            <button id="confirm-action" class="btn btn-danger"><?php echo \PTW\translation('confirm'); ?></button>
         </div>
     </div>
 </div>

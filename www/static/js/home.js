@@ -16,8 +16,10 @@ window.loadJS = () => {
             let fullsizeImage = img.src.replace(/_.*\.(jpg|jpeg|png)$/i, '.$1');
             modalImage.onload = () => {
                 modalImage.style.display = "block";
+                modalImage.focus();
                 modalDescription.textContent = description;
                 loader.style.display = "none";
+                document.body.classList.add("no-interaction");
             };
             modalImage.src = fullsizeImage;
             modalDescription.textContent = description;
@@ -29,6 +31,8 @@ window.loadJS = () => {
         modalImage.src = "";
         modalDescription.textContent = "";
         loader.style.display = "flex";
+        document.body.classList.remove("no-interaction");
+        document.body.setAttribute('aria-hidden', 'true');
     });
 }
 document.addEventListener("DOMContentLoaded", () => {

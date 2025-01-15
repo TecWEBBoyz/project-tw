@@ -174,6 +174,9 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!link || !link.hasAttribute('href')) return;
 
         const href = link.getAttribute('href');
+        if(href.startsWith('#')){
+            hideMenu();
+        }
         if (!href || href.startsWith('#') || href.startsWith('http')) return;
 
         const isMobileLink = link.getAttribute('data-mobile') === 'true';
@@ -223,4 +226,26 @@ document.addEventListener('DOMContentLoaded', () => {
     restoreMenuState(); // Restore the menu state on page load
     document.body.addEventListener('click', navigate);
     window.addEventListener('popstate', handlePopState);
+
+    // Seleziona gli elementi del menu mobile
+    const firstMobileItem = document.getElementById('mobile-first-item');
+    const lastMobileItem = document.getElementById('mobile-last-item');
+
+    if (firstMobileItem && lastMobileItem) {
+        // Quando il focus raggiunge l'ultimo elemento, torna al primo
+        lastMobileItem.addEventListener('keydown', function (e) {
+            if (e.key === 'Tab' && !e.shiftKey) {
+                e.preventDefault();
+                firstMobileItem.focus();
+            }
+        });
+
+        // Quando il focus raggiunge il primo elemento con Shift + Tab, torna all'ultimo
+        firstMobileItem.addEventListener('keydown', function (e) {
+            if (e.key === 'Tab' && e.shiftKey) {
+                e.preventDefault();
+                lastMobileItem.focus();
+            }
+        });
+    }
 });

@@ -30,13 +30,26 @@ if ($sessionManager->isAuthenticated()) {
 }
 function renderMenu($menuItems, $mobile = false) {
     echo '<nav id="menu"><ul><span lang="eng">';
-    foreach ($menuItems as $item) {
-        echo '<li><a class="nav-link ' . htmlspecialchars($item['classes']) . '"'.($mobile ? ' data-mobile="true" ' : ' ' ).'href="' . htmlspecialchars($item['link']) . '" aria-label="' . htmlspecialchars($item['ariaLabel']) . '">' . htmlspecialchars($item['label']) . '</a></li>' . PHP_EOL;
+    $firstId = $mobile ? '' : 'desktop-first-item';
+    $lastId = $mobile ? 'mobile-last-item' : 'desktop-last-item';
+    $itemCount = count($menuItems);
+
+    foreach ($menuItems as $index => $item) {
+        $id = '';
+        if ($index === 0) {
+            $id = $firstId;
+        } elseif ($index === $itemCount - 1) {
+            $id = $lastId;
+        }
+        echo '<li><a id="' . $id . '" class="nav-link ' . htmlspecialchars($item['classes']) . '"' .
+            ($mobile ? ' data-mobile="true" ' : ' ') .
+            'href="' . htmlspecialchars($item['link']) . '" aria-label="' . htmlspecialchars($item['ariaLabel']) . '">' .
+            htmlspecialchars($item['label']) . '</a></li>' . PHP_EOL;
     }
     echo '</span></ul></nav>';
 }
-?>
 
+?>
 <header class="navbar">
     <h1 class="logo-hide">Filippo Rizzato</h1>
     <div class="links">
@@ -49,7 +62,7 @@ function renderMenu($menuItems, $mobile = false) {
     </button>
     <div class="menu hidden" role="menu" aria-hidden="true">
         <!-- Close button -->
-        <a href="close" class="close" onclick="hideMenu()" role="button" tabindex="0" aria-label="Chiusura menu di navigazione" data-fake="true">&times;</a>
+        <a href="close" class="close" onclick="hideMenu()" role="button" tabindex="0" aria-label="Chiusura menu di navigazione" data-fake="true" id="mobile-first-item">&times;</a>
         <?php renderMenu($menuItems, true); ?>
     </div>
 </header>
