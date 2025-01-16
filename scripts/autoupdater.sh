@@ -3,7 +3,7 @@
 REPO_DIR="/home/baraldodavide/GIT/project-tw"
 DOCKER_COMPOSE_FILE="docker-compose-prod.yml"
 BRANCH="develop"  # Specifica il branch da monitorare
-INTERVAL=30  # Intervallo di controllo in secondi
+INTERVAL=5  # Intervallo di controllo in secondi
 LOG_FILE="/var/log/watcher.log"  # File di log
 
 cd "$REPO_DIR" || { echo "La directory della repo non esiste!"; exit 1; }
