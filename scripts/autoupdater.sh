@@ -1,8 +1,9 @@
 #!/bin/bash
+
 # Configurazione
 REPO_DIR="/home/baraldodavide/GIT/project-tw"
 DOCKER_COMPOSE_FILE="docker-compose-prod.yml"
-BRANCH="develop"  # Specifica il branch da monitorare
+BRANCH="main"  # Specifica il branch da monitorare
 INTERVAL=5  # Intervallo di controllo in secondi
 LOG_FILE="/var/log/watcher.log"  # File di log
 
@@ -28,10 +29,19 @@ ensure_on_branch() {
     fi
 }
 
+# Gestisci modifiche locali prima del pull
+handle_local_changes() {
+    if ! git diff-index --quiet HEAD --; then
+        echo "[INFO] Modifiche locali rilevate. Eseguo stash..." | tee -a "$LOG_FILE"
+        git stash push -m "Watcher auto-stash" || { echo "[ERRORE] Stash fallito!" | tee -a "$LOG_FILE"; exit 1; }
+    fi
+}
+
 # Controlla aggiornamenti e ricostruisci il Docker Compose
 run_watcher() {
     while true; do
         ensure_on_branch
+        handle_local_changes
         REMOTE_COMMIT=$(get_remote_commit)
         LOCAL_COMMIT=$(get_local_commit)
 
