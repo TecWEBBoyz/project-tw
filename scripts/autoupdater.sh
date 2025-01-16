@@ -1,5 +1,4 @@
 #!/bin/bash
-
 # Configurazione
 REPO_DIR="/home/baraldodavide/GIT/project-tw"
 DOCKER_COMPOSE_FILE="docker-compose-prod.yml"
