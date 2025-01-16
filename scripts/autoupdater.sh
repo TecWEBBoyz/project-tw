@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Configurazione
-REPO_DIR="/home/baraldodavide/project-tw"
+REPO_DIR="/home/baraldodavide/GIT/project-tw"
 DOCKER_COMPOSE_FILE="docker-compose-prod.yml"
 BRANCH="main"  # Specifica il branch da monitorare
 INTERVAL=30  # Intervallo di controllo in secondi
