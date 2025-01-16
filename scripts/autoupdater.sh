@@ -37,8 +37,8 @@ run_watcher() {
         if [ "$REMOTE_COMMIT" != "$LOCAL_COMMIT" ]; then
             echo "[INFO] Nuovo commit rilevato. Eseguo git pull e rebuild..." | tee -a "$LOG_FILE"
             git pull origin $(git rev-parse --abbrev-ref HEAD) || { echo "[ERRORE] git pull fallito!" | tee -a "$LOG_FILE"; exit 1; }
-            sudo docker-compose -f "$DOCKER_COMPOSE_FILE" down
-            sudo docker-compose -f "$DOCKER_COMPOSE_FILE" up --build -d || { echo "[ERRORE] Docker Compose rebuild fallito!" | tee -a "$LOG_FILE"; exit 1; }
+            sudo docker compose -f "$DOCKER_COMPOSE_FILE" down
+            sudo docker compose -f "$DOCKER_COMPOSE_FILE" up --build -d || { echo "[ERRORE] Docker Compose rebuild fallito!" | tee -a "$LOG_FILE"; exit 1; }
             echo "[INFO] Rebuild completato con successo." | tee -a "$LOG_FILE"
         else
             echo "[INFO] Nessun nuovo commit. Riprovo tra $INTERVAL secondi..." | tee -a "$LOG_FILE"
