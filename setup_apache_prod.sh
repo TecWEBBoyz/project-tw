@@ -121,11 +121,11 @@ curl -sS https://getcomposer.org/installer | php -- \
 --install-dir=/usr/bin --filename=composer
 
 # Update del composer
-cd /var/www/html/username && composer update
+cd /var/www/html && composer update
 
 # Set Local Configurations
-rm /var/www/html/username/Config/config.php
-cp /var/www/html/username/Config/config.prod.php /var/www/html/username/Config/config.php
+rm /var/www/html/Config/config.php
+cp /var/www/html/Config/config.prod.php /var/www/html/Config/config.php
 
 # Configurazione Certbot per SSL
 certbot --apache --non-interactive --agree-tos --email baraldodavide@gmail.com -d filipporizzato.ddns.net

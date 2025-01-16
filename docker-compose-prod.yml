@@ -5,7 +5,7 @@ services:
     container_name: server_container
     hostname: apache_website
     volumes:
-      - ./www:/var/www/html/username
+      - ./www:/var/www/html
       - ./config/apache/000-default.conf:/000-default.conf
       - ./setup_apache_prod.sh:/setup_apache_prod.sh
       - ./init.sql:/init.sql
