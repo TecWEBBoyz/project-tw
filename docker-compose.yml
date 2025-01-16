@@ -1,7 +1,9 @@
+version: "3.0"
 services:
   server:
     image: ubuntu:22.04
     container_name: server_container
+    hostname: apache_website
     volumes:
       - ./www:/var/www/html/username
       - ./config/apache/000-default.conf:/000-default.conf
@@ -25,7 +27,7 @@ services:
     image: phpmyadmin/phpmyadmin:latest
     container_name: phpmyadmin_container
     environment:
-      PMA_HOST: server
+      PMA_HOST: apache_website
       PMA_USER: default_user
       PMA_PASSWORD: default_password
       UPLOAD_LIMIT: 64M
