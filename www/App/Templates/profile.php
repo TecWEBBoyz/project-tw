@@ -18,30 +18,38 @@ if (!isset($TEMPLATE_DATA)) {
 
 if (isset($TEMPLATE_DATA["bookings"]) && count($TEMPLATE_DATA["bookings"]) > 0) {
     ?>
+    <div class="table-responsive">
     <table>
-    <tr>
-        <th>Servizio</th>
-        <th>Data</th>
-        <th>Stato</th>
-        <th>Azioni</th>
-    </tr>
+        <thead>
+            <tr>
+                <th>Servizio</th>
+                <th>Data</th>
+                <th>Stato</th>
+                <th>Azioni</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php
+            /** @var Booking $booking */
+            foreach ($TEMPLATE_DATA["bookings"] as $booking) {
+                ?>
+
+                <tr>
+                <td><?php echo $booking->ToArray()[\PTW\Models\BookingType::service->value] ?></td>
+                <td><?php echo $booking->ToArray()[\PTW\Models\BookingType::date->value] ?></td>
+                <td><?php echo $booking->ToArray()[\PTW\Models\BookingType::status->value] ?></td>
+                <td>
+                <a href="delete">Delete</a>
+                </td>
+                </tr>
+
+                <?php
+            }
+            ?>
+        </tbody>
+    </table>
+    </div>
     <?php
-    /** @var Booking $booking */
-    foreach ($TEMPLATE_DATA["bookings"] as $booking) {
-        ?>
-
-        <tr>
-        <td><?php echo $booking->ToArray()[\PTW\Models\BookingType::service->value] ?></td>
-        <td><?php echo $booking->ToArray()[\PTW\Models\BookingType::date->value] ?></td>
-        <td><?php echo $booking->ToArray()[\PTW\Models\BookingType::status->value] ?></td>
-        <td>
-        <a href="delete">Delete</a>
-        </td>
-        </tr>
-
-        <?php
-    }
-    echo "</table>";
 } else {
     ?>
 

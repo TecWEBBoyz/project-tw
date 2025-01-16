@@ -13,6 +13,7 @@ class TemplateUtility
         $headers = getallheaders();
         if(isset($headers['component'])) {
             header("templateName: $template");
+            header("templateTitle: ".$TEMPLATE_DATA['title']);
             echo "<h1>".$TEMPLATE_DATA['title']."</h1>";
             $base = require __DIR__ . "/../Templates/$template.php";
         }

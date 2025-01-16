@@ -14,7 +14,7 @@ class BookingController extends ControllerContract
 
     public function get(): void
     {
-        if(!$this->sessionManager->authorize(Role::user)) {
+        if(!$this->sessionManager->authorize(Role::User)) {
             $this->locationReplace('/login');
         }
         TemplateUtility::getTemplate('booking', ['title' => 'Booking']);

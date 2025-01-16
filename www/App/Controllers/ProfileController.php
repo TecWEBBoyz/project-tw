@@ -23,7 +23,7 @@ class ProfileController extends ControllerContract
 {
     public function get(): void
     {
-        if(!$this->sessionManager->authorize(Role::user)) {
+        if(!$this->sessionManager->authorize(Role::User)) {
             $this->locationReplace('/login');
         }
 

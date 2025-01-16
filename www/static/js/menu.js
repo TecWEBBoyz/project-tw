@@ -36,8 +36,12 @@ document.addEventListener('DOMContentLoaded', () => {
         loader.style.display = 'none';
     }
 
-    function loadTemplate(templateName) {
+    function loadTemplate(templateName, templateTitle) {
         document.querySelectorAll("link[rel='stylesheet'][data-template]").forEach(link => link.remove());
+
+        if (templateTitle) {
+            document.title = templateTitle;
+        }
 
         if (templateName) {
             const link = document.createElement('link');
@@ -129,19 +133,20 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
 
                 const templateName = response.headers.get('templateName');
-                return response.text().then(html => ({ html, templateName, href }));
+                const  templateTitle = response.headers.get('templateTitle');
+                return response.text().then(html => ({ html, templateName, templateTitle, href }));
             })
-            .then(({ html, templateName, href }) => {
+            .then(({ html, templateName, templateTitle, href }) => {
                 container.innerHTML = html;
 
                 // Check if the current state is different from the previous one
                 const currentState = window.history.state;
-                const newState = { templateName, href };
-                if (!currentState || currentState.templateName !== newState.templateName || currentState.href !== newState.href) {
+                const newState = { templateName, href, templateTitle };
+                if (!currentState || currentState.templateName !== newState.templateName || currentState.href !== newState.href || currentState.templateTitle !== newState.templateTitle) {
                     window.history.pushState(newState, '', href);
                 }
 
-                loadTemplate(templateName);
+                loadTemplate(templateName, templateTitle);
             })
             .catch(error => {
                 if (error !== 'Redirecting...') {
@@ -184,8 +189,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function handlePopState(event) {
         if (event.state) {
-            const { href, templateName } = event.state;
-            if (href && templateName) {
+            const { href, templateName, templateTitle } = event.state;
+            if (href && templateName && templateTitle) {
                 loaderTimeout = Date.now();
                 showLoader();
 
@@ -200,7 +205,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     .then(response => response.text())
                     .then(html => {
                         container.innerHTML = html;
-                        loadTemplate(templateName);
+                        loadTemplate(templateName, templateTitle);
                     })
                     .catch(error => {
                         console.error('Error loading page:', error);

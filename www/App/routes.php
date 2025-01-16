@@ -18,6 +18,11 @@ $router = new Router();
 $router->get("/", \PTW\Controllers\HomeController::class . "::get");
 $router->get("/home", \PTW\Controllers\HomeController::class . "::get");
 
+// Utility Page
+$router->get("/about", \PTW\Controllers\AboutController::class . "::get");
+$router->get("/services", \PTW\Controllers\ServicesController::class . "::get");
+$router->get("/contact", \PTW\Controllers\ContactController::class . "::get");
+
 //$router->get("/about", \PTW\Controllers\AboutController::class . "::get");
 //$router->get("/test", \PTW\Controllers\TestController::class . "::get");
 
@@ -36,6 +41,7 @@ $router->get("/logout", \PTW\Controllers\LogoutController::class . "::get");
 $router->get("/admin", \PTW\Controllers\AdminController::class . "::get");
 $router->get("/admin/justuploadedimage", \PTW\Controllers\AdminController::class . "::justUploadedImage");
 $router->get("/admin/edit-image", \PTW\Controllers\AdminController::class . "::editSingleImage");
+$router->post("/admin/edit-image-visibility", \PTW\Controllers\AdminController::class . "::editImageVisibility");
 $router->get("/admin/upload", \PTW\Controllers\AdminController::class . "::uploadForm");
 $router->post("/admin/upload", \PTW\Controllers\AdminController::class . "::uploadImage");
 $router->post("/admin/update-image", \PTW\Controllers\AdminController::class . "::editImage");

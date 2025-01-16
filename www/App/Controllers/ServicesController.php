@@ -6,12 +6,11 @@ namespace PTW\Controllers;
 use PTW\Contracts\ControllerContract;
 use PTW\Utility\TemplateUtility;
 
-class AboutController extends ControllerContract
+class ServicesController extends ControllerContract
 {
-
     public function get(): void
     {
-        TemplateUtility::getTemplate('about', ['title' => 'About']);
+        TemplateUtility::getTemplate('services', ['title' => 'Services']);
     }
 
     public function post(): void

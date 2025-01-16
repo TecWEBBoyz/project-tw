@@ -18,4 +18,11 @@ class ImageRepository extends BaseRepository
         $res = $this->database->Query("SELECT * FROM $this->table WHERE $updated_at IS NULL ORDER BY id");
         return $this->CreateInstances($res);
     }
+
+    public function GetAllVisible()
+    {
+        $visible = ImageType::visible->value;
+        $res = $this->database->Query("SELECT * FROM $this->table WHERE $visible = 1 ORDER BY id");
+        return $this->CreateInstances($res);
+    }
 }

@@ -15,16 +15,16 @@ use PTW\Modules\Auth\SessionManager;
 use PTW\Utility\TemplateUtility;
 use PTW\Utility\ToastUtility;
 
-$imageRepository = new \PTW\Modules\Repositories\ImageRepository();
-
 class AdminController extends ControllerContract
 {
     public function get(): void
     {
-        if(!$this->sessionManager->authorize(Role::admin)) {
+        if(!$this->sessionManager->authorize(Role::Administrator)) {
             $this->locationReplace('/login');
         }
-        TemplateUtility::getTemplate('admin', ['title' => 'Admin Dashboard']);
+        $imageRepository = new \PTW\Modules\Repositories\ImageRepository();
+        $images = $imageRepository->All();
+        TemplateUtility::getTemplate('admin', ['title' => 'Admin Dashboard', 'images' => $images]);
     }
 
     public function post(): void
@@ -36,6 +36,9 @@ class AdminController extends ControllerContract
     {
         $imageRepository = new \PTW\Modules\Repositories\ImageRepository();
         $images = $imageRepository->GetJustUploadedImages();
+        if(count($images) == 0) {
+            $this->locationReplace('/admin');
+        }
         TemplateUtility::getTemplate('image-edit', array_merge(['title' => 'Edit Uploaded Images', 'images' => $images], $templateData));
     }
     public function uploadForm()
@@ -181,9 +184,34 @@ class AdminController extends ControllerContract
             echo "No data provided.";
             $data['date'] = 'NULL';
         }
+        if ($data['visible'] == 'true') {
+            $data['visible'] = 1;
+        } else {
+            $data['visible'] = 0;
+        }
         $image->SetData($image->FilterData($data));
 
         $imageRepository->Update($_POST['id'], $image);
+        $images = $imageRepository->GetJustUploadedImages();
+        $numberOfImages = count($images);
+        if ($numberOfImages > 0) {
+            $this->previusPage();
+        } else {
+            $this->locationReplace('/admin');
+        }
+    }
+
+    public function editImageVisibility($data)
+    {
+        if(!isset($data['id'])) {
+            throw new Exception("No image ID provided.");
+        }
+        $imageRepository = new \PTW\Modules\Repositories\ImageRepository();
+        $image = $imageRepository->GetElementByID($data['id']);
+        $imageArray = $image->ToArray();
+        $image->SetData($image->FilterData(['visible' => $imageArray['visible'] == 1 ? 0 : 1]));
+        $imageRepository->Update($data['id'], $image);
+        $this->previusPage();
     }
 
     public function deleteImage($data)

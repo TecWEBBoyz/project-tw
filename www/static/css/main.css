@@ -1,3 +1,5 @@
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css');
+
 /* Variabili colori */
 :root {
     --color-bg: #000;
@@ -411,4 +413,141 @@ form .success-message {
 /* Toast per successo */
 .toast.success {
     background-color: #28a745; /* Verde per successo */
+}
+
+/* Stile base per le tabelle */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    font-size: 16px;
+    background-color: var(--color-bg);
+}
+
+table thead th {
+    background-color: var(--color-button-bg);
+    color: var(--color-button-text);
+    padding: 10px;
+    text-align: left;
+    border: 1px solid var(--color-input-border);
+}
+
+table tbody td {
+    padding: 10px;
+    border: 1px solid var(--color-input-border);
+    color: var(--color-text);
+}
+
+table tbody tr:nth-child(odd) {
+    background-color: var(--color-input-bg);
+}
+
+/* Responsività per dispositivi piccoli */
+@media (max-width: 768px) {
+    table {
+        display: table; /* Mantiene il comportamento della tabella */
+        width: 100%; /* Adatta la larghezza al contenitore */
+    }
+
+    table thead {
+        display: none; /* Nasconde l'header per un design pulito */
+    }
+
+    table tbody tr {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        margin-bottom: 10px;
+        border: 1px solid var(--color-input-border);
+        border-radius: 8px;
+        background-color: var(--color-bg);
+    }
+
+    table tbody td {
+        display: flex;
+        width: 100%; /* Adatta le celle alla larghezza disponibile */
+        justify-content: space-between;
+        padding: 10px;
+        border: none;
+        border-bottom: 1px solid var(--color-input-border);
+    }
+
+    table tbody td:last-child {
+        border-bottom: 0;
+    }
+
+    table tbody td::before {
+        content: attr(data-label); /* Inserisce l'etichetta */
+        font-weight: bold;
+        color: var(--color-button-text);
+        margin-right: 10px;
+        flex-shrink: 0; /* Mantiene la larghezza del contenuto */
+        align-self: center;
+        justify-self: center;
+    }
+}
+
+/* Modal */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    flex-direction: column;
+    color: #fff;
+    text-align: center;
+}
+
+.modal-content {
+    background: #333; /* Sfondo scuro per il contenuto */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    text-align: center;
+    color: #fff;
+    width: 90%; /* Adattabile per schermi più piccoli */
+    max-width: 400px; /* Larghezza massima */
+}
+
+.custom-modal p {
+    font-size: 1.2em;
+    margin-bottom: 20px;
+}
+
+.modal-actions {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.modal-actions .btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1em;
+}
+
+.modal-actions .btn-danger {
+    background-color: #d9534f;
+    color: #fff;
+}
+
+.modal-actions .btn-danger:hover {
+    background-color: #c9302c;
+}
+
+.modal-actions .btn-secondary {
+    background-color: #5bc0de;
+    color: #fff;
+}
+
+.modal-actions .btn-secondary:hover {
+    background-color: #31b0d5;
 }

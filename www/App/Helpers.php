@@ -12,7 +12,7 @@ if (!function_exists("config")) {
 
     /**
      * Return the required configuration. Accept dot notation to navigate config layer.
-     * 
+     *
      * @param string $key
      * @return array|string|null|bool
      */
@@ -50,6 +50,21 @@ if (!function_exists("dd")) {
         var_dump($data);
         echo "</pre>";
         die();
+    }
+
+}
+
+if (!function_exists('translation')) {
+
+    /**
+     * Get the translation for the given key.
+     *
+     * @param string $key
+     * @return void
+     */
+    function translation(string $key): string
+    {
+        return App::GetTranslationManager()->translate($key);
     }
 
 }

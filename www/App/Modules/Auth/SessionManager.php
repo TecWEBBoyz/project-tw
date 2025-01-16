@@ -10,8 +10,8 @@ if (session_status() === PHP_SESSION_NONE) {
 }
 
 enum Role: string {
-    case admin = 'Administrator';
-    case user = 'User';
+    case Administrator = 'Administrator';
+    case User = 'User';
 
     public static function fromCaseName(string $caseName): self {
         if (defined("self::$caseName")) {
