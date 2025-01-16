@@ -33,6 +33,3 @@ services:
       - "8181:80"
     depends_on:
       - server
-
-volumes:
-  db_data:
