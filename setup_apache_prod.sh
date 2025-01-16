@@ -125,7 +125,7 @@ cd /var/www/html/username && composer update
 
 # Set Local Configurations
 rm /var/www/html/username/Config/config.php
-cp /var/www/html/username/Config/config.local.php /var/www/html/username/Config/config.php
+cp /var/www/html/username/Config/config.prod.php /var/www/html/username/Config/config.php
 
 # Configurazione Certbot per SSL
 certbot --apache --non-interactive --agree-tos --email baraldodavide@gmail.com -d filipporizzato.ddns.net
