@@ -4,8 +4,8 @@ use PTW\Modules\Auth\Role;
 use PTW\Modules\Auth\SessionManager;
 
 $menuItems = [
-    ['label' => 'Vai al contenuto', 'link' => '#content', 'ariaLabel' => 'Collegamento al contenuto', 'classes' => 'navigation-help'],
-    ['label' => 'Vai al footer', 'link' => '#footer', 'ariaLabel' => 'Collegamento al piè di pagina', 'classes' => 'navigation-help'],
+    ['label' => 'Vai al contenuto', 'link' => $_SERVER['REQUEST_URI'] . '#content', 'ariaLabel' => 'Collegamento al contenuto', 'classes' => 'navigation-help'],
+    ['label' => 'Vai al footer', 'link' => $_SERVER['REQUEST_URI'] . '#footer', 'ariaLabel' => 'Collegamento al piè di pagina', 'classes' => 'navigation-help'],
     ['label' => 'Home', 'link' => 'home', 'ariaLabel' => 'Collegamento alla pagina Home', 'classes' => ''],
     ['label' => 'About', 'link' => 'about', 'ariaLabel' => 'Collegamento alla pagina About', 'classes' => ''],
     ['label' => 'Services', 'link' => 'services', 'ariaLabel' => 'Collegamento alla pagina Services', 'classes' => ''],
@@ -28,6 +28,7 @@ if ($sessionManager->isAuthenticated()) {
     $menuItems[] = ['label' => 'Login', 'link' => 'login', 'ariaLabel' => 'Collegamento alla pagina Login', 'classes' => ''];
 //    $menuItems[] = ['label' => 'Register', 'link' => 'register', 'ariaLabel' => 'Register page link'];
 }
+
 function renderMenu($menuItems, $mobile = false) {
     echo '<nav id="menu"><ul><span lang="eng">';
     $firstId = $mobile ? '' : 'desktop-first-item';
