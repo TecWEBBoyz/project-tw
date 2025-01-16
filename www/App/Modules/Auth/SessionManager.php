@@ -2,7 +2,9 @@
 
 namespace PTW\Modules\Auth;
 
-session_start();
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
 enum Role: string {
     case Administrator = 'Administrator';

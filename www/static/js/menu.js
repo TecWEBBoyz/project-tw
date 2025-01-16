@@ -1,10 +1,10 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const container = document.querySelector('.container'); // Seleziona il contenitore principale per il template
-    const content = document.querySelector('.content'); // Seleziona l'area principale per il loader
+    const container = document.querySelector('.container');
+    const content = document.querySelector('.content');
     const loader = document.createElement('div');
     loader.className = 'content-loader';
     loader.style.display = 'none';
-    loader.innerHTML = '<div class="spinner"></div>'; // Aggiungi il codice HTML dell'animazione del loader
+    loader.innerHTML = '<div class="spinner"></div>';
 
     let loaderTimeout;
 
@@ -13,13 +13,13 @@ document.addEventListener('DOMContentLoaded', () => {
         if (loaderExist) {
             loaderExist.remove();
         }
-        content.appendChild(loader); // Aggiunge il loader all'interno di .content
+        content.appendChild(loader);
         container.style.display = 'none';
         loader.style.display = 'flex';
     }
 
     function hideLoader() {
-        const minDisplayTime = 100; // Tempo minimo in millisecondi
+        const minDisplayTime = 100;
 
         const elapsedTime = Date.now() - loaderTimeout;
         const remainingTime = Math.max(0, minDisplayTime - elapsedTime);
@@ -36,31 +36,26 @@ document.addEventListener('DOMContentLoaded', () => {
         loader.style.display = 'none';
     }
 
-    function loadTemplate(templateName) {
-        // Mostra il loader durante il caricamento del template
-        loaderTimeout = Date.now();
-        showLoader();
-
-        // Rimuove i file CSS precedenti specifici del template
+    function loadTemplate(templateName, templateTitle) {
         document.querySelectorAll("link[rel='stylesheet'][data-template]").forEach(link => link.remove());
 
-        // Aggiunge dinamicamente il file CSS
+        if (templateTitle) {
+            document.title = templateTitle;
+        }
+
         if (templateName) {
             const link = document.createElement('link');
             link.rel = 'stylesheet';
             link.href = `static/css/${templateName}.css`;
             link.setAttribute('data-template', templateName);
-            link.onload = () => {
-                console.log(`Loaded ${templateName}.css`);
-            }
+            link.onload = () => console.log(`Loaded ${templateName}.css`);
             document.head.appendChild(link);
         }
 
-        // Rimuove i file JavaScript precedenti specifici del template
         document.querySelectorAll("script[data-template]").forEach(script => script.remove());
 
-        // Aggiunge dinamicamente il file JavaScript
         if (templateName) {
+            window.loadJS = undefined;
             const script = document.createElement('script');
             script.src = `static/js/${templateName}.js`;
             script.defer = true;
@@ -70,44 +65,88 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (typeof window.loadJS === 'function') {
                     window.loadJS();
                 }
-            }
+            };
             document.body.appendChild(script);
         }
     }
 
-    function navigate(event) {
-        const link = event.target.closest('.nav-link');
-        if (!link || !link.hasAttribute('href')) return;
+    function saveMenuState() {
+        const menu = document.querySelector('.navbar .menu');
+        const isHidden = menu.classList.contains('hidden');
+        localStorage.setItem('menuState', isHidden ? 'hidden' : 'visible');
+    }
 
-        const href = link.getAttribute('href');
-        if (!href || href.startsWith('#') || href.startsWith('http')) return; // Ignora link esterni o ancore
+    function restoreMenuState() {
+        const menu = document.querySelector('.navbar .menu');
+        const savedState = localStorage.getItem('menuState');
+        if (savedState === 'hidden') {
+            menu.classList.add('hidden');
+        } else {
+            menu.classList.remove('hidden');
+        }
+    }
 
-        event.preventDefault();
+    function clearMenuState() {
+        localStorage.removeItem('menuState');
+    }
 
+    function toggleMenu() {
+        const menu = document.querySelector('.navbar .menu');
+        const hamburger = document.querySelector('.navbar .hamburger');
+        const isHidden = menu.classList.toggle('hidden');
+        hamburger.classList.toggle('active');
+        menu.setAttribute('aria-hidden', isHidden);
+        saveMenuState(); // Save the menu state
+    }
+
+    window.toggleMenu = toggleMenu;
+
+    function hideMenu() {
+        const menu = document.querySelector('.navbar .menu');
+        const hamburger = document.querySelector('.navbar .hamburger');
+        menu.classList.add('hidden');
+        hamburger.classList.remove('active');
+        menu.setAttribute('aria-hidden', true);
+        saveMenuState(); // Save the menu state
+    }
+
+    window.hideMenu = hideMenu;
+
+
+    function navigateTo(href, isLoaderDisabled = false) {
         loaderTimeout = Date.now();
-        showLoader();
+        if (!isLoaderDisabled) {
+            showLoader();
+        }
 
         fetch(href, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
-                'component': true
+                'component': true,
             },
         })
             .then(response => {
                 if (response.redirected) {
-                    // Gestisce il redirect
                     window.location.href = response.url;
                     return Promise.reject('Redirecting...');
                 }
 
                 const templateName = response.headers.get('templateName');
-                return response.text().then(html => ({ html, templateName, href }));
+                const  templateTitle = response.headers.get('templateTitle');
+                return response.text().then(html => ({ html, templateName, templateTitle, href }));
             })
-            .then(({ html, templateName, href }) => {
+            .then(({ html, templateName, templateTitle, href }) => {
                 container.innerHTML = html;
-                window.history.pushState(null, '', href); // Aggiorna il link nella barra degli indirizzi
-                loadTemplate(templateName);
+
+                // Check if the current state is different from the previous one
+                const currentState = window.history.state;
+                const newState = { templateName, href, templateTitle };
+                if (!currentState || currentState.templateName !== newState.templateName || currentState.href !== newState.href || currentState.templateTitle !== newState.templateTitle) {
+                    window.history.pushState(newState, '', href);
+                }
+
+                loadTemplate(templateName, templateTitle);
             })
             .catch(error => {
                 if (error !== 'Redirecting...') {
@@ -120,5 +159,93 @@ document.addEventListener('DOMContentLoaded', () => {
             });
     }
 
+
+    function navigate(event) {
+        const a_element = event.target.closest("a");
+        if (a_element){
+            const isFakeLink = a_element.getAttribute('data-fake') === 'true';
+
+            if(isFakeLink) {
+                event.preventDefault();
+                return;
+            }
+        }
+        const link = event.target.closest('.nav-link');
+        if (!link || !link.hasAttribute('href')) return;
+
+        const href = link.getAttribute('href');
+        if(href.startsWith('#')){
+            hideMenu();
+        }
+        if (!href || href.startsWith('#') || href.startsWith('http')) return;
+
+        const isMobileLink = link.getAttribute('data-mobile') === 'true';
+        const isLoaderDisabled = link.getAttribute('data-loader') === 'false';
+
+        if (isMobileLink) {
+            hideMenu();
+        }
+
+        event.preventDefault();
+        navigateTo(href, isLoaderDisabled);
+    }
+
+    function handlePopState(event) {
+        if (event.state) {
+            const { href, templateName, templateTitle } = event.state;
+            if (href && templateName && templateTitle) {
+                loaderTimeout = Date.now();
+                showLoader();
+
+                fetch(href,
+                    {
+                        method: 'GET',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'component': true,
+                        },
+                    })
+                    .then(response => response.text())
+                    .then(html => {
+                        container.innerHTML = html;
+                        loadTemplate(templateName, templateTitle);
+                    })
+                    .catch(error => {
+                        console.error('Error loading page:', error);
+                        showError('Errore di connessione. Assicurati di essere online e riprova.');
+                    })
+                    .finally(() => {
+                        hideLoader();
+                    });
+            }
+        } else {
+            clearMenuState(); // Clear menu state when there's no navigation history
+        }
+    }
+
+    restoreMenuState(); // Restore the menu state on page load
     document.body.addEventListener('click', navigate);
+    window.addEventListener('popstate', handlePopState);
+
+    // Seleziona gli elementi del menu mobile
+    const firstMobileItem = document.getElementById('mobile-first-item');
+    const lastMobileItem = document.getElementById('mobile-last-item');
+
+    if (firstMobileItem && lastMobileItem) {
+        // Quando il focus raggiunge l'ultimo elemento, torna al primo
+        lastMobileItem.addEventListener('keydown', function (e) {
+            if (e.key === 'Tab' && !e.shiftKey) {
+                e.preventDefault();
+                firstMobileItem.focus();
+            }
+        });
+
+        // Quando il focus raggiunge il primo elemento con Shift + Tab, torna all'ultimo
+        firstMobileItem.addEventListener('keydown', function (e) {
+            if (e.key === 'Tab' && e.shiftKey) {
+                e.preventDefault();
+                lastMobileItem.focus();
+            }
+        });
+    }
 });

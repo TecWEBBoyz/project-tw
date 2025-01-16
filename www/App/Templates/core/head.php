@@ -6,6 +6,9 @@
 echo $TEMPLATE_DATA['description'] ?? 'Default description for the page'; ?>">
 <meta name="keywords" content="<?php echo $TEMPLATE_DATA['keywords'] ?? 'default, keywords'; ?>">
 <meta name="author" content="TecWebBoyz">
+
+<base href="<?php echo config('router.baseURL'); ?>/">
+
 <!-- Favicon -->
 <link rel="icon" href="static/images/favicon.ico" type="image/x-icon">
 <link rel="shortcut icon" href="static/images/favicon.ico" type="image/x-icon">
@@ -36,4 +39,3 @@ echo $TEMPLATE_DATA['description'] ?? 'Default description for the page'; ?>">
             }
         }
 </script>
-<base href="<?php echo config('router.baseURL'); ?>/">

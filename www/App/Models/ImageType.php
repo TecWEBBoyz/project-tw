@@ -11,4 +11,6 @@ enum ImageType: string
     case description = 'description';
     case place = 'place';
     case date = "date";
+    case visible = "visible";
+    case updated_at = "updated_at";
 }

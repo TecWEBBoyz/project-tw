@@ -27,6 +27,19 @@
     object-fit: cover;
     display: block;
     cursor: pointer;
+    aspect-ratio: 3/2;
+}
+
+.gallery-item img.loaded{
+    aspect-ratio: auto;
+}
+
+.gallery-item img.error {
+    background-color: #fff;
+    background-image: url("../../static/images/placeholder.jpg");
+    background-size: 90% 90%;
+    background-repeat: no-repeat;
+    background-position: center;
 }
 
 .gallery-item:hover {
@@ -38,7 +51,6 @@
     bottom: 0;
     left: 0;
     right: 0;
-    background: linear-gradient(180deg, transparent, rgba(0, 0, 0, 0.7));
     color: #fff;
     padding: 10px;
     font-size: 14px;
@@ -46,26 +58,11 @@
     flex-direction: column;
     justify-content: flex-end;
     text-align: left;
+    background-color: rgba(0, 0, 0, 0.6);
 }
 
 .info span {
     margin: 2px 0;
-}
-
-.modal {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.9);
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-    flex-direction: column;
-    color: #fff;
-    text-align: center;
 }
 
 .modal img {

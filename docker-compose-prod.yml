@@ -5,22 +5,23 @@ services:
     container_name: server_container
     hostname: apache_website
     volumes:
-      - ./www:/var/www/html/username
+      - ./www:/var/www/html
       - ./config/apache/000-default.conf:/000-default.conf
-      - ./setup_apache.sh:/setup_apache.sh
+      - ./setup_apache_prod.sh:/setup_apache_prod.sh
       - ./init.sql:/init.sql
     working_dir: /var/www/html
     ports:
-      - "3000:80"
+      - "80:80"
+      - "443:443"
       - "3306:3306"
     environment:
       DEBIAN_FRONTEND: noninteractive
     command: >
       /bin/bash -c "apt-get update && apt-get install -y dos2unix &&
-      cp /setup_apache.sh /tmp/setup_apache.sh &&
-      dos2unix /tmp/setup_apache.sh &&
-      chmod +x /tmp/setup_apache.sh &&
-      /tmp/setup_apache.sh"
+      cp /setup_apache_prod.sh /tmp/setup_apache_prod.sh &&
+      dos2unix /tmp/setup_apache_prod.sh &&
+      chmod +x /tmp/setup_apache_prod.sh &&
+      /tmp/setup_apache_prod.sh"
 
 
   phpmyadmin:

@@ -74,13 +74,15 @@ class DB
         return $this->Query($query);
     }
 
-    public function FindElementByID(string $table, string $id, array|string $columns = '*') : array
+    public function FindElementByID(string $table, string $id, array|string $columns = '*') : array | null
     {
         $columns = $this->ColumnToString($columns);
 
         $query = "SELECT {$columns} FROM {$table} WHERE id = ?";
-
-        return $this->Query($query, [$id])[0];
+        $arr = $this->Query($query, [$id]);
+        if(count($arr) > 0)
+            return $arr[0];
+        return null;
     }
 
     public function LastInsertedID() : string|int
@@ -100,16 +102,17 @@ class DB
 
     public function Update(string $table, string $id, array|string $columns, array|string $values): bool
     {
-        $set = implode(", ", array_map(
+       $set = implode(", ", array_map(
             fn(string $column, string $value) => "{$this->RemoveNonAlphaCharacter($column)} = {$value}", $columns, $values));
-
+        $set = str_replace("= \"NULL\"", "= NULL", $set);
         $query = "UPDATE {$table} SET {$set} WHERE id = \"{$id}\"";
+        echo $query;
         return !!$this->Query($query);
     }
 
     public function Delete(string $table, string $id): bool
     {
-        $query = "DELETE FROM {$this->table} WHERE id = {$id}";
+        $query = "DELETE FROM {$table} WHERE id = '{$id}'";
         return !!$this->Query($query);
     }
 

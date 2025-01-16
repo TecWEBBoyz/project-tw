@@ -10,17 +10,19 @@ window.loadJS = () => {
         img.addEventListener("click", (event) => {
             event.preventDefault(); // Evita la navigazione per JavaScript abilitato
             const galleryItem = event.target.closest(".gallery-item");
-            const description = galleryItem.getAttribute("data-description");
+            const description = "<p>" + galleryItem.getAttribute("data-description") + "</p>";
 
             modal.style.display = "flex";
             let fullsizeImage = img.src.replace(/_.*\.(jpg|jpeg|png)$/i, '.$1');
             modalImage.onload = () => {
                 modalImage.style.display = "block";
-                modalDescription.textContent = description;
+                modalImage.focus();
+                modalDescription.innerHTML = description;
                 loader.style.display = "none";
+                document.body.classList.add("no-interaction");
             };
             modalImage.src = fullsizeImage;
-            modalDescription.textContent = description;
+            modalDescription.innerHTML = description;
         });
     });
 
@@ -29,7 +31,15 @@ window.loadJS = () => {
         modalImage.src = "";
         modalDescription.textContent = "";
         loader.style.display = "flex";
+        document.body.classList.remove("no-interaction");
+        document.body.setAttribute('aria-hidden', 'true');
     });
+    window.imageLoaded = (el) => {
+        el.classList.add("loaded");
+    }
+    window.imageError = (el) => {
+        el.classList.add("error");
+    }
 }
 document.addEventListener("DOMContentLoaded", () => {
     loadJS();
