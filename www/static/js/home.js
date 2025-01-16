@@ -34,6 +34,12 @@ window.loadJS = () => {
         document.body.classList.remove("no-interaction");
         document.body.setAttribute('aria-hidden', 'true');
     });
+    window.imageLoaded = (el) => {
+        el.classList.add("loaded");
+    }
+    window.imageError = (el) => {
+        el.classList.add("error");
+    }
 }
 document.addEventListener("DOMContentLoaded", () => {
     loadJS();

@@ -46,10 +46,10 @@ $images = $TEMPLATE_DATA['images'] ?? [];
         # Handle location based on date availability
         $location = isset($image[ImageType::place->value]) && $date !== 'Unknown date' ? htmlspecialchars($image[ImageType::place->value], ENT_QUOTES, 'UTF-8') : 'Unknown location';
 
-        echo "<div class='gallery-item' data-description='" . (isset($image[ImageType::description->value]) ? htmlspecialchars($image[ImageType::description->value], ENT_QUOTES, 'UTF-8') : '') . "'>
+        echo "<div style='min-height: 150px;' class='gallery-item' data-description='" . (isset($image[ImageType::description->value]) ? htmlspecialchars($image[ImageType::description->value], ENT_QUOTES, 'UTF-8') : '') . "'>
         <a href='" . htmlspecialchars($detailPage, ENT_QUOTES, 'UTF-8') . "'>
             <div class='image-wrapper'>
-                <img class='main-image' src='static/uploads/" . htmlspecialchars($imagePathResized, ENT_QUOTES, 'UTF-8') . "' alt='" . (isset($image[ImageType::alt->value]) ? htmlspecialchars($image[ImageType::alt->value], ENT_QUOTES, 'UTF-8') : '') . "' loading='lazy'>
+                <img class='main-image' src='static/uploads/" . htmlspecialchars($imagePathResized, ENT_QUOTES, 'UTF-8') . "' alt='" . (isset($image[ImageType::alt->value]) ? htmlspecialchars($image[ImageType::alt->value], ENT_QUOTES, 'UTF-8') : '') . "' loading='lazy' onload='imageLoaded(this)' onerror='imageError(this)'>
             </div>
         </a>
         <div class='info'>
