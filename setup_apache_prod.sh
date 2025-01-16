@@ -127,22 +127,8 @@ cd /var/www/html/username && composer update
 rm /var/www/html/username/Config/config.php
 cp /var/www/html/username/Config/config.local.php /var/www/html/username/Config/config.php
 
-# Creazione di un index.html per il redirect
-cat <<EOL > /var/www/html/index.html
-<!DOCTYPE html>
-<html>
-<head>
-    <meta http-equiv="refresh" content="0;url=/username" />
-    <title>Redirecting...</title>
-</head>
-<body>
-    <p>Redirecting to <a href="/username">/username</a>...</p>
-</body>
-</html>
-EOL
-
 # Configurazione Certbot per SSL
-certbot --apache --non-interactive --agree-tos --email your-email@example.com -d filipporizzato.ddns.net
+certbot --apache --non-interactive --agree-tos --email baraldodavide@gmail.com -d filipporizzato.ddns.net
 
 # Configurazione del rinnovo automatico del certificato
 cat <<EOL > /etc/cron.d/certbot-renew
