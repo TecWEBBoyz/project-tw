@@ -50,3 +50,4 @@ run_watcher() {
 
 # Avvia il watcher direttamente
 run_watcher
+
