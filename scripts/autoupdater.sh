@@ -3,7 +3,7 @@
 # Configurazione
 REPO_DIR="/home/baraldodavide/GIT/project-tw"
 DOCKER_COMPOSE_FILE="docker-compose-prod.yml"
-BRANCH="main"  # Specifica il branch da monitorare
+BRANCH="develop"  # Specifica il branch da monitorare
 INTERVAL=30  # Intervallo di controllo in secondi
 LOG_FILE="/var/log/watcher.log"  # File di log
 
