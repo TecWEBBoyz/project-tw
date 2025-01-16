@@ -42,6 +42,9 @@ run_watcher() {
     echo $$ > "$PID_FILE"  # Salva il PID del processo
     trap "rm -f $PID_FILE; exit" SIGINT SIGTERM  # Rimuovi il PID file quando termina
 
+    echo "[INFO] Avvio del Docker Compose..." | tee -a "$LOG_FILE"
+    sudo docker compose -f "$DOCKER_COMPOSE_FILE" up --build -d || { echo "[ERRORE] Avvio iniziale di Docker Compose fallito!" | tee -a "$LOG_FILE"; exit 1; }
+
     while true; do
         trim_log_file
         handle_local_changes
