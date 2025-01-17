@@ -9,6 +9,7 @@ services:
       - ./config/apache/000-default.conf:/000-default.conf
       - ./setup_apache_prod.sh:/setup_apache_prod.sh
       - ./init.sql:/init.sql
+      - certs:/etc/letsencrypt
     working_dir: /var/www/html
     ports:
       - "80:80"
@@ -36,3 +37,7 @@ services:
       - "8181:80"
     depends_on:
       - server
+
+volumes:
+  certs:
+    driver: local
