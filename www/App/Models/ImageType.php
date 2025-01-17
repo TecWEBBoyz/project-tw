@@ -12,5 +12,7 @@ enum ImageType: string
     case place = 'place';
     case date = "date";
     case visible = "visible";
+    case category = "category";
+    case created_at = "created_at";
     case updated_at = "updated_at";
 }

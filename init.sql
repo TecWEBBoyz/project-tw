@@ -27,7 +27,8 @@ CREATE TABLE image (
     date DATE DEFAULT NULL,
     visible BOOLEAN DEFAULT FALSE,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP NULL DEFAULT NULL
+    updated_at TIMESTAMP NULL DEFAULT NULL,
+    category ENUM('Travels', 'Events', 'Racing-Cars') DEFAULT 'Events'
 );
 
 CREATE TABLE booking (
@@ -135,6 +136,13 @@ INSERT INTO image (path, alt, description, title, place, date) VALUES
 UPDATE image
 SET updated_at = CURRENT_TIMESTAMP
 WHERE updated_at IS NULL;
+
+UPDATE image
+SET category = CASE
+WHEN place LIKE '%Praga%' OR place LIKE '%Londra%' OR place LIKE '%Venezia%' OR place LIKE '%Dolomiti%' OR place LIKE '%Alpi%' THEN 'Travels'
+WHEN place LIKE '%Monza%' OR place LIKE '%Imola%' OR title LIKE '%Velocità%' OR title LIKE '%auto%' THEN 'Racing-Cars'
+ELSE 'Events'
+END;
 
 UPDATE image
 SET visible = true;

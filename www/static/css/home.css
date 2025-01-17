@@ -142,3 +142,43 @@
         transform: rotate(360deg);
     }
 }
+
+/* Stile per la navigazione delle categorie */
+.categories-navigation {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.categories-navigation ul {
+    list-style: none;
+    padding: 0;
+    display: inline-block;
+}
+
+.categories-navigation li {
+    display: inline;
+    margin: 0 10px;
+}
+
+.categories-navigation a {
+    text-decoration: none;
+    font-size: 16px;
+    color: #fff;
+}
+
+.categories-navigation a:hover {
+    text-decoration: underline;
+}
+
+/* Stile per le categorie */
+.gallery-category {
+    margin-bottom: 40px;
+    padding-top: 10px;
+}
+
+.gallery-category h2 {
+    text-align: center;
+    font-size: 24px;
+    color: #fff;
+    margin-bottom: 20px;
+}

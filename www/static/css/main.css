@@ -600,3 +600,38 @@ table tbody tr:nth-child(odd) {
     pointer-events: none; /* Disabilita il puntatore */
     user-select: none;    /* Disabilita la selezione del testo */
 }
+
+/* Stile base per il container del breadcrumb */
+.breadcrumb {
+    display: flex;
+    flex-wrap: wrap;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    font-size: 16px;
+}
+
+/* Stile per i link del breadcrumb */
+.breadcrumb a {
+    text-decoration: none;
+    color: #fff; /* Colore blu per i link */
+    padding: 0 5px;
+    transition: color 0.3s ease;
+}
+
+.breadcrumb a:hover {
+    color: #0056b3; /* Colore più scuro per il link quando hoverato */
+}
+
+/* Stile per l'elemento attivo (ultimo elemento) */
+.breadcrumb span {
+    color: #6c757d; /* Colore grigio */
+    padding: 0 5px;
+}
+
+/* Stile responsivo per il breadcrumb */
+@media (max-width: 768px) {
+    .breadcrumb {
+        font-size: 14px; /* Riduce la dimensione del font su schermi più piccoli */
+    }
+}
