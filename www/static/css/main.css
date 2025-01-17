@@ -50,6 +50,7 @@ form label {
 form input[type="text"],
 form input[type="email"],
 form input[type="password"],
+form input[type="date"],
 form textarea,
 form select {
     width: 100%;
@@ -61,6 +62,10 @@ form select {
     border: 1px solid var(--color-input-border);
     border-radius: 4px;
     box-sizing: border-box;
+}
+
+.no-resize {
+    resize: none;
 }
 
 form input:focus,

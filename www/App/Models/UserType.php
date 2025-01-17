@@ -9,5 +9,5 @@ enum UserType: string
     case email = 'email';
     case telephone = 'telephone';
     case password = 'password';
-    case ruolo = 'ruolo';
+    case role = 'role';
 }

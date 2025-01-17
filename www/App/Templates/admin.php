@@ -39,6 +39,8 @@
                 $date = htmlspecialchars($imageArray['date'] ?? PTW\translation('image-no-date'), ENT_QUOTES, 'UTF-8');
                 $visible = $imageArray['visible'] ? PTW\translation('image-visibility-yes') : PTW\translation('image-visibility-no');
 
+
+                // Todo(Luca): Rivedere, niente stili inline -> Fare tramite classi.
                 $rowStyle = is_null($imageArray['updated_at'] ?? null)
                     ? " style='background-color: orange;' title='".\PTW\translation('image-require-edit')."'"
                     : "";

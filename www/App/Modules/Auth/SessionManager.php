@@ -2,6 +2,9 @@
 
 namespace PTW\Modules\Auth;
 
+use InvalidArgumentException;
+use PTW\Models\UserType;
+
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
@@ -9,6 +12,13 @@ if (session_status() === PHP_SESSION_NONE) {
 enum Role: string {
     case Administrator = 'Administrator';
     case User = 'User';
+
+    public static function fromCaseName(string $caseName): self {
+        if (defined("self::$caseName")) {
+            return constant("self::$caseName");
+        }
+        throw new InvalidArgumentException("Invalid case name: $caseName");
+    }
 }
 
 class SessionManager
@@ -32,6 +42,11 @@ class SessionManager
     public static function getUserRole(): ?Role
     {
         return isset($_SESSION['user']['role']) ? Role::from($_SESSION['user']['role']) : null;
+    }
+
+    public static function getUserId(): string | null
+    {
+        return $_SESSION['user']['data'][UserType::id->value] ?? null;
     }
 
     // Verifica se un utente è autenticato
