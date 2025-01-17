@@ -1,47 +1,52 @@
-\documentclass[a4paper,12pt]{article}
+\documentclass[12pt, a4paper]{article}
 
-% Pacchetti comuni
-\usepackage[utf8]{inputenc} % Supporto UTF-8
-% \usepackage[italian]{babel} % Lingua italiana
-\usepackage{amsmath, amssymb} % Pacchetti matematici
-\usepackage{graphicx} % Inserire immagini
-\usepackage{hyperref} % Collegamenti ipertestuali
-\usepackage{geometry} % Impostazioni della pagina
-\geometry{a4paper, margin=1in}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{longtable}
+\usepackage{float}
+\usepackage{svg}
+\usepackage[colorlinks=true, linkcolor=black, urlcolor=blue, citecolor=green]{hyperref}
+\usepackage{enumitem}
+\usepackage[italian]{babel}
+\usepackage{lastpage}
+\usepackage{fancyhdr}
+\usepackage[margin=1in]{geometry}
+\usepackage{array}
+\newcolumntype{C}[1]{>{\centering\arraybackslash}p{#1}}
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
+\definecolor{unipd}{HTML}{B5121B}
 
-% Titolo e autore
-\title{Relazione del Progetto di Tecnologie Web}
-\author{
-  Baraldo Davide \\
-  Monetti Luca (Matricola: 2069429) \\
-  Trolese Leonardo \\
-  Zocche Tommaso
+\addto\captionsitalian{\renewcommand{\contentsname}{Indice}}
+
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyfoot[C]{\thepage{} di \pageref{LastPage}}
+\renewcommand{\headrulewidth}{0pt}
+
+\newcommand{\titolo}{Relazione Progetto Tecnologie Web}
+\newcommand{\componenti}{
+& Davide Baraldo (2082847) \\
+& Luca Monetti (2069429) \\
+& Leonardo Trolese (2068238) \\
+& Tommaso Zocche (2075547)
 }
-\date{\today}
+\newcommand{\gruppo}{& TecWEBBoyz}
+\newcommand{\abstractcontent}{Testoooooooooooooooooooooooo}
 
 \begin{document}
 
-\maketitle
-
+\input{contenuti/intestazione}
+\input{contenuti/titolo}
+\input{contenuti/infoDocumento}
+\newpage
 \tableofcontents
-
-\section{Introduzione}
-Scrivere un'introduzione sull'argomento trattato nella relazione.
-
-\section{Materiali e Metodi}
-Descrivere i materiali e i metodi utilizzati per raccogliere dati o eseguire l'analisi.
-
-\section{Risultati}
-Presentare i risultati ottenuti. È possibile utilizzare immagini, tabelle o grafici per supportare i dati.
-
-\section{Discussione}
-Discutere i risultati ottenuti, confrontandoli eventualmente con la letteratura o aspettative.
-
-\section{Conclusioni}
-Riassumere le principali scoperte e indicare eventuali sviluppi futuri.
-
-\appendix
-\section{Appendice}
-Includere materiale supplementare come codici o dati dettagliati.
-
+\newpage
+\input{contenuti/analisi}
+% \newpage
+% \input{contenuti/...}
+% \newpage
+% \input{contenuti/...}
+% \newpage
+% \input{contenuti/...}
 \end{document}
