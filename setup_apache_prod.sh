@@ -130,7 +130,7 @@ cp /var/www/html/Config/config.prod.php /var/www/html/Config/config.php
 # Configurazione Certbot per SSL
 CERT_PATH="/etc/letsencrypt/live/filipporizzato.ddns.net"
 if [ ! -d "$CERT_PATH" ]; then
-    certbot --apache --non-interactive --agree-tos --email baraldodavide99@gmail.com -d filipporizzato.ddns.net
+    certbot --apache --non-interactive --agree-tos --email baraldodavide99@gmail.com -d rizzatophotography.ddns.net
 else
     echo "Certificati SSL già presenti."
 fi
