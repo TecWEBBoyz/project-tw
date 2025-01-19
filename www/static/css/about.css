@@ -1,3 +1,52 @@
-#temp-me-image {
-    background: url("../images/logo.png") no-repeat center center / contain;
+#about-page {
+    float: left;
+}
+
+#filippo-image {
+    width: 50%;
+    float: left;
+    margin: 0% 5% 0% 2.5%;
+}
+
+#about-page div {
+    padding: 0.5em 4% 0% 4%;
+}
+
+#about-page div h2, h3 {
+    font-size:2em;
+    margin:0;
+}
+
+#about-page div hr {
+    width:40%;
+    float:left;
+    margin: 1em 0 1em 0;
+}
+
+#about-page div p {
+    font-size: 1.3em;
+}
+
+@media (max-width: 1024px) {
+}
+@media (max-width: 768px) {
+    #about-page {
+        float: none;
+    }
+    #filippo-image {
+        width: 100%;
+        float: none;
+        margin: 0 0 2em 0;
+    }
+    #about-page div {
+        padding: 0;
+    }
+    #about-page div hr {
+        width:100%;
+        float:left;
+        margin: 1.3em 0 1.3em 0;
+    }
+}
+@media (max-width: 480px) {
+
 }
