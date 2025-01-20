@@ -1,5 +1,5 @@
 <div id="about-page">
-    <img src="static/images/me.jpg" id="filippo-image">
+    <img src="static/images/me_high_aspect.jpg" id="filippo-image">
     <div>
     <h2><span lang="en">About me</span></h2>
     <hr>
