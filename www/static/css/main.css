@@ -635,3 +635,38 @@ table tbody tr:nth-child(odd) {
         font-size: 14px; /* Riduce la dimensione del font su schermi più piccoli */
     }
 }
+
+
+/* Stile per il pulsante */
+#scrollTopButton {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+    background-color: #fff;
+    color: black;
+    border: none;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s, visibility 0.3s;
+}
+
+/* Mostra il pulsante quando necessario */
+#scrollTopButton.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Stile della freccia */
+#scrollTopButton::before {
+    content: '\2191'; /* Simbolo della freccia */
+    font-size: 30px;
+    font-weight: bold;
+}

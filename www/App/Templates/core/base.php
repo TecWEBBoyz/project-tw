@@ -57,5 +57,6 @@ if (!isset($_SERVER['HTTP_REFERER'])) {
     <!-- Footer -->
     <?php require __DIR__ . "/../../Templates/core/footer.php"; ?>
 </div>
+<button id="scrollTopButton"></button>
 </body>
 </html>
