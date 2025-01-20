@@ -82,7 +82,7 @@
 </div>
 
 <!-- Custom Confirmation Modal -->
-<div id="custom-confirm-modal" class="modal" style="display:none;">
+<div id="custom-confirm-modal" class="modal">
     <div class="modal-content">
         <p id="custom-modal-message"></p>
         <div class="modal-actions">
