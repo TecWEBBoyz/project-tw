@@ -221,8 +221,18 @@ class AdminController extends ControllerContract
                 throw new Exception("No image ID provided.");
             }
             $imageRepository = new \PTW\Modules\Repositories\ImageRepository();
+            $image = $imageRepository->GetElementByID($data['id']);
+            if($image == null) {
+                throw new Exception("No image found.");
+            }
+            $image = $image->ToArray();
             $res = $imageRepository->Delete($data['id']);
             if ($res) {
+                throw new Exception("Error deleting image.");
+            }
+            try {
+                unlink(__DIR__ . '/../../static/uploads/' . $image[ImageType::path->value]);
+            } catch (Exception $e) {
                 throw new Exception("Error deleting image.");
             }
             ToastUtility::addToast('success', \PTW\translation('image-deleted'));
