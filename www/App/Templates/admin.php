@@ -51,7 +51,7 @@
                         <td data-label='".\PTW\translation('image-description')."'>$description</td>
                         <td data-label='".\PTW\translation('image-title')."'>$title</td>
                         <td data-label='".\PTW\translation('image-place')."'>$place</td>
-                        <td data-label='".\PTW\translation('image-date')."'>$date</td>
+                        <td data-label='".\PTW\translation('image-date')."'><time datetime='".$date."'>$date</time></td>
                         <td data-label='".\PTW\translation('image-visibility')."'>$visible</td>
                         <td data-label='".\PTW\translation('image-actions')."'>
                             <form action='admin/edit-image-visibility' method='POST' class='form-inline confirm-form' data-action='".str_replace("{ACTION}",\PTW\translation('image-toggle-visibility'), \PTW\translation('confirm-action'))."'>
