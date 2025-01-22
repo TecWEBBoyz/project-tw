@@ -52,7 +52,9 @@ function renderMenu($menuItems, $mobile = false) {
 
 ?>
 <header class="navbar">
-    <h1 class="logo-hide">Filippo Rizzato</h1>
+    <a href="home" class="logo">
+        <h1 class="logo-hide">Filippo Rizzato</h1>
+    </a>
     <div class="links">
         <?php renderMenu($menuItems); ?>
     </div>
