@@ -16,6 +16,7 @@
   "image-edit": "Edit Image",
   "image-delete": "Delete Image",
   "image-deleted": "Image successfully deleted!",
+  "image-delete-error": "The deletion of the image failed!",
   "image-save": "Save",
   "image-no-title": "No title",
   "image-no-description": "No description",
