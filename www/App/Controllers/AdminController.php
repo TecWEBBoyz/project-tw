@@ -244,7 +244,7 @@ class AdminController extends ControllerContract
             }
             ToastUtility::addToast('success', \PTW\translation('image-deleted'));
         } catch (Exception $e) {
-            ToastUtility::addToast('error', 'Errore durante l\'eliminazione dell\'immagine.');
+            ToastUtility::addToast('error', \PTW\translation('image-delete-error'));
         }
         $this->previusPage();
     }
