@@ -111,8 +111,11 @@ phpenmod xdebug
 
 # Modifica del file php.ini
 sed -i 's/display_errors = .*/display_errors = On/' $PHP_INI_FILE
+sed -i 's/display_errors = .*/display_errors = Off/' $PHP_INI_FILE
 sed -i 's/log_errors = .*/log_errors = On/' $PHP_INI_FILE
-sed -i 's/error_reporting = .*/error_reporting = E_ALL/' $PHP_INI_FILE
+#sed -i 's/error_reporting = .*/error_reporting = E_ALL/' $PHP_INI_FILE
+sed -i 's/error_reporting = .*/error_reporting = E_ALL & ~E_WARNING/' $PHP_INI_FILE
+sed -i 's/;error_log = php_errors.log/error_log = \/var\/log\/php_errors.log/' $PHP_INI_FILE
 
 # Installazione di Composer
 curl -sS https://getcomposer.org/installer | php -- \
@@ -120,6 +123,10 @@ curl -sS https://getcomposer.org/installer | php -- \
 
 # Update del composer
 cd /var/www/html/username && composer update
+
+#Copy files
+cp -r /var/www/html/username/static/uploads_temp/** /var/www/html/username/static/uploads
+chmod -R 777 /var/www/html/username/static/uploads
 
 # Set Local Configurations
 rm /var/www/html/username/Config/config.php
