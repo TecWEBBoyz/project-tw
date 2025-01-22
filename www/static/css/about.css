@@ -24,10 +24,13 @@
 }
 
 #about-page div p {
-    font-size: 1.3em;
+    font-size: 1.5em;
 }
 
 @media (max-width: 1024px) {
+    #about-page div p {
+        font-size: 1.1em;
+    }
 }
 @media (max-width: 768px) {
     #about-page {
@@ -46,7 +49,12 @@
         float:left;
         margin: 1.3em 0 1.3em 0;
     }
+    #about-page div p {
+        font-size: 1.5em;
+    }
 }
 @media (max-width: 480px) {
-
+    #about-page div p {
+        font-size: 1.1em;
+    }
 }

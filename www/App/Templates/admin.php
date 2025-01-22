@@ -11,14 +11,14 @@
         <table>
             <thead>
             <tr>
-                <th><?php echo \PTW\translation('image-id') ?></th>
-                <th><?php echo \PTW\translation('image-alt') ?></th>
-                <th><?php echo \PTW\translation('image-description') ?></th>
-                <th><?php echo \PTW\translation('image-title') ?></th>
-                <th><?php echo \PTW\translation('image-place') ?></th>
-                <th><?php echo \PTW\translation('image-date') ?></th>
-                <th><?php echo \PTW\translation('image-visibility') ?></th>
-                <th><?php echo \PTW\translation('image-actions') ?></th>
+                <th scope="col"><?php echo \PTW\translation('image-id') ?></th>
+                <th scope="col"><?php echo \PTW\translation('image-alt') ?></th>
+                <th scope="col"><?php echo \PTW\translation('image-description') ?></th>
+                <th scope="col"><?php echo \PTW\translation('image-title') ?></th>
+                <th scope="col"><?php echo \PTW\translation('image-place') ?></th>
+                <th scope="col"><?php echo \PTW\translation('image-date') ?></th>
+                <th scope="col"><?php echo \PTW\translation('image-visibility') ?></th>
+                <th scope="col"><?php echo \PTW\translation('image-actions') ?></th>
             </tr>
             </thead>
             <tbody>
@@ -51,7 +51,7 @@
                         <td data-label='".\PTW\translation('image-description')."'>$description</td>
                         <td data-label='".\PTW\translation('image-title')."'>$title</td>
                         <td data-label='".\PTW\translation('image-place')."'>$place</td>
-                        <td data-label='".\PTW\translation('image-date')."'>$date</td>
+                        <td data-label='".\PTW\translation('image-date')."'><time datetime='".$date."'>$date</time></td>
                         <td data-label='".\PTW\translation('image-visibility')."'>$visible</td>
                         <td data-label='".\PTW\translation('image-actions')."'>
                             <form action='admin/edit-image-visibility' method='POST' class='form-inline confirm-form' data-action='".str_replace("{ACTION}",\PTW\translation('image-toggle-visibility'), \PTW\translation('confirm-action'))."'>

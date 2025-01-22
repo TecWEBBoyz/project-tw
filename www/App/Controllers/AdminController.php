@@ -156,7 +156,7 @@ class AdminController extends ControllerContract
         if ($error) {
             TemplateUtility::getTemplate('upload', ['title' => 'Upload Images', 'error' => $error]);
         } else {
-            ToastUtility::addToast('success', 'Immagini caricate con successo!');
+            ToastUtility::addToast('success', \PTW\translation('image-uploaded'));
             $this->locationReplace('/admin/justuploadedimage');
         }
     }
@@ -225,7 +225,7 @@ class AdminController extends ControllerContract
             if ($res) {
                 throw new Exception("Error deleting image.");
             }
-            ToastUtility::addToast('success', 'Immagine eliminata con successo.');
+            ToastUtility::addToast('success', \PTW\translation('image-deleted'));
         } catch (Exception $e) {
             ToastUtility::addToast('error', 'Errore durante l\'eliminazione dell\'immagine.');
         }
