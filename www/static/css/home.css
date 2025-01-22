@@ -22,16 +22,15 @@
 }
 
 .gallery-item img {
-    width: 100%;
-    height: auto;
     object-fit: cover;
+    width: 100%;
+    height: 100%;
     display: block;
     cursor: pointer;
-    aspect-ratio: 3/2;
 }
 
 .gallery-item img.loaded{
-    aspect-ratio: auto;
+    //
 }
 
 .gallery-item img.error {
