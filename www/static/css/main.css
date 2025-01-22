@@ -545,6 +545,20 @@ table tbody tr:nth-child(odd) {
     text-align: center;
     pointer-events: all;
 }
+.close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 40px;
+    cursor: pointer;
+    color: #ffffff;
+}
+
+.close-button:hover {
+    color: red;
+}
 
 .modal-content {
     background: #333; /* Sfondo scuro per il contenuto */
@@ -669,4 +683,8 @@ table tbody tr:nth-child(odd) {
     content: '\2191'; /* Simbolo della freccia */
     font-size: 30px;
     font-weight: bold;
+}
+
+body.no-scroll {
+    overflow: hidden; /* Prevent scrolling in the background */
 }

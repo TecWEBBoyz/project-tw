@@ -141,6 +141,7 @@ foreach ($images as $image) {
 
 
 <div class="modal" id="image-modal">
+    <button class="close-button" id="close-modal">&times;</button>
     <img src="" alt="Zoomed image" id="modal-image">
     <div class="modal-description" id="modal-description"></div>
     <!-- loader -->
