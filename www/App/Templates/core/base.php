@@ -50,7 +50,7 @@ if (!isset($_SERVER['HTTP_REFERER'])) {
     <div class="content" id="content">
         <div class="container template-<?php echo $TEMPLATE_DATA['name']; ?>">
             <?php echo $breadcrumb; ?>
-            <h1><?php echo $TEMPLATE_DATA['title']; ?></h1>
+            <!--<h1><?php echo $TEMPLATE_DATA['title']; ?></h1>-->
             <?php require __DIR__ . "/../$TEMPLATE_DATA[name].php"; ?>
         </div>
     </div>
