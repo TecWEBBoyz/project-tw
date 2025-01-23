@@ -122,8 +122,7 @@ foreach ($images as $image) {
                                  src="static/uploads/<?php echo htmlspecialchars($imagePathResized, ENT_QUOTES, 'UTF-8'); ?>"
                                  alt="<?php echo isset($image[ImageType::alt->value]) ? htmlspecialchars($image[ImageType::alt->value], ENT_QUOTES, 'UTF-8') : ''; ?>"
                                  loading="lazy"
-                                 onload="imageLoaded(this)"
-                                 onerror="imageError(this)">
+                                 onerror="window.imageError(this)">
                         </div>
                     </a>
                     <div class="info">

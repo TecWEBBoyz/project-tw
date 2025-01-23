@@ -48,7 +48,7 @@ if (!isset($_SERVER['HTTP_REFERER'])) {
 <?php require __DIR__ . "/../../Templates/core/menu.php"; ?>
 <div class="wrapper">
     <div class="content" id="content">
-        <div class="container">
+        <div class="container template-<?php echo $TEMPLATE_DATA['name']; ?>">
             <?php echo $breadcrumb; ?>
             <h1><?php echo $TEMPLATE_DATA['title']; ?></h1>
             <?php require __DIR__ . "/../$TEMPLATE_DATA[name].php"; ?>

@@ -39,9 +39,6 @@ window.loadJS = () => {
         document.body.setAttribute('aria-hidden', 'true');
         body.classList.remove("no-scroll");
     });
-    window.imageLoaded = (el) => {
-        el.classList.add("loaded");
-    }
     window.imageError = (el) => {
         el.classList.add("error");
     }

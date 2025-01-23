@@ -59,7 +59,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         // Ricarica il CSS con il nuovo template name
-        reloadCSS(templateName);
+        // reloadCSS(templateName);
     }
 
     function reloadCSS(newTemplateName) {

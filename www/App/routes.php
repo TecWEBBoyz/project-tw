@@ -64,7 +64,7 @@ $router->post("/book-service", \PTW\Controllers\BookingController::class . "::po
 $router->get("/profile", \PTW\Controllers\ProfileController::class . "::get");
 
 // Style Page
-$router->get("/style", \PTW\Controllers\StyleController::class . "::test");
+$router->get("/style.css", \PTW\Controllers\StyleController::class . "::get");
 
 return $router;
 
