@@ -1,3 +1,50 @@
+@font-face {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    src: url('./static/fonts/Roboto-Regular.woff2') format('woff2'),
+    url('./static/fonts/Roboto-Regular.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 500;
+    src: url('./static/fonts/Roboto-Medium.woff2') format('woff2'),
+    url('./static/fonts/Roboto-Medium.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 700;
+    src: url('./static/fonts/Roboto-Bold.woff2') format('woff2'),
+    url('./static/fonts/Roboto-Bold.woff') format('woff');
+}
+
+/* Applica il font al tuo sito */
+body {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400; /* Default weight */
+}
+
+h1, h2, h3 {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 700; /* Grassetto per titoli */
+}
+
+p {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400; /* Peso normale per i paragrafi */
+}
+
+strong {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500; /* Medio per enfasi */
+}
+
+
+
 /* Variabili colori */
 :root {
     --color-bg: #000;

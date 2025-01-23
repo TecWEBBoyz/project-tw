@@ -16,7 +16,6 @@ echo $TEMPLATE_DATA['description'] ?? 'Default description for the page'; ?>">
 <title><?php echo $TEMPLATE_DATA['title']; ?></title>
 <!-- Styles -->
 <link rel="stylesheet" href="style?template=<?php echo $TEMPLATE_DATA['name']; ?>">
-<!-- Fonts -->
 <!-- Scripts -->
 <script src="static/js/main.js"></script>
 <script src="static/js/menu.js"></script>
