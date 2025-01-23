@@ -1,4 +1,4 @@
-form {
+.template-admin form {
     display: flex;
     flex-wrap: wrap;
     gap: 5px;
@@ -8,7 +8,7 @@ form {
     box-shadow: none;
 }
 
-form button {
+.template-admin form button {
     background-color: var(--color-button-bg);
     color: var(--color-button-text);
     padding: 8px 12px;
@@ -19,19 +19,19 @@ form button {
     margin: 5px;
 }
 
-form button:hover {
+.template-admin form button:hover {
     background-color: var(--color-button-hover-bg);
 }
 
-form button i {
+.template-admin form button i {
     font-size: 14px;
 }
 
-.form-inline {
+.template-admin .form-inline {
     display: inline;
 }
 
-#upload-button-container {
+.template-admin  #upload-button-container {
     display: flex;
     margin-bottom: 10px;
 }
