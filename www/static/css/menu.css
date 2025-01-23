@@ -89,7 +89,7 @@
     text-indent: 100%;
     white-space: nowrap;
     overflow: hidden;
-    background: url("../images/logo-slim.png") no-repeat center center / contain;
+    background: url("static/images/logo-slim.png") no-repeat center center / contain;
 }
 
 @media (max-width: 1024px) {

@@ -15,11 +15,8 @@ echo $TEMPLATE_DATA['description'] ?? 'Default description for the page'; ?>">
 <!-- Page title -->
 <title><?php echo $TEMPLATE_DATA['title']; ?></title>
 <!-- Styles -->
-<link rel="stylesheet" href="static/css/main.css">
-<link rel="stylesheet" href="static/css/menu.css">
-<link data-template="<?php echo $TEMPLATE_DATA['name']; ?>" rel="stylesheet" href="static/css/<?php echo $TEMPLATE_DATA['name']; ?>.css">
+<link rel="stylesheet" href="style?template=<?php echo $TEMPLATE_DATA['name']; ?>">
 <!-- Fonts -->
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap">
 <!-- Scripts -->
 <script src="static/js/main.js"></script>
 <script src="static/js/menu.js"></script>
