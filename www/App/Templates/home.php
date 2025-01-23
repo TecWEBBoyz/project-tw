@@ -118,13 +118,12 @@ foreach ($images as $image) {
                 >
                     <a href="<?php echo htmlspecialchars($detailPage, ENT_QUOTES, 'UTF-8'); ?>">
                         <div class="image-wrapper">
-                            <img class="main-image"
+                            <img class="main-image aspect-ratio-<?php echo str_replace('.', '-', str_replace('/', '-', $aspectRatio)); ?>"
                                  src="static/uploads/<?php echo htmlspecialchars($imagePathResized, ENT_QUOTES, 'UTF-8'); ?>"
                                  alt="<?php echo isset($image[ImageType::alt->value]) ? htmlspecialchars($image[ImageType::alt->value], ENT_QUOTES, 'UTF-8') : ''; ?>"
                                  loading="lazy"
                                  onload="imageLoaded(this)"
-                                 onerror="imageError(this)"
-                                 style="aspect-ratio: <?php echo $aspectRatio; ?>;">
+                                 onerror="imageError(this)">
                         </div>
                     </a>
                     <div class="info">
