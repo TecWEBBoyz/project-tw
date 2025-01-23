@@ -256,7 +256,7 @@ form .success-message {
     max-width: 60%;
     animation: scaleUp 0.5s ease-out;
     transition: max-width 0.4s ease-in-out;
-    background: url("../images/logo.png") no-repeat center center / contain;
+    background: url("./static/images/logo.png") no-repeat center center / contain;
 }
 
 @media (max-width: 1024px) {
