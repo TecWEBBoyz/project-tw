@@ -35,14 +35,6 @@ p {
     font-weight: 400; /* Peso normale per i paragrafi */
 }
 
-a {
-    color:#23b5d3;
-}
-
-a:hover {
-    color:#1a889e;
-}
-
 strong {
     font-family: 'Roboto', sans-serif;
     font-weight: 500; /* Medio per enfasi */
@@ -50,8 +42,8 @@ strong {
 
 /* Variabili colori */
 :root {
-    --color-bg: #000;
-    --color-text: #fff;
+    --color-bg: #030303;
+    --color-text: #FEFEFE;
     --color-accent: #888;
     --color-accent-hover: #fff;
     --color-input-bg: #222;
@@ -60,6 +52,9 @@ strong {
     --color-button-bg: #444;
     --color-button-text: #fff;
     --color-button-hover-bg: #555;
+    --color-link: #23B5D3;
+    --color-link-hover: #1a889e;
+    --color-link-visited: #F78E69;
 }
 
 body {
@@ -69,6 +64,19 @@ body {
     box-sizing: border-box;
     background-color: var(--color-bg);
     color: var(--color-text);
+}
+
+/* Link colors*/
+a {
+    color:var(--color-link);
+}
+
+a:hover {
+    color:var(--color-link-hover);
+}
+
+a:visited {
+    color:var(--color-link-visited);
 }
 
 /* Disable text selection */
