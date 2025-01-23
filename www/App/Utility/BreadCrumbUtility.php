@@ -24,78 +24,78 @@ class BreadCrumbUtility {
         // Breadcrumb mapping per tutte le rotte GET senza il prefisso
         $breadcrumbMapping = [
             "/" => [
-                ["label" => "Home", "url" => "/"]
+                ["label" => "", "url" => "/"]
             ],
             "/home" => [
-                ["label" => "Home", "url" => "/"]
+                ["label" => "", "url" => "/"]
             ],
             "/about" => [
-                ["label" => "Home", "url" => "/"],
-                ["label" => "About Us", "url" => null]
+                ["label" => "HOME", "url" => "/"],
+                ["label" => "ABOUT US", "url" => null]
             ],
             "/services" => [
-                ["label" => "Home", "url" => "/"],
-                ["label" => "Services", "url" => null]
+                ["label" => "HOME", "url" => "/"],
+                ["label" => "SERVICES", "url" => null]
             ],
             "/contact" => [
-                ["label" => "Home", "url" => "/"],
-                ["label" => "Contact", "url" => null]
+                ["label" => "HOME", "url" => "/"],
+                ["label" => "CONTACT", "url" => null]
             ],
             "/register" => [
-                ["label" => "Home", "url" => "/"],
-                ["label" => "Register", "url" => null]
+                ["label" => "HOME", "url" => "/"],
+                ["label" => "REGISTER", "url" => null]
             ],
             "/login" => [
-                ["label" => "Home", "url" => "/"],
-                ["label" => "Login", "url" => null]
+                ["label" => "HOME", "url" => "/"],
+                ["label" => "LOGIN", "url" => null]
             ],
             "/logout" => [
-                ["label" => "Home", "url" => "/"],
-                ["label" => "Logout", "url" => null]
+                ["label" => "HOME", "url" => "/"],
+                ["label" => "LOGOUT", "url" => null]
             ],
             "/admin" => [
-                ["label" => "Home", "url" => "/"],
-                ["label" => "Admin", "url" => null]
+                ["label" => "HOME", "url" => "/"],
+                ["label" => "ADMIN", "url" => null]
             ],
             "/admin/justuploadedimage" => [
-                ["label" => "Home", "url" => "/"],
-                ["label" => "Admin", "url" => "/admin"],
-                ["label" => "Just Uploaded Image", "url" => null]
+                ["label" => "HOME", "url" => "/"],
+                ["label" => "ADMIN", "url" => "/admin"],
+                ["label" => "JUST UPLOADED IMAGE", "url" => null]
             ],
             "/admin/edit-image" => [
-                ["label" => "Home", "url" => "/"],
-                ["label" => "Admin", "url" => "/admin"],
-                ["label" => "Edit Image", "url" => null]
+                ["label" => "HOME", "url" => "/"],
+                ["label" => "ADMIN", "url" => "/admin"],
+                ["label" => "EDIT IMAGE", "url" => null]
             ],
             "/admin/upload" => [
-                ["label" => "Home", "url" => "/"],
-                ["label" => "Admin", "url" => "/admin"],
-                ["label" => "Upload Image", "url" => null]
+                ["label" => "HOME", "url" => "/"],
+                ["label" => "ADMIN", "url" => "/admin"],
+                ["label" => "UPLOADE IMAGE", "url" => null]
             ],
             "/dashboard" => [
-                ["label" => "Home", "url" => "/"],
-                ["label" => "Dashboard", "url" => null]
+                ["label" => "HOME", "url" => "/"],
+                ["label" => "DASHBOARD", "url" => null]
             ],
             "/500" => [
-                ["label" => "Home", "url" => "/"],
-                ["label" => "Error 500", "url" => null]
+                ["label" => "HOME", "url" => "/"],
+                ["label" => "ERROR 500", "url" => null]
             ],
             "/gallerydetails" => [
-                ["label" => "Home", "url" => "/"],
-                ["label" => "Gallery Details", "url" => null]
+                ["label" => "HOME", "url" => "/"],
+                ["label" => "GALLERY DETAILS", "url" => null]
             ],
             "/book-service" => [
-                ["label" => "Home", "url" => "/"],
-                ["label" => "Book Service", "url" => null]
+                ["label" => "HOME", "url" => "/"],
+                ["label" => "BOOK SERVICE", "url" => null]
             ],
             "/profile" => [
-                ["label" => "Home", "url" => "/"],
-                ["label" => "Profile", "url" => null]
+                ["label" => "HOME", "url" => "/"],
+                ["label" => "PROFILE", "url" => null]
             ]
         ];
         // Funzione per ottenere il breadcrumb basato sulla route senza prefisso
         function getBreadcrumb($uri, $breadcrumbMapping, $usernamePrefix) {
-            $breadcrumb = $breadcrumbMapping[$uri] ?? [["label" => "Home", "url" => $usernamePrefix]];
+            $breadcrumb = $breadcrumbMapping[$uri] ?? [["label" => "HOME", "url" => $usernamePrefix]];
             // Aggiunge il prefisso username a ogni link
             foreach ($breadcrumb as &$crumb) {
                 if (!empty($crumb['url'])) {
@@ -114,7 +114,7 @@ class BreadCrumbUtility {
             if (!empty($crumb['url'])) {
                 $breadcrumb .= "<a href='".htmlspecialchars($crumb['url'])."'>".htmlspecialchars($crumb['label'])."</a>";
             } else {
-                $breadcrumb .= "<span>".htmlspecialchars($crumb['label'])."</span>";
+                $breadcrumb .= "<span> " .htmlspecialchars($crumb['label']) . "</span>";
             }
 
             // Aggiungi il separatore solo se non è l'ultimo elemento

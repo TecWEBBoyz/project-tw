@@ -35,6 +35,14 @@ p {
     font-weight: 400; /* Peso normale per i paragrafi */
 }
 
+a {
+    color:#23b5d3;
+}
+
+a:hover {
+    color:#1a889e;
+}
+
 strong {
     font-family: 'Roboto', sans-serif;
     font-weight: 500; /* Medio per enfasi */
@@ -657,29 +665,21 @@ table tbody tr:nth-child(odd) {
 
 /* Stile base per il container del breadcrumb */
 .breadcrumb {
-    display: flex;
-    flex-wrap: wrap;
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    font-size: 16px;
+    width: 20%;
+    margin: 4em auto;
+    text-align: center;
+    font-size: 1em;
 }
 
 /* Stile per i link del breadcrumb */
 .breadcrumb a {
     text-decoration: none;
-    color: #fff; /* Colore blu per i link */
     padding: 0 5px;
     transition: color 0.3s ease;
 }
 
-.breadcrumb a:hover {
-    color: #0056b3; /* Colore più scuro per il link quando hoverato */
-}
-
 /* Stile per l'elemento attivo (ultimo elemento) */
 .breadcrumb span {
-    color: #6c757d; /* Colore grigio */
     padding: 0 5px;
 }
 
