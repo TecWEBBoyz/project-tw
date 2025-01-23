@@ -665,7 +665,7 @@ table tbody tr:nth-child(odd) {
 
 /* Stile base per il container del breadcrumb */
 .breadcrumb {
-    width: 20%;
+    width: 40%;
     margin: 4em auto;
     text-align: center;
     font-size: 1em;
