@@ -8,54 +8,17 @@ on:
     tags:
       - '*'
 
-
 permissions:
   contents: write
 
 jobs:
-  build:
-    name: Build PHP App
+  release:
+    name: Release PDF
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-
-      - name: Setup PHP (manual)
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y php8.1 php8.1-mbstring php8.1-intl php8.1-mysql
-          curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
-
-      - name: Install dependencies
-        run: |
-          cd www
-          composer install --no-dev --optimize-autoloader
-
-      - name: Prepare artifact web
-        run: |
-          mkdir release
-          cp -R www/* release/
-          cp -f release/Config/config.template.php release/Config/config.php
-          tar -czvf php-app.tar.gz -C release .
-
-      - name: Upload artifact web
-        uses: actions/upload-artifact@v4
-        with:
-          name: php-app
-          path: php-app.tar.gz
-
-      - name: Prepare artifact DB
-        run: |
-          mkdir db
-          cp -f ./init.sql db/init.sql
-          tar -czvf db-init-app.tar.gz -C db .
-
-      - name: Upload artifact DB
-        uses: actions/upload-artifact@v4
-        with:
-          name: db-init-app
-          path: db-init-app.tar.gz
 
       - name: Install LaTeX
         run: |
@@ -70,73 +33,139 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: Relazione-TecWeBBoyz
-          path:  docs/Relazione-TecWeBBoyz.pdf
-
-  release:
-    name: Create GitHub Release
-    needs: build
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0 # Ensures full repository history and tags are available
-
-      - name: Download artifact web
-        uses: actions/download-artifact@v4
-        with:
-          name: php-app
-          path: ./
-
-      - name: Download artifact DB
-        uses: actions/download-artifact@v4
-        with:
-          name: db-init-app
-          path: ./
-
-      - name: Download artifact PDF
-        uses: actions/download-artifact@v4
-        with:
-          name: Relazione-TecWeBBoyz
-          path: ./
-
-      - name: Get latest tag
-        id: get_tag
-        run: |
-          TAG=$(git describe --tags $(git rev-list --tags --max-count=1) 2>/dev/null || echo "v0.0.0")
-          echo "latest_tag=$TAG" >> $GITHUB_ENV
-          echo $TAG
-
-      - name: Calculate next version
-        id: next_version
-        run: |
-          BRANCH_NAME="${{ github.ref_name }}"
-          IFS='.' read -r major minor patch <<< "${latest_tag#v}"
-          if [ "$BRANCH_NAME" = "dev" ]; then
-            patch=$((patch + 1))
-            next_version="v$major.$minor.$patch-dev"
-          else
-            patch=$((patch + 1))
-            next_version="v$major.$minor.$patch"
-          fi
-          echo "next_version=$next_version" >> $GITHUB_ENV
-
-      - name: Create version file
-        run: |
-          echo "${{ env.latest_tag }}" > version.txt
-
-      - name: Tag new version
-        if: github.ref_name == 'main'
-        run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git tag ${{ env.next_version }}
-          git push origin ${{ env.next_version }}
+          path: docs/Relazione-TecWeBBoyz.pdf
 
       - name: Create release with gh CLI
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          echo "Creating release ${{ env.next_version }}"
-          gh release create ${{ env.next_version }} db-init-app.tar.gz php-app.tar.gz version.txt Relazione-TecWeBBoyz.pdf --title "Release ${{ env.next_version }}" --notes "This is an automated release for version ${{ env.next_version }}."
+          echo "Creating release PDF"
+          gh release create "PDF-Release" docs/Relazione-TecWeBBoyz.pdf --title "PDF Release" --notes "Automated release for the PDF document."
+
+      #  build:
+#    name: Build PHP App
+#    runs-on: ubuntu-latest
+#
+#    steps:
+      # - name: Checkout code
+      #   uses: actions/checkout@v4
+
+      # - name: Setup PHP (manual)
+      #   run: |
+      #     sudo apt-get update
+      #     sudo apt-get install -y php8.1 php8.1-mbstring php8.1-intl php8.1-mysql
+      #     curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+
+      # - name: Install dependencies
+      #   run: |
+      #     cd www
+      #     composer install --no-dev --optimize-autoloader
+
+      # - name: Prepare artifact web
+      #   run: |
+      #     mkdir release
+      #     cp -R www/* release/
+      #     cp -f release/Config/config.template.php release/Config/config.php
+      #     tar -czvf php-app.tar.gz -C release .
+
+      # - name: Upload artifact web
+      #   uses: actions/upload-artifact@v4
+      #   with:
+      #     name: php-app
+      #     path: php-app.tar.gz
+
+      # - name: Prepare artifact DB
+      #   run: |
+      #     mkdir db
+      #     cp -f ./init.sql db/init.sql
+      #     tar -czvf db-init-app.tar.gz -C db .
+
+      # - name: Upload artifact DB
+      #   uses: actions/upload-artifact@v4
+      #   with:
+      #     name: db-init-app
+      #     path: db-init-app.tar.gz
+
+#      - name: Install LaTeX
+#        run: |
+#          sudo apt-get update
+#          sudo apt-get install -y texlive-latex-base texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended
+#
+#      - name: Compile LaTeX document
+#        run: |
+#          pdflatex docs/Relazione-TecWebBoyz.tex -output-directory=docs
+#
+#      - name: Upload PDF artifact
+#        uses: actions/upload-artifact@v4
+#        with:
+#          name: Relazione-TecWeBBoyz
+#          path:  docs/Relazione-TecWeBBoyz.pdf
+
+  # release:
+  #   name: Create GitHub Release
+  #   needs: build
+  #   runs-on: ubuntu-latest
+
+  #   steps:
+  #     - name: Checkout code
+  #       uses: actions/checkout@v4
+  #       with:
+  #         fetch-depth: 0 # Ensures full repository history and tags are available
+
+  #     - name: Download artifact web
+  #       uses: actions/download-artifact@v4
+  #       with:
+  #         name: php-app
+  #         path: ./
+
+  #     - name: Download artifact DB
+  #       uses: actions/download-artifact@v4
+  #       with:
+  #         name: db-init-app
+  #         path: ./
+
+  #     - name: Download artifact PDF
+  #       uses: actions/download-artifact@v4
+  #       with:
+  #         name: Relazione-TecWeBBoyz
+  #         path: ./
+
+  #     - name: Get latest tag
+  #       id: get_tag
+  #       run: |
+  #         TAG=$(git describe --tags $(git rev-list --tags --max-count=1) 2>/dev/null || echo "v0.0.0")
+  #         echo "latest_tag=$TAG" >> $GITHUB_ENV
+  #         echo $TAG
+
+  #     - name: Calculate next version
+  #       id: next_version
+  #       run: |
+  #         BRANCH_NAME="${{ github.ref_name }}"
+  #         IFS='.' read -r major minor patch <<< "${latest_tag#v}"
+  #         if [ "$BRANCH_NAME" = "dev" ]; then
+  #           patch=$((patch + 1))
+  #           next_version="v$major.$minor.$patch-dev"
+  #         else
+  #           patch=$((patch + 1))
+  #           next_version="v$major.$minor.$patch"
+  #         fi
+  #         echo "next_version=$next_version" >> $GITHUB_ENV
+
+  #     - name: Create version file
+  #       run: |
+  #         echo "${{ env.latest_tag }}" > version.txt
+
+  #     - name: Tag new version
+  #       if: github.ref_name == 'main'
+  #       run: |
+  #         git config --global user.name "github-actions[bot]"
+  #         git config --global user.email "github-actions[bot]@users.noreply.github.com"
+  #         git tag ${{ env.next_version }}
+  #         git push origin ${{ env.next_version }}
+
+  #     - name: Create release with gh CLI
+  #       env:
+  #         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  #       run: |
+  #         echo "Creating release ${{ env.next_version }}"
+  #         gh release create ${{ env.next_version }} db-init-app.tar.gz php-app.tar.gz version.txt Relazione-TecWeBBoyz.pdf --title "Release ${{ env.next_version }}" --notes "This is an automated release for version ${{ env.next_version }}."
