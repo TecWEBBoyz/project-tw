@@ -1,55 +1,106 @@
-#menu ul {
+/* -- Menu -- */
+#menu_mobile ul, #menu_desktop ul {
     list-style-type: none;
     padding: 0;
 }
 
-#menu ul li {
-    display: inline-block;
+#menu_desktop ul li {
+    display: inline;
+    margin-left: var(--spacing-4);
 }
 
-#menu ul li a {
-    padding: 0.5em 0.3em 0.5em 0.3em;
-    min-height: 24px;
+#menu_mobile {
+    display: none;
 }
 
 @media (max-width: 768px) {
-    #menu ul li {
+    #menu_mobile {
+        display: block;
+    }
+
+    #menu_mobile ul li {
         display: list-item;
         text-align: center;
         height: 3em;
     }
 
-    #menu ul li a {
+    #menu_mobile ul li a {
         padding: 0.5em;
-        min-height: 44px;
+    }
+
+    #menu_desktop {
+        display: none;
     }
 }
+
+/* -- Menu Animation -- */
+.navbar .menu {
+    opacity: 0;
+    transform: translateY(-20px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.navbar .menu.hidden {
+    opacity: 0;
+    transform: translateY(-20px);
+    pointer-events: none; /* Prevent clicks when hidden */
+}
+
+.navbar .menu:not(.hidden) {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Todo(Luca): Rimuovere animazione o rifare. Non viene visualizzata */
+/* -- Hamburger Animation -- */
+.navbar .hamburger div {
+    transition: transform 0.3s ease, background-color 0.3s ease, opacity 0.3s ease;
+}
+
+.navbar .hamburger.active div:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+}
+
+.navbar .hamburger.active div:nth-child(2) {
+    opacity: 0;
+}
+
+.navbar .hamburger.active div:nth-child(3) {
+    transform: rotate(-45deg) translate(5px, -5px);
+}
+
 
 /* Navbar */
 
 .navbar {
+    --temp-logo-url: url("static/images/logo.png");
+    --temp-logo-width: 13rem;
+
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
     align-items: center;
-    background-color: #000000;
-    padding: 10px 20px;
-    color: white;
+    background-color: var(--color-bg);
+    padding: var(--spacing-1) var(--spacing-4);
+    padding-bottom: var(--spacing-2);
+    color: var(--color-text);
     box-shadow: 0 2px 2px rgba(255, 255, 255, 0.1);
 }
 
-.navbar a {
-    color: white;
-    text-decoration: none;
-    margin: 0 10px;
-}
+@media screen and (max-width: 768px) {
+    .navbar {
+        --temp-logo-url: url("static/images/logo-slim.png");
+        --temp-logo-width: 3.5rem;
 
-.navbar a:hover {
-    text-decoration: underline;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+
+        padding-bottom: var(--spacing-1);
+    }
 }
 
 .navbar .menu {
     display: none;
-    flex-direction: column;
 }
 
 .navbar .menu a {
@@ -82,34 +133,24 @@
 }
 
 .navbar .logo-hide {
-    height: 60px;
-    width: 60px;
+    height: auto;
+    width: var(--temp-logo-width);
     font-size: 5px;
-    text-indent: 100%;
+    text-indent: -999em;
     white-space: nowrap;
     overflow: hidden;
-    background: url("static/images/logo-slim.png") no-repeat center center / contain;
+    background-image: var(--temp-logo-url);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+
+    transform: scale(1.0);
+    transition: transform 0.3s ease-in-out;
 }
 
-@media (max-width: 1024px) {
-    .navbar .logo {
-        height: 50px;
-        width: 50px;
-    }
-}
-
-@media (max-width: 768px) {
-    .navbar .logo {
-        height: 45px;
-        width: 45px;
-    }
-}
-
-@media (max-width: 480px) {
-    .navbar .logo {
-        height: 40px;
-        width: 40px;
-    }
+.logo-hide:hover {
+    transform: scale(1.1);
+    transition: transform 0.3s ease-in-out;
 }
 
 @media (max-width: 768px) {
@@ -123,7 +164,7 @@
 
     .navbar .menu {
         display: flex;
-        background-color: #000000;
+        background-color: var(--color-bg);
         position: fixed;
         top: 0;
         left: 0;
@@ -137,22 +178,17 @@
         z-index: 1;
     }
 
-    .navbar .menu a {
-        margin: 15px 0;
-        font-size: 1.5em;
-    }
-
     .navbar .menu.hidden {
         display: none;
     }
 }
 
 .navigation-help {
-    text-indent: -999em;
+    text-indent: -999rem;
     position: absolute;
 }
 
-.navigation-help:focus {
+.navigation-help:has(> a:focus) {
     text-indent: 0;
     position: static;
 }

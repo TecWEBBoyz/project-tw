@@ -151,16 +151,18 @@ a.link:visited {
 a.link::after {
     content: '';
     position: absolute;
-    left: 0;
+    left: 50%;
+    right: 50%;
     bottom: -3px;
+    border-radius: 5px;
     height: 2px;
-    width: 0;
     background-color: var(--color-accent);
-    transition: width 0.3s ease-in-out;
+    transition: left 0.3s ease-in-out, right 0.3s ease-in-out;
 }
 
 a.link:hover::after {
-    width: 100%;
+    left: 0;
+    right: 0;
 }
 
 a.link:hover {
@@ -171,7 +173,6 @@ a.link:hover {
 strong {
     font-weight: 500;
 }
-
 
 /* Disable text selection */
 body, p, h1, h2, h3, h4, h5, h6 {
