@@ -694,7 +694,8 @@ table tbody tr:nth-child(odd) {
 /* Stile responsivo per il breadcrumb */
 @media (max-width: 768px) {
     .breadcrumb {
-        font-size: 14px; /* Riduce la dimensione del font su schermi più piccoli */
+        font-size: 0.8em; /* Riduce la dimensione del font su schermi più piccoli */
+        margin: 2em auto;
     }
 }
 
