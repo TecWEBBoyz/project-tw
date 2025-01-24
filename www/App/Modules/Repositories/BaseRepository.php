@@ -74,6 +74,18 @@ class BaseRepository
         return $this->CreateInstance($data);
     }
 
+    public function GetElementsByColumn(string $column, string $value): array|null
+    {
+        $data = $this->database->FindElementsByColumn($this->table, $column, $value);
+        return $this->CreateInstances($data);
+    }
+
+    public function GetElementByUnique(string $uniqueCol, string $uniqueValue): DBItem|null
+    {
+        $data = $this->database->FindElementByColumn($this->table, $uniqueCol, $uniqueValue);
+        return $this->CreateInstance($data);
+    }
+
     public function CreateInstance(array|null $data): DBItem | null
     {
         if (is_null($data))
@@ -107,6 +119,10 @@ class BaseRepository
      */
     public function CreateInstances(array $data): array
     {
+        // ToDo(Luca): Find another way to check data
+        if (key_exists('id', $data))
+            return [$this->CreateInstance($data)];
+
         $instances = [];
 
         foreach ($data as $item)

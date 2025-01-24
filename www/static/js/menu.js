@@ -37,19 +37,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function loadTemplate(templateName, templateTitle) {
-        document.querySelectorAll("link[rel='stylesheet'][data-template]").forEach(link => link.remove());
-
         if (templateTitle) {
             document.title = templateTitle;
-        }
-
-        if (templateName) {
-            const link = document.createElement('link');
-            link.rel = 'stylesheet';
-            link.href = `static/css/${templateName}.css`;
-            link.setAttribute('data-template', templateName);
-            link.onload = () => console.log(`Loaded ${templateName}.css`);
-            document.head.appendChild(link);
         }
 
         document.querySelectorAll("script[data-template]").forEach(script => script.remove());
@@ -67,6 +56,28 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             };
             document.body.appendChild(script);
+        }
+
+        // Ricarica il CSS con il nuovo template name
+        // reloadCSS(templateName);
+    }
+
+    function reloadCSS(newTemplateName) {
+        const existingLinkTag = document.querySelector('link[rel="stylesheet"]');
+        if (existingLinkTag) {
+            const newLinkTag = document.createElement('link');
+            newLinkTag.rel = 'stylesheet';
+            newLinkTag.href = `style?template=${newTemplateName}`;
+
+            newLinkTag.onload = () => {
+                // Rimuovi il vecchio link solo dopo che il nuovo è stato caricato
+                existingLinkTag.parentNode.removeChild(existingLinkTag);
+                console.log(`CSS reloaded with template: ${newTemplateName}`);
+            };
+
+            existingLinkTag.parentNode.insertBefore(newLinkTag, existingLinkTag.nextSibling);
+        } else {
+            console.error('No <link> tag found for the stylesheet.');
         }
     }
 
@@ -112,7 +123,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     window.hideMenu = hideMenu;
 
-
     function navigateTo(href, isLoaderDisabled = false) {
         loaderTimeout = Date.now();
         if (!isLoaderDisabled) {
@@ -133,7 +143,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
 
                 const templateName = response.headers.get('templateName');
-                const  templateTitle = response.headers.get('templateTitle');
+                const templateTitle = response.headers.get('templateTitle');
                 return response.text().then(html => ({ html, templateName, templateTitle, href }));
             })
             .then(({ html, templateName, templateTitle, href }) => {
@@ -158,7 +168,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 hideLoader();
             });
     }
-
 
     function navigate(event) {
         const a_element = event.target.closest("a");

@@ -1,19 +1,22 @@
+DROP TABLE IF EXISTS booking;
+DROP TABLE IF EXISTS image;
 DROP TABLE IF EXISTS user;
+
 CREATE TABLE user (
     id CHAR(36) PRIMARY KEY DEFAULT UUID(), -- Chiave primaria unica per ogni utente
-    name VARCHAR(255) NOT NULL,        -- Nome dell'utente, non nullo
+    name VARCHAR(255) NOT NULL UNIQUE,        -- Nome dell'utente, non nullo
     email VARCHAR(255) NOT NULL UNIQUE, -- Email unica per ogni utente
     telephone VARCHAR(20) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,    -- Password crittografata
-    role ENUM("admin", "utente", "moderatore") NOT NULL DEFAULT "utente", -- Ruolo con valori predefiniti
+    role ENUM("Administrator", "User") NOT NULL DEFAULT "User", -- Ruolo con valori predefiniti
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, -- Data di creazione
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP -- Data di aggiornamento
 );
 
 -- Indice aggiuntivo per velocizzare le ricerche per email
 CREATE INDEX idx_email ON user (email);
+CREATE INDEX idx_name ON user (name);
 
-DROP TABLE IF EXISTS image;
 CREATE TABLE image (
     id CHAR(36) PRIMARY KEY DEFAULT UUID(),
     path VARCHAR(255) NOT NULL,
@@ -24,7 +27,21 @@ CREATE TABLE image (
     date DATE DEFAULT NULL,
     visible BOOLEAN DEFAULT FALSE,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP NULL DEFAULT NULL
+    updated_at TIMESTAMP NULL DEFAULT NULL,
+    category ENUM('Travels', 'Events', 'Racing-Cars') DEFAULT 'Events'
+);
+
+CREATE TABLE booking (
+    id CHAR(36) PRIMARY KEY DEFAULT UUID(),
+    user CHAR(36) NOT NULL,
+    status ENUM("pending", "confirmed", "cancelled") NOT NULL DEFAULT "pending",
+    service TINYTEXT NOT NULL,
+    date DATE NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    notes TEXT NOT NULL DEFAULT "",
+
+    FOREIGN KEY (user) REFERENCES user(id) ON DELETE CASCADE
 );
 
 DELIMITER $$
@@ -38,19 +55,30 @@ END$$
 
 DELIMITER ;
 
+DELIMITER $$
+
+CREATE TRIGGER before_update_booking
+    BEFORE UPDATE ON booking
+    FOR EACH ROW
+BEGIN
+    SET NEW.updated_at = CURRENT_TIMESTAMP;
+END$$
+
+DELIMITER ;
 
 -- Esempi di dati per la tabella utente
 INSERT INTO user (name, email, password, role, telephone) VALUES
-("Mario Rossi", "mario.rossi@example.com", "password123",   "utente", "+39 320 123 4567"),
-("Luigi Verdi", "luigi.verdi@example.com", "securepass456", "utente", "+39 320 234 5678"),
-("Anna Bianchi", "anna.bianchi@example.com", "mypassword789", "moderatore", "+39 320 345 6789"),
-("Elena Neri", "elena.neri@example.com", "pass4elena", "utente", "+39 320 456 7890"),
-("Paolo Gialli", "paolo.gialli@example.com", "paolo2023", "utente", "+39 320 567 8901"),
-("Giulia Rosa", "giulia.rosa@example.com", "giulia_pwd", "moderatore", "+39 320 678 9012"),
-("Francesco Blu", "francesco.blu@example.com", "francesco_secure", "admin", "+39 320 789 0123"),
-("Silvia Marrone", "silvia.marrone@example.com", "silvia1234", "utente", "+39 320 890 1234"),
-("Roberto Viola", "roberto.viola@example.com", "robertopass", "utente", "+39 320 901 2345"),
-("Chiara Verde", "chiara.verde@example.com", "chiara_pw", "utente", "+39 320 012 3456");
+("admin", "admin", "admin","Administrator", "+39 320 123 4567"),
+("Mario Rossi", "mario.rossi@example.com", "password123",   "User", "+39 320 123 4568"),
+("Luigi Verdi", "luigi.verdi@example.com", "securepass456", "User", "+39 320 234 5678"),
+("Anna Bianchi", "anna.bianchi@example.com", "mypassword789", "User", "+39 320 345 6789"),
+("Elena Neri", "elena.neri@example.com", "pass4elena", "User", "+39 320 456 7890"),
+("Paolo Gialli", "paolo.gialli@example.com", "paolo2023", "User", "+39 320 567 8901"),
+("Giulia Rosa", "giulia.rosa@example.com", "giulia_pwd", "User", "+39 320 678 9012"),
+("Francesco Blu", "francesco.blu@example.com", "francesco_secure", "User", "+39 320 789 0123"),
+("Silvia Marrone", "silvia.marrone@example.com", "silvia1234", "User", "+39 320 890 1234"),
+("Roberto Viola", "roberto.viola@example.com", "robertopass", "User", "+39 320 901 2345"),
+("Chiara Verde", "chiara.verde@example.com", "chiara_pw", "User", "+39 320 012 3456");
 
 INSERT INTO image (path, alt, description, title, place, date) VALUES
 ("502A6233.JPG", "Cantante su palco con chitarra elettrica rossa", "In una notte estiva a Milano, un musicista appassionato regala un\'esibizione emozionante durante un festival locale, la sua musica si fonde con le luci rosse che riempiono l\'atmosfera e il cuore del pubblico.", "Concerto sotto luce scarlatta", "Milano", "2023-08-15"),
@@ -108,6 +136,13 @@ INSERT INTO image (path, alt, description, title, place, date) VALUES
 UPDATE image
 SET updated_at = CURRENT_TIMESTAMP
 WHERE updated_at IS NULL;
+
+UPDATE image
+SET category = CASE
+WHEN place LIKE '%Praga%' OR place LIKE '%Londra%' OR place LIKE '%Venezia%' OR place LIKE '%Dolomiti%' OR place LIKE '%Alpi%' THEN 'Travels'
+WHEN place LIKE '%Monza%' OR place LIKE '%Imola%' OR title LIKE '%Velocità%' OR title LIKE '%auto%' THEN 'Racing-Cars'
+ELSE 'Events'
+END;
 
 UPDATE image
 SET visible = true;

@@ -9,6 +9,9 @@ services:
       - ./config/apache/000-default.conf:/000-default.conf
       - ./setup_apache.sh:/setup_apache.sh
       - ./init.sql:/init.sql
+      - ./php_errors.log:/var/log/php_errors.log
+      - /var/www/html/username/static/uploads
+      - ./www/static/uploads:/var/www/html/username/static/uploads_temp
     working_dir: /var/www/html
     ports:
       - "3000:80"
@@ -21,7 +24,6 @@ services:
       dos2unix /tmp/setup_apache.sh &&
       chmod +x /tmp/setup_apache.sh &&
       /tmp/setup_apache.sh"
-
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin:latest

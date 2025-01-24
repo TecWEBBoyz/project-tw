@@ -12,3 +12,7 @@
     border-color: #009578;
     color: #009578;
 }
+label[for="file"] {
+       color: #009578;
+       cursor: pointer;
+}

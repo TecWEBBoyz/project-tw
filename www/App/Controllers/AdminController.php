@@ -15,8 +15,16 @@ use PTW\Modules\Auth\SessionManager;
 use PTW\Utility\TemplateUtility;
 use PTW\Utility\ToastUtility;
 
+
+
 class AdminController extends ControllerContract
 {
+    private $resolutions = [
+        5 => '_5percent',
+        25 => '_25percent',
+        50 => '_50percent',
+        75 => '_75percent'
+    ];
     public function get(): void
     {
         if(!$this->sessionManager->authorize(Role::Administrator)) {
@@ -48,7 +56,7 @@ class AdminController extends ControllerContract
     public function uploadImage(): void
     {
         $error = null;
-        function createResizedImages($filePath, $outputDir, $fileName)
+        function createResizedImages($filePath, $outputDir, $fileName, $resolutions)
         {
             $imageInfo = getimagesize($filePath);
             $originalWidth = $imageInfo[0];
@@ -66,13 +74,6 @@ class AdminController extends ControllerContract
                     $error = "Unsupported image type $mimeType.";
                     return;
             }
-
-            $resolutions = [
-                5 => '_5percent',
-                25 => '_25percent',
-                50 => '_50percent',
-                75 => '_75percent'
-            ];
 
             foreach ($resolutions as $scale => $suffix) {
                 $scale = $scale / 100;
@@ -135,7 +136,7 @@ class AdminController extends ControllerContract
                             $filePath = $uploadDir . $randomImageName;
 
                             if (move_uploaded_file($tmpName, $filePath)) {
-                                createResizedImages($filePath, $uploadDir, $randomImageName);
+                                createResizedImages($filePath, $uploadDir, $randomImageName, $this->resolutions);
 
                                 $imageRepository = new \PTW\Modules\Repositories\ImageRepository();
                                 $imageRepository->Create(new Image([(ImageType::path)->value => $randomImageName]));
@@ -156,7 +157,7 @@ class AdminController extends ControllerContract
         if ($error) {
             TemplateUtility::getTemplate('upload', ['title' => 'Upload Images', 'error' => $error]);
         } else {
-            ToastUtility::addToast('success', 'Immagini caricate con successo!');
+            ToastUtility::addToast('success', \PTW\translation('image-uploaded'));
             $this->locationReplace('/admin/justuploadedimage');
         }
     }
@@ -221,13 +222,29 @@ class AdminController extends ControllerContract
                 throw new Exception("No image ID provided.");
             }
             $imageRepository = new \PTW\Modules\Repositories\ImageRepository();
+            $image = $imageRepository->GetElementByID($data['id']);
+            if($image == null) {
+                throw new Exception("No image found.");
+            }
+            $image = $image->ToArray();
+
+            try {
+                foreach ($this->resolutions  as $scale => $suffix) {
+                    $filePath = __DIR__ . '/../../static/uploads/' . pathinfo($image[ImageType::path->value], PATHINFO_FILENAME) . $suffix . '.' . strtolower(pathinfo($image[ImageType::path->value], PATHINFO_EXTENSION));
+                    if (!unlink($filePath)) {
+                        throw new Exception("Error deleting image.");
+                    }
+                }
+            } catch (Exception $e) {
+                throw new Exception("Error deleting image.");
+            }
             $res = $imageRepository->Delete($data['id']);
             if ($res) {
                 throw new Exception("Error deleting image.");
             }
-            ToastUtility::addToast('success', 'Immagine eliminata con successo.');
+            ToastUtility::addToast('success', \PTW\translation('image-deleted'));
         } catch (Exception $e) {
-            ToastUtility::addToast('error', 'Errore durante l\'eliminazione dell\'immagine.');
+            ToastUtility::addToast('error', \PTW\translation('image-delete-error'));
         }
         $this->previusPage();
     }
