@@ -1,0 +1,38 @@
+/* -- Footer -- */
+.footer {
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    padding: var(--spacing-4);
+    text-align: center;
+}
+
+.footer ul {
+    list-style: none;
+}
+
+.footer ul li {
+    display: inline;
+}
+
+.footer .copyright {
+    margin-top: var(--spacing-2);
+}
+
+.footer .social-link {
+    margin-right: var(--spacing-1);
+}
+
+.footer .social-link svg {
+    width: 1.5rem;
+    height: auto;
+}
+
+.footer .social-link path {
+    fill: var(--color-text);
+    transition: fill 0.3s ease-in-out;
+}
+
+.footer .social-link:hover path {
+    fill: var(--color-accent);
+    transition: fill 0.3s ease-in-out;
+}

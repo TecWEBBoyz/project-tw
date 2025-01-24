@@ -444,18 +444,6 @@ form .success-message {
     justify-content: space-between;
 }
 
-/* -- Footer -- */
-.footer {
-    background-color: var(--color-bg);
-    color: var(--color-text);
-    padding: var(--spacing-4);
-    text-align: center;
-}
-
-.footer a {
-    color: var(--color-accent);
-}
-
 /*!* Contenuto principale *!*/
 /*.content {*/
 /*    position: relative;*/

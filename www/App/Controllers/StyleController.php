@@ -16,7 +16,7 @@ class StyleController extends ControllerContract
             return;
         }
 
-        $priorityFiles = ['icons.css', 'main.css', 'menu.css'];
+        $priorityFiles = ['icons.css', 'main.css', 'menu.css', 'footer.css'];
         $mergedCss = '';
         $files = scandir($cssDir);
 
