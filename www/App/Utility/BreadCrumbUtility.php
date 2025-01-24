@@ -24,10 +24,10 @@ class BreadCrumbUtility {
         // Breadcrumb mapping per tutte le rotte GET senza il prefisso
         $breadcrumbMapping = [
             "/" => [
-                ["label" => "HOME", "url" => "/"]
+//                ["label" => "HOME", "url" => "/"]
             ],
             "/home" => [
-                ["label" => "HOME", "url" => "/"]
+//                ["label" => "HOME", "url" => "/"]
             ],
             "/about" => [
                 ["label" => "HOME", "url" => "/"],

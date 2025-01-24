@@ -673,10 +673,14 @@ table tbody tr:nth-child(odd) {
 
 /* Stile base per il container del breadcrumb */
 .breadcrumb {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 40%;
-    margin: 4em auto;
+    margin: 0 auto;
     text-align: center;
     font-size: 1em;
+    height: 8em;
 }
 
 /* Stile per i link del breadcrumb */
