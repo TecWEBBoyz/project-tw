@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+      - dev
     tags:
       - '*'
 
@@ -36,7 +37,6 @@ jobs:
           cp -R www/* release/
           cp -f release/Config/config.template.php release/Config/config.php
           tar -czvf php-app.tar.gz -C release .
-
 
       - name: Upload artifact web
         uses: actions/upload-artifact@v4
@@ -110,9 +110,15 @@ jobs:
       - name: Calculate next version
         id: next_version
         run: |
+          BRANCH_NAME="${{ github.ref_name }}"
           IFS='.' read -r major minor patch <<< "${latest_tag#v}"
-          patch=$((patch + 1))
-          next_version="v$major.$minor.$patch"
+          if [ "$BRANCH_NAME" = "dev" ]; then
+            patch=$((patch + 1))
+            next_version="v$major.$minor.$patch-dev"
+          else
+            patch=$((patch + 1))
+            next_version="v$major.$minor.$patch"
+          fi
           echo "next_version=$next_version" >> $GITHUB_ENV
 
       - name: Create version file
@@ -120,6 +126,7 @@ jobs:
           echo "${{ env.latest_tag }}" > version.txt
 
       - name: Tag new version
+        if: github.ref_name == 'main'
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
