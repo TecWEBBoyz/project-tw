@@ -13,8 +13,8 @@ class TestController extends ControllerContract
 {
     public function get(): void
     {
-        TemplateUtility::getTemplate("home", [
-            "title" => "Home Page",
+        TemplateUtility::getTemplate("test", [
+            "title" => "",
             "description" => "This is the home page description"
         ]);
     }

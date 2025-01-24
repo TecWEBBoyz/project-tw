@@ -24,7 +24,7 @@ $router->get("/services", \PTW\Controllers\ServicesController::class . "::get");
 $router->get("/contact", \PTW\Controllers\ContactController::class . "::get");
 
 //$router->get("/about", \PTW\Controllers\AboutController::class . "::get");
-//$router->get("/test", \PTW\Controllers\TestController::class . "::get");
+$router->get("/test", \PTW\Controllers\TestController::class . "::get");
 
 // Register Page
 $router->get("/register", \PTW\Controllers\RegisterController::class . "::get");

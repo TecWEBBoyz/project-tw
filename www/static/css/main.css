@@ -1,3 +1,54 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* -- Variables -- */
+
+:root {
+    /* Basic Color */
+    --color-black: #030303;
+    --color-white: #FEFEFE;
+    --color-blue: #23B5D3;
+    --color-orange: #F78E69;
+
+    /* Basic Spacing */
+    --spacing-1: 0.5rem;
+    --spacing-2: 1.25rem;
+    --spacing-3: 1.5rem;
+    --spacing-4: 2rem;
+    --spacing-5: 3.25rem;
+
+    /* Content Width */
+    --max-content-width: 75rem; /* 1200px */
+    --max-modal-width: 25rem;   /* 400px */
+
+    /* Screen Sizes */
+    --media-smartphone-portrait: 320px;
+    --media-smartphone-landscape: 480px;
+    --media-tablet-s: 600px;
+    --media-tablet-l: 768px;
+    --media-tablet-xl: 1024px;
+    --media-desktop: 1200px;
+
+    /* Basic Use Cases */
+    --color-bg: var(--color-black);
+    --color-text: var(--color-white);
+    --color-accent: var(--color-blue);
+    --color-accent-hover: var(--color-orange);
+    --color-input-bg: var(--color-black);
+    --color-input-border: var(--color-white);
+    --color-input-text: var(--color-white);
+    --color-button-bg: var(--color-black);
+    --color-button-text: var(--color-white);
+    --color-button-hover-bg: var(--color-blue);
+
+    --color-link-visited: var(--color-orange);
+}
+
+/* -- Font Faces -- */
+
 @font-face {
     font-family: 'Roboto';
     font-style: normal;
@@ -19,64 +70,116 @@
     src: url('./static/fonts/Roboto-Bold.ttf') format('truetype');
 }
 
-/* Applica il font al tuo sito */
+/* -- Typography -- */
+
 body {
     font-family: 'Roboto', sans-serif;
-    font-weight: 400; /* Default weight */
+    font-weight: 400;
 }
 
-h1, h2, h3 {
+h1 {
     font-family: 'Roboto', sans-serif;
-    font-weight: 700; /* Grassetto per titoli */
+    font-size: 2.625em;
+    font-weight: 700;
+    line-height: 4.375rem;
+}
+
+h2 {
+    font-family: 'Roboto', sans-serif;
+    font-size: 2.062em;
+    font-weight: 600;
+    line-height: 3.5rem;
+}
+
+h3 {
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.625em;
+    font-weight: 600;
+    line-height: 2.875rem;
+}
+
+h4 {
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.25em;
+    font-weight: 600;
+    line-height: 2.375rem;
+}
+
+h5 {
+    font-family: 'Roboto', sans-serif;
+    font-size: 1em;
+    font-weight: 600;
+    line-height: 2rem;
 }
 
 p {
     font-family: 'Roboto', sans-serif;
-    font-weight: 400; /* Peso normale per i paragrafi */
+    font-size: 1em;
+    font-weight: 400;
+    line-height: 2rem;
+}
+
+caption, figcaption, .caption {
+    font-family: 'Roboto', sans-serif;
+    font-size: 0.812em;
+    font-weight: 400;
+    line-height: 1.625rem;
+    font-variant: all-small-caps;
+    letter-spacing: 0.05em;
 }
 
 a {
-    color:#23b5d3;
+    text-decoration: none;
 }
 
-a:hover {
-    color:#1a889e;
+a.link {
+    font-family: 'Roboto', sans-serif;
+    font-size: 1em;
+    font-weight: 500;
+    line-height: 2rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    transition: color 0.3s ease;
+    position: relative;
+    color: var(--color-text);
+}
+
+a.link:visited {
+    color: var(--color-link-visited);
+}
+
+a.link::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -3px;
+    height: 2px;
+    width: 0;
+    background-color: var(--color-accent);
+    transition: width 0.3s ease-in-out;
+}
+
+a.link:hover::after {
+    width: 100%;
+}
+
+a.link:hover {
+    color: var(--color-accent);
+    transition: color 0.4s ease;
 }
 
 strong {
-    font-family: 'Roboto', sans-serif;
-    font-weight: 500; /* Medio per enfasi */
+    font-weight: 500;
 }
 
-/* Variabili colori */
-:root {
-    --color-bg: #000;
-    --color-text: #fff;
-    --color-accent: #888;
-    --color-accent-hover: #fff;
-    --color-input-bg: #222;
-    --color-input-border: #444;
-    --color-input-text: #fff;
-    --color-button-bg: #444;
-    --color-button-text: #fff;
-    --color-button-hover-bg: #555;
-}
-
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    background-color: var(--color-bg);
-    color: var(--color-text);
-}
 
 /* Disable text selection */
 body, p, h1, h2, h3, h4, h5, h6 {
     user-select: none;
 }
 
-/* Generici stili per form */
+/* -- Form -- */
+
 form {
     width: auto;
     max-width: 600px;
@@ -242,14 +345,15 @@ form .success-message {
     margin-bottom: 15px;
 }
 
-/* Fullscreen Logo Animation */
+/* Logo Animation */
+
 .fullscreen-logo {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: #000;
+    background-color: var(--color-bg);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -271,7 +375,7 @@ form .success-message {
     .fullscreen-logo .logo-image {
         height: 60%;
         width: 60%;
-        max-width: 70%; /* Dimensione maggiore per tablet */
+        max-width: 70%;
     }
 }
 
@@ -279,7 +383,7 @@ form .success-message {
     .fullscreen-logo .logo-image {
         height: 80%;
         width: 80%;
-        max-width: 90%; /* Dimensione maggiore per schermi piccoli */
+        max-width: 90%;
     }
 }
 
@@ -287,7 +391,7 @@ form .success-message {
     .fullscreen-logo .logo-image {
         height: 90%;
         width: 90%;
-        max-width: 100%; /* Adatta completamente per dispositivi molto piccoli */
+        max-width: 100%;
     }
 }
 
@@ -314,103 +418,62 @@ form .success-message {
     }
 }
 
-/* Container */
+/* -- Basic Components -- */
+
 .container {
     position: relative;
-    max-width: 1200px;
+    max-width: var(--max-content-width);
     margin: 0 auto;
-    padding: 0 20px;
+    padding: 0 var(--spacing-4);
 }
 
-/* Footer */
+@media screen and (max-width: 480px)
+{
+    .container {
+        padding: 0 var(--spacing-3);
+        background-color: red;
+    }
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: calc(100vh - 4rem);
+    overflow: hidden;
+    justify-content: space-between;
+}
+
+/* -- Footer -- */
 .footer {
-    background-color: #000;
-    color: #666;
-    padding: 20px;
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    padding: var(--spacing-4);
     text-align: center;
 }
 
 .footer a {
-    color: #888;
-    text-decoration: none;
+    color: var(--color-accent);
 }
 
-.footer a:hover {
-    text-decoration: underline;
-    color: #fff;
-}
+/*!* Contenuto principale *!*/
+/*.content {*/
+/*    position: relative;*/
+/*    flex: 1;*/
+/*    overflow-y: auto; !* Permette lo scroll solo quando necessario *!*/
+/*}*/
 
-/* Wrapper per il contenuto principale */
-.wrapper {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    overflow: hidden;
-}
-
-/* Contenuto principale */
-.content {
-    position: relative;
-    flex: 1;
-    overflow-y: auto; /* Permette lo scroll solo quando necessario */
-}
-
-/* Footer */
-.footer {
-    background-color: #000;
-    color: #666;
-    padding: 20px;
-    text-align: center;
-    margin-top: auto;
-}
-
-/* Animation for Menu Appearance and Disappearance */
-.navbar .menu {
-    opacity: 0;
-    transform: translateY(-20px);
-    transition: opacity 0.3s ease, transform 0.3s ease;
-}
-
-.navbar .menu.hidden {
-    opacity: 0;
-    transform: translateY(-20px);
-    pointer-events: none; /* Prevent clicks when hidden */
-}
-
-.navbar .menu:not(.hidden) {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-/* Hamburger Animation */
-.navbar .hamburger div {
-    transition: transform 0.3s ease, background-color 0.3s ease, opacity 0.3s ease;
-}
-
-.navbar .hamburger.active div:nth-child(1) {
-    transform: rotate(45deg) translate(5px, 5px);
-}
-
-.navbar .hamburger.active div:nth-child(2) {
-    opacity: 0;
-}
-
-.navbar .hamburger.active div:nth-child(3) {
-    transform: rotate(-45deg) translate(5px, -5px);
-}
-
-/* CSS per il loader */
+/* -- Loader -- */
 .content-loader {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: black;
+    background-color: var(--color-bg);
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 9999;
+    z-index: 1000;
 }
 
 .content-loader.auto-hide {
@@ -421,7 +484,7 @@ form .success-message {
     width: 40px;
     height: 40px;
     border: 4px solid rgba(255, 255, 255, 0.3);
-    border-top-color: white;
+    border-top-color: var(--color-text);
     border-radius: 50%;
     animation: spin 1s linear infinite;
 }
@@ -446,39 +509,39 @@ form .success-message {
 }
 
 
-/* Toast Container */
+/* -- Toast Container -- */
 #toast-container {
     position: fixed;
-    bottom: 20px;
-    right: 20px;
+    bottom: var(--spacing-4);
+    right: var(--spacing-4);
     z-index: 9999;
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: var(--spacing-2);
 }
 
 /* Toast Message */
 .toast {
     display: flex;
     align-items: center;
-    gap: 10px;
-    min-width: 250px;
-    padding: 10px 20px;
-    background-color: #28a745; /* Verde per successo */
-    color: #fff;
+    gap: var(--spacing-2);
+    min-width: 15.5rem;
+    padding: var(--spacing-2) var(--spacing-3);
+    background-color: var(--color-accent);
+    color: var(--color-text);
     border-radius: 5px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-    font-size: 1rem;
-    font-weight: bold;
+    box-shadow: 0 4px 6px rgba(3, 3, 3, 0.2);
+    /*font-size: 1rem;
+    font-weight: bold;*/
     animation: toastFadeOut 6s forwards;
 }
 
-/* Icona del Toast */
+/* Toast Icon */
 .toast .icon {
     font-size: 1.5rem;
 }
 
-/* Animazione per il fade out del Toast */
+/* Toast Animation */
 
 @keyframes toastFadeOut {
     0% {
@@ -494,17 +557,19 @@ form .success-message {
     }
 }
 
-/* Toast per errore */
+/* Toast Error */
 .toast.error {
-    background-color: #dc3545; /* Rosso per errore */
+    background-color: var(--color-orange) /* Rosso per errore */
 }
 
-/* Toast per successo */
+/* Toast Success */
 .toast.success {
-    background-color: #28a745; /* Verde per successo */
+    background-color: var(--color-blue) /* Verde per successo */
 }
 
-/* Stile base per le tabelle */
+
+/* -- Table -- */
+
 table {
     width: 100%;
     border-collapse: collapse;
@@ -531,7 +596,6 @@ table tbody tr:nth-child(odd) {
     background-color: var(--color-input-bg);
 }
 
-/* Responsività per dispositivi piccoli */
 @media (max-width: 768px) {
     table {
         display: table; /* Mantiene il comportamento della tabella */
@@ -576,7 +640,7 @@ table tbody tr:nth-child(odd) {
     }
 }
 
-/* Modal */
+/* -- Modal -- */
 .modal {
     display: none;
     position: fixed;
@@ -584,135 +648,123 @@ table tbody tr:nth-child(odd) {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.9);
+    background: rgba(3, 3, 3, 0.9);
     justify-content: center;
     align-items: center;
     z-index: 1000;
     flex-direction: column;
-    color: #fff;
+    color: var(--color-text);
     text-align: center;
     pointer-events: all;
 }
+
 .close-button {
     position: absolute;
-    top: 10px;
-    right: 10px;
+    top: var(--spacing-4);
+    right: var(--spacing-4);
     background: none;
     border: none;
-    font-size: 40px;
+    font-size: 2.5em;
     cursor: pointer;
-    color: #ffffff;
+    color: var(--color-text);
+    transition: color 0.4s ease-in-out;
 }
 
 .close-button:hover {
-    color: red;
+    color: var(--color-blue);
+    transition: color 0.4s ease-in-out;
 }
 
 .modal-content {
-    background: #333; /* Sfondo scuro per il contenuto */
-    padding: 20px;
+    background: var(--color-bg);
+    padding: var(--spacing-3);
     border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 4px 10px rgba(3, 3, 3, 0.5);
     text-align: center;
-    color: #fff;
-    width: 90%; /* Adattabile per schermi più piccoli */
-    max-width: 400px; /* Larghezza massima */
+    color: var(--color-text);
+    width: 90%;
+    max-width: var(--max-modal-width);
     pointer-events: all;
-
 }
 
 .custom-modal p {
-    font-size: 1.2em;
-    margin-bottom: 20px;
+    margin-bottom: var(--spacing-4);
 }
 
 .modal-actions {
     display: flex;
     justify-content: space-between;
-    gap: 10px;
+    gap: var(--spacing-2);
 }
 
 .modal-actions .btn {
-    padding: 10px 20px;
+    padding: var(--spacing-2) var(--spacing-3);
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    font-size: 1em;
 }
 
 .modal-actions .btn-danger {
-    background-color: #d9534f;
-    color: #fff;
+    background-color: var(--color-orange);
+    color: var(--color-text);
+    transform: scale(1.0);
+    transition: transform 0.4s ease-in-out;
 }
 
 .modal-actions .btn-danger:hover {
-    background-color: #c9302c;
+    transform: scale(1.1);
+    transition: transform 0.4s ease-in-out;
 }
 
 .modal-actions .btn-secondary {
-    background-color: #5bc0de;
-    color: #fff;
+    background-color: var(--color-blue);
+    color: var(--color-text);
+    transform: scale(1.0);
+    transition: transform 0.4s ease-in-out;
 }
 
 .modal-actions .btn-secondary:hover {
-    background-color: #31b0d5;
+    transform: scale(1.1);
+    transition: transform 0.4s ease-in-out;
 }
 
 .no-interaction {
-    pointer-events: none; /* Disabilita il puntatore */
-    user-select: none;    /* Disabilita la selezione del testo */
+    pointer-events: none;
+    user-select: none;
 }
 
-/* Stile base per il container del breadcrumb */
+/* -- Breadcrumb -- */
 .breadcrumb {
     width: 20%;
-    margin: 4em auto;
+    margin: var(--spacing-5) auto;
     text-align: center;
-    font-size: 1em;
 }
 
-/* Stile per i link del breadcrumb */
-.breadcrumb a {
-    text-decoration: none;
-    padding: 0 5px;
-    transition: color 0.3s ease;
-}
-
-/* Stile per l'elemento attivo (ultimo elemento) */
 .breadcrumb span {
     padding: 0 5px;
 }
 
-/* Stile responsivo per il breadcrumb */
-@media (max-width: 768px) {
-    .breadcrumb {
-        font-size: 14px; /* Riduce la dimensione del font su schermi più piccoli */
-    }
-}
-
-
-/* Stile per il pulsante */
+/* -- Scroll Top Button -- */
 #scrollTopButton {
     position: fixed;
-    bottom: 20px;
-    right: 20px;
-    width: 50px;
-    height: 50px;
-    background-color: #fff;
-    color: black;
+    bottom: var(--spacing-4);
+    right: var(--spacing-4);
+    width: 3.125rem;
+    height: 3.125rem;
+    background-color: var(--color-accent);
+    color: var(--color-text);
     border: none;
     border-radius: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 6px rgba(3, 3, 3, 0.1);
     cursor: pointer;
     opacity: 0;
     visibility: hidden;
     transition: opacity 0.3s, visibility 0.3s;
 }
 
-/* Mostra il pulsante quando necessario */
 #scrollTopButton.show {
     opacity: 1;
     visibility: visible;
@@ -721,10 +773,10 @@ table tbody tr:nth-child(odd) {
 /* Stile della freccia */
 #scrollTopButton::before {
     content: '\2191'; /* Simbolo della freccia */
-    font-size: 30px;
+    font-size: 2rem;
     font-weight: bold;
 }
 
 body.no-scroll {
-    overflow: hidden; /* Prevent scrolling in the background */
+    overflow: hidden;
 }
