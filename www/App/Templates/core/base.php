@@ -1,5 +1,6 @@
 <?php
 
+use PTW\Utility\ToastUtility;
 use function PTW\config;
 
 if (!isset($TEMPLATE_DATA)) {
@@ -56,6 +57,20 @@ if (!isset($_SERVER['HTTP_REFERER'])) {
     </div>
     <!-- Footer -->
     <?php require __DIR__ . "/../../Templates/core/footer.php"; ?>
+
+    <div id="toast-container">
+        <?php
+        $toasts = ToastUtility::getToasts();
+        foreach ($toasts as $toast): ?>
+            <div class="toast <?= htmlspecialchars($toast['type']) ?>">
+            <span class="icon">
+                <?= $toast['type'] === 'success' ? '&#10003;' : ($toast['type'] === 'error' ? '&#10007;' : '') ?>
+            </span>
+                <?= htmlspecialchars($toast['message']) ?>
+            </div>
+        <?php endforeach; ?>
+    </div>
+
 </div>
 <button id="scrollTopButton"></button>
 </body>

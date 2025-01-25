@@ -76,15 +76,29 @@ foreach ($images as $image) {
 
 ?>
 
-<div class="categories-navigation">
+<section class="hero-section">
+    <div class="hero-text">
+        <p class="caption">/photographer</p>
+        <h1>Filippo Rizzato</h1>
+
+        <div class="hero-quote">
+            <p>Benvenuti nel mio mondo, dove fotografia significa catturare il crudo ordinario.</p>
+        </div>
+    </div>
+    <div class="image-me"></div>
+</section>
+
+
+<nav class="categories-navigation">
+    <h2>Latest Work</h2>
     <ul>
         <?php foreach (array_keys($categories) as $category): ?>
-            <li><a href="#<?php echo htmlspecialchars($category, ENT_QUOTES, 'UTF-8'); ?>">
+            <li id="<?php echo $category . "-element" ?>"><a href="#<?php echo htmlspecialchars($category, ENT_QUOTES, 'UTF-8'); ?>">
                     <?php echo htmlspecialchars($category, ENT_QUOTES, 'UTF-8'); ?>
                 </a></li>
         <?php endforeach; ?>
     </ul>
-</div>
+</nav>
 
 <?php if (empty($categories)) { ?>
     <p>No images found!</p>
@@ -92,12 +106,17 @@ foreach ($images as $image) {
 
 <!-- Gallerie per ogni categoria -->
 <?php foreach ($categories as $category => $imagesInCategory): ?>
-    <div class="gallery-category" id="<?php echo htmlspecialchars($category, ENT_QUOTES, 'UTF-8'); ?>">
-        <h2><?php echo htmlspecialchars($category, ENT_QUOTES, 'UTF-8'); ?></h2>
-        <div class="gallery">
+    <section class="gallery-category" id="<?php echo htmlspecialchars($category, ENT_QUOTES, 'UTF-8'); ?>">
+        <header>
+            <p class="caption">/photoshoot</p>
+            <h3><?php echo htmlspecialchars($category, ENT_QUOTES, 'UTF-8'); ?></h3>
+        </header>
+
+        <ul class="gallery">
             <?php foreach ($imagesInCategory as $image): ?>
 
                 <?php
+                // ToDo(Luca): Teniamo una GET?
                 $detailPage = "gallerydetails?src=" . (isset($image[ImageType::path->value]) ? urlencode($image[ImageType::path->value]) : '') .
                     "&description=" . (isset($image[ImageType::description->value]) ? urlencode($image[ImageType::description->value]) : '') .
                     "&location=" . (isset($image[ImageType::place->value]) ? urlencode($image[ImageType::place->value]) : '') .
@@ -113,34 +132,31 @@ foreach ($images as $image) {
                 $aspectRatio = $image['aspect_ratio'];
                 ?>
 
-                <div class="gallery-item"
+                <li class="gallery-item"
                      data-description="<?php echo isset($image[ImageType::description->value]) ? htmlspecialchars($image[ImageType::description->value], ENT_QUOTES, 'UTF-8') : ''; ?>"
                 >
                     <a href="<?php echo htmlspecialchars($detailPage, ENT_QUOTES, 'UTF-8'); ?>">
-                        <div class="image-wrapper">
-                            <img class="main-image aspect-ratio-<?php echo str_replace('.', '-', str_replace('/', '-', $aspectRatio)); ?>"
-                                 src="static/uploads/<?php echo htmlspecialchars($imagePathResized, ENT_QUOTES, 'UTF-8'); ?>"
-                                 alt="<?php echo isset($image[ImageType::alt->value]) ? htmlspecialchars($image[ImageType::alt->value], ENT_QUOTES, 'UTF-8') : ''; ?>"
-                                 loading="lazy"
-                                 onerror="window.imageError(this)">
-                        </div>
+                        <img class="gallery-item-image aspect-ratio-<?php echo str_replace('.', '-', str_replace('/', '-', $aspectRatio)); ?>"
+                             src="static/uploads/<?php echo htmlspecialchars($imagePathResized, ENT_QUOTES, 'UTF-8'); ?>"
+                             alt="<?php echo isset($image[ImageType::alt->value]) ? htmlspecialchars($image[ImageType::alt->value], ENT_QUOTES, 'UTF-8') : ''; ?>"
+                             loading="lazy"
+                             onerror="window.imageError(this)">
                     </a>
-                    <div class="info">
-                        <span><?php echo isset($image[ImageType::title->value]) ? htmlspecialchars($image[ImageType::title->value], ENT_QUOTES, 'UTF-8') : 'Unknown title'; ?></span>
-                        <span>Location: <?php echo $location; ?></span>
-                        <span>Date: <?php echo $date; ?></span>
+                    <div class="gallery-item-info">
+                        <p class="caption"><?php echo htmlspecialchars($location) . ", " . htmlspecialchars($date); ?></p>
+                        <h4><?php echo isset($image[ImageType::title->value]) ? htmlspecialchars($image[ImageType::title->value], ENT_QUOTES, 'UTF-8') : 'Unknown title'; ?></h4>
                     </div>
-                </div>
+                </li>
 
             <?php endforeach; ?>
-        </div>
-    </div>
+        </ul>
+    </section>
 <?php endforeach; ?>
 
 
-<div class="modal" id="image-modal">
+<div class="modal hidden" id="image-modal">
     <button class="close-button" id="close-modal">&times;</button>
-    <img src="" alt="Zoomed image" id="modal-image">
+    <img src="" id="modal-image" alt="">
     <div class="modal-description" id="modal-description"></div>
     <!-- loader -->
     <div class="loader">

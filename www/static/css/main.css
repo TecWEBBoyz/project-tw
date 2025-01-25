@@ -177,6 +177,7 @@ strong {
 /* Disable text selection */
 body, p, h1, h2, h3, h4, h5, h6 {
     user-select: none;
+    color: var(--color-text);
 }
 
 /* -- Form -- */
@@ -432,7 +433,6 @@ form .success-message {
 {
     .container {
         padding: 0 var(--spacing-3);
-        background-color: red;
     }
 }
 
@@ -442,6 +442,7 @@ form .success-message {
     min-height: calc(100vh - 4rem);
     overflow: hidden;
     justify-content: space-between;
+    background-color: var(--color-bg);
 }
 
 /*!* Contenuto principale *!*/
