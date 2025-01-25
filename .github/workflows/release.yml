@@ -13,34 +13,36 @@ permissions:
 
 jobs:
   release:
-    name: Release PDF
+    name: Build and Release PDF
     runs-on: ubuntu-latest
 
     steps:
+      # Step 1: Checkout the repository
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v3
 
-      - name: Install LaTeX
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y texlive-latex-base texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended texlive-lang-european
-
+      # Step 2: Compile LaTeX document using xu-cheng/latex-action
       - name: Compile LaTeX document
-        run: |
-          pdflatex docs/Relazione-TecWebBoyz.tex -output-directory=docs
-
-      - name: Upload PDF artifact
-        uses: actions/upload-artifact@v4
+        uses: xu-cheng/latex-action@v2
         with:
-          name: Relazione-TecWeBBoyz
-          path: docs/Relazione-TecWeBBoyz.pdf
+          root_file: docs/Relazione-TecWebBoyz.tex
 
-      - name: Create release with gh CLI
+      # Step 3: Upload the compiled PDF as an artifact
+      - name: Upload PDF artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: Relazione-TecWebBoyz
+          path: docs/Relazione-TecWebBoyz.pdf
+
+      # Step 4: Create a release and attach the PDF
+      - name: Create release with GitHub CLI
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          echo "Creating release PDF"
-          gh release create "PDF-Release" docs/Relazione-TecWeBBoyz.pdf --title "PDF Release" --notes "Automated release for the PDF document."
+          TAG_NAME="${{ github.ref_name }}"
+          RELEASE_NAME="Release $TAG_NAME"
+          NOTES="Automated release for the PDF document."
+          gh release create "$TAG_NAME" docs/Relazione-TecWebBoyz.pdf --title "$RELEASE_NAME" --notes "$NOTES"
 
       #  build:
 #    name: Build PHP App
