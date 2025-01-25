@@ -23,7 +23,7 @@ jobs:
 
       # Step 2: Compile LaTeX document using xu-cheng/latex-action
       - name: Compile LaTeX document
-        uses: xu-cheng/latex-action@v2
+        uses: xu-cheng/latex-action@3.2.0
         with:
           root_file: docs/Relazione-TecWebBoyz.tex
 
