@@ -266,6 +266,7 @@
 /* -- Modal -- */
 .modal {
     display: flex;
+    z-index: 1000;
 }
 
 .modal.hidden, .loader.hidden {

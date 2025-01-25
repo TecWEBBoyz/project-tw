@@ -72,6 +72,6 @@ if (!isset($_SERVER['HTTP_REFERER'])) {
     </div>
 
 </div>
-<button id="scrollTopButton"></button>
+<button id="scrollTopButton"><?php echo file_get_contents("static/images/up-arrow.svg"); ?></button>
 </body>
 </html>
