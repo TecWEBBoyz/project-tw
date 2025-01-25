@@ -112,14 +112,14 @@ class BreadCrumbUtility {
         $totalCrumbs = count($currentBreadcrumb);
         foreach ($currentBreadcrumb as $index => $crumb) {
             if (!empty($crumb['url'])) {
-                $breadcrumb .= "<a href='".htmlspecialchars($crumb['url'])."'>".htmlspecialchars($crumb['label'])."</a>";
+                $breadcrumb .= "<a href='".htmlspecialchars($crumb['url'])."' class='link'>".htmlspecialchars($crumb['label'])."</a>";
             } else {
-                $breadcrumb .= "<span> " .htmlspecialchars($crumb['label']) . "</span>";
+                $breadcrumb .= "<p> " .htmlspecialchars($crumb['label']) . "</p>";
             }
 
             // Aggiungi il separatore solo se non è l'ultimo elemento
             if ($index < $totalCrumbs - 1) {
-                $breadcrumb .= " &raquo;";
+                $breadcrumb .= file_get_contents("static/images/next-arrow.svg");
             }
         }
         $breadcrumb = $breadcrumb. "</div>";

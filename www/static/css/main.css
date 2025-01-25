@@ -174,6 +174,13 @@ strong {
     font-weight: 500;
 }
 
+.caption + h1,
+.caption + h2,
+.caption + h3,
+.caption + h4 {
+    margin-top: calc(-1 * var(--spacing-1));
+}
+
 /* Disable text selection */
 body, p, h1, h2, h3, h4, h5, h6 {
     user-select: none;
@@ -721,17 +728,6 @@ table tbody tr:nth-child(odd) {
 .no-interaction {
     pointer-events: none;
     user-select: none;
-}
-
-/* -- Breadcrumb -- */
-.breadcrumb {
-    width: 20%;
-    margin: var(--spacing-5) auto;
-    text-align: center;
-}
-
-.breadcrumb span {
-    padding: 0 5px;
 }
 
 /* -- Scroll Top Button -- */
