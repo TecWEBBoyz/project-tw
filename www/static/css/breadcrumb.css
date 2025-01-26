@@ -1,11 +1,6 @@
 /* -- Breadcrumb -- */
 .breadcrumb {
-    margin: var(--spacing-5) auto;
-    /*display: flex;*/
-    /*justify-content: center;*/
-    /*align-items: center;*/
-    /*gap: var(--spacing-1);*/
-    /*flex-wrap: wrap;*/
+    margin: var(--spacing-2) auto var(--spacing-4) auto;
     text-align: center;
 }
 

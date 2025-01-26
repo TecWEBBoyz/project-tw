@@ -181,6 +181,17 @@ strong {
     margin-top: calc(-1 * var(--spacing-1));
 }
 
+h1:has(+ p),
+h2:has(+ p),
+h3:has(+ p),
+h4:has(+ p) {
+    margin-bottom: var(--spacing-2);
+}
+
+p:has(+ p) {
+    margin-bottom: var(--spacing-1);
+}
+
 /* Disable text selection */
 body, p, h1, h2, h3, h4, h5, h6 {
     user-select: none;
