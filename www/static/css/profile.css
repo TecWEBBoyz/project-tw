@@ -1,0 +1,9 @@
+/* -- Layout -- */
+
+.template-profile h2 {
+    margin-bottom: var(--spacing-5);
+}
+
+.template-profile article:has(+ article) {
+    margin-bottom: var(--spacing-5);
+}
