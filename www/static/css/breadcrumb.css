@@ -4,6 +4,10 @@
     text-align: center;
 }
 
+.breadcrumb.hidden {
+    display: none;
+}
+
 .breadcrumb p {
     display: inline;
     text-wrap: nowrap;

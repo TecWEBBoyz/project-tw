@@ -199,7 +199,6 @@ body, p, h1, h2, h3, h4, h5, h6 {
 }
 
 /* -- Form -- */
-
 form {
     width: auto;
     max-width: 600px;
@@ -366,7 +365,6 @@ form .success-message {
 }
 
 /* Logo Animation */
-
 .fullscreen-logo {
     position: fixed;
     top: 0;
@@ -577,7 +575,6 @@ form .success-message {
 
 
 /* -- Table -- */
-
 table {
     width: 100%;
     border-collapse: collapse;
