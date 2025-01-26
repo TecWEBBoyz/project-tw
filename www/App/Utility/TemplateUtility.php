@@ -16,7 +16,6 @@ class TemplateUtility
             header("templateName: $template");
             header("templateTitle: ".$TEMPLATE_DATA['title']);
             echo $breadcrumb;
-            echo "<h1>".$TEMPLATE_DATA['title']."</h1>";
             $base = require __DIR__ . "/../Templates/$template.php";
         }
         else {

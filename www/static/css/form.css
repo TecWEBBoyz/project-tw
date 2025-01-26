@@ -1,0 +1,183 @@
+/* -- Form -- */
+form {
+    max-width: 600px;
+    padding: var(--spacing-4);
+    margin: 0 auto;
+}
+
+form label {
+    position: absolute;
+    background: var(--color-bg);
+    padding: 0 var(--spacing-1) ;
+    top: 0;
+    left: var(--spacing-4);
+    transform: translateY(-50%);
+}
+
+form .form-group {
+    position: relative;
+}
+
+form input[type="text"],
+form input[type="email"],
+form input[type="password"],
+form input[type="date"],
+form textarea,
+form select {
+    width: 100%;
+    padding: 1rem var(--spacing-4);
+
+    border: 2px solid var(--color-input-border);
+    background-color: var(--color-bg);
+    color: var(--color-text);
+
+    border-radius: 20px;
+
+    font-size: 1rem;
+    margin-bottom: var(--spacing-3);
+
+    transition: border-color ease-in-out .3s, box-shadow ease-in-out .3s;
+}
+
+.no-resize {
+    resize: none;
+}
+
+form input:focus,
+form textarea:focus,
+form select:focus,
+form input:valid,
+form textarea:valid,
+form select:valid,
+form input:-webkit-autofill,
+form textarea:-webkit-autofill,
+form select:-webkit-autofill,
+form input:autofill,
+form textarea:autofill,
+form select:autofill
+{
+    outline: none;
+    background-color: var(--color-bg);
+    border-color: var(--color-accent);
+    box-shadow: 0 0 5px var(--color-accent);
+}
+
+form textarea {
+    min-height: 150px;
+}
+
+form button {
+    background-color: var(--color-bg);
+    margin: 0 auto;
+}
+
+form .custom-date-input {
+    background-color: var(--color-text);
+    color-scheme: dark;
+}
+
+form select {
+    background: url(data:image/svg+xml;base64,PHN2ZyBpZD0iTGF5ZXJfMSIgZGF0YS1uYW1lPSJMYXllciAxIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0Ljk1IDEwIj48ZGVmcz48c3R5bGU+LmNscy0xe2ZpbGw6I2ZmZjt9LmNscy0ye2ZpbGw6IzQ0NDt9PC9zdHlsZT48L2RlZnM+PHRpdGxlPmFycm93czwvdGl0bGU+PHJlY3QgY2xhc3M9ImNscy0xIiB3aWR0aD0iNC45NSIgaGVpZ2h0PSIxMCIvPjxwb2x5Z29uIGNsYXNzPSJjbHMtMiIgcG9pbnRzPSIxLjQxIDQuNjcgMi40OCAzLjE4IDMuNTQgNC42NyAxLjQxIDQuNjciLz48cG9seWdvbiBjbGFzcz0iY2xzLTIiIHBvaW50cz0iMy41NCA1LjMzIDIuNDggNi44MiAxLjQxIDUuMzMgMy41NCA1LjMzIi8+PC9zdmc+) no-repeat right;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+form button:hover {
+}
+
+/* Responsive form */
+@media (max-width: 768px) {
+    form {
+        padding: 15px;
+    }
+
+    form button {
+        width: 100%;
+    }
+}
+
+/* Further responsiveness for small screens */
+@media (max-width: 480px) {
+    form {
+        padding: 10px;
+    }
+
+    form label {
+        font-size: 0.9rem;
+    }
+
+    form input[type="text"],
+    form input[type="email"],
+    form input[type="password"],
+    form textarea,
+    form select {
+        font-size: 0.9rem;
+        padding: 8px;
+    }
+
+    form button {
+        font-size: 0.9rem;
+        padding: 8px 15px;
+    }
+
+    .form-group.inline {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .form-group.inline label {
+        margin-left: 0;
+        margin-top: 5px;
+    }
+
+    .helper-text,
+    .error-message,
+    .success-message {
+        font-size: 0.8rem;
+    }
+}
+
+/* Checkbox and Radio */
+form input[type="checkbox"],
+form input[type="radio"] {
+    margin-right: 10px;
+}
+
+form .form-group {
+    margin-bottom: 20px;
+}
+
+form .form-group.inline {
+    display: flex;
+    align-items: center;
+}
+
+form .form-group.inline label {
+    margin: 0;
+    margin-left: 5px;
+}
+
+/* Helper Text */
+form .helper-text {
+    font-size: 0.875rem;
+    color: var(--color-accent);
+    margin-top: -15px;
+    margin-bottom: 15px;
+}
+
+/* Error Messages */
+form .error-message {
+    color: red;
+    font-size: 0.875rem;
+    margin-top: -10px;
+    margin-bottom: 15px;
+}
+
+/* Success Messages */
+form .success-message {
+    color: green;
+    font-size: 0.875rem;
+    margin-top: -10px;
+    margin-bottom: 15px;
+}

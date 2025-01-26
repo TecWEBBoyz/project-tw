@@ -1,0 +1,63 @@
+/* -- Button Outlined -- */
+.btn-outlined {
+    padding: 0.8rem 4rem 0.8rem 2rem;
+    color: var(--color-text);
+
+    font-size: 1rem;
+    text-transform: uppercase;
+    font-weight: 500;
+    line-height: 1.5em;
+
+    display: block;
+    width: fit-content;
+
+    border: 2px solid var(--color-text);
+
+    position: relative;
+
+    box-shadow: 6px 6px 0px -1px rgba(3, 3, 3,1), 6px 6px 0px 1px rgba(255, 255, 255,1);
+    -webkit-box-shadow: 6px 6px 0px -1px rgba(3, 3, 3,1), 6px 6px 0px 1px rgba(255, 255, 255,1);
+    -moz-box-shadow: 6px 6px 0px -1px rgba(3, 3, 3,1), 6px 6px 0px 1px rgba(255, 255, 255,1);
+
+    transition: border 0.4s ease-in-out, color 0.4s ease-in-out, box-shadow 0.4s ease-in-out, -webkit-box-shadow 0.4s ease-in-out, -moz-box-shadow 0.4s ease-in-out;
+}
+
+.btn-outlined:hover {
+    color: var(--color-accent);
+    border: 2px solid var(--color-accent);
+    box-shadow: 6px 6px 0px -1px rgba(35, 181, 211,1), 6px 6px 0px 1px rgba(35, 181, 211,1);
+    -webkit-box-shadow: 6px 6px 0px -1px rgba(35, 181, 211,1), 6px 6px 0px 1px rgba(35, 181, 211,1);
+    -moz-box-shadow: 6px 6px 0px -1px rgba(35, 181, 211,1), 6px 6px 0px 1px rgba(35, 181, 211,1);
+
+    /* Alternativa */
+    /*
+    box-shadow: 10px 10px 0px -1px rgba(35, 181, 211,1), 10px 10px 0px 1px rgba(35, 181, 211,1);
+    -webkit-box-shadow: 10px 10px 0px -1px rgba(35, 181, 211,1), 10px 10px 0px 1px rgba(35, 181, 211,1);
+    -moz-box-shadow: 10px 10px 0px -1px rgba(35, 181, 211,1), 10px 10px 0px 1px rgba(35, 181, 211,1);
+    */
+}
+
+.btn-outlined svg {
+    width: 1.5rem;
+    height: auto;
+
+    position: absolute;
+    top: 50%;
+    transform: translate(0, -50%);
+    right: var(--spacing-2);
+
+    transition: transform 0.4s ease-in-out;
+}
+
+.btn-outlined:hover svg {
+    transform: translate(10px, -50%);
+}
+
+.btn-outlined svg path {
+    fill: var(--color-text);
+    transition: fill 0.3s ease-in-out;
+}
+
+.btn-outlined:hover svg path {
+    fill: var(--color-accent);
+}

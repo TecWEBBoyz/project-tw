@@ -17,7 +17,7 @@ class LoginController extends ControllerContract
 {
     public function get(): void
     {
-        TemplateUtility::getTemplate('login', ['title' => 'Login']);
+        TemplateUtility::getTemplate('login');
     }
 
     public function post(): void
