@@ -31,7 +31,7 @@ class BreadCrumbUtility {
             ],
             "/about" => [
                 ["label" => "HOME", "url" => "/"],
-                ["label" => "ABOUT US", "url" => null]
+                ["label" => "ABOUT ME", "url" => null]
             ],
             "/services" => [
                 ["label" => "HOME", "url" => "/"],
