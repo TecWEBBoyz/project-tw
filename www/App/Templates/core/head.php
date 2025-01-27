@@ -1,6 +1,6 @@
 <!-- Meta tags -->
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 <meta name="description" content="<?php use function PTW\config;
 
 echo $TEMPLATE_DATA['description'] ?? 'Default description for the page'; ?>">
