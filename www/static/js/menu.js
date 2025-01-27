@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const content = document.querySelector('.content');
     const loader = document.createElement('div');
     loader.className = 'content-loader';
-    loader.style.display = 'none';
+    loader.classList.add('hidden');
     loader.innerHTML = '<div class="spinner"></div>';
 
     let loaderTimeout;
@@ -14,8 +14,8 @@ document.addEventListener('DOMContentLoaded', () => {
             loaderExist.remove();
         }
         content.appendChild(loader);
-        container.style.display = 'none';
-        loader.style.display = 'flex';
+        container.classList.add('hidden');
+        loader.classList.remove('hidden');
     }
 
     function hideLoader() {
@@ -25,15 +25,15 @@ document.addEventListener('DOMContentLoaded', () => {
         const remainingTime = Math.max(0, minDisplayTime - elapsedTime);
 
         setTimeout(() => {
-            loader.style.display = 'none';
-            container.style.display = '';
+            loader.classList.add('hidden');
+            container.classList.remove('hidden');
         }, remainingTime);
     }
 
     function showError(message) {
         container.innerHTML = `<div class="error-message">${message}</div>`;
-        container.style.display = '';
-        loader.style.display = 'none';
+        container.classList.remove('hidden');
+        loader.classList.add('hidden');
     }
 
     function loadTemplate(templateName, templateTitle) {
@@ -147,6 +147,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 return response.text().then(html => ({ html, templateName, templateTitle, href }));
             })
             .then(({ html, templateName, templateTitle, href }) => {
+                container.classList.forEach(className => {
+                    if (className.startsWith('template-')) {
+                        container.classList.remove(className);
+                    }
+                });
+                container.classList.add(`template-${templateName}`);
                 container.innerHTML = html;
 
                 // Check if the current state is different from the previous one

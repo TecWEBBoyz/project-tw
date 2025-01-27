@@ -5,19 +5,20 @@
  * */
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
+<h1>Titolo h1</h1>
+<p>Un esempio di paragrafo della lunghezza di qualche parola. Spero che le dimensioni siano corrette altrimenti rischio di non avere nulla di funzionante!</p>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?php echo $title ?></title>
-</head>
+<h2>Titolo h2</h2>
+<p>Un esempio di paragrafo della lunghezza di qualche parola. Spero che le dimensioni siano corrette altrimenti rischio di non avere nulla di funzionante!</p>
 
-<body>
-    <h1><?php echo $title ?></h1>
+<h3>Titolo h3</h3>
+<p>Un esempio di paragrafo della lunghezza di qualche parola. Spero che le dimensioni siano corrette altrimenti rischio di non avere nulla di funzionante!</p>
 
-    <p><?php echo $description ?></p>
-</body>
+<h4>Titolo h4</h4>
+<p>Un esempio di paragrafo della lunghezza di qualche parola. Spero che le dimensioni siano corrette altrimenti rischio di non avere nulla di funzionante!</p>
 
-</html>
+<h5>Titolo h5</h5>
+<p>Un esempio di paragrafo della lunghezza di qualche parola. Spero che le dimensioni siano corrette altrimenti rischio di non avere nulla di funzionante!</p>
+<p class="caption">Un esempio di paragrafo della lunghezza di qualche parola. Spero che le dimensioni siano corrette altrimenti rischio di non avere nulla di funzionante!</p>
+
+<a href="test" class="link">test</a>

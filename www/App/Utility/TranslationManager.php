@@ -130,4 +130,9 @@ class TranslationManager
 
         return $browserLanguage ?: $fallbackLanguage;
     }
+
+    public function getCurrentLang()
+    {
+        return $this->defaultLanguage;
+    }
 }

@@ -67,4 +67,9 @@ if (!function_exists('translation')) {
         return App::GetTranslationManager()->translate($key);
     }
 
+
+    function translationWithSpan(string $key): string
+    {
+        return "<span class='translation' lang=".App::GetTranslationManager()->getCurrentLang().">" . App::GetTranslationManager()->translate($key) . "</span>";
+    }
 }

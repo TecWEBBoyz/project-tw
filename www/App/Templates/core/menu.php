@@ -4,9 +4,8 @@ use PTW\Modules\Auth\Role;
 use PTW\Modules\Auth\SessionManager;
 
 $menuItems = [
-    ['label' => 'Vai al contenuto', 'link' => $_SERVER['REQUEST_URI'] . '#content', 'classes' => 'navigation-help'],
-    ['label' => 'Vai al footer', 'link' => $_SERVER['REQUEST_URI'] . '#footer', 'classes' => 'navigation-help'],
-    ['label' => 'Home', 'link' => 'home', 'classes' => ''],
+    ['label' => 'Vai al contenuto', 'link' => $_SERVER['REQUEST_URI'] . '#content', 'classes' => '', 'navigation-help' => true],
+    ['label' => 'Vai al footer', 'link' => $_SERVER['REQUEST_URI'] . '#footer', 'classes' => '', 'navigation-help' => true],
     ['label' => 'About', 'link' => 'about', 'classes' => ''],
     ['label' => 'Services', 'link' => 'services', 'classes' => ''],
     ['label' => 'Contact', 'link' => 'contact', 'classes' => ''],
@@ -30,19 +29,25 @@ if ($sessionManager->isAuthenticated()) {
 }
 
 function renderMenu($menuItems, $mobile = false) {
-    echo '<nav id="menu"><ul><span lang="eng">';
+
+    $navId = $mobile ? 'menu_mobile' : 'menu_desktop';
+
+    echo '<nav id="' . $navId . '"><ul><span lang="en">';
     $firstId = $mobile ? '' : 'desktop-first-item';
     $lastId = $mobile ? 'mobile-last-item' : 'desktop-last-item';
     $itemCount = count($menuItems);
 
     foreach ($menuItems as $index => $item) {
         $id = '';
+        $navigationHelper =
+            isset($item['navigation-help']) && $item['navigation-help']
+                ? 'class="navigation-help"' : '';
         if ($index === 0) {
             $id = $firstId;
         } elseif ($index === $itemCount - 1) {
             $id = $lastId;
         }
-        echo '<li><a id="' . $id . '" class="nav-link ' . htmlspecialchars($item['classes']) . '"' .
+        echo '<li ' . $navigationHelper . '><a id="' . $id . '" class="nav-link link ' . htmlspecialchars($item['classes']) . '"' .
             ($mobile ? ' data-mobile="true" ' : ' ') .
             'href="' . htmlspecialchars($item['link']) . '">' .
             htmlspecialchars($item['label']) . '</a></li>' . PHP_EOL;
@@ -51,18 +56,20 @@ function renderMenu($menuItems, $mobile = false) {
 }
 
 ?>
+
 <header class="navbar">
     <a href="home" class="logo">
         <h1 class="logo-hide">Filippo Rizzato</h1>
     </a>
-    <div class="links">
-        <?php renderMenu($menuItems); ?>
-    </div>
+
+    <?php renderMenu($menuItems); ?>
+
     <button class="hamburger" aria-label="Apertura menu di navigazione" tabindex="0" onclick="toggleMenu()">
         <div></div>
         <div></div>
         <div></div>
     </button>
+
     <div class="menu hidden" role="menu" aria-hidden="true">
         <!-- Close button -->
         <a href="close" class="close" onclick="hideMenu()" role="button" tabindex="0" aria-label="Chiusura menu di navigazione" data-fake="true" id="mobile-first-item">&times;</a>

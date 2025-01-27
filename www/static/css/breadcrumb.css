@@ -1,0 +1,32 @@
+/* -- Breadcrumb -- */
+.breadcrumb {
+    margin: var(--spacing-2) auto var(--spacing-4) auto;
+    text-align: center;
+}
+
+.breadcrumb.hidden {
+    display: none;
+}
+
+.breadcrumb p {
+    display: inline;
+    text-wrap: nowrap;
+    padding: 0 var(--spacing-1);
+}
+
+.breadcrumb a {
+    color: var(--color-accent);
+    text-wrap: nowrap;
+    padding: 0 var(--spacing-1);
+}
+
+.breadcrumb svg {
+    vertical-align: middle;
+    width: 1.5em;
+    height: auto;
+    transform: translateY(-10%);
+}
+
+.breadcrumb svg path {
+    fill: var(--color-text);
+}
