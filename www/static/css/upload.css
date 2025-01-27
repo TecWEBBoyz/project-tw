@@ -6,13 +6,17 @@
     color: #666666;
     font-size: 16px;
     cursor: pointer;
+    margin-bottom: 3em;
+}
+#drop-zone span, input {
+    color: var(--color-white);
+    margin: 1em;
 }
 #drop-zone.dragover {
     background-color: #f0f0f0;
     border-color: #009578;
-    color: #009578;
+    color: var(--color-white);
 }
-label[for="file"] {
-       color: #009578;
-       cursor: pointer;
+label[for="image-upload"] {
+    cursor: pointer;
 }
