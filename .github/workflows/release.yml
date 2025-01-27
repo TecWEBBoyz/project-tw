@@ -26,10 +26,10 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y texlive-full
 
-      # Step 3: Compile LaTeX document
+      # Step 3: Compile LaTeX document includendo tutti i file dentro docs/contenuti/*.tex
       - name: Compile LaTeX document
         run: |
-          pdflatex -interaction=nonstopmode -output-directory=docs docs/Relazione-TecWebBoyz.tex
+          pdflatex -interaction=nonstopmode -output-directory=docs docs/Relazione-TecWebBoyz.tex docs/contenuti/*.tex
 
       # Step 4: Upload the compiled PDF as an artifact
       - name: Upload PDF artifact
