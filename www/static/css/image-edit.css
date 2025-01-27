@@ -9,12 +9,19 @@ form .image {
     border-radius: 4px;
 }
 
+.btn-image-edit {
+    padding-right: 2em;
+}
+
 /* Stile per il toggle button */
 .toggle-button-label {
     display: flex;
     align-items: center;
     cursor: pointer;
     gap: 0.5rem;
+    position: relative;
+    margin-bottom: 1em;
+    left: 0;
 }
 
 .toggle-button-checkbox {
