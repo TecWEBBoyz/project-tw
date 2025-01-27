@@ -62,6 +62,14 @@ form select:autofill
     box-shadow: 0 0 5px var(--color-accent);
 }
 
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active{
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: var(--color-text);
+}
+
 form textarea {
     min-height: 150px;
 }
