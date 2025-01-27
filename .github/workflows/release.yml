@@ -29,7 +29,7 @@ jobs:
       # Step 3: Compile LaTeX document includendo tutti i file dentro docs/contenuti/*.tex
       - name: Compile LaTeX document
         run: |
-          pdflatex -interaction=nonstopmode -output-directory=docs docs/Relazione-TecWebBoyz.tex docs/contenuti/*.tex
+          pdflatex -interaction=nonstopmode -output-directory=docs docs/contenuti/*.tex docs/Relazione-TecWebBoyz.tex 
 
       # Step 4: Upload the compiled PDF as an artifact
       - name: Upload PDF artifact
