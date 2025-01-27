@@ -39,18 +39,22 @@ foreach ($images as $image) {
     echo "<label for='place' class='caption'>" . PTW\translation('image-place') . "</label>";
     echo "<input type='text' id='place' name='place' maxlength='255' required value='{$place}' />";
     echo "</div>";
+    // echo "<div class='form-group'>";
+    // echo "<label for='date' class='caption'>" . PTW\translation('image-date') . "</label>";
+    // echo "<input 
+    //     type='date' 
+    //     id='date' 
+    //     name='date' 
+    //     value='{$date}' 
+    //     min='1900-01-01' 
+    //     max='" . date('Y-m-d') . "' 
+    //     required 
+    //     aria-label='" . PTW\translation('image-date-description') . "' 
+    // />";
+    //     echo "</div>";
     echo "<div class='form-group'>";
-    echo "<label for='date' class='caption'>" . PTW\translation('image-date') . "</label>";
-    echo "<input 
-        type='date' 
-        id='date' 
-        name='date' 
-        value='{$date}' 
-        min='1900-01-01' 
-        max='" . date('Y-m-d') . "' 
-        required 
-        aria-label='" . PTW\translation('image-date-description') . "' 
-    />";
+    echo "<label class='caption' for='date'>Data</label>";
+    echo "<input type='date' class='custom-date-input' id='date' name='date' value='{$date}' required>";
     echo "</div>";
     echo '<label for="visible" class="toggle-button-label">';
     echo '<span>' . PTW\translation('image-visibility') . ':</span>';
