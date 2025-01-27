@@ -8,7 +8,7 @@
     <?php if (empty($TEMPLATE_DATA['images'])): ?>
         <p><?php echo \PTW\translation('no-images') ?></p>
     <?php else: ?>
-        <table>
+        <table id="admin-photo-list">
             <thead>
             <tr>
                 <th scope="col"><?php echo \PTW\translation('image-id') ?></th>
@@ -42,7 +42,7 @@
 
                 // Todo(Luca): Rivedere, niente stili inline -> Fare tramite classi.
                 $rowStyle = is_null($imageArray['updated_at'] ?? null)
-                    ? " style='background-color: orange;' title='".\PTW\translation('image-require-edit')."'"
+                    ? " class='require-edit' title='".\PTW\translation('image-require-edit')."'"
                     : "";
 
                 echo "<tr$rowStyle id=\"$id\">
