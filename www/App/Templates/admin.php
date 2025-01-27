@@ -1,8 +1,9 @@
 <?php
 ?>
-<div id="upload-button-container">
-    <a href="admin/upload" class="btn btn-primary"><?php echo \PTW\translation('upload-image') ?></a>
-</div>
+<a href="admin/upload" class="btn-outlined" id="upload-button">
+    <span><?php echo \PTW\translation('upload-image') ?></span>
+    <?php echo file_get_contents("static/images/right-chevron.svg") ?>
+</a>
 
 <div class="table-responsive">
     <?php if (empty($TEMPLATE_DATA['images'])): ?>
