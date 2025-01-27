@@ -25,7 +25,14 @@ form .image {
 }
 
 .toggle-button-checkbox {
-    display: none;
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.toggle-button-label:focus-within {
+    box-shadow: 0 0 5px var(--color-white);
+    border-radius: 8px;
 }
 
 .toggle-button-slider {
