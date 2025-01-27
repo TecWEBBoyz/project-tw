@@ -132,7 +132,22 @@ CERT_PATH="/etc/letsencrypt/live/rizzatophotography.ddns.net"
 if [ ! -d "$CERT_PATH" ]; then
     certbot --apache --non-interactive --agree-tos --email baraldodavide99@gmail.com -d rizzatophotography.ddns.net
 else
-    echo "Certificati SSL già presenti."
+    echo "Certificati SSL già presenti. Configuro Apache per l'uso dei certificati esistenti."
+    cat <<EOL > /etc/apache2/sites-available/000-default-ssl.conf
+<VirtualHost *:443>
+    ServerName rizzatophotography.ddns.net
+    DocumentRoot /var/www/html
+
+    SSLEngine on
+    SSLCertificateFile $CERT_PATH/fullchain.pem
+    SSLCertificateKeyFile $CERT_PATH/privkey.pem
+
+    <Directory /var/www/html>
+        AllowOverride All
+    </Directory>
+</VirtualHost>
+EOL
+    a2ensite 000-default-ssl
 fi
 
 # Configurazione del rinnovo automatico del certificato
