@@ -11,14 +11,14 @@
         <table id="admin-photo-list">
             <thead>
             <tr>
-                <th scope="col"><?php echo \PTW\translation('image-id') ?></th>
-                <th scope="col"><?php echo \PTW\translation('image-alt') ?></th>
-                <th scope="col"><?php echo \PTW\translation('image-description') ?></th>
-                <th scope="col"><?php echo \PTW\translation('image-title') ?></th>
-                <th scope="col"><?php echo \PTW\translation('image-place') ?></th>
-                <th scope="col"><?php echo \PTW\translation('image-date') ?></th>
-                <th scope="col"><?php echo \PTW\translation('image-visibility') ?></th>
-                <th scope="col"><?php echo \PTW\translation('image-actions') ?></th>
+                <th scope="col"><?php echo \PTW\translationWithSpan('image-id') ?></th>
+                <th scope="col"><?php echo \PTW\translationWithSpan('image-alt') ?></th>
+                <th scope="col"><?php echo \PTW\translationWithSpan('image-description') ?></th>
+                <th scope="col"><?php echo \PTW\translationWithSpan('image-title') ?></th>
+                <th scope="col"><?php echo \PTW\translationWithSpan('image-place') ?></th>
+                <th scope="col"><?php echo \PTW\translationWithSpan('image-date') ?></th>
+                <th scope="col"><?php echo \PTW\translationWithSpan('image-visibility') ?></th>
+                <th scope="col"><?php echo \PTW\translationWithSpan('image-actions') ?></th>
             </tr>
             </thead>
             <tbody>
