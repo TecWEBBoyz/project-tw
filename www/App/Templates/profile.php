@@ -68,7 +68,10 @@ if (!isset($TEMPLATE_DATA)) {
     <?php else: ?>
 
         <p>Non è stato ancora fissato un appuntamento:</p>
-        <a href="book-service">Prenota ora un appuntamento</a>
+        <a href="book-service" class="btn-outlined" id="profile-book-button">
+            <span>Prenota ora un appuntamento</span>
+            <?php echo file_get_contents("static/images/right-chevron.svg") ?>
+        </a>
 
     <?php endif; ?>
 
