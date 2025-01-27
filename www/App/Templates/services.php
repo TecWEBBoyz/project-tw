@@ -8,7 +8,7 @@
             </header>
             <div>
                 <p>Prenota ora il servizio fotografico per il tuo evento o concerto: cattura ogni momento unico e trasforma i ricordi in immagini indimenticabili!</p>
-                <a href="/book-service?service=events" class="btn-outlined">
+                <a href="book-service?service=events" class="btn-outlined">
                     <span>Book</span>
                     <?php echo file_get_contents("static/images/right-chevron.svg") ?>
                 </a>
@@ -24,7 +24,7 @@
             </header>
             <div>
                 <p>Prenota ora il servizio fotografico per il tuo evento o concerto: cattura ogni momento unico e trasforma i ricordi in immagini indimenticabili!</p>
-                <a href="/book-service?service=other" class="btn-outlined">
+                <a href="book-service?service=other" class="btn-outlined">
                     <span>Book</span>
                     <?php echo file_get_contents("static/images/right-chevron.svg") ?>
                 </a>
