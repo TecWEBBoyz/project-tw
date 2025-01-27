@@ -1,4 +1,4 @@
-name: PHP Build and Release
+name: Build and Release LaTeX Document
 
 on:
   push:
@@ -12,20 +12,21 @@ permissions:
   contents: write
 
 jobs:
-  release:
-    name: Build and Release PDF
+  build_and_release:
     runs-on: ubuntu-latest
 
     steps:
       # Step 1: Checkout the repository
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v2
 
-      # Step 2: Compile LaTeX document using xu-cheng/latex-action
+      # Step 2: Compile LaTeX document
       - name: Compile LaTeX document
-        uses: xu-cheng/latex-action@3.2.0
+        uses: dante-ev/latex-action@latest
         with:
           root_file: docs/Relazione-TecWebBoyz.tex
+          compiler: pdflatex
+          args: -interaction=nonstopmode -shell-escape
 
       # Step 3: Upload the compiled PDF as an artifact
       - name: Upload PDF artifact
@@ -43,6 +44,7 @@ jobs:
           RELEASE_NAME="Release $TAG_NAME"
           NOTES="Automated release for the PDF document."
           gh release create "$TAG_NAME" docs/Relazione-TecWebBoyz.pdf --title "$RELEASE_NAME" --notes "$NOTES"
+
 
       #  build:
 #    name: Build PHP App
