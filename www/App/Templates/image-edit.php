@@ -23,15 +23,24 @@ foreach ($images as $image) {
     echo "<form action='admin/update-image' method='POST'>";
     echo "<input type='hidden' name='id' value='" . htmlspecialchars($imageArray[ImageType::id->value]) . "'>";
     echo "<img src='static/uploads/{$imagePathResized}' alt='{$alt}' class='image'>";
-    echo "<label for='title'>" . PTW\translation('image-title') . ":</label>";
+    echo "<div class='form-group'>";
+    echo "<label for='title' class='caption'>" . PTW\translation('image-title') . "</label>";
     echo "<input type='text' id='title' name='title' maxlength='255' value='{$title}' required />";
-    echo "<label for='alt'>" . PTW\translation('image-alt') . ":</label>";
+    echo "</div>";
+    echo "<div class='form-group'>";
+    echo "<label for='alt' class='caption'>" . PTW\translation('image-alt') . "</label>";
     echo "<input type='text' id='alt' name='alt' value='{$alt}' required>";
-    echo "<label for='description'>" . PTW\translation('image-description') . ":</label>";
+    echo "</div>";
+    echo "<div class='form-group'>";
+    echo "<label for='description' class='caption'>" . PTW\translation('image-description') . "</label>";
     echo "<textarea id='description' name='description' maxlength='512' required>{$description}</textarea>";
-    echo "<label for='place'>" . PTW\translation('image-place') . ":</label>";
+    echo "</div>";
+    echo "<div class='form-group'>";
+    echo "<label for='place' class='caption'>" . PTW\translation('image-place') . "</label>";
     echo "<input type='text' id='place' name='place' maxlength='255' required value='{$place}' />";
-    echo "<label for='date'>" . PTW\translation('image-date') . ":</label>";
+    echo "</div>";
+    echo "<div class='form-group'>";
+    echo "<label for='date' class='caption'>" . PTW\translation('image-date') . "</label>";
     echo "<input 
         type='date' 
         id='date' 
@@ -42,16 +51,21 @@ foreach ($images as $image) {
         required 
         aria-label='" . PTW\translation('image-date-description') . "' 
     />";
+    echo "</div>";
     echo '<label for="visible" class="toggle-button-label">';
     echo '<span>' . PTW\translation('image-visibility') . ':</span>';
     echo '<input type="checkbox" id="visible" name="visible" value="true"' . ($visible ? ' checked' : '') . ' class="toggle-button-checkbox">';
     echo '<span class="toggle-button-slider" aria-hidden="true"></span>';
     echo '</label>';
-    echo "<button type='submit' class='button'>" . PTW\translation('image-save') . "</button>";
+    echo "<button class='btn-outlined btn-image-edit button' type='submit'>";
+    echo "<span>" . PTW\translation('image-save') . "</span>";
+    echo "</button>";
     echo "</form>";
     echo "<form action='admin/delete-image' method='POST'>";
     echo "<input type='hidden' name='id' value='" . htmlspecialchars($imageArray[ImageType::id->value]) . "'>";
-    echo "<button type='submit' class='button button-danger'>" . PTW\translation('image-delete') . "</button>";
+    echo "<button class='btn-outlined btn-image-edit button button-danger' type='submit'>";
+    echo "<span>" . PTW\translation('image-delete') . "</span>";
+    echo "</button>";
     echo "</form>";
 }
 if (empty($images)) {
