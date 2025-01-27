@@ -127,6 +127,9 @@ cd /var/www/html && composer update
 rm /var/www/html/Config/config.php
 cp /var/www/html/Config/config.prod.php /var/www/html/Config/config.php
 
+# Abilita il modulo SSL in Apache
+a2enmod ssl
+
 # Configurazione Certbot per SSL
 CERT_PATH="/etc/letsencrypt/live/rizzatophotography.ddns.net"
 if [ ! -d "$CERT_PATH" ]; then
@@ -148,6 +151,11 @@ else
 </VirtualHost>
 EOL
     a2ensite 000-default-ssl
+fi
+
+# Abilita il file di configurazione SSL predefinito, se esiste
+if [ -f /etc/apache2/sites-available/default-ssl.conf ]; then
+    a2ensite default-ssl
 fi
 
 # Configurazione del rinnovo automatico del certificato
