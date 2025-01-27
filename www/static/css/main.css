@@ -470,6 +470,7 @@ svg {
     cursor: pointer;
     color: var(--color-text);
     transition: color 0.4s ease-in-out;
+    z-index: 1;
 }
 
 .close-button:hover {
