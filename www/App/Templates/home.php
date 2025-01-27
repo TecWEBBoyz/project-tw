@@ -60,12 +60,14 @@ foreach ($images as $image) {
 
     // Calcola l'aspect ratio dell'immagine
     $imagePath = isset($imageArray[ImageType::path->value]) ? 'static/uploads/' . $imageArray[ImageType::path->value] : '';
+    $imagePath = preg_replace('/\.(jpg|jpeg|png)$/i', '_25percent.jpg', $imagePath); // Immagine ridimensionata al 25%
     $aspectRatio = '1'; // Default ratio in caso di errore
 
     if (file_exists($imagePath)) {
         $imageSize = getimagesize($imagePath);
         if ($imageSize && isset($imageSize[0], $imageSize[1])) {
             $aspectRatioValue = $imageSize[0] / $imageSize[1]; // Larghezza divisa per altezza
+            $imageArray['aspect_ratio_best'] = $aspectRatioValue;
             $aspectRatio = getClosestAspectRatio($aspectRatioValue); // Ottieni l'aspect ratio standard più vicino
         }
     }
@@ -136,7 +138,8 @@ foreach ($images as $image) {
                      data-description="<?php echo isset($image[ImageType::description->value]) ? htmlspecialchars($image[ImageType::description->value], ENT_QUOTES, 'UTF-8') : ''; ?>"
                 >
                     <a href="<?php echo htmlspecialchars($detailPage, ENT_QUOTES, 'UTF-8'); ?>">
-                        <img class="gallery-item-image aspect-ratio-<?php echo str_replace('.', '-', str_replace('/', '-', $aspectRatio)); ?>"
+                        <img
+                            class="gallery-item-image aspect-ratio-<?php echo str_replace('.', '-', str_replace('/', '-', $aspectRatio)); ?>"
                              src="static/uploads/<?php echo htmlspecialchars($imagePathResized, ENT_QUOTES, 'UTF-8'); ?>"
                              alt="<?php echo isset($image[ImageType::alt->value]) ? htmlspecialchars($image[ImageType::alt->value], ENT_QUOTES, 'UTF-8') : ''; ?>"
                              loading="lazy"
