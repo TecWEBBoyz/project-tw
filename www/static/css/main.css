@@ -215,6 +215,12 @@ body, p, h1, h2, h3, h4, h5, h6 {
     text-align: center;
 }
 
+
+svg {
+    fill: var(--color-text);
+    width: 1.5rem;
+    height: auto;
+}
 /* Logo Animation */
 .fullscreen-logo {
     position: fixed;
@@ -296,6 +302,10 @@ body, p, h1, h2, h3, h4, h5, h6 {
     padding: 0 var(--spacing-4);
 }
 
+.container.hidden {
+    display: none;
+}
+
 @media screen and (max-width: 480px)
 {
     .container {
@@ -331,6 +341,10 @@ body, p, h1, h2, h3, h4, h5, h6 {
     justify-content: center;
     align-items: center;
     z-index: 1000;
+}
+
+.content-loader.hidden {
+    display: none;
 }
 
 .content-loader.auto-hide {
