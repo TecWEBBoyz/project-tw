@@ -20,22 +20,25 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      # Step 2: Compile LaTeX document
-      - name: Compile LaTeX document
-        uses: dante-ev/latex-action@latest
-        with:
-          root_file: docs/Relazione-TecWebBoyz.tex
-          compiler: pdflatex
-          args: -interaction=nonstopmode -shell-escape
+      # Step 2: Install LaTeX tools
+      - name: Install LaTeX
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y texlive-full
 
-      # Step 3: Upload the compiled PDF as an artifact
+      # Step 3: Compile LaTeX document
+      - name: Compile LaTeX document
+        run: |
+          pdflatex -interaction=nonstopmode -output-directory=docs docs/Relazione-TecWebBoyz.tex
+
+      # Step 4: Upload the compiled PDF as an artifact
       - name: Upload PDF artifact
         uses: actions/upload-artifact@v3
         with:
           name: Relazione-TecWebBoyz
           path: docs/Relazione-TecWebBoyz.pdf
 
-      # Step 4: Create a release and attach the PDF
+      # Step 5: Create a release and attach the PDF
       - name: Create release with GitHub CLI
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -44,7 +47,6 @@ jobs:
           RELEASE_NAME="Release $TAG_NAME"
           NOTES="Automated release for the PDF document."
           gh release create "$TAG_NAME" docs/Relazione-TecWebBoyz.pdf --title "$RELEASE_NAME" --notes "$NOTES"
-
 
       #  build:
 #    name: Build PHP App
