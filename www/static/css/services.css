@@ -44,11 +44,11 @@
 }
 
 #service-events .service-image {
-    background-image: url("static/uploads/502A4643_75percent.jpg");
+    background-image: url("static/uploads/502A4643_75percent.jpg"), url("static/uploads/502A4643_50percent.jpg"), url("static/uploads/502A4643_25percent.jpg");
 }
 
 #service-other .service-image {
-    background-image: url("static/uploads/502A1635_75percent.jpg");
+    background-image: url("static/uploads/502A1635_75percent.jpg"), url("static/uploads/502A1635_50percent.jpg"), url("static/uploads/502A1635_25percent.jpg");
 }
 
 #service-page article p:has(+ a) {

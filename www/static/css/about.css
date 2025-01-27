@@ -10,7 +10,7 @@
 #filippo-image {
     align-self: stretch;
     justify-self: stretch;
-    background-image: url("static/images/me_high_aspect.jpg");
+    background-image: url("static/images/me_high_aspect.jpg"), url("static/images/me_medium_aspect.jpg"), url("static/images/me_low_aspect.jpg");
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;

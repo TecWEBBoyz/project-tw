@@ -7,3 +7,7 @@
 .template-profile article:has(+ article) {
     margin-bottom: var(--spacing-5);
 }
+
+#profile-book-button {
+    margin-top: 2em;
+}

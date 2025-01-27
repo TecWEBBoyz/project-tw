@@ -1,3 +1,11 @@
+#upload-button {
+    margin: 0 auto;
+}
+
+.table-responsive {
+    margin-top: 2em;
+}
+
 .template-admin form {
     display: flex;
     flex-wrap: wrap;
