@@ -13,6 +13,17 @@
     --color-blue: #23B5D3;
     --color-orange: #F78E69;
 
+    /* Additional Colors */
+    --color-warning: #FFC107; /* Giallo Warning */
+    --color-success: #28A745; /* Verde Success */
+    --color-error: #DC3545;   /* Rosso Error */
+    --color-info: #17A2B8;    /* Blu Info */
+
+    --color-warning-bg: rgba(255, 193, 7, 0.1); /* Background Warning */
+    --color-success-bg: rgba(40, 167, 69, 0.1); /* Background Success */
+    --color-error-bg: rgba(220, 53, 69, 0.1);   /* Background Error */
+    --color-info-bg: rgba(23, 162, 184, 0.1);   /* Background Info */
+
     /* Basic Spacing */
     --spacing-1: 0.5rem;
     --spacing-2: 1.25rem;
@@ -204,6 +215,12 @@ body, p, h1, h2, h3, h4, h5, h6 {
     text-align: center;
 }
 
+
+svg {
+    fill: var(--color-text);
+    width: 1.5rem;
+    height: auto;
+}
 /* Logo Animation */
 .fullscreen-logo {
     position: fixed;
@@ -285,6 +302,10 @@ body, p, h1, h2, h3, h4, h5, h6 {
     padding: 0 var(--spacing-4);
 }
 
+.container.hidden {
+    display: none;
+}
+
 @media screen and (max-width: 480px)
 {
     .container {
@@ -320,6 +341,10 @@ body, p, h1, h2, h3, h4, h5, h6 {
     justify-content: center;
     align-items: center;
     z-index: 1000;
+}
+
+.content-loader.hidden {
+    display: none;
 }
 
 .content-loader.auto-hide {
@@ -430,6 +455,9 @@ body, p, h1, h2, h3, h4, h5, h6 {
     color: var(--color-text);
     text-align: center;
     pointer-events: all;
+}
+.modal.visible {
+    display: flex;
 }
 
 .close-button {

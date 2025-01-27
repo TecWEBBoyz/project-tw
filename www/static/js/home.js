@@ -1,4 +1,3 @@
-
 window.loadJS = () => {
     console.log("Loading home.js");
     const images = document.querySelectorAll(".gallery-item img");
@@ -20,7 +19,7 @@ window.loadJS = () => {
             const galleryItem = event.target.closest(".gallery-item");
             const description = "<p>" + galleryItem.getAttribute("data-description") + "</p>";
 
-            modal.classList.remove("hidden");
+            modal.classList.add("visible");
             let fullsizeImage = img.src.replace(/_.*\.(jpg|jpeg|png)$/i, '_75percent.$1');
             modalImage.onload = () => {
                 body.classList.add("no-scroll");
@@ -42,7 +41,7 @@ window.loadJS = () => {
                 const galleryItem = event.target.closest(".gallery-item");
                 const description = "<p>" + galleryItem.getAttribute("data-description") + "</p>";
 
-                modal.classList.remove("hidden");
+                modal.classList.add("visible");
                 let fullsizeImage = img.src.replace(/_.*\.(jpg|jpeg|png)$/i, '_75percent.$1');
                 modalImage.onload = () => {
 
@@ -60,7 +59,7 @@ window.loadJS = () => {
     });
 
     close_button.addEventListener("click", () => {
-        modal.classList.add("hidden");
+        modal.classList.remove("visible");
         modalImage.src = "";
         modalDescription.textContent = "";
 
@@ -76,7 +75,7 @@ window.loadJS = () => {
         if (event.key === "Enter") {
             event.preventDefault();
 
-            modal.classList.add("hidden");
+            modal.classList.remove("visible");
             modalImage.src = "";
             modalDescription.textContent = "";
 
