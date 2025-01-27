@@ -85,6 +85,7 @@ window.loadJS = () => {
     });
 
     modalImage.addEventListener("gesturestart", (event) => {
+        console.log("gesturestart");
         event.preventDefault();
         isZooming = true;
     });
