@@ -10,6 +10,7 @@ services:
       - ./setup_apache_prod.sh:/setup_apache_prod.sh
       - ./init.sql:/init.sql
       - certs:/etc/letsencrypt
+      - apache2config:/etc/apache2/sites-available
     working_dir: /var/www/html
     ports:
       - "80:80"
@@ -40,4 +41,6 @@ services:
 
 volumes:
   certs:
+    driver: local
+  apache2config:
     driver: local
