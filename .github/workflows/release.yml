@@ -23,15 +23,17 @@ jobs:
         with:
           fetch-depth: 0
 
-      # Step 2: Install dependencies
       - name: Install PHP and Composer
         run: |
           sudo apt-get update
-          sudo apt-get install -y php8.1 php8.1-mbstring php8.1-intl php8.1-mysql texlive-base texlive-lang-italian texlive-fonts-recommended texlive-latex-extra
+          sudo apt-get install -y software-properties-common
+          sudo add-apt-repository ppa:ondrej/php -y
+          sudo apt-get update
+          sudo apt-get install -y php8.1 php8.1-mbstring php8.1-intl php8.1-mysql
           curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-      # Step 3: Build PHP App
-      - name: Install dependencies for PHP app
+
+      - name: Install dependencies
         run: |
           cd www
           composer install --no-dev --optimize-autoloader
@@ -62,15 +64,29 @@ jobs:
           name: db-init-app
           path: db-init-app.tar.gz
 
-      # Step 5: Compile LaTeX files
-      - name: Compile LaTeX documents
+      - name: Identify .tex files
+        run: |
+          cd docs
+          ls -R | grep .tex > modified_files.txt
+
+      - name: Read modified .tex files
+        run: |
+          cd docs
+          cat modified_files.txt | while read line; do
+            echo "Modified file: $line"
+          done
+      - name: Compile .tex files
         run: |
           cd docs
           mkdir -p output
-          for tex_file in *.tex; do
-            pdflatex -interaction=nonstopmode -output-directory output "$tex_file" || true
-            pdflatex -interaction=nonstopmode -output-directory output "$tex_file" || true
-          done
+          while IFS= read -r tex_file; do
+            if [ -f "$tex_file" ]; then
+              output_dir="output/$(dirname "$tex_file" | sed 's|docs/||')"
+              mkdir -p "$output_dir"
+              pdflatex -interaction=nonstopmode -output-directory "$output_dir" "$tex_file" || true
+              pdflatex -interaction=nonstopmode -output-directory "$output_dir" "$tex_file" || true
+            fi
+          done < modified_files.txt
 
       - name: Upload LaTeX PDFs
         uses: actions/upload-artifact@v4
