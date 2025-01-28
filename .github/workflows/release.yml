@@ -12,41 +12,80 @@ permissions:
   contents: write
 
 jobs:
-  build_and_release:
+  compile:
     runs-on: ubuntu-latest
 
     steps:
-      # Step 1: Checkout the repository
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      # Step 2: Install LaTeX tools
-      - name: Install LaTeX
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y texlive-full
-
-      # Step 3: Compile LaTeX document includendo tutti i file dentro docs/contenuti/*.tex
-      - name: Compile LaTeX document
-        run: |
-          pdflatex -interaction=nonstopmode -output-directory=docs docs/contenuti/*.tex docs/Relazione-TecWebBoyz.tex 
-
-      # Step 4: Upload the compiled PDF as an artifact
-      - name: Upload PDF artifact
-        uses: actions/upload-artifact@v3
+      # Step 1: Checkout repository
+      - name: Checkout repository
+        uses: actions/checkout@v4
         with:
-          name: Relazione-TecWebBoyz
-          path: docs/Relazione-TecWebBoyz.pdf
+          ssh-key: ${{ secrets.DEPLOY_KEY }}
+          fetch-depth: 0
 
-      # Step 5: Create a release and attach the PDF
-      - name: Create release with GitHub CLI
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#      # Step 2: Install LaTeX tools
+#      - name: Install LaTeX
+#        run: |
+#          sudo apt-get update && \
+#          sudo apt-get install -y texlive-base texlive-lang-italian texlive-fonts-recommended texlive-latex-extra
+
+      # Step 3: Identify modified .tex files
+      - name: Identify modified .tex files
+        id: modified-files
         run: |
-          TAG_NAME="${{ github.ref_name }}"
-          RELEASE_NAME="Release $TAG_NAME"
-          NOTES="Automated release for the PDF document."
-          gh release create "$TAG_NAME" docs/Relazione-TecWebBoyz.pdf --title "$RELEASE_NAME" --notes "$NOTES"
+          git diff --name-only HEAD^ HEAD | grep '^docs/.*\.tex$' > modified_files.txt || true
+
+      - name: Read modified .tex files
+        run: |
+          cat modified_files.txt
+
+      # Step 4: Check if there are any modified files
+#      - name: Check for modified .tex files
+#        run: |
+#          if [ ! -s modified_files.txt ]; then
+#            echo "No modified .tex files detected. Skipping compilation."
+#            exit 0
+#          fi
+#
+#      # Step 5: Compile modified .tex files
+#      - name: Compile modified .tex files
+#        run: |
+#          mkdir -p output
+#          while IFS= read -r tex_file; do
+#            if [ -f "$tex_file" ]; then
+#              output_dir="output/$(dirname "$tex_file" | sed 's|docs/||')"
+#              mkdir -p "$output_dir"
+#              pdflatex -interaction=nonstopmode -output-directory "$output_dir" "$tex_file" || true
+#              pdflatex -interaction=nonstopmode -output-directory "$output_dir" "$tex_file" || true
+#            fi
+#          done < modified_files.txt
+#
+#      # Step 6: Check if PDFs were generated
+#      - name: Check for generated PDFs
+#        run: |
+#          if [ ! -d output ] || [ -z "$(find output -name '*.pdf')" ]; then
+#            echo "No PDFs were generated. Skipping release."
+#            exit 0
+#          fi
+#
+#      # Step 7: Copy Compiled Files to Public Folder
+#      - name: Copy Compiled Files to Public Folder
+#        run: |
+#          mkdir -p public
+#          cp -r output/* public/
+#
+#      # Step 8: Create a release and attach the PDF
+#      - name: Create release with GitHub CLI
+#        env:
+#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#        run: |
+#          TAG_NAME="${{ github.ref_name }}"
+#          RELEASE_NAME="Release $TAG_NAME"
+#          NOTES="Automated release for the compiled LaTeX documents."
+#          for pdf_file in $(find public -name '*.pdf'); do
+#            gh release create "$TAG_NAME" "$pdf_file" --title "$RELEASE_NAME" --notes "$NOTES"
+#          done
+
 
       #  build:
 #    name: Build PHP App
