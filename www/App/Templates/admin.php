@@ -16,6 +16,7 @@
                 <th scope="col"><?php echo \PTW\translation('image-title') ?></th>
                 <th scope="col"><?php echo \PTW\translation('image-description') ?></th>
                 <th scope="col"><?php echo \PTW\translation('image-place') ?></th>
+                <th scope="col"><?php echo \PTW\translation('image-category') ?></th>
                 <th scope="col"><?php echo \PTW\translation('image-date') ?></th>
                 <th scope="col"><?php echo \PTW\translation('image-visibility') ?></th>
                 <th scope="col"><?php echo \PTW\translation('image-actions') ?></th>
@@ -38,9 +39,8 @@
                 $place = htmlspecialchars(!empty($imageArray['place']) ? $imageArray['place'] : PTW\translation('image-no-place'), ENT_QUOTES, 'UTF-8');
                 $date = htmlspecialchars($imageArray['date'] ?? PTW\translation('image-no-date'), ENT_QUOTES, 'UTF-8');
                 $visible = $imageArray['visible'] ? PTW\translation('image-visibility-yes') : PTW\translation('image-visibility-no');
+                $category = htmlspecialchars($imageArray['category'] ?? PTW\translation('image-no-category'), ENT_QUOTES, 'UTF-8');
 
-
-                // Todo(Luca): Rivedere, niente stili inline -> Fare tramite classi.
                 $rowStyle = is_null($imageArray['updated_at'] ?? null)
                     ? " class='require-edit' title='" . \PTW\translation('image-require-edit') . "'"
                     : "";
@@ -52,6 +52,7 @@
                     <td data-label='<?php echo \PTW\translation(' image-description') ?>'
                         class="long-text"><?php echo $description ?></td>
                     <td data-label='<?php echo \PTW\translation(' image-place') ?>'><?php echo $place; ?></td>
+                    <td data-label='<?php echo \PTW\translation(' image-category') ?>'><?php echo $category; ?></td>
                     <td data-label='<?php echo \PTW\translation(' image-date') ?>'>
                         <time datetime='<?php echo $date ?>'><?php echo $date; ?></time>
                     </td>

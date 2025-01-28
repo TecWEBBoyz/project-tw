@@ -50,7 +50,6 @@ document.addEventListener('DOMContentLoaded', () => {
             script.defer = true;
             script.setAttribute('data-template', templateName);
             script.onload = () => {
-                console.log(`Loaded ${templateName}.js`);
                 if (typeof window.loadJS === 'function') {
                     window.loadJS();
                 }
@@ -72,7 +71,6 @@ document.addEventListener('DOMContentLoaded', () => {
             newLinkTag.onload = () => {
                 // Rimuovi il vecchio link solo dopo che il nuovo è stato caricato
                 existingLinkTag.parentNode.removeChild(existingLinkTag);
-                console.log(`CSS reloaded with template: ${newTemplateName}`);
             };
 
             existingLinkTag.parentNode.insertBefore(newLinkTag, existingLinkTag.nextSibling);
