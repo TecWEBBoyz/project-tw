@@ -176,6 +176,7 @@ jobs:
             echo "failed=true" >> $GITHUB_ENV
           else
             echo "failed=false" >> $GITHUB_ENV
+          fi
 
       - name: Recreate release if it failed
         if: env.failed == 'true'
