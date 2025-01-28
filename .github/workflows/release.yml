@@ -166,3 +166,26 @@ jobs:
           gh release create ${{ env.next_version }} db-init-app.tar.gz php-app.tar.gz version.txt *.pdf ConsegnaTecWEBBoyz_${{ env.next_version }}.zip \
             --title "Release ${{ env.next_version }}" \
             --notes "Automated release for version ${{ env.next_version }}."
+          
+      - name: Check if release creation failed
+        id: check_release_failed
+        run: |
+          if [[ "${{ steps.create_release.outcome }}" == "failure" ]]; then
+            echo "failed=true" >> $GITHUB_ENV
+          else
+            echo "failed=false" >> $GITHUB_ENV
+
+      - name: Recreate release if it failed
+        if: env.failed == 'true'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          echo "Release creation failed. Cleaning up and recreating release."
+          gh release delete ${{ env.next_version }} --yes || true
+          git tag -d ${{ env.next_version }} || true
+          git push --delete origin ${{ env.next_version }} || true
+
+          # Recreate the release
+          gh release create ${{ env.next_version }} db-init-app.tar.gz php-app.tar.gz version.txt *.pdf ConsegnaTecWEBBoyz_${{ env.next_version }}.zip \
+            --title "Release ${{ env.next_version }}" \
+            --notes "Automated release for version ${{ env.next_version }}."
