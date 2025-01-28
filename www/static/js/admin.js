@@ -1,5 +1,4 @@
 window.loadJS = () => {
-    console.log("Loading admin.js");
     const forms = document.querySelectorAll('.confirm-form');
     const modal = document.getElementById('custom-confirm-modal');
     const modalMessage = document.getElementById('custom-modal-message');

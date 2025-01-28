@@ -1,5 +1,4 @@
 window.loadJS = () => {
-    console.log("Loading home.js");
     const images = document.querySelectorAll(".gallery-item img");
     const modal = document.getElementById("image-modal");
     const modalImage = document.getElementById("modal-image");
@@ -140,7 +139,6 @@ window.loadJS = () => {
         }
     });
     function handleMouseMove(event) {
-        console.log("mousemove");
         if (isDragging) {
             event.preventDefault();
             translateX = event.clientX - startX;
@@ -150,7 +148,6 @@ window.loadJS = () => {
     }
 
     function handleMouseUp(event) {
-        console.log("mouseup");
         if (isDragging) {
             isDragging = false;
             modalImage.style.cursor = "grab";
@@ -166,7 +163,6 @@ window.loadJS = () => {
     }
 
     document.addEventListener("mouseleave", () => {
-        console.log("mouseleave");
         if (isDragging) {
             isDragging = false;
             modalImage.style.cursor = "grab";
