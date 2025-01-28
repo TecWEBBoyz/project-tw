@@ -24,9 +24,7 @@ foreach ($images as $image) :
 
     ?>
 
-    <div class="image-wrapper">
-        <img src='<?php echo "static/uploads/{$imagePathResized}" ?>' alt="<?php echo "{$alt}"; ?>" class='image' loading='lazy'>
-    </div>
+    <img src='<?php echo "static/uploads/{$imagePathResized}" ?>' alt="<?php echo "{$alt}"; ?>" class='image' loading='lazy'>
 
     <form action='admin/update-image' method='POST'>
         <input type='hidden' name='id' value="<?php echo $id ?>">

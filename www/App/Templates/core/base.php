@@ -47,6 +47,7 @@ if (!isset($_SERVER['HTTP_REFERER'])) {
 ?>
 
 <?php require __DIR__ . "/../../Templates/core/menu.php"; ?>
+
 <div class="wrapper">
     <div class="content" id="content">
         <div class="container template-<?php echo $TEMPLATE_DATA['name']; ?>">
@@ -61,11 +62,12 @@ if (!isset($_SERVER['HTTP_REFERER'])) {
         <?php
         $toasts = ToastUtility::getToasts();
         foreach ($toasts as $toast): ?>
-            <div class="toast <?= htmlspecialchars($toast['type']) ?>">
-            <span class="icon">
-                <?= $toast['type'] === 'success' ? '&#10003;' : ($toast['type'] === 'error' ? '&#10007;' : '') ?>
-            </span>
+            <div class="toast <?= htmlspecialchars($toast['type']) ?>" role="alert" aria-live="assertive" aria-atomic="true" tabindex="-1">
+                <span class="icon">
+                    <?= $toast['type'] === 'success' ? '&#10003;' : ($toast['type'] === 'error' ? '&#10007;' : '') ?>
+                </span>
                 <?= htmlspecialchars($toast['message']) ?>
+                <button type="button" class="toast-close" aria-label="Close">&times;</button>
             </div>
         <?php endforeach; ?>
     </div>
