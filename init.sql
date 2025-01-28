@@ -78,7 +78,8 @@ INSERT INTO user (name, email, password, role, telephone) VALUES
 ("Francesco Blu", "francesco.blu@example.com", "francesco_secure", "User", "+39 320 789 0123"),
 ("Silvia Marrone", "silvia.marrone@example.com", "silvia1234", "User", "+39 320 890 1234"),
 ("Roberto Viola", "roberto.viola@example.com", "robertopass", "User", "+39 320 901 2345"),
-("Chiara Verde", "chiara.verde@example.com", "chiara_pw", "User", "+39 320 012 3456");
+("Chiara Verde", "chiara.verde@example.com", "chiara_pw", "User", "+39 320 012 3456"),
+("user", "user@example.com", "user", "User", "+39 333 333 3333");
 
 INSERT INTO image (path, alt, description, title, place, date) VALUES
 ("502A6233.JPG", "Cantante su palco con chitarra elettrica rossa", "In una notte estiva a Milano, un musicista appassionato regala un\'esibizione emozionante durante un festival locale, la sua musica si fonde con le luci rosse che riempiono l\'atmosfera e il cuore del pubblico.", "Concerto sotto luce scarlatta", "Milano", "2023-08-15"),
