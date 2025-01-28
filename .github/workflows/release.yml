@@ -1,4 +1,4 @@
-name: Build and Release LaTeX Document
+name: Build and Release
 
 on:
   push:
@@ -12,7 +12,8 @@ permissions:
   contents: write
 
 jobs:
-  compile:
+  build-and-compile:
+    name: Build and Compile Artifacts
     runs-on: ubuntu-latest
 
     steps:
@@ -20,193 +21,113 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          ssh-key: ${{ secrets.DEPLOY_KEY }}
           fetch-depth: 0
 
-      # Step 2: Install LaTeX tools
-      - name: Install LaTeX
+      # Step 2: Install dependencies
+      - name: Install PHP and Composer
         run: |
-          sudo apt-get update && \
-          sudo apt-get install -y texlive-base texlive-lang-italian texlive-fonts-recommended texlive-latex-extra
+          sudo apt-get update
+          sudo apt-get install -y php8.1 php8.1-mbstring php8.1-intl php8.1-mysql texlive-base texlive-lang-italian texlive-fonts-recommended texlive-latex-extra
+          curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-      # Step 3: Identify modified .tex files
-      - name: Identify .tex files
+      # Step 3: Build PHP App
+      - name: Install dependencies for PHP app
         run: |
-          cd docs
-          ls -R | grep .tex > modified_files.txt
+          cd www
+          composer install --no-dev --optimize-autoloader
 
-      - name: Read modified .tex files
+      - name: Package PHP app
         run: |
-          cd docs
-          cat modified_files.txt | while read line; do
-            echo "Modified file: $line"
-          done
+          mkdir release
+          cp -R www/* release/
+          cp -f release/Config/config.template.php release/Config/config.php
+          tar -czvf php-app.tar.gz -C release .
 
-      # Step 4: Check if there are any modified files
-#      - name: Check for modified .tex files
-#        run: |
-#          if [ ! -s modified_files.txt ]; then
-#            echo "No modified .tex files detected. Skipping compilation."
-#            exit 0
-#          fi
-#
-      # Step 5: Compile modified .tex files
-      - name: Compile .tex files
+      - name: Upload PHP artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: php-app
+          path: php-app.tar.gz
+
+      # Step 4: Prepare database artifact
+      - name: Package database initialization script
+        run: |
+          mkdir db
+          cp -f ./init.sql db/init.sql
+          tar -czvf db-init-app.tar.gz -C db .
+
+      - name: Upload DB artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: db-init-app
+          path: db-init-app.tar.gz
+
+      # Step 5: Compile LaTeX files
+      - name: Compile LaTeX documents
         run: |
           cd docs
           mkdir -p output
-          while IFS= read -r tex_file; do
-            if [ -f "$tex_file" ]; then
-              output_dir="output/$(dirname "$tex_file" | sed 's|docs/||')"
-              mkdir -p "$output_dir"
-              pdflatex -interaction=nonstopmode -output-directory "$output_dir" "$tex_file" || true
-              pdflatex -interaction=nonstopmode -output-directory "$output_dir" "$tex_file" || true
-            fi
-          done < modified_files.txt
+          for tex_file in *.tex; do
+            pdflatex -interaction=nonstopmode -output-directory output "$tex_file" || true
+            pdflatex -interaction=nonstopmode -output-directory output "$tex_file" || true
+          done
 
-        # Step 6: Upload PDF artifacts
-      - name: Upload PDF artifacts
+      - name: Upload LaTeX PDFs
         uses: actions/upload-artifact@v4
         with:
           name: pdf-artifacts
-          path: docs/output/Relazione-TecWebBoyz.pdf
-      - name: Download artifact pdf
+          path: docs/output/*.pdf
+
+  release:
+    name: Create GitHub Release
+    needs: build-and-compile
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Download PHP artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: php-app
+
+      - name: Download DB artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: db-init-app
+
+      - name: Download PDF artifacts
         uses: actions/download-artifact@v4
         with:
           name: pdf-artifacts
-          path: ./Relazione-TecWeBBoyz.pdf
-      - name: Create release with gh CLI
+
+      - name: Get latest tag
+        id: get_tag
+        run: |
+          TAG=$(git describe --tags $(git rev-list --tags --max-count=1) 2>/dev/null || echo "v0.0.0")
+          echo "latest_tag=$TAG" >> $GITHUB_ENV
+
+      - name: Calculate next version
+        id: next_version
+        run: |
+          BRANCH_NAME="${{ github.ref_name }}"
+          IFS='.' read -r major minor patch <<< "${latest_tag#v}"
+          if [[ "$BRANCH_NAME" == "develop" ]]; then
+            patch=$((patch + 1))
+            next_version="v$major.$minor.$patch-dev"
+          else
+            patch=$((patch + 1))
+            next_version="v$major.$minor.$patch"
+          fi
+          echo "next_version=$next_version" >> $GITHUB_ENV
+
+      - name: Create release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          echo "Creating release ${{ env.next_version }}"
-          gh release create ${{ env.next_version }} Relazione-TecWebBoyz.pdf --title "Release ${{ env.next_version }}" --notes "This is an automated release for version ${{ env.next_version }}."
-
-
-      #  build:
-#    name: Build PHP App
-#    runs-on: ubuntu-latest
-#
-#    steps:
-      # - name: Checkout code
-      #   uses: actions/checkout@v4
-
-      # - name: Setup PHP (manual)
-      #   run: |
-      #     sudo apt-get update
-      #     sudo apt-get install -y php8.1 php8.1-mbstring php8.1-intl php8.1-mysql
-      #     curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
-
-      # - name: Install dependencies
-      #   run: |
-      #     cd www
-      #     composer install --no-dev --optimize-autoloader
-
-      # - name: Prepare artifact web
-      #   run: |
-      #     mkdir release
-      #     cp -R www/* release/
-      #     cp -f release/Config/config.template.php release/Config/config.php
-      #     tar -czvf php-app.tar.gz -C release .
-
-      # - name: Upload artifact web
-      #   uses: actions/upload-artifact@v4
-      #   with:
-      #     name: php-app
-      #     path: php-app.tar.gz
-
-      # - name: Prepare artifact DB
-      #   run: |
-      #     mkdir db
-      #     cp -f ./init.sql db/init.sql
-      #     tar -czvf db-init-app.tar.gz -C db .
-
-      # - name: Upload artifact DB
-      #   uses: actions/upload-artifact@v4
-      #   with:
-      #     name: db-init-app
-      #     path: db-init-app.tar.gz
-
-#      - name: Install LaTeX
-#        run: |
-#          sudo apt-get update
-#          sudo apt-get install -y texlive-latex-base texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended
-#
-#      - name: Compile LaTeX document
-#        run: |
-#          pdflatex docs/Relazione-TecWebBoyz.tex -output-directory=docs
-#
-#      - name: Upload PDF artifact
-#        uses: actions/upload-artifact@v4
-#        with:
-#          name: Relazione-TecWeBBoyz
-#          path:  docs/Relazione-TecWeBBoyz.pdf
-
-  # release:
-  #   name: Create GitHub Release
-  #   needs: build
-  #   runs-on: ubuntu-latest
-
-  #   steps:
-  #     - name: Checkout code
-  #       uses: actions/checkout@v4
-  #       with:
-  #         fetch-depth: 0 # Ensures full repository history and tags are available
-
-  #     - name: Download artifact web
-  #       uses: actions/download-artifact@v4
-  #       with:
-  #         name: php-app
-  #         path: ./
-
-  #     - name: Download artifact DB
-  #       uses: actions/download-artifact@v4
-  #       with:
-  #         name: db-init-app
-  #         path: ./
-
-  #     - name: Download artifact PDF
-  #       uses: actions/download-artifact@v4
-  #       with:
-  #         name: Relazione-TecWeBBoyz
-  #         path: ./
-
-  #     - name: Get latest tag
-  #       id: get_tag
-  #       run: |
-  #         TAG=$(git describe --tags $(git rev-list --tags --max-count=1) 2>/dev/null || echo "v0.0.0")
-  #         echo "latest_tag=$TAG" >> $GITHUB_ENV
-  #         echo $TAG
-
-  #     - name: Calculate next version
-  #       id: next_version
-  #       run: |
-  #         BRANCH_NAME="${{ github.ref_name }}"
-  #         IFS='.' read -r major minor patch <<< "${latest_tag#v}"
-  #         if [ "$BRANCH_NAME" = "dev" ]; then
-  #           patch=$((patch + 1))
-  #           next_version="v$major.$minor.$patch-dev"
-  #         else
-  #           patch=$((patch + 1))
-  #           next_version="v$major.$minor.$patch"
-  #         fi
-  #         echo "next_version=$next_version" >> $GITHUB_ENV
-
-  #     - name: Create version file
-  #       run: |
-  #         echo "${{ env.latest_tag }}" > version.txt
-
-  #     - name: Tag new version
-  #       if: github.ref_name == 'main'
-  #       run: |
-  #         git config --global user.name "github-actions[bot]"
-  #         git config --global user.email "github-actions[bot]@users.noreply.github.com"
-  #         git tag ${{ env.next_version }}
-  #         git push origin ${{ env.next_version }}
-
-  #     - name: Create release with gh CLI
-  #       env:
-  #         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  #       run: |
-  #         echo "Creating release ${{ env.next_version }}"
-  #         gh release create ${{ env.next_version }} db-init-app.tar.gz php-app.tar.gz version.txt Relazione-TecWeBBoyz.pdf --title "Release ${{ env.next_version }}" --notes "This is an automated release for version ${{ env.next_version }}."
+          gh release create ${{ env.next_version }} db-init-app.tar.gz php-app.tar.gz docs/output/*.pdf \
+            --title "Release ${{ env.next_version }}" \
+            --notes "Automated release for version ${{ env.next_version }}."
