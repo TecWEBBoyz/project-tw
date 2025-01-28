@@ -63,32 +63,13 @@ jobs:
               pdflatex -interaction=nonstopmode -output-directory "$output_dir" "$tex_file" || true
             fi
           done < modified_files.txt
-#
-#      # Step 6: Check if PDFs were generated
-#      - name: Check for generated PDFs
-#        run: |
-#          if [ ! -d output ] || [ -z "$(find output -name '*.pdf')" ]; then
-#            echo "No PDFs were generated. Skipping release."
-#            exit 0
-#          fi
-#
-#      # Step 7: Copy Compiled Files to Public Folder
-#      - name: Copy Compiled Files to Public Folder
-#        run: |
-#          mkdir -p public
-#          cp -r output/* public/
-#
-#      # Step 8: Create a release and attach the PDF
-#      - name: Create release with GitHub CLI
-#        env:
-#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-#        run: |
-#          TAG_NAME="${{ github.ref_name }}"
-#          RELEASE_NAME="Release $TAG_NAME"
-#          NOTES="Automated release for the compiled LaTeX documents."
-#          for pdf_file in $(find public -name '*.pdf'); do
-#            gh release create "$TAG_NAME" "$pdf_file" --title "$RELEASE_NAME" --notes "$NOTES"
-#          done
+
+        # Step 6: Upload PDF artifacts
+      - name: Upload PDF artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: pdf-artifacts
+          path: docs/output/Relazione-TecWebBoyz.pdf
 
 
       #  build:
