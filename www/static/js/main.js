@@ -1,3 +1,27 @@
+window.loadersOnImages = () => {
+
+    console.log("LoadersOnImages");
+    const images = document.querySelectorAll("img");
+
+    images.forEach((img) => {
+        const wrapper = document.createElement("div");
+        wrapper.className = "image-wrapper";
+
+        img.parentNode.insertBefore(wrapper, img);
+        wrapper.appendChild(img);
+
+        if (img.complete) {
+            img.parentElement.classList.add("loaded");
+        } else {
+            img.addEventListener("load", () => {
+                setTimeout(() => {
+                    wrapper.classList.add("loaded");
+                }, 250);
+            });
+        }
+    });
+};
+
 document.addEventListener("DOMContentLoaded", () => {
 
     const scrollTopButton = document.getElementById('scrollTopButton');
@@ -14,16 +38,6 @@ document.addEventListener("DOMContentLoaded", () => {
     scrollTopButton.addEventListener('click', () => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
     });
-
-    images.forEach((img) => {
-        if (img.complete) {
-            img.parentElement.classList.add("loaded");
-        } else {
-            img.addEventListener("load", () => {
-                img.parentElement.classList.add("loaded");
-            });
-        }
-    })
 
     // Toast
 
@@ -53,6 +67,8 @@ document.addEventListener("DOMContentLoaded", () => {
         }, 5000);
 
     }
+
+    window.loadersOnImages();
 });
 
 function focusToast(toast, closeToastBtn) {
