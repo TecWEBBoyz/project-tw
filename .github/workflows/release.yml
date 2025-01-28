@@ -30,10 +30,10 @@ jobs:
 #          sudo apt-get install -y texlive-base texlive-lang-italian texlive-fonts-recommended texlive-latex-extra
 
       # Step 3: Identify modified .tex files
-      - name: Identify modified .tex files
-        id: modified-files
+      - name: Identify .tex files
         run: |
-          git diff --name-only HEAD^ HEAD | grep '^docs/.*\.tex$' > modified_files.txt || true
+          cd docs
+          ls -R | grep .tex > modified_files.txt
 
       - name: Read modified .tex files
         run: |
