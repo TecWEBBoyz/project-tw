@@ -166,7 +166,8 @@ jobs:
           gh release create ${{ env.next_version }} db-init-app.tar.gz php-app.tar.gz version.txt *.pdf ConsegnaTecWEBBoyz_${{ env.next_version }}.zip \
             --title "Release ${{ env.next_version }}" \
             --notes "Automated release for version ${{ env.next_version }}."
-          
+        continue-on-error: true
+
       - name: Check if release creation failed
         id: check_release_failed
         run: |
