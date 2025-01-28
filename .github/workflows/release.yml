@@ -70,6 +70,18 @@ jobs:
         with:
           name: pdf-artifacts
           path: docs/output/Relazione-TecWebBoyz.pdf
+      - name: Download artifact web
+        uses: actions/download-artifact@v4
+        with:
+          name: pdf-artifacts
+          path: ./
+      - name: Create release with gh CLI
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          echo "Creating release ${{ env.next_version }}"
+          gh release create ${{ env.next_version }} Relazione-TecWebBoyz.pdf --title "Release ${{ env.next_version }}" --notes "This is an automated release for version ${{ env.next_version }}."
+
 
 
       #  build:
