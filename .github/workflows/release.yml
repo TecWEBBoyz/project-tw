@@ -146,6 +146,8 @@ jobs:
       - name: Prepare unified release package
         run: |
           mkdir temp_release
+          mkdir -p temp_release/www
+          mkdir -p temp_release/initdb
           tar -xzvf php-app.tar.gz -C temp_release/www
           tar -xzvf db-init-app.tar.gz -C temp_release/initdb
           mkdir -p temp_release/docs
