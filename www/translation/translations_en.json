@@ -20,6 +20,7 @@
   "image-save": "Save",
   "image-no-title": "No title",
   "image-no-description": "No description",
+  "image-category": "Category",
   "image-no-alt": "No alt",
   "image-no-place": "No place",
   "image-no-date": "No date",
@@ -30,5 +31,9 @@
   "image-edit-no-image-to-edit": "No image to edit",
   "confirm": "Confirm",
   "cancel": "Cancel",
-  "confirm-action": "Are you sure you want to {ACTION}?"
+  "confirm-action": "Are you sure you want to {ACTION}?",
+  "image-category-1": "Travels",
+  "image-category-2": "Racing Cars",
+  "image-category-3": "Events",
+  "image-category-0": "No category"
 }

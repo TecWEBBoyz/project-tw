@@ -17,7 +17,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # Step 1: Checkout repository
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
@@ -31,7 +30,6 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y php8.1 php8.1-mbstring php8.1-intl php8.1-mysql
           curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
-
 
       - name: Install dependencies
         run: |
@@ -51,7 +49,6 @@ jobs:
           name: php-app
           path: php-app.tar.gz
 
-      # Step 4: Prepare database artifact
       - name: Package database initialization script
         run: |
           mkdir db
@@ -63,6 +60,11 @@ jobs:
         with:
           name: db-init-app
           path: db-init-app.tar.gz
+
+      - name: Install LaTeX
+        run: |
+          sudo apt-get update && \
+          sudo apt-get install -y texlive-base texlive-lang-italian texlive-fonts-recommended texlive-latex-extra
 
       - name: Identify .tex files
         run: |
@@ -123,7 +125,7 @@ jobs:
       - name: Get latest tag
         id: get_tag
         run: |
-          TAG=$(git describe --tags $(git rev-list --tags --max-count=1) 2>/dev/null || echo "v0.0.0")
+          TAG=$(git tag --sort=-v:refname | head -n 1 2>/dev/null || echo "v0.0.0")
           echo "latest_tag=$TAG" >> $GITHUB_ENV
 
       - name: Calculate next version
@@ -139,11 +141,53 @@ jobs:
             next_version="v$major.$minor.$patch"
           fi
           echo "next_version=$next_version" >> $GITHUB_ENV
+          
+      - name: Prepare unified release package
+        run: |
+          mkdir temp_release
+          mkdir -p temp_release/www
+          mkdir -p temp_release/initdb
+          tar -xzvf php-app.tar.gz -C temp_release/www
+          tar -xzvf db-init-app.tar.gz -C temp_release/initdb
+          mkdir -p temp_release/docs
+          cp -R *.pdf temp_release/docs/
+          echo "Filename: ConsegnaTecWEBBoyz_${{ env.next_version }}.zip"
+          zip -r -9 ConsegnaTecWEBBoyz_${{ env.next_version }}.zip temp_release/*
 
-      - name: Create release
+      - name: Create version file
+        run: |
+          echo "${{ env.latest_tag }}" > version.txt
+
+      - name: Attempt to create release
+        id: create_release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          gh release create ${{ env.next_version }} db-init-app.tar.gz php-app.tar.gz docs/output/*.pdf \
+          gh release create ${{ env.next_version }} db-init-app.tar.gz php-app.tar.gz version.txt *.pdf ConsegnaTecWEBBoyz_${{ env.next_version }}.zip \
+            --title "Release ${{ env.next_version }}" \
+            --notes "Automated release for version ${{ env.next_version }}."
+        continue-on-error: true
+
+      - name: Check if release creation failed
+        id: check_release_failed
+        run: |
+          if [[ "${{ steps.create_release.outcome }}" == "failure" ]]; then
+            echo "failed=true" >> $GITHUB_ENV
+          else
+            echo "failed=false" >> $GITHUB_ENV
+          fi
+
+      - name: Recreate release if it failed
+        if: env.failed == 'true'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          echo "Release creation failed. Cleaning up and recreating release."
+          gh release delete ${{ env.next_version }} --yes || true
+          git tag -d ${{ env.next_version }} || true
+          git push --delete origin ${{ env.next_version }} || true
+
+          # Recreate the release
+          gh release create ${{ env.next_version }} db-init-app.tar.gz php-app.tar.gz version.txt *.pdf ConsegnaTecWEBBoyz_${{ env.next_version }}.zip \
             --title "Release ${{ env.next_version }}" \
             --notes "Automated release for version ${{ env.next_version }}."
