@@ -17,7 +17,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # Step 1: Checkout repository
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
@@ -50,7 +49,6 @@ jobs:
           name: php-app
           path: php-app.tar.gz
 
-      # Step 4: Prepare database artifact
       - name: Package database initialization script
         run: |
           mkdir db
@@ -143,6 +141,7 @@ jobs:
             next_version="v$major.$minor.$patch"
           fi
           echo "next_version=$next_version" >> $GITHUB_ENV
+          
       - name: Prepare unified release package
         run: |
           mkdir temp_release
