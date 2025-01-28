@@ -117,6 +117,12 @@ fi
 
 LATEST_VERSION=$(curl -s "$RELEASE_API_URL" | grep -oP '"tag_name":\s*"\Kv[0-9.]+' | head -1)
 
+# Controlla se la versione contiene "-dev"
+if [[ "$LATEST_VERSION" == *"-dev"* ]]; then
+    log_to_file "Skipping deployment for development version: $LATEST_VERSION"
+    exit 0
+fi
+
 if [[ -f "$VERSION_FILE" ]]; then
     CURRENT_VERSION=$(cat "$VERSION_FILE")
 else
