@@ -35,6 +35,10 @@ jobs:
         run: |
           git diff --name-only HEAD^ HEAD | grep '^docs/.*\.tex$' > modified_files.txt || true
 
+      - name: Read modified .tex files
+        run: |
+          cat modified_files.txt
+
       # Step 4: Check if there are any modified files
       - name: Check for modified .tex files
         run: |
