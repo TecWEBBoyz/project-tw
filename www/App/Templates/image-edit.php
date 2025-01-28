@@ -23,7 +23,7 @@ foreach ($images as $image) :
     ?>
 
     <div class="image-wrapper">
-        <img src='<?php echo "static/uploads/{$imagePathResized}" ?>' alt="<?php echo "{$alt}"; ?>" class='image'>
+        <img src='<?php echo "static/uploads/{$imagePathResized}" ?>' alt="<?php echo "{$alt}"; ?>" class='image' loading='lazy'>
     </div>
 
     <form action='admin/update-image' method='POST'>
