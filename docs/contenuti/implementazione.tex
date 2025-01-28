@@ -1,0 +1,44 @@
+\section{Implementazione}
+\subsection{HTML}
+Le componenti delle pagine del sito sono state scritte in HTML5 in quanto nell'imminente futuro, diventer\`a il linguaggio predefinito per la realizzazione di pagine web.
+
+\subsection{CSS}
+Per lo sviluppo del sito \`e stato utilizzato CSS3, che consente di creare layout moderni, responsivi e accessibili.
+
+\subsubsection{Gestione Dinamica dei File CSS}
+La gestione dei file CSS \`e stata ottimizzata tramite la classe \texttt{StyleController}, che offre funzionalit\`a per il caricamento e il merging dinamico dei file di stile. Questo approccio permette di:
+\begin{itemize}
+\item Ridurre il numero di richieste HTTP unendo pi\`u file CSS in un unico file;
+\item Implementare la priorit\`a di caricamento per file CSS fondamentali come \texttt{main.css}, \texttt{icons.css}, \texttt{menu.css}, e altri;
+\item Includere eventuali file CSS aggiuntivi specificati dinamicamente.
+\end{itemize}
+
+\subsection{PHP}
+\subsubsection{Templating}
+Al fine di ottimizzare l'efficienza e la manutenibilit\`a del sito, \`e stata implementata un'architettura basata sull'uso di \textit{template} e \textit{componenti}. Questo approccio consente una netta separazione tra la logica di business e la presentazione, facilitando la riutilizzazione del codice e semplificando le future modifiche e aggiornamenti.
+La classe \texttt{TemplateUtility} rappresenta il cuore del sistema di gestione dei template. Essa fornisce un metodo statico \texttt{getTemplate}, che si occupa di:
+\begin{itemize}
+\item Preparare i dati necessari per il rendering del template, inclusi il nome e il titolo del template;
+\item Generare dinamicamente un elemento \textit{breadcrumb} per migliorare l'accessibilit\`a e l'orientamento dell'utente;
+\item Verificare l'intestazione HTTP per determinare se caricare un componente specifico o il layout base dell'applicazione;
+\item Caricare il file template appropriato dalla directory \texttt{Templates}.
+\end{itemize}
+
+Questa implementazione non solo migliora la modularit\`a del codice, ma consente anche una gestione pi\`u efficiente delle risorse del server e una maggiore flessibilit\`a nella progettazione di nuove funzionalit\`a. Inoltre, l'uso di una struttura basata su namespace (es. \texttt{PTW/Utility}) garantisce una chiara organizzazione e una facile estendibilit\`a del progetto.
+
+\subsubsection{Image Resizer}
+Per ottimizzare la gestione delle immagini caricate e migliorare le performance del sito, \`e stato implementato un sistema di resizing delle immagini. Questo consente di generare versioni ridotte delle immagini caricate, da utilizzare nelle anteprime o laddove non sia necessaria la massima risoluzione.
+Una volta caricata un'immagine:
+\begin{itemize}
+    \item Viene identificato il tipo MIME (ad esempio, JPEG o PNG) per determinare come gestire il file;
+    \item Sono generate quattro versioni ridimensionate dell'immagine originale, rispettivamente al 5\%, 25\%, 50\% e 75\% della dimensione originale;
+    \item I file ridimensionati vengono salvati in una directory dedicata, mantenendo un suffisso identificativo (es. \texttt{\_5percent}).
+\end{itemize}
+
+\subsubsection{Translation Manager}
+Il sistema di traduzione \`e stato progettato per garantire un'esperienza multilingue agli utenti, consentendo una gestione centralizzata e flessibile delle traduzioni. La classe \texttt{TranslationManager}, organizzata tramite il namespace \texttt{PTW/Utility}, implementa una sola istanza condivisa nell'intera applicazione tramite:
+\begin{itemize}
+\item \textbf{Rilevamento della lingua}: La lingua predefinita viene rilevata automaticamente in base alle impostazioni del browser dell'utente, con un fallback a una lingua di default definita dallo sviluppatore.
+\item \textbf{Caricamento delle traduzioni}: I file JSON contenenti le traduzioni possono essere caricati dinamicamente. Ogni lingua ha il proprio set di chiavi e valori, facilmente estensibile.
+\item \textbf{Gestione delle preferenze}: La lingua selezionata dall'utente viene salvata in un cookie, garantendo un'esperienza persistente.
+\end{itemize}
