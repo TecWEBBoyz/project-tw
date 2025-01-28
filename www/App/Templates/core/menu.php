@@ -4,8 +4,8 @@ use PTW\Modules\Auth\Role;
 use PTW\Modules\Auth\SessionManager;
 
 $menuItems = [
-    ['label' => 'Vai al contenuto', 'link' => $_SERVER['REQUEST_URI'] . '#content', 'classes' => '', 'navigation-help' => true],
-    ['label' => 'Vai al footer', 'link' => $_SERVER['REQUEST_URI'] . '#footer', 'classes' => '', 'navigation-help' => true],
+    ['label' => 'Jump to content', 'link' => $_SERVER['REQUEST_URI'] . '#content', 'classes' => '', 'navigation-help' => true],
+    ['label' => 'Jump to footer', 'link' => $_SERVER['REQUEST_URI'] . '#footer', 'classes' => '', 'navigation-help' => true],
     ['label' => 'Home', 'link' => 'home', 'classes' => ''],
     ['label' => 'Services', 'link' => 'services', 'classes' => ''],
     ['label' => 'About', 'link' => 'about', 'classes' => ''],
@@ -67,7 +67,7 @@ function renderMenu($menuItems, $mobile = false) {
         <div></div>
     </button>
 
-    <div class="menu hidden" role="menu" aria-hidden="true">
+    <div class="menu hidden" aria-hidden="true">
         <!-- Close button -->
         <a href="close" class="close" onclick="hideMenu()" role="button" tabindex="0" aria-label="Chiusura menu di navigazione" data-fake="true" id="mobile-first-item">&times;</a>
         <?php renderMenu($menuItems, true); ?>
