@@ -124,15 +124,6 @@ jobs:
         with:
           name: pdf-artifacts
 
-      - name: Prepare unified release package
-        run: |
-          mkdir temp_release
-          tar -xzvf php-app.tar.gz -C temp_release
-          tar -xzvf db-init-app.tar.gz -C temp_release
-          mkdir -p temp_release/docs
-          cp -R *.pdf temp_release/docs/
-          zip -r ConsegnaTecWEBBoyz_${{ env.next_version }}.zip temp_release
-
       - name: Get latest tag
         id: get_tag
         run: |
@@ -152,11 +143,22 @@ jobs:
             next_version="v$major.$minor.$patch"
           fi
           echo "next_version=$next_version" >> $GITHUB_ENV
-
+      - name: Prepare unified release package
+        run: |
+          mkdir temp_release
+          mkdir -p temp_release/www
+          mkdir -p temp_release/initdb
+          tar -xzvf php-app.tar.gz -C temp_release/www
+          tar -xzvf db-init-app.tar.gz -C temp_release/initdb
+          rm temp_release/www/static/uploads/*
+          mkdir -p temp_release/docs
+          cp -R *.pdf temp_release/docs/
+          echo "Filename: ConsegnaTecWEBBoyz_${{ env.next_version }}.zip"
+          zip -r ConsegnaTecWEBBoyz_${{ env.next_version }}.zip temp_release
       - name: Create release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          gh release create ${{ env.next_version }} ConsegnaTecWEBBoyz_${{ env.next_version }}.zip \
+          gh release create ${{ env.next_version }} db-init-app.tar.gz php-app.tar.gz *.pdf ConsegnaTecWEBBoyz_${{ env.next_version }}.zip \
             --title "Release ${{ env.next_version }}" \
             --notes "Automated release for version ${{ env.next_version }}."
