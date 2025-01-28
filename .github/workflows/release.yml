@@ -70,11 +70,11 @@ jobs:
         with:
           name: pdf-artifacts
           path: docs/output/Relazione-TecWebBoyz.pdf
-      - name: Download artifact web
+      - name: Download artifact pdf
         uses: actions/download-artifact@v4
         with:
           name: pdf-artifacts
-          path: ./
+          path: ./Relazione-TecWeBBoyz.pdf
       - name: Create release with gh CLI
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
