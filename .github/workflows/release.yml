@@ -83,7 +83,6 @@ jobs:
           gh release create ${{ env.next_version }} Relazione-TecWebBoyz.pdf --title "Release ${{ env.next_version }}" --notes "This is an automated release for version ${{ env.next_version }}."
 
 
-
       #  build:
 #    name: Build PHP App
 #    runs-on: ubuntu-latest
