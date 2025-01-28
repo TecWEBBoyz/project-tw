@@ -246,7 +246,8 @@ class AdminController extends ControllerContract
         } catch (Exception $e) {
             ToastUtility::addToast('error', \PTW\translation('image-delete-error'));
         }
-        $this->previusPage();
+
+        $this->locationReplace("/admin");
     }
 
     public function put(): void
