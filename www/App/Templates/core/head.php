@@ -1,6 +1,12 @@
 <!-- Meta tags -->
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+<!-- Meta tag per WhatsApp (Open Graph) -->
+<meta property="og:title" content="Rizzato Photography" />
+<meta property="og:description" content="Benvenuti nel mio mondo, dove fotografia significa catturare il crudo ordinario." />
+<meta property="og:image" content="URL dell'immagine di anteprima" />
+<meta property="og:url" content="URL della pagina" />
+
 <meta name="description" content="<?php use function PTW\config;
 
 echo $TEMPLATE_DATA['description'] ?? 'Default description for the page'; ?>">

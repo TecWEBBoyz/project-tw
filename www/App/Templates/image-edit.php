@@ -47,18 +47,8 @@ foreach ($images as $image) :
             <input type='text' id='place' name='place' maxlength='255' required value="<?php echo "{$place}" ?>"/>
         </div>
         <div class='form-group'>
-            <label for='date' class='caption'><?php echo PTW\translation('image-date') ?></label>
-            <input
-                type='date'
-                id='date'
-                name='date'
-                class='custom-date-input'
-                value="<?php echo "{$date}" ?>"
-                min='1900-01-01'
-                max="<?php echo date('Y-m-d') ?>"
-                required
-                aria-label="<?php echo PTW\translation('image-date-description') ?>"
-            />
+            <label class='caption' for='date'>Data</label>
+            <input type='date' class='custom-date-input' id='date' name='date' value="<?php echo "{$date}"; ?>" required>
         </div>
         <div class='form-group'>
             <label for="visible" class="toggle-button-label">

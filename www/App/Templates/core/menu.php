@@ -6,16 +6,13 @@ use PTW\Modules\Auth\SessionManager;
 $menuItems = [
     ['label' => 'Vai al contenuto', 'link' => $_SERVER['REQUEST_URI'] . '#content', 'classes' => '', 'navigation-help' => true],
     ['label' => 'Vai al footer', 'link' => $_SERVER['REQUEST_URI'] . '#footer', 'classes' => '', 'navigation-help' => true],
-    ['label' => 'About', 'link' => 'about', 'classes' => ''],
+    ['label' => 'Home', 'link' => 'home', 'classes' => ''],
     ['label' => 'Services', 'link' => 'services', 'classes' => ''],
-    ['label' => 'Contact', 'link' => 'contact', 'classes' => ''],
+    ['label' => 'About', 'link' => 'about', 'classes' => ''],
 ];
 
 $sessionManager = new SessionManager();
 if ($sessionManager->isAuthenticated()) {
-    if ($sessionManager->authorize(Role::User)) {
-        $menuItems[] = ['label' => 'Dashboard', 'link' => 'dashboard', 'classes' => ''];
-    }
     if($sessionManager->authorize(Role::Administrator)) {
         $menuItems[] = ['label' => 'Admin', 'link' => 'admin', 'classes' => ''];
     } else {

@@ -70,7 +70,7 @@
     justify-self: stretch;
     align-self: stretch;
 
-    background-image: url("static/images/me.jpg");
+    background-image: url("static/images/me_high_aspect.jpg"), url("static/images/me_medium_aspect.jpg"), url("static/images/me_low_aspect.jpg");
     background-repeat: no-repeat;
     background-size: contain;
     background-position: center;
