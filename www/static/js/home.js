@@ -25,7 +25,7 @@ window.loadJS = () => {
             const description = "<p>" + galleryItem.getAttribute("data-description") + "</p>";
 
             modal.classList.add("visible");
-            let fullsizeImage = img.src.replace(/_.*\.(jpg|jpeg|png)$/i, '_75percent.$1');
+            let fullsizeImage = img.src.replace(/_.*\.(jpg|jpeg|png)$/i, '.$1');
             modalImage.onload = () => {
                 body.classList.add("no-scroll");
                 body.classList.add("no-interaction");
@@ -47,7 +47,7 @@ window.loadJS = () => {
                 const description = "<p>" + galleryItem.getAttribute("data-description") + "</p>";
 
                 modal.classList.add("visible");
-                let fullsizeImage = img.src.replace(/_.*\.(jpg|jpeg|png)$/i, '_75percent.$1');
+                let fullsizeImage = img.src.replace(/_.*\.(jpg|jpeg|png)$/i, '.$1');
                 modalImage.onload = () => {
 
                     body.classList.add("no-scroll");
