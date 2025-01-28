@@ -12,8 +12,7 @@ window.loadJS = () => {
         form.addEventListener('submit', function(event) {
             event.preventDefault();
             currentForm = form;
-            const actionType = form.getAttribute('data-action');
-            modalMessage.textContent = actionType;
+            modalMessage.textContent = form.getAttribute('data-action');
             modal.classList.add('visible');
             document.body.classList.add('no-scroll');
         });
