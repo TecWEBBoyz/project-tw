@@ -13,6 +13,7 @@ foreach ($images as $image) :
     $imagePathResized = isset($imageArray[ImageType::path->value]) ?
         preg_replace('/\.(jpg|jpeg|png)$/i', '_25percent.jpg', $imageArray[ImageType::path->value]) : '';
 
+    $id = htmlspecialchars($imageArray[ImageType::id->value] ?? '');
     $title = htmlspecialchars($imageArray[ImageType::title->value] ?? '');
     $alt = htmlspecialchars($imageArray[ImageType::alt->value] ?? '');
     $description = htmlspecialchars($imageArray[ImageType::description->value] ?? '');
@@ -27,7 +28,7 @@ foreach ($images as $image) :
     </div>
 
     <form action='admin/update-image' method='POST'>
-        <input type='hidden' name='id' value="<?php echo htmlspecialchars($imageArray[ImageType::id->value]) ?>">
+        <input type='hidden' name='id' value="<?php echo $id ?>">
 
         <div class='form-group'>
             <label for='title' class='caption'><?php echo PTW\translation('image-title') ?></label>
@@ -66,7 +67,7 @@ foreach ($images as $image) :
     </form>
 
     <form action='admin/delete-image' method='POST'>
-        <input type='hidden' name='id' value="<?php echo htmlspecialchars($imageArray[ImageType::id->value]) ?>">
+        <input type='hidden' name='id' value="<?php echo $id ?>">
         <button class='btn-outlined btn-image-edit btn-danger' type='submit'>
             <span><?php echo PTW\translation('image-delete') ?></span>
             <?php echo file_get_contents("static/images/delete.svg") ?>
