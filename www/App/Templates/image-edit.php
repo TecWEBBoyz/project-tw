@@ -1,5 +1,6 @@
 <?php
 
+use PTW\Models\ImageCategory;
 use PTW\Models\ImageType;
 
 if (is_null($TEMPLATE_DATA["images"])) {
@@ -43,6 +44,21 @@ foreach ($images as $image) :
             <textarea id='description' name='description' maxlength='512'
                       required><?php echo "{$description}" ?></textarea>
         </div>
+
+        <div class="form-group">
+            <label for='category' class='caption'><?php echo PTW\translation('image-category') ?></label>
+            <select id='category' name='category' required>
+                <?php
+                $index = -1;
+                foreach (ImageCategory::cases() as $category) {
+                    $index++;
+//                    echo "<option value='{$category}'" . ($category == $imageArray[ImageType::category->value] ? ' selected' : '') . ">{PTW\translation('image-category-' . $index)}</option>";
+                    echo "<option value='{$category->value}'" . ($category->value == $imageArray[ImageType::category->value] ? ' selected' : '') . ">" . PTW\translation('image-category-' . $index) . "</option>";
+                }
+                ?>
+            </select>
+        </div>
+
         <div class='form-group'>
             <label for='place' class='caption'><?php echo PTW\translation('image-place') ?></label>
             <input type='text' id='place' name='place' maxlength='255' required value="<?php echo "{$place}" ?>"/>

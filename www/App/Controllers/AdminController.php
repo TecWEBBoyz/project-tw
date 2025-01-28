@@ -9,12 +9,14 @@ namespace PTW\Controllers;
 use Exception;
 use PTW\Contracts\ControllerContract;
 use PTW\Models\Image;
+use PTW\Models\ImageCategory;
+use PTW\Models\ImageCategoryUtility;
 use PTW\Models\ImageType;
 use PTW\Modules\Auth\Role;
 use PTW\Modules\Auth\SessionManager;
 use PTW\Utility\TemplateUtility;
 use PTW\Utility\ToastUtility;
-
+use function PTW\Models\CheckCategory;
 
 
 class AdminController extends ControllerContract
@@ -190,6 +192,15 @@ class AdminController extends ControllerContract
         } else {
             $data['visible'] = 0;
         }
+
+        if(!ImageCategoryUtility::CheckCategory($data['category'])) {
+            throw new Exception("Invalid category.");
+        }
+
+        if(!ImageCategoryUtility::CheckCategoryNotSelected($data['category'])) {
+            throw new Exception("Category not selected.");
+        }
+
         $image->SetData($image->FilterData($data));
 
         $imageRepository->Update($_POST['id'], $image);
