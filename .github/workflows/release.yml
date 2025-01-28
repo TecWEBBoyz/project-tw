@@ -150,7 +150,6 @@ jobs:
           mkdir -p temp_release/initdb
           tar -xzvf php-app.tar.gz -C temp_release/www
           tar -xzvf db-init-app.tar.gz -C temp_release/initdb
-#          rm temp_release/www/static/uploads/*
           mkdir -p temp_release/docs
           cp -R *.pdf temp_release/docs/
           echo "Filename: ConsegnaTecWEBBoyz_${{ env.next_version }}.zip"
