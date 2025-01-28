@@ -193,11 +193,13 @@ class AdminController extends ControllerContract
             $data['visible'] = 0;
         }
 
+        var_dump($data);
+
         if(!ImageCategoryUtility::CheckCategory($data['category'])) {
             throw new Exception("Invalid category.");
         }
 
-        if(!ImageCategoryUtility::CheckCategoryNotSelected($data['category'])) {
+        if(!ImageCategoryUtility::CheckCategorySelected($data['category'])) {
             throw new Exception("Category not selected.");
         }
 

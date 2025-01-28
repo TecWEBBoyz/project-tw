@@ -50,7 +50,6 @@ foreach ($images as $image) :
                 $index = -1;
                 foreach (ImageCategory::cases() as $category) {
                     $index++;
-//                    echo "<option value='{$category}'" . ($category == $imageArray[ImageType::category->value] ? ' selected' : '') . ">{PTW\translation('image-category-' . $index)}</option>";
                     echo "<option value='{$category->value}'" . ($category->value == $imageArray[ImageType::category->value] ? ' selected' : '') . ">" . PTW\translation('image-category-' . $index) . "</option>";
                 }
                 ?>

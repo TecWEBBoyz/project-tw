@@ -18,11 +18,11 @@ class ImageCategoryUtility {
         };
     }
 
-    public static function CheckCategoryNotSelected(string $category): bool
+    public static function CheckCategorySelected(string $category): bool
     {
         return match ($category) {
-            ImageCategory::no_category->value => true,
-            default => false,
+            ImageCategory::no_category->value => false,
+            default => true,
         };
     }
 }
