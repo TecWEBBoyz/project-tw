@@ -23,15 +23,13 @@ jobs:
         with:
           fetch-depth: 0
 
-      # Step 2: Install dependencies
-      - name: Install PHP and Composer
+      - name: Setup PHP (manual)
         run: |
           sudo apt-get update
-          sudo apt-get install -y php8.1 php8.1-mbstring php8.1-intl php8.1-mysql texlive-base texlive-lang-italian texlive-fonts-recommended texlive-latex-extra
+          sudo apt-get install -y php8.1 php8.1-mbstring php8.1-intl php8.1-mysql
           curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-      # Step 3: Build PHP App
-      - name: Install dependencies for PHP app
+      - name: Install dependencies
         run: |
           cd www
           composer install --no-dev --optimize-autoloader
