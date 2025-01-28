@@ -152,3 +152,4 @@ jobs:
           gh release create ${{ env.next_version }} db-init-app.tar.gz php-app.tar.gz *.pdf \
             --title "Release ${{ env.next_version }}" \
             --notes "Automated release for version ${{ env.next_version }}."
+          
