@@ -6,7 +6,7 @@
 .template-image-edit .image {
     max-width: 100%;
     height: 200px;
-    border-radius: 10   px;
+    border-radius: 4px;
 }
 
 /* Stile per il toggle button */
