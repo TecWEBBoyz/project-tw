@@ -159,7 +159,8 @@ jobs:
         run: |
           echo "${{ env.latest_tag }}" > version.txt
 
-      - name: Create release
+      - name: Attempt to create release
+        id: create_release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
