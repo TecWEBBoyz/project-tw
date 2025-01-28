@@ -22,7 +22,7 @@
     transition: border 0.4s ease-in-out, color 0.4s ease-in-out, box-shadow 0.4s ease-in-out, -webkit-box-shadow 0.4s ease-in-out, -moz-box-shadow 0.4s ease-in-out;
 }
 
-.btn-outlined:hover {
+.btn-outlined:hover, .btn-outlined:focus {
     color: var(--color-accent);
     border: 2px solid var(--color-accent);
     box-shadow: 6px 6px 0px -1px rgba(35, 181, 211,1), 6px 6px 0px 1px rgba(35, 181, 211,1);
@@ -37,17 +37,6 @@
     */
 }
 
-.btn-outlined:focus {
-    color: var(--color-accent);
-    border: 2px solid var(--color-accent);
-    box-shadow: 6px 6px 0px -1px rgba(35, 181, 211,1), 6px 6px 0px 1px rgba(35, 181, 211,1);
-    -webkit-box-shadow: 6px 6px 0px -1px rgba(35, 181, 211,1), 6px 6px 0px 1px rgba(35, 181, 211,1);
-    -moz-box-shadow: 6px 6px 0px -1px rgba(35, 181, 211,1);
-
-    /* Rimuove la transizione per il focus */
-    transition: none;
-}
-
 .btn-outlined svg {
     width: 1.5rem;
     height: auto;
@@ -60,13 +49,8 @@
     transition: transform 0.4s ease-in-out;
 }
 
-.btn-outlined:hover svg {
+.btn-outlined:hover svg, .btn-outlined:focus svg {
     transform: translate(10px, -50%);
-}
-
-.btn-outlined:focus svg {
-    transform: translate(10px, -50%);
-    transition: none; /* Rimuove la transizione per il focus sugli SVG */
 }
 
 .btn-outlined svg path {
@@ -74,15 +58,28 @@
     transition: fill 0.3s ease-in-out;
 }
 
-.btn-outlined:hover svg path {
+.btn-outlined:hover svg path, .btn-outlined:focus svg path {
     fill: var(--color-accent);
 }
 
-.btn-outlined:focus svg path {
-    fill: var(--color-accent);
-    transition: none; /* Rimuove la transizione per il colore del path */
+.btn-outlined.btn-danger:hover, .btn-outlined.btn-danger:focus  {
+    color: var(--color-accent-hover);
+    border: 2px solid var(--color-accent-hover);
+    box-shadow: 6px 6px 0px -1px rgba(247, 142, 105,1), 6px 6px 0px 1px rgba(247, 142, 105,1);
+    -webkit-box-shadow: 6px 6px 0px -1px rgba(247, 142, 105,1), 6px 6px 0px 1px rgba(247, 142, 105,1);
+    -moz-box-shadow: 6px 6px 0px -1px rgba(247, 142, 105,1), 6px 6px 0px 1px rgba(247, 142, 105,1);
+
+    /* Alternativa */
+    /*
+    box-shadow: 10px 10px 0px -1px rgba(35, 181, 211,1), 10px 10px 0px 1px rgba(35, 181, 211,1);
+    -webkit-box-shadow: 10px 10px 0px -1px rgba(35, 181, 211,1), 10px 10px 0px 1px rgba(35, 181, 211,1);
+    -moz-box-shadow: 10px 10px 0px -1px rgba(35, 181, 211,1), 10px 10px 0px 1px rgba(35, 181, 211,1);
+    */
 }
 
+.btn-outlined.btn-danger:hover svg path, .btn-outlined.btn-danger:focus svg path {
+    fill: var(--color-accent-hover);
+}
 
 /* -- Link With Icon -- */
 /* General */
@@ -122,7 +119,7 @@
     transition: left 0.3s ease-in-out, right 0.3s ease-in-out;
 }
 
-.icon-button.icon-button-primary:hover::after {
+.icon-button.icon-button-primary:hover::after, .icon-button.icon-button-primary:focus::after {
     left: 0;
     right: 0;
 }
@@ -150,7 +147,7 @@
     transition: left 0.3s ease-in-out, right 0.3s ease-in-out;
 }
 
-.icon-button.icon-button-danger:hover::after {
+.icon-button.icon-button-danger:hover::after, .icon-button.icon-button-danger:focus::after {
     left: 0;
     right: 0;
 }
