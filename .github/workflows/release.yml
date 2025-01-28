@@ -50,18 +50,19 @@ jobs:
 #            exit 0
 #          fi
 #
-#      # Step 5: Compile modified .tex files
-#      - name: Compile modified .tex files
-#        run: |
-#          mkdir -p output
-#          while IFS= read -r tex_file; do
-#            if [ -f "$tex_file" ]; then
-#              output_dir="output/$(dirname "$tex_file" | sed 's|docs/||')"
-#              mkdir -p "$output_dir"
-#              pdflatex -interaction=nonstopmode -output-directory "$output_dir" "$tex_file" || true
-#              pdflatex -interaction=nonstopmode -output-directory "$output_dir" "$tex_file" || true
-#            fi
-#          done < modified_files.txt
+      # Step 5: Compile modified .tex files
+      - name: Compile .tex files
+        run: |
+          cd docs
+          mkdir -p output
+          while IFS= read -r tex_file; do
+            if [ -f "$tex_file" ]; then
+              output_dir="output/$(dirname "$tex_file" | sed 's|docs/||')"
+              mkdir -p "$output_dir"
+              pdflatex -interaction=nonstopmode -output-directory "$output_dir" "$tex_file" || true
+              pdflatex -interaction=nonstopmode -output-directory "$output_dir" "$tex_file" || true
+            fi
+          done < modified_files.txt
 #
 #      # Step 6: Check if PDFs were generated
 #      - name: Check for generated PDFs
