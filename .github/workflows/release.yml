@@ -64,15 +64,29 @@ jobs:
           name: db-init-app
           path: db-init-app.tar.gz
 
-      # Step 5: Compile LaTeX files
-      - name: Compile LaTeX documents
+      - name: Identify .tex files
+        run: |
+          cd docs
+          ls -R | grep .tex > modified_files.txt
+
+      - name: Read modified .tex files
+        run: |
+          cd docs
+          cat modified_files.txt | while read line; do
+            echo "Modified file: $line"
+          done
+      - name: Compile .tex files
         run: |
           cd docs
           mkdir -p output
-          for tex_file in *.tex; do
-            pdflatex -interaction=nonstopmode -output-directory output "$tex_file" || true
-            pdflatex -interaction=nonstopmode -output-directory output "$tex_file" || true
-          done
+          while IFS= read -r tex_file; do
+            if [ -f "$tex_file" ]; then
+              output_dir="output/$(dirname "$tex_file" | sed 's|docs/||')"
+              mkdir -p "$output_dir"
+              pdflatex -interaction=nonstopmode -output-directory "$output_dir" "$tex_file" || true
+              pdflatex -interaction=nonstopmode -output-directory "$output_dir" "$tex_file" || true
+            fi
+          done < modified_files.txt
 
       - name: Upload LaTeX PDFs
         uses: actions/upload-artifact@v4
