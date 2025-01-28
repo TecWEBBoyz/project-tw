@@ -23,11 +23,11 @@ jobs:
           ssh-key: ${{ secrets.DEPLOY_KEY }}
           fetch-depth: 0
 
-#      # Step 2: Install LaTeX tools
-#      - name: Install LaTeX
-#        run: |
-#          sudo apt-get update && \
-#          sudo apt-get install -y texlive-base texlive-lang-italian texlive-fonts-recommended texlive-latex-extra
+      # Step 2: Install LaTeX tools
+      - name: Install LaTeX
+        run: |
+          sudo apt-get update && \
+          sudo apt-get install -y texlive-base texlive-lang-italian texlive-fonts-recommended texlive-latex-extra
 
       # Step 3: Identify modified .tex files
       - name: Identify .tex files
