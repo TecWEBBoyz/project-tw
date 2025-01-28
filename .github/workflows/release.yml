@@ -63,6 +63,11 @@ jobs:
         with:
           name: db-init-app
           path: db-init-app.tar.gz
+          
+      - name: Install LaTeX
+        run: |
+          sudo apt-get update && \
+          sudo apt-get install -y texlive-base texlive-lang-italian texlive-fonts-recommended texlive-latex-extra
 
       - name: Identify .tex files
         run: |
