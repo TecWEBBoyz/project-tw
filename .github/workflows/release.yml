@@ -37,6 +37,7 @@ jobs:
 
       - name: Read modified .tex files
         run: |
+          cd docs
           cat modified_files.txt | while read line; do
             echo "Modified file: $line"
           done
