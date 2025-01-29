@@ -12,5 +12,5 @@
         di ascoltarci in maniera introspettiva, per cogliere la vera essenza di noi stessi.
         </p>
     </div>
-    <div id="filippo-image"></div>
+    <img src="static/images/me_medium_aspect.jpg" id="filippo-image">
 </div>
