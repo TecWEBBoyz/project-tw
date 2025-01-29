@@ -44,9 +44,15 @@ function renderMenu($menuItems, $mobile = false) {
         } elseif ($index === $itemCount - 1) {
             $id = $lastId;
         }
+        $link = $item['link'];
+        $parsedLink = parse_url($link);
+        
+        // If a fragment exists, use only the fragment part; otherwise, keep the original link
+        $href = isset($parsedLink['fragment']) ? '#' . $parsedLink['fragment'] : $link;
+        
         echo '<li ' . $navigationHelper . '><a id="' . $id . '" class="nav-link link ' . htmlspecialchars($item['classes']) . '"' .
             ($mobile ? ' data-mobile="true" ' : ' ') .
-            'href="' . htmlspecialchars($item['link']) . '">' .
+            'href="' . htmlspecialchars($href) . '">' .
             htmlspecialchars($item['label']) . '</a></li>' . PHP_EOL;
     }
     echo '</span></ul></nav>';
