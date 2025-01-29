@@ -46,6 +46,7 @@ $router->get("/admin/upload", \PTW\Controllers\AdminController::class . "::uploa
 $router->post("/admin/upload", \PTW\Controllers\AdminController::class . "::uploadImage");
 $router->post("/admin/update-image", \PTW\Controllers\AdminController::class . "::editImage");
 $router->post("/admin/delete-image", \PTW\Controllers\AdminController::class . "::deleteImage");
+$router->post("/admin/reorder-image", \PTW\Controllers\AdminController::class . "::reorderImage");
 
 // Dashboard
 $router->get("/dashboard", \PTW\Controllers\DashboardController::class . "::get");

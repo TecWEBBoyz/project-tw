@@ -24,6 +24,27 @@ echo $TEMPLATE_DATA['description'] ?? 'Default description for the page'; ?>">
 <!--<link rel="stylesheet" href="style?template=--><?php //echo $TEMPLATE_DATA['name']; ?><!--">-->
 <link rel="stylesheet" href="style.css">
 <!-- Scripts -->
+<?php
+$scrollTarget = PTW\Utility\ScrollToUtility::getScrollTarget();
+if ($scrollTarget): ?>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var element = document.getElementById("<?php echo htmlspecialchars($scrollTarget); ?>");
+            if (element) {
+                // Scorrimento fluido fino all'elemento
+                element.scrollIntoView({  block: "center" });
+
+                // Aggiunge la classe per evidenziare con effetto glow e scala
+                element.classList.add("highlight-effect");
+
+                // Rimuove l'effetto dopo 3 secondi
+                setTimeout(function() {
+                    element.classList.remove("highlight-effect");
+                }, 3000);
+            }
+        });
+    </script>
+<?php endif; ?>
 <script src="static/js/main.js"></script>
 <script src="static/js/menu.js"></script>
 <script data-template="<?php echo $TEMPLATE_DATA['name']; ?>" src="static/js/<?php echo $TEMPLATE_DATA['name']; ?>.js"></script>

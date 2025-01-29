@@ -38,5 +38,7 @@
   "image-category-3": "Events",
   "image-category-0": "No category",
   "image-category-invalid": "Invalid category",
-  "image-category-required": "Category is required, image not edited"
+  "image-category-required": "Category is required, image not edited",
+  "image-order": "Order",
+  "image-filter-by-category": "Filter by category"
 }

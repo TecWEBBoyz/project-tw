@@ -4,7 +4,9 @@ table:not(.xdebug-error) {
     border-collapse: separate;
     border-spacing: 0 var(--spacing-2);
 }
-
+table tbody tr {
+    border-radius: 20px;
+}
 table:not(.xdebug-error) thead th {
     border: none;
     text-align: left;

@@ -1,9 +1,32 @@
 <?php
 ?>
 <a href="admin/upload" class="btn-outlined" id="upload-button">
-    <span><?php echo \PTW\translation('upload-image') ?></span>
+    <span><?php use PTW\Models\ImageCategory;
+
+        echo \PTW\translation('upload-image') ?></span>
     <?php echo file_get_contents("static/images/right-chevron.svg") ?>
 </a>
+
+<!-- Filtro per categoria -->
+<form method="GET" action="" id="category-filter-form">
+    <div class="category-filter">
+        <label><?php echo \PTW\translation('image-filter-by-category'); ?></label>
+        <div class="category-buttons">
+            <?php
+            $index = 0;
+            foreach (ImageCategory::cases() as $category):
+                if ($category->value == ImageCategory::no_category->value) continue;
+                $index++;
+                $isSelected = isset($TEMPLATE_DATA['category']) && $TEMPLATE_DATA['category'] === $category->value;
+                ?>
+                <button type="submit" name="category" value="<?php echo htmlspecialchars($category->value, ENT_QUOTES, 'UTF-8'); ?>"
+                        class="category-button <?php echo $isSelected ? 'selected' : ''; ?>">
+                    <?php echo \PTW\translation('image-category-' . $index); ?>
+                </button>
+            <?php endforeach; ?>
+        </div>
+    </div>
+</form>
 
 <div class="table-responsive">
     <?php if (empty($TEMPLATE_DATA['images'])): ?>
@@ -13,10 +36,11 @@
             <thead>
             <tr>
                 <th scope="col"><?php echo \PTW\translation('image-id') ?></th>
+                <th scope="col"><?php echo \PTW\translation('image-order'); ?></th>
                 <th scope="col"><?php echo \PTW\translation('image-title') ?></th>
                 <th scope="col"><?php echo \PTW\translation('image-description') ?></th>
                 <th scope="col"><?php echo \PTW\translation('image-place') ?></th>
-                <th scope="col"><?php echo \PTW\translation('image-category') ?></th>
+<!--                <th scope="col">--><?php //echo \PTW\translation('image-category') ?><!--</th>-->
                 <th scope="col"><?php echo \PTW\translation('image-date') ?></th>
                 <th scope="col"><?php echo \PTW\translation('image-visibility') ?></th>
                 <th scope="col"><?php echo \PTW\translation('image-actions') ?></th>
@@ -40,19 +64,36 @@
                 $date = htmlspecialchars($imageArray['date'] ?? PTW\translation('image-no-date'), ENT_QUOTES, 'UTF-8');
                 $visible = $imageArray['visible'] ? PTW\translation('image-visibility-yes') : PTW\translation('image-visibility-no');
                 $category = htmlspecialchars($imageArray['category'] ?? PTW\translation('image-no-category'), ENT_QUOTES, 'UTF-8');
-
+                $order = htmlspecialchars($imageArray['order_id'] ?? PTW\translation('image-no-order'), ENT_QUOTES, 'UTF-8');
                 $rowStyle = is_null($imageArray['updated_at'] ?? null)
                     ? " class='require-edit' title='" . \PTW\translation('image-require-edit') . "'"
                     : "";
                 ?>
 
-                <tr <?php echo $rowStyle . 'id=\"$id\"' ?>>
-                    <td data-label='<?php echo \PTW\translation('image-id') ?>'><?php echo $index; ?></td>
+                <tr <?php echo $rowStyle ?> id="<?php echo $id ?>">
+
+                    <td data-label='<?php echo \PTW\translation('image-id') ?>'><?php echo $order; ?></td>
+                    <td data-label='<?php echo \PTW\translation('image-order') ?>' class='actions'>
+                        <form action='admin/reorder-image' method='POST' class='form-inline'>
+                            <input type='hidden' name='id' value='<?php echo $id; ?>'>
+                            <input type='hidden' name='direction' value='up'>
+                            <button type='submit' class="icon-button">
+                                <?php echo file_get_contents("static/images/icons/arrow-up.svg"); ?>
+                            </button>
+                        </form>
+                        <form action='admin/reorder-image' method='POST' class='form-inline'>
+                            <input type='hidden' name='id' value='<?php echo $id; ?>'>
+                            <input type='hidden' name='direction' value='down'>
+                            <button type='submit' class="icon-button">
+                                <?php echo file_get_contents("static/images/icons/arrow-down.svg"); ?>
+                            </button>
+                        </form>
+                    </td>
                     <td data-label='<?php echo \PTW\translation('image-title') ?>'><?php echo $title; ?></td>
                     <td data-label='<?php echo \PTW\translation('image-description') ?>'
                         class="long-text"><?php echo $description ?></td>
                     <td data-label='<?php echo \PTW\translation('image-place') ?>'><?php echo $place; ?></td>
-                    <td data-label='<?php echo \PTW\translation('image-category') ?>'><?php echo $category; ?></td>
+<!--                    <td data-label='--><?php //echo \PTW\translation('image-category') ?><!--'>--><?php //echo $category; ?><!--</td>-->
                     <td data-label='<?php echo \PTW\translation('image-date') ?>'>
                         <time datetime='<?php echo $date ?>'><?php echo $date; ?></time>
                     </td>

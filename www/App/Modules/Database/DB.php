@@ -47,7 +47,6 @@ class DB
     public function Query(string $query, array $parameters = []) : array
     {
         $this->Connect();
-
         $preparedQuery = $this->pdo->prepare($query);
         $preparedQuery->execute($parameters);
 
@@ -152,6 +151,6 @@ class DB
 
     private function RemoveNonAlphaCharacter(string $str) : string
     {
-        return preg_replace('/[^a-zA-Z]*/', '', $str);
+        return preg_replace("/[^a-zA-Z_-]/", "", $str);
     }
 }

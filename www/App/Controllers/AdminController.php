@@ -13,8 +13,8 @@ use PTW\Models\ImageCategory;
 use PTW\Models\ImageCategoryUtility;
 use PTW\Models\ImageType;
 use PTW\Modules\Auth\Role;
-use PTW\Modules\Auth\SessionManager;
 use PTW\Utility\CustomException;
+use PTW\Utility\ScrollToUtility;
 use PTW\Utility\TemplateUtility;
 use PTW\Utility\ToastUtility;
 use function PTW\Models\CheckCategory;
@@ -34,8 +34,10 @@ class AdminController extends ControllerContract
             $this->locationReplace('/login');
         }
         $imageRepository = new \PTW\Modules\Repositories\ImageRepository();
-        $images = $imageRepository->All();
-        TemplateUtility::getTemplate('admin', ['title' => 'Admin Dashboard', 'images' => $images]);
+
+        $category = $_GET['category'] ?? "Travels";
+        $images = $imageRepository->GetImagesByCategory($category);
+        TemplateUtility::getTemplate('admin', ['title' => 'Admin Dashboard', 'images' => $images, 'category' =>$category]);
     }
 
     public function post(): void
@@ -179,6 +181,7 @@ class AdminController extends ControllerContract
             }
             TemplateUtility::getTemplate('image-edit', array_merge(['title' => 'Edit Image', 'images' => [$image]], $templateData));
         }catch (Exception $e) {
+            ScrollToUtility::setScrollTarget($data['id']);
             ToastUtility::addToast('error', \PTW\translation('image-edit-error'));
             $this->previusPage();
         }
@@ -226,6 +229,7 @@ class AdminController extends ControllerContract
             ToastUtility::addToast('error', \PTW\translation('image-edit-error'));
 
         } finally {
+            ScrollToUtility::setScrollTarget($data['id']);
             if ($numberOfImages > 0) {
                 $this->previusPage();
             } else {
@@ -249,6 +253,7 @@ class AdminController extends ControllerContract
         }catch (Exception $e) {
             ToastUtility::addToast('error', \PTW\translation('image-edit-error'));
         } finally {
+            ScrollToUtility::setScrollTarget($data['id']);
             $this->previusPage();
         }
 
@@ -286,7 +291,48 @@ class AdminController extends ControllerContract
         } catch (Exception $e) {
             ToastUtility::addToast('error', \PTW\translation('image-delete-error'));
         } finally {
+            ScrollToUtility::setScrollTarget($data['id']);
             $this->locationReplace("/admin");
+        }
+    }
+
+    public function reorderImage($data)
+    {
+        try {
+            if (!isset($data['id']) || !isset($data['direction'])) {
+                throw new Exception("No image ID or direction provided.");
+            }
+            $imageRepository = new \PTW\Modules\Repositories\ImageRepository();
+            $image = $imageRepository->GetElementByID($data['id']);
+            if($image == null) {
+                throw new Exception("No image found.");
+            }
+            $nextImage = $imageRepository->GetNextImage($image->ToArray()[ImageType::order->value], $image->ToArray()[ImageType::category->value]);
+            $previusImage = $imageRepository->GetPreviusImage($image->ToArray()[ImageType::order->value], $image->ToArray()[ImageType::category->value]);
+            if($data['direction'] == 'up' && $previusImage != null) {
+                $previusImage = $previusImage[0];
+                $previusImageArray = $previusImage->ToArray();
+                $imageArray = $image->ToArray();
+                $image->SetData($image->FilterData([ImageType::order->value => $previusImageArray[ImageType::order->value]]));
+                $previusImage->SetData($previusImage->FilterData([ImageType::order->value => $imageArray[ImageType::order->value]]));
+                $imageRepository->Update($data['id'], $image);
+                $imageRepository->Update($previusImageArray['id'], $previusImage);
+            } else if($data['direction'] == 'down' && $nextImage != null) {
+                $nextImage = $nextImage[0];
+                $nextImageArray = $nextImage->ToArray();
+                $imageArray = $image->ToArray();
+                $image->SetData($image->FilterData([ImageType::order->value => $nextImageArray[ImageType::order->value]]));
+                $nextImage->SetData($nextImage->FilterData([ImageType::order->value => $imageArray[ImageType::order->value]]));
+                $imageRepository->Update($data['id'], $image);
+                $imageRepository->Update($nextImageArray['id'], $nextImage);
+            } else {
+                throw new Exception("No image found.");
+            }
+        } catch (Exception $e) {
+            ToastUtility::addToast('error', $e->getMessage());
+        } finally {
+            ScrollToUtility::setScrollTarget($data['id']);
+            $this->locationReplace('/admin');
         }
     }
 

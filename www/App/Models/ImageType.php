@@ -39,4 +39,5 @@ enum ImageType: string
     case category = "category";
     case created_at = "created_at";
     case updated_at = "updated_at";
+    case order = "order_id";
 }

@@ -53,3 +53,20 @@
 #admin-photo-list tbody tr.require-edit > td:last-of-type {
     border-right: 2px solid var(--color-warning);
 }
+
+#//TODO: Change this shitty style
+.category-buttons {
+    display: flex;
+    gap: 10px;
+}
+.category-button {
+    padding: 10px;
+    border: 1px solid #ccc;
+    background-color: #f8f8f8;
+    cursor: pointer;
+}
+.category-button.selected {
+    background-color: #007bff;
+    color: white;
+    border-color: #007bff;
+}
