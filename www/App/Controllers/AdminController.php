@@ -291,7 +291,6 @@ class AdminController extends ControllerContract
         } catch (Exception $e) {
             ToastUtility::addToast('error', \PTW\translation('image-delete-error'));
         } finally {
-            ScrollToUtility::setScrollTarget($data['id']);
             $this->locationReplace("/admin");
         }
     }
