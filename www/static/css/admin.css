@@ -2,6 +2,38 @@
     margin: 0 auto;
 }
 
+#category-filter-form {
+    margin-top: var(--spacing-5);
+    display: block;
+}
+
+#category-filter-form .category-buttons {
+    list-style: none;
+    display: flex;
+    gap: var(--spacing-2);
+    flex-wrap: wrap;
+    padding: var(--spacing-3) 0;
+}
+
+#category-filter-form .form-group {
+    border: 1px solid var(--color-text);
+    border-radius: 10px;
+    padding: var(--spacing-1) var(--spacing-4);
+}
+
+#category-filter-form .form-group .label {
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#category-filter-form .category-buttons li{
+    flex: 1;
+}
+
+#category-filter-form .category-buttons button {
+    width: 100%;
+}
+
 .table-responsive {
     margin-top: 2em;
 }
@@ -52,21 +84,4 @@
 
 #admin-photo-list tbody tr.require-edit > td:last-of-type {
     border-right: 2px solid var(--color-warning);
-}
-
-#//TODO: Change this shitty style
-.category-buttons {
-    display: flex;
-    gap: 10px;
-}
-.category-button {
-    padding: 10px;
-    border: 1px solid #ccc;
-    background-color: #f8f8f8;
-    cursor: pointer;
-}
-.category-button.selected {
-    background-color: #007bff;
-    color: white;
-    border-color: #007bff;
 }

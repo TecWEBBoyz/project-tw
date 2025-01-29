@@ -7,11 +7,10 @@
     <?php echo file_get_contents("static/images/right-chevron.svg") ?>
 </a>
 
-<!-- Filtro per categoria -->
 <form method="GET" action="" id="category-filter-form">
-    <div class="category-filter">
-        <label><?php echo \PTW\translation('image-filter-by-category'); ?></label>
-        <div class="category-buttons">
+    <div class="form-group">
+        <p class="caption label"><?php echo \PTW\translation('image-filter-by-category'); ?></p>
+        <ul class="category-buttons">
             <?php
             $index = 0;
             foreach (ImageCategory::cases() as $category):
@@ -19,12 +18,14 @@
                 $index++;
                 $isSelected = isset($TEMPLATE_DATA['category']) && $TEMPLATE_DATA['category'] === $category->value;
                 ?>
-                <button type="submit" name="category" value="<?php echo htmlspecialchars($category->value, ENT_QUOTES, 'UTF-8'); ?>"
-                        class="category-button <?php echo $isSelected ? 'selected' : ''; ?>">
-                    <?php echo \PTW\translation('image-category-' . $index); ?>
-                </button>
+                <li>
+                    <button type="submit" name="category" value="<?php echo htmlspecialchars($category->value, ENT_QUOTES, 'UTF-8'); ?>"
+                            class="category-button <?php echo $isSelected ? 'selected' : ''; ?>">
+                        <?php echo \PTW\translation('image-category-' . $index); ?>
+                    </button>
+                </li>
             <?php endforeach; ?>
-        </div>
+        </ul>
     </div>
 </form>
 
