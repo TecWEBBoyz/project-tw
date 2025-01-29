@@ -14,6 +14,7 @@
   "image-visibility-yes": "Yes",
   "image-visibility-no": "No",
   "image-edit": "Edit Image",
+  "image-edit-error": "There was an error editing the image",
   "image-delete": "Delete Image",
   "image-deleted": "Image successfully deleted!",
   "image-delete-error": "The deletion of the image failed!",
@@ -35,5 +36,7 @@
   "image-category-1": "Travels",
   "image-category-2": "Racing Cars",
   "image-category-3": "Events",
-  "image-category-0": "No category"
+  "image-category-0": "No category",
+  "image-category-invalid": "Invalid category",
+  "image-category-required": "Category is required, image not edited"
 }

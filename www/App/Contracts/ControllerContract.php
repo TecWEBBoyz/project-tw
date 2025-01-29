@@ -25,7 +25,7 @@ abstract class ControllerContract
     }
     public function previusPage()
     {
-        $previusPage = $_SERVER['HTTP_REFERER'];
+        $previusPage = $_SERVER['HTTP_REFERER'] ?? $this->baseURL;
         header("Location: $previusPage");
     }
     /**

@@ -47,17 +47,17 @@
                 ?>
 
                 <tr <?php echo $rowStyle . 'id=\"$id\"' ?>>
-                    <td data-label='<?php echo \PTW\translation(' image-id') ?>'><?php echo $index; ?></td>
-                    <td data-label='<?php echo \PTW\translation(' image-title') ?>'><?php echo $title; ?></td>
-                    <td data-label='<?php echo \PTW\translation(' image-description') ?>'
+                    <td data-label='<?php echo \PTW\translation('image-id') ?>'><?php echo $index; ?></td>
+                    <td data-label='<?php echo \PTW\translation('image-title') ?>'><?php echo $title; ?></td>
+                    <td data-label='<?php echo \PTW\translation('image-description') ?>'
                         class="long-text"><?php echo $description ?></td>
-                    <td data-label='<?php echo \PTW\translation(' image-place') ?>'><?php echo $place; ?></td>
-                    <td data-label='<?php echo \PTW\translation(' image-category') ?>'><?php echo $category; ?></td>
-                    <td data-label='<?php echo \PTW\translation(' image-date') ?>'>
+                    <td data-label='<?php echo \PTW\translation('image-place') ?>'><?php echo $place; ?></td>
+                    <td data-label='<?php echo \PTW\translation('image-category') ?>'><?php echo $category; ?></td>
+                    <td data-label='<?php echo \PTW\translation('image-date') ?>'>
                         <time datetime='<?php echo $date ?>'><?php echo $date; ?></time>
                     </td>
-                    <td data-label='<?php echo \PTW\translation(' image-visibility') ?>'><?php echo $visible; ?></td>
-                    <td data-label='<?php echo \PTW\translation(' image-actions') ?>' class='actions'>
+                    <td data-label='<?php echo \PTW\translation('image-visibility') ?>'><?php echo $visible; ?></td>
+                    <td data-label='<?php echo \PTW\translation('image-actions') ?>' class='actions'>
 
                         <ul>
                             <li>
