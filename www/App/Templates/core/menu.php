@@ -38,7 +38,7 @@ function renderMenu($menuItems, $mobile = false) {
         $id = '';
         $navigationHelper =
             isset($item['navigation-help']) && $item['navigation-help']
-                ? 'class="navigation-help"' : '';
+                ? ' class="navigation-help"' : '';
         if ($index === 0) {
             $id = $firstId;
         } elseif ($index === $itemCount - 1) {
@@ -50,7 +50,7 @@ function renderMenu($menuItems, $mobile = false) {
         // If a fragment exists, use only the fragment part; otherwise, keep the original link
         $href = isset($parsedLink['fragment']) ? '#' . $parsedLink['fragment'] : $link;
         
-        echo '<li ' . $navigationHelper . '><a id="' . $id . '" class="nav-link link ' . htmlspecialchars($item['classes']) . '"' .
+        echo '<li' . $navigationHelper . '><a id="' . $id . '" class="nav-link link ' . htmlspecialchars($item['classes']) . '"' .
             ($mobile ? ' data-mobile="true" ' : ' ') .
             'href="' . htmlspecialchars($href) . '">' .
             htmlspecialchars($item['label']) . '</a></li>' . PHP_EOL;
