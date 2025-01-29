@@ -13,7 +13,12 @@
         <label class="caption" for="password">Password</label>
         <input type="password" id="password" name="password" placeholder="Password" required>
     </div>
-    <div class="error-message"><?= $error ?></div>
+    <!-- Mostra l'errore solo se presente -->
+    <?php if ($error): ?>
+        <div class="error-message">
+            <span role="alert" aria-live="assertive" aria-relevant="additions" aria-atomic="true"><?= $error ?></span>
+        </div>
+    <?php endif; ?>
     <button class="btn-outlined" type="submit">
         <span>Login</span>
         <?php echo file_get_contents("static/images/paper-plane.svg"); ?>
