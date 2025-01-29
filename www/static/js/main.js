@@ -1,6 +1,5 @@
 window.loadersOnImages = () => {
 
-    console.log("LoadersOnImages");
     const images = document.querySelectorAll("img");
 
     images.forEach((img) => {

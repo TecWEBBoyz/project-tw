@@ -152,6 +152,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
                 container.classList.add(`template-${templateName}`);
                 container.innerHTML = html;
+                window.loadersOnImages();
 
                 // Check if the current state is different from the previous one
                 const currentState = window.history.state;
