@@ -48,13 +48,6 @@
     box-shadow: none;
 }
 
-.long-text {
-    max-width: 10em;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
 .template-admin .form-inline {
     display: inline;
 }
@@ -84,4 +77,13 @@
 
 #admin-photo-list tbody tr.require-edit > td:last-of-type {
     border-right: 2px solid var(--color-warning);
+}
+
+@media screen and (min-width: 900px) {
+    .long-text {
+        max-width: 10em;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
 }
