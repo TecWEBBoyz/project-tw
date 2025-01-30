@@ -4,8 +4,8 @@ use PTW\Modules\Auth\Role;
 use PTW\Modules\Auth\SessionManager;
 
 $menuItems = [
-    ['label' => \PTW\translation('nav-navigation-helper-content'), 'link' => $_SERVER['REQUEST_URI'] . '#content', 'classes' => '', 'navigation-help' => true],
-    ['label' => \PTW\translation('nav-navigation-helper-footer'), 'link' => $_SERVER['REQUEST_URI'] . '#footer', 'classes' => '', 'navigation-help' => true],
+    ['label' => \PTW\translation('nav-navigation-helper-content'), 'link' => $_SERVER['REQUEST_URI'].'#content', 'classes' => '', 'navigation-help' => true],
+    ['label' => \PTW\translation('nav-navigation-helper-footer'), 'link' => $_SERVER['REQUEST_URI'].'#footer', 'classes' => '', 'navigation-help' => true],
     ['label' => \PTW\translation('nav-menu-home'), 'link' => 'home', 'classes' => ''],
     ['label' => \PTW\translation('nav-menu-services'), 'link' => 'services', 'classes' => ''],
     ['label' => \PTW\translation('nav-menu-about'), 'link' => 'about', 'classes' => ''],
@@ -44,15 +44,11 @@ function renderMenu($menuItems, $mobile = false) {
         } elseif ($index === $itemCount - 1) {
             $id = $lastId;
         }
-        $link = $item['link'];
-        $parsedLink = parse_url($link);
-        
-        // If a fragment exists, use only the fragment part; otherwise, keep the original link
-        $href = isset($parsedLink['fragment']) ? '#' . $parsedLink['fragment'] : $link;
-        
+        $href = $item['link'];
+
         echo '<li' . $navigationHelper . '><a id="' . $id . '" class="nav-link link ' . htmlspecialchars($item['classes']) . '"' .
             ($mobile ? ' data-mobile="true" ' : ' ') .
-            'href="' . htmlspecialchars($href) . '" '.(\PTW\getLangAttribute()).'>' .
+            'href="' . $href . '" '.(\PTW\getLangAttribute()).'>' .
             htmlspecialchars($item['label']) . '</a></li>' . PHP_EOL;
     }
     echo '</span></ul></nav>';
