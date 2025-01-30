@@ -117,8 +117,8 @@
 
 .navbar .menu .close {
     position: absolute;
-    top: 0px;
-    right: 20px;
+    top: 20px;
+    right: 35px;
     font-size: 2em;
     color: white;
     cursor: pointer;
