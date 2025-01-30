@@ -1,4 +1,6 @@
-window.loadJS = () => {
+document.addEventListener("DOMContentLoaded", () => {
+    let script = document.querySelector('script[data-template="home"]');
+    if (!script) return;
     const images = document.querySelectorAll(".gallery-item img");
     const modal = document.getElementById("image-modal");
     const modalImage = document.getElementById("modal-image");
@@ -194,7 +196,4 @@ window.loadJS = () => {
     window.imageError = (el) => {
         el.classList.add("error");
     }
-}
-document.addEventListener("DOMContentLoaded", () => {
-    loadJS();
 });

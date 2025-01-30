@@ -186,10 +186,6 @@ a.link {
     color: var(--color-text);
 }
 
-a.link:visited {
-    color: var(--color-link-visited);
-}
-
 a.link::after {
     content: '';
     position: absolute;
@@ -212,9 +208,14 @@ a.link:hover {
     transition: color 0.4s ease;
 }
 
-a[disabled] {
+a[disabled="disabled"] {
     pointer-events: none;
     cursor: default;
+    color: var(--color-white) !important;
+}
+
+a.link:visited {
+    color: var(--color-link-visited);
 }
 
 strong {
