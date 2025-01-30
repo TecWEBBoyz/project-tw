@@ -209,3 +209,8 @@
     color: var(--color-accent);
     border-color: var(--color-accent);
 }
+
+.category-button.selected {
+    pointer-events: none;
+    cursor: default;
+}
