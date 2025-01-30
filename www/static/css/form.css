@@ -3,12 +3,13 @@ form {
     max-width: 600px;
     padding: var(--spacing-4);
     margin: 0 auto;
+    color-scheme: dark;
 }
 
 form label, form .label {
     position: absolute;
     background: var(--color-bg);
-    padding: 0 var(--spacing-1) ;
+    padding: 0 var(--spacing-1);
     top: 0;
     left: var(--spacing-4);
     transform: translateY(-50%);
@@ -90,6 +91,62 @@ form select {
     -moz-appearance: none;
     -webkit-appearance: none;
     appearance: none;
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    font-size: 1rem;
+    border: 2px solid var(--color-input-border);
+    padding: 1rem var(--spacing-4);
+    border-radius: 20px;
+    transition: border-color ease-in-out .3s, box-shadow ease-in-out .3s;
+}
+
+/* Focus and hover styles for select */
+form select:focus {
+    background-color: var(--color-accent-light); /* Cambia il colore di sfondo al focus */
+    border-color: var(--color-accent);  /* Cambia il colore del bordo al focus */
+    box-shadow: 0 0 5px var(--color-accent);  /* Aggiungi un'ombra al focus */
+}
+
+form select option:hover {
+    background-color: var(--color-accent);
+    color: var(--color-text);
+}
+
+/* Styling for the options */
+form select option {
+    background-color: var(--color-bg);
+    color: var(--color-text);
+}
+
+/* Hover effect for options */
+form select option:hover {
+    background-color: var(--color-accent);
+    color: var(--color-text);
+}
+
+/* Styling for optgroup */
+form select optgroup {
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    font-weight: bold;
+    padding: var(--spacing-2);
+}
+
+/* Hover effect for optgroup */
+form select optgroup:hover {
+    background-color: var(--color-bg-light);
+}
+
+/* Styling for optgroup options */
+form select optgroup option {
+    background-color: var(--color-bg);
+    color: var(--color-text);
+}
+
+/* Hover effect for optgroup options */
+form select optgroup option:hover {
+    background-color: var(--color-accent);
+    color: var(--color-text);
 }
 
 form button:hover {
