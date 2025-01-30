@@ -4,5 +4,5 @@
         <h1><?php echo \PTW\translationWithSpan('about-title'); ?></h1>
         <p><?php echo \PTW\translationWithSpan('about-text'); ?></p>
     </div>
-    <img src="static/images/me_high_aspect.jpg" id="filippo-image" loading="lazy">
+    <img src="static/images/me_high_aspect.jpg" id="filippo-image" loading="lazy" alt="<?php echo \PTW\translation('about-image-alt'); ?>">
 </div>
