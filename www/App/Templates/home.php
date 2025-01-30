@@ -92,7 +92,7 @@ foreach ($images as $image) {
 
 
 <nav class="categories-navigation">
-    <h2>Latest Work</h2>
+    <h2><?php echo \PTW\translationWithSpan('home-latest-work'); ?></h2>
     <ul>
         <?php
         $index = 0;
@@ -102,7 +102,7 @@ foreach ($images as $image) {
             $categoryName = PTW\translation('image-category-' . $index);
             ?>
             <li id="<?php echo $category->value . "-element" ?>">
-                <a href="#<?php echo htmlspecialchars($category->value, ENT_QUOTES, 'UTF-8'); ?>">
+                <a class="category-navigation-link" href="#<?php echo htmlspecialchars($category->value, ENT_QUOTES, 'UTF-8'); ?>">
                     <?php echo htmlspecialchars($categoryName, ENT_QUOTES, 'UTF-8'); ?>
                 </a>
             </li>
@@ -161,7 +161,7 @@ foreach (ImageCategory::cases() as $category_):
                              onerror="window.imageError(this)">
                     </a>
                     <div class="gallery-item-info">
-                        <p class="caption"><?php echo htmlspecialchars($location) . ", " . htmlspecialchars($date); ?></p>
+                        <p class="caption"><?php echo htmlspecialchars($location);?>, <time datetime="<?php echo $date ?>"><?php echo \PTW\Utility\DateFormatterUtility::Format($date)?></time></p>
                         <h4><?php echo isset($image[ImageType::title->value]) ? htmlspecialchars($image[ImageType::title->value], ENT_QUOTES, 'UTF-8') : 'Unknown title'; ?></h4>
                     </div>
                 </li>

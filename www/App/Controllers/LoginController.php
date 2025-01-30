@@ -17,13 +17,21 @@ class LoginController extends ControllerContract
 {
     public function get(): void
     {
-        TemplateUtility::getTemplate('login');
+        TemplateUtility::getTemplate('login', [
+            "title"=>\PTW\translation('title-login'),
+            "description"=>\PTW\translation('description-login'),
+            "keywords"=>\PTW\translation('keywords-login')
+        ]);
     }
 
     public function post(): void
     {
         if (!isset($_POST['username']) || !isset($_POST['password'])) {
-            TemplateUtility::getTemplate('login', ['title' => 'Login', 'error' => 'Invalid username or password']);
+            TemplateUtility::getTemplate('login', [
+                'error' => \PTW\translation('login-form-error'),
+                "title"=>\PTW\translation('title-login'),
+                "description"=>\PTW\translation('description-login'),
+                "keywords"=>\PTW\translation('keywords-login')]);
             return;
         }
 
@@ -33,13 +41,21 @@ class LoginController extends ControllerContract
 
         if ($user == null)
         {
-            TemplateUtility::getTemplate('login', ['title' => 'Login', 'error' => 'User does not exist']);
+            TemplateUtility::getTemplate('login', [
+                'error' => \PTW\translation('login-form-error-user-not-exists'),
+                "title"=>\PTW\translation('title-login'),
+                "description"=>\PTW\translation('description-login'),
+                "keywords"=>\PTW\translation('keywords-login')]);
             return;
         }
 
         if (!($user->ToArray()[UserType::password->value] == $_POST['password']))
         {
-            TemplateUtility::getTemplate('login', ['title' => 'Login', 'error' => 'Invalid username or password']);
+            TemplateUtility::getTemplate('login', [
+                'error' => \PTW\translation('login-form-error'),
+                "title"=>\PTW\translation('title-login'),
+                "description"=>\PTW\translation('description-login'),
+                "keywords"=>\PTW\translation('keywords-login')]);
             return;
         }
 

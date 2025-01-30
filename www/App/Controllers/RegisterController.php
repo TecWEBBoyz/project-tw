@@ -11,7 +11,11 @@ class RegisterController extends ControllerContract
 {
     public function get(): void
     {
-        TemplateUtility::getTemplate('register', ['title' => 'Register']);
+        TemplateUtility::getTemplate('register', [
+            "title" => \PTW\translation('title-register'),
+            "description" => \PTW\translation('description-register'),
+            "keywords" => \PTW\translation('keywords-register')
+        ]);
     }
 
     public function post(): void

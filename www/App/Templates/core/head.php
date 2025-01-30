@@ -1,4 +1,18 @@
-<?php use function PTW\config; ?>
+<?php
+    use function PTW\config;
+    if (!isset($TEMPLATE_DATA)) {
+        $TEMPLATE_DATA = [];
+    }
+    if(!isset($TEMPLATE_DATA['title'])) {
+        throw new Exception('Title is required');
+    }
+    if(!isset($TEMPLATE_DATA['description'])) {
+        throw new Exception('Description is required');
+    }
+    if(!isset($TEMPLATE_DATA['keywords'])) {
+        throw new Exception('Keywords are required');
+    }
+?>
 <!-- Meta tags -->
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
@@ -8,8 +22,8 @@
 <!--<meta property="og:image" content="URL dell'immagine di anteprima" />-->
 <!--<meta property="og:url" content="URL della pagina" />-->
 
-<meta name="description" content="<?php echo \PTW\translation('meta-description'); ?>">
-<meta name="keywords" content="<?php echo \PTW\translation('meta-keywords'); ?>">
+<meta name="description" content="<?php echo $TEMPLATE_DATA['description']; ?>">
+<meta name="keywords" content="<?php echo $TEMPLATE_DATA['keywords']; ?>">
 <meta name="author" content="<?php echo \PTW\translation('meta-author'); ?>">
 
 <base href="<?php echo config('router.baseURL'); ?>/">

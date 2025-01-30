@@ -21,10 +21,6 @@ $router->get("/home", \PTW\Controllers\HomeController::class . "::get");
 // Utility Page
 $router->get("/about", \PTW\Controllers\AboutController::class . "::get");
 $router->get("/services", \PTW\Controllers\ServicesController::class . "::get");
-$router->get("/contact", \PTW\Controllers\ContactController::class . "::get");
-
-//$router->get("/about", \PTW\Controllers\AboutController::class . "::get");
-$router->get("/test", \PTW\Controllers\TestController::class . "::get");
 
 // Register Page
 $router->get("/register", \PTW\Controllers\RegisterController::class . "::get");
@@ -47,9 +43,6 @@ $router->post("/admin/upload", \PTW\Controllers\AdminController::class . "::uplo
 $router->post("/admin/update-image", \PTW\Controllers\AdminController::class . "::editImage");
 $router->post("/admin/delete-image", \PTW\Controllers\AdminController::class . "::deleteImage");
 $router->post("/admin/reorder-image", \PTW\Controllers\AdminController::class . "::reorderImage");
-
-// Dashboard
-$router->get("/dashboard", \PTW\Controllers\DashboardController::class . "::get");
 
 // Error Pages
 $router->get("/500", \PTW\Controllers\ExceptionController::class . "::error_500");
