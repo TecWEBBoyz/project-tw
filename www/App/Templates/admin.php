@@ -107,7 +107,7 @@
                                     <input type='hidden' name='id' value='<?php echo $id;?>'>
                                     <button type='submit' aria-label="<?php echo \PTW\translation('image-toggle-visibility')?>" class="icon-button icon-button-primary">
                                         <?php echo ($imageArray['visible'] == '0' ? file_get_contents("static/images/eye-close.svg") : file_get_contents("static/images/eye-open.svg"));?>
-                                        <span>Visibility</span>
+                                        <?php echo \PTW\translationWithSpan('image-toggle-visibility-btn')?>
                                     </button>
                                 </form>
                             </li>
@@ -117,7 +117,7 @@
                                     <button type='submit' aria-label="<?php echo \PTW\translation('image-edit') ?>"
                                             class="icon-button icon-button-primary">
                                         <?php echo file_get_contents("static/images/edit.svg"); ?>
-                                        <span>Edit</span>
+                                        <?php echo \PTW\translation('image-edit-btn') ?>
                                     </button>
                                 </form>
                             </li>
@@ -128,7 +128,7 @@
                                     <button type='submit' aria-label="<?php echo \PTW\translation('image-delete') ?>"
                                             class="icon-button icon-button-danger">
                                         <?php echo file_get_contents("static/images/delete.svg"); ?>
-                                        <span>Delete</span>
+                                        <?php echo \PTW\translation('image-delete-btn') ?>
                                     </button>
                                 </form>
                             </li>

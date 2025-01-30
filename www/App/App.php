@@ -81,8 +81,8 @@ class App
 
     private static function InitTranslationManager(): void
     {
-        self::$translationManager = TranslationManager::getInstance('en');
-        self::$translationManager->setDefaultLanguage('en');
+        self::$translationManager = TranslationManager::getInstance('it');
+        self::$translationManager->setDefaultLanguage('it');
 
         $loaded_en = self::$translationManager->loadTranslations('/translation/translations_en.json', 'en');
         $loaded_it = self::$translationManager->loadTranslations('/translation/translations_it.json', 'it');
