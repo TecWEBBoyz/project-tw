@@ -62,6 +62,8 @@ $router->post("/profile/update-booking", \PTW\Controllers\ProfileController::cla
 
 // Style Page
 $router->get("/style.css", \PTW\Controllers\StyleController::class . "::get");
+$router->get("/main.js", \PTW\Controllers\ScriptController::class . "::get");
+
 
 return $router;
 
