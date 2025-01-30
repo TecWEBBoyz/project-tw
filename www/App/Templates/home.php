@@ -162,7 +162,7 @@ foreach (ImageCategory::cases() as $category_):
                     </a>
                     <div class="gallery-item-info">
                         <p class="caption"><?php echo htmlspecialchars($location);?>, <time datetime="<?php echo $date ?>"><?php echo \PTW\Utility\DateFormatterUtility::Format($date)?></time></p>
-                        <h4><?php echo isset($image[ImageType::title->value]) ? htmlspecialchars($image[ImageType::title->value], ENT_QUOTES, 'UTF-8') : 'Unknown title'; ?></h4>
+                        <h4><?php echo isset($image[ImageType::title->value]) ? $image[ImageType::title->value] : 'Unknown title'; ?></h4>
                     </div>
                 </li>
 
