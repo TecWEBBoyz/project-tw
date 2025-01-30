@@ -14,8 +14,11 @@ class BookingController extends ControllerContract
 
     public function get(): void
     {
-        if(!$this->sessionManager->authorize(Role::User)) {
+        if (!$this->sessionManager->isAuthenticated()) {
             $this->locationReplace('/login');
+        }
+        if($this->sessionManager->authorize(Role::Administrator)) {
+            $this->locationReplace('/admin');
         }
         TemplateUtility::getTemplate('booking', [
             "title" => \PTW\translation('title-book-service'),

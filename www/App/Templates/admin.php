@@ -77,11 +77,12 @@ $current_category = $TEMPLATE_DATA["category"] ?? "";
                 $rowStyle = is_null($imageArray['updated_at'] ?? null)
                     ? " class='require-edit' title='" . \PTW\translation('image-require-edit') . "'"
                     : "";
+                $index = ($current_page - 1) * $page_size + $index;
                 ?>
 
                 <tr <?php echo $rowStyle ?> id="<?php echo $id ?>">
 
-                    <td data-label='<?php echo \PTW\translation('image-id') ?>'><?php echo $order; ?></td>
+                    <td data-label='<?php echo \PTW\translation('image-id') ?>'><?php echo $index; ?></td>
                     <td data-label='<?php echo \PTW\translation('image-order') ?>' class='actions'>
                         <form action='admin/reorder-image' method='POST' class='form-inline'>
                             <input type='hidden' name='id' value='<?php echo $id; ?>'>
@@ -89,7 +90,7 @@ $current_category = $TEMPLATE_DATA["category"] ?? "";
                             <input type='hidden' name='page' value="<?php echo htmlspecialchars($current_page, ENT_QUOTES, 'UTF-8'); ?>">
 
                             <input type='hidden' name='direction' value='up'>
-                            <button type='submit' class="icon-button" aria-label="<?php echo \PTW\translation('move-up') ?>">
+                            <button type='submit' class="icon-button" aria-label="<?php echo \PTW\translation('admin-move-up') ?>">
                                 <?php echo file_get_contents("static/images/icons/arrow-up.svg"); ?>
                             </button>
                         </form>
@@ -99,7 +100,7 @@ $current_category = $TEMPLATE_DATA["category"] ?? "";
                             <input type='hidden' name='page' value="<?php echo htmlspecialchars($current_page, ENT_QUOTES, 'UTF-8'); ?>">
 
                             <input type='hidden' name='direction' value='down'>
-                            <button type='submit' class="icon-button" aria-label="<?php echo \PTW\translation('move-down') ?>">
+                            <button type='submit' class="icon-button" aria-label="<?php echo \PTW\translation('admin-move-down') ?>">
                                 <?php echo file_get_contents("static/images/icons/arrow-down.svg"); ?>
                             </button>
                         </form>
@@ -157,7 +158,8 @@ $current_category = $TEMPLATE_DATA["category"] ?? "";
                 <input type='hidden' name='category' value="<?php echo htmlspecialchars($current_category, ENT_QUOTES, 'UTF-8'); ?>">
 
                 <button type="submit" name="page" value="<?php echo $current_page - 1; ?>"
-                        class="icon-button <?php echo $current_page == 1 ? 'disabled' : ''; ?>" <?php echo ($current_page == 1 ? 'disabled="disabled"' : ''); ?>>
+                        class="icon-button <?php echo $current_page == 1 ? 'disabled' : ''; ?>" <?php echo ($current_page == 1 ? 'disabled="disabled"' : ''); ?>
+                        aria-label="<?php echo \PTW\translation('previous-page'); ?>">
                     <?php echo file_get_contents("static/images/left-chevron.svg"); ?>
                 </button>
 
@@ -167,7 +169,8 @@ $current_category = $TEMPLATE_DATA["category"] ?? "";
                 <?php if ($i > 0 && ceil($total_images / $page_size) >= $i): ?>
 
                     <button type="submit" name="page" value="<?php echo $i; ?>"
-                            class="icon-button number <?php echo $i == $current_page ? 'selected' : ''; ?>">
+                            class="icon-button number <?php echo $i == $current_page ? 'selected' : ''; ?>"
+                            aria-label="<?php echo \PTW\translation('page') . $i; ?>">
                         <?php echo $i ?>
                     </button>
 
@@ -176,7 +179,8 @@ $current_category = $TEMPLATE_DATA["category"] ?? "";
             <?php endfor; ?>
 
                 <button type="submit" name="page" value="<?php echo $current_page + 1; ?>"
-                        class="icon-button <?php echo $left_images <= 0 ? 'disabled' : ''; ?>" <?php echo ($left_images <= 0 ? 'disabled="disabled"' : ''); ?>>
+                        class="icon-button <?php echo $left_images <= 0 ? 'disabled' : ''; ?>" <?php echo ($left_images <= 0 ? 'disabled="disabled"' : ''); ?>
+                        aria-label="<?php echo \PTW\translation('next-page'); ?>">
                     <?php echo file_get_contents("static/images/right-chevron.svg"); ?>
                 </button>
         </div>

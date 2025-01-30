@@ -22,5 +22,6 @@ return [
         "username" => "default_user",
         "password" => "default_password",
         "database" => "default_database",
-    ]
+    ],
+    "url" => "http://localhost/username",
 ];

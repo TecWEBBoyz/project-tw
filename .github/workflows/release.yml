@@ -81,14 +81,21 @@ jobs:
         run: |
           cd docs
           mkdir -p output
+          # Copia tutte le immagini dalla cartella 'docs/immagini' nella cartella di output
+          cp -r immagini output/immagini/
+          
           while IFS= read -r tex_file; do
             if [ -f "$tex_file" ]; then
+              # Crea la cartella di output per ogni documento .tex
               output_dir="output/$(dirname "$tex_file" | sed 's|docs/||')"
               mkdir -p "$output_dir"
+          
+              # Compila il file .tex (prima e seconda passata)
               pdflatex -interaction=nonstopmode -output-directory "$output_dir" "$tex_file" || true
               pdflatex -interaction=nonstopmode -output-directory "$output_dir" "$tex_file" || true
             fi
           done < modified_files.txt
+
 
       - name: Upload LaTeX PDFs
         uses: actions/upload-artifact@v4
