@@ -1,4 +1,6 @@
-window.loadJS = () => {
+document.addEventListener("DOMContentLoaded", () => {
+    let script = document.querySelector('script[data-template="admin"]');
+    if (!script) return;
     const forms = document.querySelectorAll('.confirm-form');
     const modal = document.getElementById('custom-confirm-modal');
     const modalMessage = document.getElementById('custom-modal-message');
@@ -80,8 +82,4 @@ window.loadJS = () => {
             }
         }
     });
-}
-
-document.addEventListener("DOMContentLoaded", () => {
-    loadJS();
 });
