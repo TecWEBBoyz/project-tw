@@ -1,4 +1,5 @@
 DROP TABLE IF EXISTS booking;
+DROP TABLE IF EXISTS image_order_counter;
 DROP TABLE IF EXISTS image;
 DROP TABLE IF EXISTS user;
 
