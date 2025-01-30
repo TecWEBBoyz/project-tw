@@ -44,9 +44,9 @@ class BaseRepository
         return $this->CreateInstances($res);
     }
 
-    public function Count(): int
+    public function Count(array $filter = []): int
     {
-        return $this->database->Count($this->table);
+        return $this->database->Count($this->table, $filter);
     }
 
     public function Create(DBItem $element): bool

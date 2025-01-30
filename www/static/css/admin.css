@@ -87,3 +87,54 @@
         text-overflow: ellipsis;
     }
 }
+
+.pagination-controller form{
+    flex-wrap: nowrap;
+    align-items: center;
+    max-width: 400px;
+}
+
+.pagination-controller button {
+    width: 2.5rem;
+    height: 2.5rem;
+    padding: var(--spacing-1);
+    vertical-align: middle;
+    border: 2px solid var(--color-text);
+    color: var(--color-text);
+
+    transition: color 0.4s ease-in-out, border-color 0.4s ease-in-out;
+}
+
+.pagination-controller button:hover:not(:disabled) {
+    color: var(--color-accent);
+    border-color: var(--color-accent);
+}
+
+.pagination-controller svg {
+    width: 100%
+}
+
+.pagination-controller path {
+    fill: var(--color-text);
+    transition: fill 0.4s ease-in-out;
+}
+
+.pagination-controller button:hover:not(:disabled) path {
+    fill: var(--color-accent);
+}
+
+.pagination-controller .number {
+    height: 2.3rem;
+    border: 1px solid var(--color-text);
+    border-radius: 4px;
+}
+
+.pagination-controller .number.selected {
+    background-color: var(--color-accent);
+    cursor: unset;
+    pointer-events: none;
+}
+
+.pagination-controller button:disabled {
+    cursor: not-allowed;
+}
