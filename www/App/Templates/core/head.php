@@ -16,11 +16,11 @@
 <!-- Meta tags -->
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-<!-- Meta tag per WhatsApp (Open Graph) -->
+<!-- Meta tag (Open Graph) -->
 <meta property="og:title" content="<?php echo \PTW\translation('meta-title'); ?>" />
 <meta property="og:description" content="<?php echo \PTW\translation('meta-description'); ?>" />
-<!--<meta property="og:image" content="URL dell'immagine di anteprima" />-->
-<!--<meta property="og:url" content="URL della pagina" />-->
+<meta property="og:image" content="<?php echo config('url'); ?>/static/images/logo-slim.png" />
+<meta property="og:url" content="<?php echo config('url'); ?>" />
 
 <meta name="description" content="<?php echo $TEMPLATE_DATA['description']; ?>">
 <meta name="keywords" content="<?php echo $TEMPLATE_DATA['keywords']; ?>">
