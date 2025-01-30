@@ -34,12 +34,15 @@ if (!isset($TEMPLATE_DATA)) {
                 <?php
                 /** @var Booking $booking */
                 foreach ($TEMPLATE_DATA["bookings"] as $index => $booking) {
+
+                    $service = $booking->ToArray()[\PTW\Models\BookingType::service->value];
+                    $date = $booking->ToArray()[\PTW\Models\BookingType::date->value]
                     ?>
 
                     <tr>
                         <td data-label="id"><?php echo $index + 1; ?></td>
-                        <td data-label="service"><?php echo $booking->ToArray()[\PTW\Models\BookingType::service->value] ?></td>
-                        <td data-label="date"><?php echo $booking->ToArray()[\PTW\Models\BookingType::date->value] ?></td>
+                        <td data-label="service"><?php echo $service; ?></td>
+                        <td data-label="date"><time datetime="<?php echo $date?>"><?php echo \PTW\Utility\DateFormatterUtility::Format($date) ?></time></td>
                         <td data-label="status" class="status cancelled"><span><?php echo $booking->ToArray()[\PTW\Models\BookingType::status->value] ?></span></td>
                         <td data-label="actions" class="actions">
                             <ul>

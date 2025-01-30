@@ -161,7 +161,7 @@ foreach (ImageCategory::cases() as $category_):
                              onerror="window.imageError(this)">
                     </a>
                     <div class="gallery-item-info">
-                        <p class="caption"><?php echo htmlspecialchars($location) . ", " . htmlspecialchars($date); ?></p>
+                        <p class="caption"><?php echo htmlspecialchars($location);?>, <time datetime="<?php echo $date ?>"><?php echo \PTW\Utility\DateFormatterUtility::Format($date)?></time></p>
                         <h4><?php echo isset($image[ImageType::title->value]) ? htmlspecialchars($image[ImageType::title->value], ENT_QUOTES, 'UTF-8') : 'Unknown title'; ?></h4>
                     </div>
                 </li>

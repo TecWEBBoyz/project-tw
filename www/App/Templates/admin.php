@@ -1,7 +1,7 @@
 <?php
 
 use PTW\Models\ImageCategory;
-use PTW\Utility\ScrollToUtility;
+use PTW\Utility\DateFormatterUtility;
 
 $total_images = $TEMPLATE_DATA["total_images"] ?? 0;
 $page_size = $TEMPLATE_DATA["page_size"] ?? 0;
@@ -108,9 +108,8 @@ $current_category = $TEMPLATE_DATA["category"] ?? "";
                     <td data-label='<?php echo \PTW\translation('image-description') ?>'
                         class="long-text"><?php echo $description ?></td>
                     <td data-label='<?php echo \PTW\translation('image-place') ?>'><?php echo $place; ?></td>
-<!--                    <td data-label='--><?php //echo \PTW\translation('image-category') ?><!--'>--><?php //echo $category; ?><!--</td>-->
                     <td data-label='<?php echo \PTW\translation('image-date') ?>'>
-                        <time datetime='<?php echo $date ?>'><?php echo $date; ?></time>
+                        <time datetime='<?php echo $date ?>'><?php echo DateFormatterUtility::Format($date); ?></time>
                     </td>
                     <td data-label='<?php echo \PTW\translation('image-visibility') ?>'><?php echo $visible; ?></td>
                     <td data-label='<?php echo \PTW\translation('image-actions') ?>' class='actions'>
