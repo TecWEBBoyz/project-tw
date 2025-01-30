@@ -154,7 +154,7 @@ $current_category = $TEMPLATE_DATA["category"] ?? "";
         </table>
 
         <div class="pagination-controller">
-            <form action='' method='GET' class=''>
+            <form action='admin#admin-photo-list' method='GET' class=''>
                 <input type='hidden' name='category' value="<?php echo htmlspecialchars($current_category, ENT_QUOTES, 'UTF-8'); ?>">
 
                 <button type="submit" name="page" value="<?php echo $current_page - 1; ?>"
