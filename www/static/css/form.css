@@ -4,6 +4,7 @@ form {
     padding: var(--spacing-4);
     margin: 0 auto;
     color-scheme: dark;
+    position: relative;
 }
 
 form label, form .label {
@@ -102,7 +103,6 @@ form select {
 
 /* Focus and hover styles for select */
 form select:focus {
-    background-color: var(--color-accent-light); /* Cambia il colore di sfondo al focus */
     border-color: var(--color-accent);  /* Cambia il colore del bordo al focus */
     box-shadow: 0 0 5px var(--color-accent);  /* Aggiungi un'ombra al focus */
 }
@@ -132,11 +132,6 @@ form select optgroup {
     padding: var(--spacing-2);
 }
 
-/* Hover effect for optgroup */
-form select optgroup:hover {
-    background-color: var(--color-bg-light);
-}
-
 /* Styling for optgroup options */
 form select optgroup option {
     background-color: var(--color-bg);
@@ -147,9 +142,6 @@ form select optgroup option {
 form select optgroup option:hover {
     background-color: var(--color-accent);
     color: var(--color-text);
-}
-
-form button:hover {
 }
 
 /* Responsive form */
@@ -212,6 +204,8 @@ form input[type="radio"] {
 
 form .form-group {
     margin-bottom: 20px;
+
+    position: relative;
 }
 
 form .form-group.inline label {
@@ -227,18 +221,33 @@ form .helper-text {
     margin-bottom: 15px;
 }
 
-/* Error Messages */
-form .error-message {
-    color: red;
-    font-size: 0.875rem;
-    margin-top: -10px;
-    margin-bottom: 15px;
+form .error-message p {
+    color: var(--color-accent-hover);
+    padding-left: var(--spacing-2);
 }
 
-/* Success Messages */
-form .success-message {
-    color: green;
-    font-size: 0.875rem;
-    margin-top: -10px;
-    margin-bottom: 15px;
+form .error-message:has(+button) {
+    margin-bottom: var(--spacing-2);
+}
+
+form .form-group:has(.error-message) {
+    padding-bottom: var(--spacing-3);
+}
+
+form .form-group .error-message {
+    position: absolute;
+    bottom: var(--spacing-1);
+}
+
+form > div {
+    position: relative;
+}
+
+form > div:has(>.error-message) {
+    padding-bottom: var(--spacing-2);
+}
+
+form > div > .error-message {
+    position: absolute;
+    bottom: var(--spacing-2);
 }

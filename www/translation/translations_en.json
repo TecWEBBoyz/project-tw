@@ -92,6 +92,8 @@
   "login-button": "Login",
   "login-form-error": "Invalid username or password",
   "login-form-error-user-not-exists": "User does not exist",
+  "login-form-error-username-required": "Username is required",
+  "login-form-error-password-required": "Password is required",
   "admin-move-up": "Move up",
   "admin-move-down": "Move down",
   "admin-image-not-found": "No image found!",
