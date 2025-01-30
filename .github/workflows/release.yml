@@ -82,7 +82,7 @@ jobs:
           cd docs
           mkdir -p output
           # Copia tutte le immagini dalla cartella 'docs/immagini' nella cartella di output
-          cp -r immagini output/
+          cp -r immagini output/immagini/
           
           while IFS= read -r tex_file; do
             if [ -f "$tex_file" ]; then
