@@ -208,7 +208,7 @@ a.link:hover {
     transition: color 0.4s ease;
 }
 
-a[disabled="true"] {
+a[disabled="disabled"] {
     pointer-events: none;
     cursor: default;
     color: var(--color-white) !important;

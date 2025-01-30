@@ -3,7 +3,7 @@
         <div class="service-image"></div>
         <div class="service-content">
             <header>
-                <p class="caption"><?php echo PTW\translationWithSpan("services-caption") ?></p>
+                <p class="caption"><?php echo PTW\translationWithSpan("service-caption") ?></p>
                 <h2><?php echo PTW\translationWithSpan("service-events-title") ?></h2>
             </header>
             <div>
@@ -19,7 +19,7 @@
         <div class="service-image"></div>
         <div class="service-content">
             <header>
-                <p class="caption"><?php echo PTW\translationWithSpan("services-caption") ?></p>
+                <p class="caption"><?php echo PTW\translationWithSpan("service-caption") ?></p>
                 <h2><?php echo PTW\translationWithSpan("service-other-title") ?></h2>
             </header>
             <div>
