@@ -27,7 +27,7 @@ $current_category = $TEMPLATE_DATA["category"] ?? "";
                 $isSelected = isset($TEMPLATE_DATA['category']) && $TEMPLATE_DATA['category'] === $category->value;
                 ?>
                 <li>
-                    <button type="submit" name="category" value="<?php echo htmlspecialchars($category->value, ENT_QUOTES, 'UTF-8'); ?>"
+                    <button type="submit" name="category"<?php echo $isSelected ? ' disabled="disabled" ' : ''; ?> value="<?php echo htmlspecialchars($category->value, ENT_QUOTES, 'UTF-8'); ?>"
                             class="category-button <?php echo $isSelected ? 'selected' : ''; ?>">
                         <?php echo \PTW\translation('image-category-' . $index); ?>
                     </button>
