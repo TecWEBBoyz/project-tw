@@ -82,6 +82,36 @@
     src: url('./static/fonts/Roboto-Bold.ttf') format('truetype');
 }
 
+/* -- Scrollbar Customization (Dark Theme with White Hover) -- */
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: var(--color-blue);
+    border-radius: 5px;
+    border: 2px solid var(--color-black);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: var(--color-white);
+    border: 2px solid var(--color-blue);
+}
+
+::-webkit-scrollbar-track {
+    background-color: var(--color-black);
+}
+
+::-webkit-scrollbar-track:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+::-webkit-scrollbar-corner {
+    background-color: var(--color-black);
+}
+
+
 /* -- Typography -- */
 
 body {
