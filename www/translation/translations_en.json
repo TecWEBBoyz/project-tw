@@ -36,6 +36,7 @@
   "image-uploaded": "Images successfully uploaded!",
   "image-edit-no-image-to-edit": "No image to edit",
   "booking-delete": "delete booking",
+  "booking-edit": "modify booking",
   "booking-deleted": "Booking successfully deleted!",
   "booking-delete-error": "Booking deletion failed!",
   "confirm": "Confirm",

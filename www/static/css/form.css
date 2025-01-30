@@ -251,3 +251,7 @@ form > div > .error-message {
     position: absolute;
     bottom: var(--spacing-2);
 }
+
+.form-inline {
+    display: inline;
+}

@@ -49,10 +49,14 @@ if (!isset($TEMPLATE_DATA)) {
                         <td data-label="actions" class="actions">
                             <ul>
                                 <li>
-                                    <button class="icon-button icon-button-primary">
-                                        <?php echo file_get_contents("static/images/edit.svg"); ?>
-                                        <?php echo \PTW\translationWithSpan("profile-booking-table-edit") ?>
-                                    </button>
+                                    <form action='profile/edit-booking' method='GET' class='form-inline'>
+                                        <input type='hidden' name='id' value='<?php echo $id;?>'>
+                                        <button type='submit' aria-label="<?php echo \PTW\translation('booking-edit') ?>"
+                                                class="icon-button icon-button-primary">
+                                            <?php echo file_get_contents("static/images/edit.svg"); ?>
+                                            <?php echo \PTW\translationWithSpan("profile-booking-table-edit") ?>
+                                        </button>
+                                    </form>
                                 </li>
                                 <li>
                                     <form action='profile/cancel-booking' method='POST' class='form-inline confirm-form'

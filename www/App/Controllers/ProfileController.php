@@ -10,10 +10,11 @@ use Exception;
 use PTW\Contracts\ControllerContract;
 use PTW\Models\BookingType;
 use PTW\Models\Image;
-use PTW\Models\ImageType;
 use PTW\Modules\Auth\Role;
 use PTW\Modules\Auth\SessionManager;
 use PTW\Modules\Repositories\BookingRepository;
+use PTW\Utility\CustomException;
+use PTW\Utility\ScrollToUtility;
 use PTW\Utility\TemplateUtility;
 use PTW\Utility\ToastUtility;
 
@@ -61,6 +62,57 @@ class ProfileController extends ControllerContract
         } catch (Exception $e) {
             ToastUtility::addToast('error', \PTW\translation('booking-delete-error'));
         } finally {
+            $this->locationReplace("/profile");
+        }
+    }
+
+    public function editSingleBooking($data, $templateData = [])
+    {
+        try {
+            $bookingRepository = new \PTW\Modules\Repositories\BookingRepository();
+            if(!isset($data['id'])) {
+                throw new Exception(\PTW\translation('admin-image-no-id'));
+            }
+            $booking = $bookingRepository->GetElementByID($data['id']);
+
+            if ($booking == null) {
+                throw new Exception(\PTW\translation('admin-image-not-found'));
+            }
+            TemplateUtility::getTemplate('booking-edit', array_merge([
+                "title" => \PTW\translation('title-edit-image'),
+                "description" => \PTW\translation('description-edit-image'),
+                "keywords" => \PTW\translation('keywords-edit-image'),
+                "booking" => $booking], $templateData));
+        }catch (Exception $e) {
+            ScrollToUtility::setScrollTarget($data['id']);
+            ToastUtility::addToast('error', \PTW\translation('image-edit-error'));
+            $this->previusPage();
+        }
+    }
+
+    public function editBooking($data)
+    {
+        try {
+            $bookingRepository = new \PTW\Modules\Repositories\BookingRepository();
+            if (!isset($data['id'])) {
+                throw new Exception(\PTW\translation('booking-no-id'));
+            }
+            $booking = $bookingRepository->GetElementByID($data['id']);
+            if($booking == null) {
+                throw new Exception(\PTW\translation('booking-not-found'));
+            }
+
+            $booking->SetData($booking->FilterData($data));
+
+            $bookingRepository->Update($_POST['id'], $booking);
+
+        }catch (CustomException $e) {
+            ToastUtility::addToast('error', $e->getMessage());
+        } catch (Exception $e) {
+            ToastUtility::addToast('error', \PTW\translation('booking-edit-error'));
+
+        } finally {
+            ScrollToUtility::setScrollTarget($data['id']);
             $this->locationReplace("/profile");
         }
     }
