@@ -1,6 +1,8 @@
 <?php
     $errors = $TEMPLATE_DATA['error'] ?? [];
     $fields = $TEMPLATE_DATA['form_fields'] ?? [];
+
+    $username = $fields["username"] ?? "";
 ?>
 
 <p class="h1 text-center"><?php echo PTW\translationWithSpan('login-title') ?></p>
@@ -20,8 +22,8 @@
             </div>
         <?php endif; ?>
 
-        <label class="caption" for="username"><?php echo PTW\translationWithSpan('login-username') ?></label>
-        <input type="text" id="username" name="username" placeholder="Mario Rossi" <?php echo key_exists("username", $errors) ? 'class="error"' : '' ?>>
+        <label class="caption" for="username"><?php echo PTW\translationWithSpan('login-username'); ?></label>
+        <input type="text" id="username" name="username" placeholder="<?php echo PTW\translation('login-username'); ?>" value="<?php echo $username; ?>" <?php echo key_exists("username", $errors) ? 'class="error"' : '' ?>>
     </div>
 
     <div class="form-group">
