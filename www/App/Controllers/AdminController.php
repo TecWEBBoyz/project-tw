@@ -6,6 +6,7 @@
 
 namespace PTW\Controllers;
 
+use Cassandra\Varint;
 use Exception;
 use PTW\Contracts\ControllerContract;
 use PTW\Models\Image;
@@ -13,7 +14,8 @@ use PTW\Models\ImageCategory;
 use PTW\Models\ImageCategoryUtility;
 use PTW\Models\ImageType;
 use PTW\Modules\Auth\Role;
-use PTW\Modules\Auth\SessionManager;
+use PTW\Utility\CustomException;
+use PTW\Utility\ScrollToUtility;
 use PTW\Utility\TemplateUtility;
 use PTW\Utility\ToastUtility;
 use function PTW\Models\CheckCategory;
@@ -33,8 +35,15 @@ class AdminController extends ControllerContract
             $this->locationReplace('/login');
         }
         $imageRepository = new \PTW\Modules\Repositories\ImageRepository();
-        $images = $imageRepository->All();
-        TemplateUtility::getTemplate('admin', ['title' => 'Admin Dashboard', 'images' => $images]);
+
+        $category = isset($_GET['category']) && $_GET["category"] != "" ? $_GET["category"] : "Travels";
+        $current_page = isset($_GET['page']) && $_GET["page"] != "" && is_int((int) $_GET["page"]) ? (int) $_GET["page"] : 1;
+
+        $count_images = $imageRepository->Count(["category" => $category]);
+        $page_size = 5;
+        $images = $imageRepository->GetImagesByCategory($category, $current_page, $page_size);
+
+        TemplateUtility::getTemplate('admin', ['title' => 'Admin Dashboard', 'images' => $images, 'category' =>$category, 'current_page' => $current_page, "total_images" => $count_images, "page_size" => $page_size]);
     }
 
     public function post(): void
@@ -166,64 +175,95 @@ class AdminController extends ControllerContract
 
     public function editSingleImage($data, $templateData = [])
     {
-        $imageRepository = new \PTW\Modules\Repositories\ImageRepository();
-        if(!isset($data['id'])) {
-            throw new Exception("No image ID provided.");
+        try {
+            $imageRepository = new \PTW\Modules\Repositories\ImageRepository();
+            if(!isset($data['id'])) {
+                throw new Exception("No image ID provided.");
+            }
+            $image = $imageRepository->GetElementByID($data['id']);
+
+            if ($image == null) {
+                throw new Exception("No image found.");
+            }
+            TemplateUtility::getTemplate('image-edit', array_merge(['title' => 'Edit Image', 'images' => [$image]], $templateData));
+        }catch (Exception $e) {
+            ScrollToUtility::setScrollTarget($data['id']);
+            ToastUtility::addToast('error', \PTW\translation('image-edit-error'));
+            $this->previusPage();
         }
-        $image = $imageRepository->GetElementByID($data['id']);
-        TemplateUtility::getTemplate('image-edit', array_merge(['title' => 'Edit Image', 'images' => [$image]], $templateData));
     }
     public function editImage($data)
     {
-        $imageRepository = new \PTW\Modules\Repositories\ImageRepository();
-        if (!isset($data['id'])) {
-            throw new Exception("No image ID provided.");
-        }
-        $image = $imageRepository->GetElementByID($data['id']);
-        if($image == null) {
-            echo "No image found.";
-        }
-        if($data['date'] == '') {
-            echo "No data provided.";
-            $data['date'] = 'NULL';
-        }
-        if ($data['visible'] == 'true') {
-            $data['visible'] = 1;
-        } else {
-            $data['visible'] = 0;
-        }
+        $numberOfImages = 0;
+        try {
+            $imageRepository = new \PTW\Modules\Repositories\ImageRepository();
+            if (!isset($data['id'])) {
+                throw new Exception("No image ID provided.");
+            }
+            $image = $imageRepository->GetElementByID($data['id']);
+            if($image == null) {
+                throw new Exception("No image found.");
+            }
+            if($data['date'] == '') {
+                $data['date'] = 'NULL';
+                throw new Exception("No data provided.");
+            }
+            if ($data['visible'] == 'true') {
+                $data['visible'] = 1;
+            } else {
+                $data['visible'] = 0;
+            }
 
-        if(!ImageCategoryUtility::CheckCategory($data['category'])) {
-            throw new Exception("Invalid category.");
-        }
+            var_dump($data);
 
-        if(!ImageCategoryUtility::CheckCategoryNotSelected($data['category'])) {
-            throw new Exception("Category not selected.");
-        }
+            if(!ImageCategoryUtility::CheckCategory($data['category'])) {
+                throw new CustomException(\PTW\translation('image-category-invalid'));
+            }
 
-        $image->SetData($image->FilterData($data));
+            if(!ImageCategoryUtility::CheckCategorySelected($data['category'])) {
+                throw new CustomException(\PTW\translation('image-category-required'));
+            }
 
-        $imageRepository->Update($_POST['id'], $image);
-        $images = $imageRepository->GetJustUploadedImages();
-        $numberOfImages = count($images);
-        if ($numberOfImages > 0) {
-            $this->previusPage();
-        } else {
-            $this->locationReplace('/admin');
+            $image->SetData($image->FilterData($data));
+
+            $imageRepository->Update($_POST['id'], $image);
+            $images = $imageRepository->GetJustUploadedImages();
+            $numberOfImages = count($images);
+        }catch (CustomException $e) {
+            ToastUtility::addToast('error', $e->getMessage());
+        } catch (Exception $e) {
+            ToastUtility::addToast('error', \PTW\translation('image-edit-error'));
+
+        } finally {
+            ScrollToUtility::setScrollTarget($data['id']);
+            if ($numberOfImages > 0) {
+                $this->previusPage();
+            } else {
+                $this->locationReplace('/admin');
+            }
         }
     }
 
     public function editImageVisibility($data)
     {
-        if(!isset($data['id'])) {
-            throw new Exception("No image ID provided.");
+        try {
+            if(!isset($data['id'])) {
+                throw new Exception("No image ID provided.");
+            }
+            $imageRepository = new \PTW\Modules\Repositories\ImageRepository();
+            $image = $imageRepository->GetElementByID($data['id']);
+            $imageArray = $image->ToArray();
+            $image->SetData($image->FilterData(['visible' => $imageArray['visible'] == 1 ? 0 : 1]));
+            $imageRepository->Update($data['id'], $image);
+            $this->previusPage();
+        }catch (Exception $e) {
+            ToastUtility::addToast('error', \PTW\translation('image-edit-error'));
+        } finally {
+            ScrollToUtility::setScrollTarget($data['id']);
+            $this->previusPage();
         }
-        $imageRepository = new \PTW\Modules\Repositories\ImageRepository();
-        $image = $imageRepository->GetElementByID($data['id']);
-        $imageArray = $image->ToArray();
-        $image->SetData($image->FilterData(['visible' => $imageArray['visible'] == 1 ? 0 : 1]));
-        $imageRepository->Update($data['id'], $image);
-        $this->previusPage();
+
+
     }
 
     public function deleteImage($data)
@@ -256,9 +296,57 @@ class AdminController extends ControllerContract
             ToastUtility::addToast('success', \PTW\translation('image-deleted'));
         } catch (Exception $e) {
             ToastUtility::addToast('error', \PTW\translation('image-delete-error'));
+        } finally {
+            $this->locationReplace("/admin");
         }
+    }
 
-        $this->locationReplace("/admin");
+    public function reorderImage($data)
+    {
+        try {
+            if (!isset($data['id']) || !isset($data['direction'])) {
+                throw new Exception("No image ID or direction provided.");
+            }
+
+            $params = "";
+            if (isset($data['page']) || isset($data['category'])) {
+                $params .= "?";
+                $params .= (isset($data['category']) ? "category=" . $data['category'] : "");
+                $params .= (isset($data['page']) ? ($params == "?" ? "" : "&") . "page=" . $data['page'] : "");
+            }
+
+            $imageRepository = new \PTW\Modules\Repositories\ImageRepository();
+            $image = $imageRepository->GetElementByID($data['id']);
+            if($image == null) {
+                throw new Exception("No image found.");
+            }
+            $nextImage = $imageRepository->GetNextImage($image->ToArray()[ImageType::order->value], $image->ToArray()[ImageType::category->value]);
+            $previusImage = $imageRepository->GetPreviusImage($image->ToArray()[ImageType::order->value], $image->ToArray()[ImageType::category->value]);
+            if($data['direction'] == 'up' && $previusImage != null) {
+                $previusImage = $previusImage[0];
+                $previusImageArray = $previusImage->ToArray();
+                $imageArray = $image->ToArray();
+                $image->SetData($image->FilterData([ImageType::order->value => $previusImageArray[ImageType::order->value]]));
+                $previusImage->SetData($previusImage->FilterData([ImageType::order->value => $imageArray[ImageType::order->value]]));
+                $imageRepository->Update($data['id'], $image);
+                $imageRepository->Update($previusImageArray['id'], $previusImage);
+            } else if($data['direction'] == 'down' && $nextImage != null) {
+                $nextImage = $nextImage[0];
+                $nextImageArray = $nextImage->ToArray();
+                $imageArray = $image->ToArray();
+                $image->SetData($image->FilterData([ImageType::order->value => $nextImageArray[ImageType::order->value]]));
+                $nextImage->SetData($nextImage->FilterData([ImageType::order->value => $imageArray[ImageType::order->value]]));
+                $imageRepository->Update($data['id'], $image);
+                $imageRepository->Update($nextImageArray['id'], $nextImage);
+            } else {
+                throw new Exception("No image found.");
+            }
+        } catch (Exception $e) {
+            ToastUtility::addToast('error', $e->getMessage());
+        } finally {
+            ScrollToUtility::setScrollTarget($data['id']);
+            $this->locationReplace('/admin' . $params);
+        }
     }
 
     public function put(): void

@@ -150,9 +150,10 @@ window.loadJS = () => {
     function handleMouseUp(event) {
         if (isDragging) {
             isDragging = false;
+            zoomLevel = 1;
             modalImage.style.cursor = "grab";
-            translateX = event.clientX - startX;
-            translateY = event.clientY - startY;
+            translateX = 0;
+            translateY = 0;
             modalImage.style.transform = `scale(${zoomLevel}) translate(${translateX}px, ${translateY}px)`;
             document.removeEventListener("mousemove", handleMouseMove);
             document.removeEventListener("drag", handleMouseMove);

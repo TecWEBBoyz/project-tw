@@ -5,13 +5,14 @@ form {
     margin: 0 auto;
 }
 
-form label {
+form label, form .label {
     position: absolute;
     background: var(--color-bg);
     padding: 0 var(--spacing-1) ;
     top: 0;
     left: var(--spacing-4);
     transform: translateY(-50%);
+    text-wrap: nowrap;
 }
 
 form .form-group {

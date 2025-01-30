@@ -3,22 +3,16 @@
     grid-template-columns: 1fr 1fr;
     gap: var(--spacing-3);
     align-items: center;
-    justify-items: center;
+    justify-items: stretch;
     min-height: calc(100vh - 19rem);
 }
 
 #filippo-image {
-    align-self: stretch;
-    justify-self: stretch;
-    background-image: url("static/images/me_high_aspect.jpg"), url("static/images/me_medium_aspect.jpg"), url("static/images/me_low_aspect.jpg");
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
+    width: 100%;
 }
 
 @media screen and (max-width: 768px) {
     #about-page {
         grid-template-columns: 1fr;
-        grid-template-rows: 1fr 400px;
     }
 }

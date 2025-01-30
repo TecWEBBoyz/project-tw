@@ -47,7 +47,6 @@ class DB
     public function Query(string $query, array $parameters = []) : array
     {
         $this->Connect();
-
         $preparedQuery = $this->pdo->prepare($query);
         $preparedQuery->execute($parameters);
 
@@ -56,6 +55,25 @@ class DB
         return $preparedQuery->fetchAll();
     }
 
+    public function Count(string $table, array|null $filter) : int
+    {
+        $where = "";
+        if (is_array($filter) && !empty($filter)) {
+            $where = "WHERE ";
+            $first = true;
+            foreach ($filter as $key => $value) {
+                if (!$first) {
+                    $where .= " AND ";
+                }
+                $where .= $key . "='" . $value . "'";
+                $first = false;
+            }
+        }
+
+        $query = "SELECT COUNT(*) FROM {$table} {$where}";
+
+        return $this->Query($query)[0]["COUNT(*)"];
+    }
     public function All(string $table, array|string $columns = '*') : array
     {
         $columns = $this->ColumnToString($columns);
@@ -69,7 +87,7 @@ class DB
     {
         $columns = $this->ColumnToString($columns);
 
-        $query = "SELECT {$columns} FROM {$this->table} LIMIT {$size} OFFSET {$offset}";
+        $query = "SELECT {$columns} FROM {$table} LIMIT {$size} OFFSET {$offset}";
 
         return $this->Query($query);
     }
@@ -152,6 +170,6 @@ class DB
 
     private function RemoveNonAlphaCharacter(string $str) : string
     {
-        return preg_replace('/[^a-zA-Z]*/', '', $str);
+        return preg_replace("/[^a-zA-Z_-]/", "", $str);
     }
 }

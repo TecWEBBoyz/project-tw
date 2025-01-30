@@ -18,18 +18,53 @@ CREATE INDEX idx_email ON user (email);
 CREATE INDEX idx_name ON user (name);
 
 CREATE TABLE image (
-    id CHAR(36) PRIMARY KEY DEFAULT UUID(),
-    path VARCHAR(255) NOT NULL,
-    alt VARCHAR(255) NOT NULL DEFAULT "",
-    description VARCHAR(512) NOT NULL DEFAULT "",
-    title VARCHAR(255) NOT NULL DEFAULT "",
-    place VARCHAR(255) NOT NULL DEFAULT "",
-    date DATE DEFAULT NULL,
-    visible BOOLEAN DEFAULT FALSE,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP NULL DEFAULT NULL,
-    category ENUM('Travels', 'Events', 'Racing-Cars') DEFAULT 'Events'
+   id CHAR(36) PRIMARY KEY DEFAULT (UUID()),
+   order_id INT NOT NULL,
+   path VARCHAR(255) NOT NULL,
+   alt VARCHAR(255) NOT NULL DEFAULT '',
+   description VARCHAR(512) NOT NULL DEFAULT '',
+   title VARCHAR(255) NOT NULL DEFAULT '',
+   place VARCHAR(255) NOT NULL DEFAULT '',
+   date DATE DEFAULT NULL,
+   visible BOOLEAN DEFAULT FALSE,
+   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+   updated_at TIMESTAMP NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+   category ENUM('Travels', 'Events', 'Racing-Cars') DEFAULT 'Events'
+   -- UNIQUE (category, order_id) -- Impedisce duplicati nello stesso gruppo
 );
+
+CREATE TABLE image_order_counter (
+     category ENUM('Travels', 'Events', 'Racing-Cars') PRIMARY KEY,
+     last_order INT NOT NULL DEFAULT 0
+);
+
+DELIMITER $$
+
+CREATE TRIGGER before_insert_image
+    BEFORE INSERT ON image
+    FOR EACH ROW
+BEGIN
+    DECLARE next_order INT;
+
+    -- Ottieni il prossimo numero per la categoria
+    SELECT last_order + 1 INTO next_order FROM image_order_counter WHERE category = NEW.category FOR UPDATE;
+
+    -- Se la categoria non esiste nella tabella contatori, inizializzala
+    IF next_order IS NULL THEN
+        INSERT INTO image_order_counter (category, last_order) VALUES (NEW.category, 1);
+        SET next_order = 1;
+    ELSE
+        -- Aggiorna il contatore
+    UPDATE image_order_counter SET last_order = next_order WHERE category = NEW.category;
+END IF;
+
+-- Assegna il nuovo valore a order_id
+SET NEW.order_id = next_order;
+END$$
+
+DELIMITER ;
+
+
 
 CREATE TABLE booking (
     id CHAR(36) PRIMARY KEY DEFAULT UUID(),
@@ -40,7 +75,6 @@ CREATE TABLE booking (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     notes TEXT NOT NULL DEFAULT "",
-
     FOREIGN KEY (user) REFERENCES user(id) ON DELETE CASCADE
 );
 
@@ -144,6 +178,21 @@ WHEN place LIKE '%Praga%' OR place LIKE '%Londra%' OR place LIKE '%Venezia%' OR 
 WHEN place LIKE '%Monza%' OR place LIKE '%Imola%' OR title LIKE '%Velocità%' OR title LIKE '%auto%' THEN 'Racing-Cars'
 ELSE 'Events'
 END;
+
+SET @row_number = 0;
+SET @current_category = '';
+
+    UPDATE image i
+        JOIN (
+        SELECT id,
+        category,
+        @row_number := IF(@current_category = category, @row_number + 1, 1) AS new_order_id,
+        @current_category := category
+        FROM image
+        ORDER BY category, created_at, id
+        ) AS ordered_images ON i.id = ordered_images.id
+        SET i.order_id = ordered_images.new_order_id;
+
 
 UPDATE image
 SET visible = true;

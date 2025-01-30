@@ -1,9 +1,41 @@
 <?php
+
+use PTW\Models\ImageCategory;
+use PTW\Utility\ScrollToUtility;
+
+$total_images = $TEMPLATE_DATA["total_images"] ?? 0;
+$page_size = $TEMPLATE_DATA["page_size"] ?? 0;
+$current_page = $TEMPLATE_DATA["current_page"] ?? 0;
+$left_images = $total_images - ($page_size * $current_page);
+$current_category = $TEMPLATE_DATA["category"] ?? "";
+
 ?>
 <a href="admin/upload" class="btn-outlined" id="upload-button">
     <span><?php echo \PTW\translation('upload-image') ?></span>
     <?php echo file_get_contents("static/images/right-chevron.svg") ?>
 </a>
+
+<form method="GET" action="" id="category-filter-form">
+    <div class="form-group">
+        <p class="caption label"><?php echo \PTW\translation('image-filter-by-category'); ?></p>
+        <ul class="category-buttons">
+            <?php
+            $index = 0;
+            foreach (ImageCategory::cases() as $category):
+                if ($category->value == ImageCategory::no_category->value) continue;
+                $index++;
+                $isSelected = isset($TEMPLATE_DATA['category']) && $TEMPLATE_DATA['category'] === $category->value;
+                ?>
+                <li>
+                    <button type="submit" name="category" value="<?php echo htmlspecialchars($category->value, ENT_QUOTES, 'UTF-8'); ?>"
+                            class="category-button <?php echo $isSelected ? 'selected' : ''; ?>">
+                        <?php echo \PTW\translation('image-category-' . $index); ?>
+                    </button>
+                </li>
+            <?php endforeach; ?>
+        </ul>
+    </div>
+</form>
 
 <div class="table-responsive">
     <?php if (empty($TEMPLATE_DATA['images'])): ?>
@@ -12,14 +44,15 @@
         <table id="admin-photo-list">
             <thead>
             <tr>
-                <th scope="col"><?php echo \PTW\translation('image-id') ?></th>
-                <th scope="col"><?php echo \PTW\translation('image-title') ?></th>
-                <th scope="col"><?php echo \PTW\translation('image-description') ?></th>
-                <th scope="col"><?php echo \PTW\translation('image-place') ?></th>
-                <th scope="col"><?php echo \PTW\translation('image-category') ?></th>
-                <th scope="col"><?php echo \PTW\translation('image-date') ?></th>
-                <th scope="col"><?php echo \PTW\translation('image-visibility') ?></th>
-                <th scope="col"><?php echo \PTW\translation('image-actions') ?></th>
+                <th scope="col"><?php echo \PTW\translationWithSpan('image-id') ?></th>
+                <th scope="col"><?php echo \PTW\translationWithSpan('image-order'); ?></th>
+                <th scope="col"><?php echo \PTW\translationWithSpan('image-title') ?></th>
+                <th scope="col"><?php echo \PTW\translationWithSpan('image-description') ?></th>
+                <th scope="col"><?php echo \PTW\translationWithSpan('image-place') ?></th>
+<!--                <th scope="col">--><?php //echo \PTW\translationWithSpan('image-category') ?><!--</th>-->
+                <th scope="col"><?php echo \PTW\translationWithSpan('image-date') ?></th>
+                <th scope="col"><?php echo \PTW\translationWithSpan('image-visibility') ?></th>
+                <th scope="col"><?php echo \PTW\translationWithSpan('image-actions') ?></th>
             </tr>
             </thead>
             <tbody>
@@ -40,24 +73,47 @@
                 $date = htmlspecialchars($imageArray['date'] ?? PTW\translation('image-no-date'), ENT_QUOTES, 'UTF-8');
                 $visible = $imageArray['visible'] ? PTW\translation('image-visibility-yes') : PTW\translation('image-visibility-no');
                 $category = htmlspecialchars($imageArray['category'] ?? PTW\translation('image-no-category'), ENT_QUOTES, 'UTF-8');
-
+                $order = htmlspecialchars($imageArray['order_id'] ?? PTW\translation('image-no-order'), ENT_QUOTES, 'UTF-8');
                 $rowStyle = is_null($imageArray['updated_at'] ?? null)
                     ? " class='require-edit' title='" . \PTW\translation('image-require-edit') . "'"
                     : "";
                 ?>
 
-                <tr <?php echo $rowStyle . 'id=\"$id\"' ?>>
-                    <td data-label='<?php echo \PTW\translation(' image-id') ?>'><?php echo $index; ?></td>
-                    <td data-label='<?php echo \PTW\translation(' image-title') ?>'><?php echo $title; ?></td>
-                    <td data-label='<?php echo \PTW\translation(' image-description') ?>'
+                <tr <?php echo $rowStyle ?> id="<?php echo $id ?>">
+
+                    <td data-label='<?php echo \PTW\translation('image-id') ?>'><?php echo $order; ?></td>
+                    <td data-label='<?php echo \PTW\translation('image-order') ?>' class='actions'>
+                        <form action='admin/reorder-image' method='POST' class='form-inline'>
+                            <input type='hidden' name='id' value='<?php echo $id; ?>'>
+                            <input type='hidden' name='category' value="<?php echo htmlspecialchars($current_category, ENT_QUOTES, 'UTF-8'); ?>">
+                            <input type='hidden' name='page' value="<?php echo htmlspecialchars($current_page, ENT_QUOTES, 'UTF-8'); ?>">
+
+                            <input type='hidden' name='direction' value='up'>
+                            <button type='submit' class="icon-button" aria-label="<?php echo \PTW\translation('move-up') ?>">
+                                <?php echo file_get_contents("static/images/icons/arrow-up.svg"); ?>
+                            </button>
+                        </form>
+                        <form action='admin/reorder-image' method='POST' class='form-inline'>
+                            <input type='hidden' name='id' value='<?php echo $id; ?>'>
+                            <input type='hidden' name='category' value="<?php echo htmlspecialchars($current_category, ENT_QUOTES, 'UTF-8'); ?>">
+                            <input type='hidden' name='page' value="<?php echo htmlspecialchars($current_page, ENT_QUOTES, 'UTF-8'); ?>">
+
+                            <input type='hidden' name='direction' value='down'>
+                            <button type='submit' class="icon-button" aria-label="<?php echo \PTW\translation('move-down') ?>">
+                                <?php echo file_get_contents("static/images/icons/arrow-down.svg"); ?>
+                            </button>
+                        </form>
+                    </td>
+                    <td data-label='<?php echo \PTW\translation('image-title') ?>'><?php echo $title; ?></td>
+                    <td data-label='<?php echo \PTW\translation('image-description') ?>'
                         class="long-text"><?php echo $description ?></td>
-                    <td data-label='<?php echo \PTW\translation(' image-place') ?>'><?php echo $place; ?></td>
-                    <td data-label='<?php echo \PTW\translation(' image-category') ?>'><?php echo $category; ?></td>
-                    <td data-label='<?php echo \PTW\translation(' image-date') ?>'>
+                    <td data-label='<?php echo \PTW\translation('image-place') ?>'><?php echo $place; ?></td>
+<!--                    <td data-label='--><?php //echo \PTW\translation('image-category') ?><!--'>--><?php //echo $category; ?><!--</td>-->
+                    <td data-label='<?php echo \PTW\translation('image-date') ?>'>
                         <time datetime='<?php echo $date ?>'><?php echo $date; ?></time>
                     </td>
-                    <td data-label='<?php echo \PTW\translation(' image-visibility') ?>'><?php echo $visible; ?></td>
-                    <td data-label='<?php echo \PTW\translation(' image-actions') ?>' class='actions'>
+                    <td data-label='<?php echo \PTW\translation('image-visibility') ?>'><?php echo $visible; ?></td>
+                    <td data-label='<?php echo \PTW\translation('image-actions') ?>' class='actions'>
 
                         <ul>
                             <li>
@@ -65,7 +121,7 @@
                                     <input type='hidden' name='id' value='<?php echo $id;?>'>
                                     <button type='submit' aria-label="<?php echo \PTW\translation('image-toggle-visibility')?>" class="icon-button icon-button-primary">
                                         <?php echo ($imageArray['visible'] == '0' ? file_get_contents("static/images/eye-close.svg") : file_get_contents("static/images/eye-open.svg"));?>
-                                        <span>Visibility</span>
+                                        <?php echo \PTW\translationWithSpan('image-toggle-visibility-btn')?>
                                     </button>
                                 </form>
                             </li>
@@ -75,7 +131,7 @@
                                     <button type='submit' aria-label="<?php echo \PTW\translation('image-edit') ?>"
                                             class="icon-button icon-button-primary">
                                         <?php echo file_get_contents("static/images/edit.svg"); ?>
-                                        <span>Edit</span>
+                                        <?php echo \PTW\translation('image-edit-btn') ?>
                                     </button>
                                 </form>
                             </li>
@@ -86,7 +142,7 @@
                                     <button type='submit' aria-label="<?php echo \PTW\translation('image-delete') ?>"
                                             class="icon-button icon-button-danger">
                                         <?php echo file_get_contents("static/images/delete.svg"); ?>
-                                        <span>Delete</span>
+                                        <?php echo \PTW\translation('image-delete-btn') ?>
                                     </button>
                                 </form>
                             </li>
@@ -96,6 +152,36 @@
             <?php endforeach; ?>
             </tbody>
         </table>
+
+        <div class="pagination-controller">
+            <form action='' method='GET' class=''>
+                <input type='hidden' name='category' value="<?php echo htmlspecialchars($current_category, ENT_QUOTES, 'UTF-8'); ?>">
+
+                <button type="submit" name="page" value="<?php echo $current_page - 1; ?>"
+                        class="icon-button <?php echo $current_page == 1 ? 'disabled' : ''; ?>" <?php echo ($current_page == 1 ? 'disabled="disabled"' : ''); ?>>
+                    <?php echo file_get_contents("static/images/left-chevron.svg"); ?>
+                </button>
+
+            <?php for ($i = $current_page - 1, $inc = 1; $i <= $current_page + $inc; $i++): ?>
+
+                <?php if ($i == 0) $inc++; ?>
+                <?php if ($i > 0 && ceil($total_images / $page_size) >= $i): ?>
+
+                    <button type="submit" name="page" value="<?php echo $i; ?>"
+                            class="icon-button number <?php echo $i == $current_page ? 'selected' : ''; ?>">
+                        <?php echo $i ?>
+                    </button>
+
+                <?php endif; ?>
+
+            <?php endfor; ?>
+
+                <button type="submit" name="page" value="<?php echo $current_page + 1; ?>"
+                        class="icon-button <?php echo $left_images <= 0 ? 'disabled' : ''; ?>" <?php echo ($left_images <= 0 ? 'disabled="disabled"' : ''); ?>>
+                    <?php echo file_get_contents("static/images/right-chevron.svg"); ?>
+                </button>
+        </div>
+
     <?php endif; ?>
 </div>
 

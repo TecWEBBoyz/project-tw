@@ -156,3 +156,24 @@
     fill: var(--color-orange);
     transition: fill 0.4s ease-in-out;
 }
+
+/* -- Category Button -- */
+.category-button {
+    font-family: 'Roboto', sans-serif;
+    font-size: 1rem;
+    text-transform: uppercase;
+    font-weight: 500;
+    color: var(--color-text);
+    background-color: var(--color-bg);
+    padding: 10px var(--spacing-3);
+    border: 2px solid var(--color-text);
+    cursor: pointer;
+    text-wrap: nowrap;
+
+    transition: color 0.4s ease-in-out, border-color 0.4s ease-in-out;
+}
+
+.category-button.selected, .category-button:hover {
+    color: var(--color-accent);
+    border-color: var(--color-accent);
+}

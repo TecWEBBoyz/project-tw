@@ -18,11 +18,11 @@ class ImageCategoryUtility {
         };
     }
 
-    public static function CheckCategoryNotSelected(string $category): bool
+    public static function CheckCategorySelected(string $category): bool
     {
         return match ($category) {
-            ImageCategory::no_category->value => true,
-            default => false,
+            ImageCategory::no_category->value => false,
+            default => true,
         };
     }
 }
@@ -39,4 +39,5 @@ enum ImageType: string
     case category = "category";
     case created_at = "created_at";
     case updated_at = "updated_at";
+    case order = "order_id";
 }

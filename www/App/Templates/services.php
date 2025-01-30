@@ -3,13 +3,13 @@
         <div class="service-image"></div>
         <div class="service-content">
             <header>
-                <p class="caption">/service</p>
-                <h2>Eventi / Concerti</h2>
+                <p class="caption"><?php echo PTW\translationWithSpan("services-caption") ?></p>
+                <h2><?php echo PTW\translationWithSpan("service-events-title") ?></h2>
             </header>
             <div>
-                <p>Prenota ora il servizio fotografico per il tuo evento o concerto: cattura ogni momento unico e trasforma i ricordi in immagini indimenticabili!</p>
+                <p><?php echo PTW\translationWithSpan("service-events-description") ?></p>
                 <a href="book-service?service=events" class="btn-outlined">
-                    <span lang="en">Book</span>
+                    <?php echo PTW\translationWithSpan("service-book-btn") ?>
                     <?php echo file_get_contents("static/images/right-chevron.svg") ?>
                 </a>
             </div>
@@ -19,13 +19,13 @@
         <div class="service-image"></div>
         <div class="service-content">
             <header>
-                <p class="caption">/services</p>
-                <h2>Sevizio personalizzato</h2>
+                <p class="caption"><?php echo PTW\translationWithSpan("services-caption") ?></p>
+                <h2><?php echo PTW\translationWithSpan("service-other-title") ?></h2>
             </header>
             <div>
-                <p>Racconta la tua storia con uno scatto unico! Prenota ora il tuo servizio fotografico personalizzato e cattura i momenti che parlano di te.</p>
+                <p><?php echo PTW\translationWithSpan("service-other-description") ?></p>
                 <a href="book-service?service=other" class="btn-outlined">
-                    <span lang="en">Book</span>
+                    <?php echo PTW\translationWithSpan("service-book-btn") ?>
                     <?php echo file_get_contents("static/images/right-chevron.svg") ?>
                 </a>
             </div>
