@@ -8,10 +8,12 @@ $location = $_GET['location'] ?? 'Unknown Location';
     <img src="static/uploads/<?= htmlspecialchars($src) ?>" alt="<?= htmlspecialchars($alt) ?>">
     <div class="modal-description">
         <p><?= htmlspecialchars($description) ?></p>
-        <p><strong>Location:</strong> <?= htmlspecialchars($location) ?></p>
+        <p><strong><?php echo \PTW\translation('gallery-details-location'); ?></strong> <?= htmlspecialchars($location) ?></p>
     </div>
 <?php else: ?>
-    <p>Image details not available. Please go back and select a valid image.</p>
+    <p><?php echo \PTW\translationWithSpan('gallery-details-error') ?></p>
 <?php endif; ?>
 
-<a href="home">Back to Gallery</a>
+<a href="home"><?php
+    echo \PTW\translation('go-homepage');
+    ?></a>

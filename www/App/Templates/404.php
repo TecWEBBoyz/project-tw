@@ -1,5 +1,5 @@
 <div class="not-found">
-    <h1>404 - Page Not Found</h1>
-    <p>The page you are looking for might have been removed, had its name changed, or is temporarily unavailable.</p>
-    <a href="home">Go to Homepage</a>
+    <h1><?php echo \PTW\translationWithSpan('not-found-title'); ?></h1>
+    <p><?php echo \PTW\translationWithSpan('not-found-text'); ?></p>
+    <a href="home"><?php echo \PTW\translation('go-homepage'); ?></a>
 </div>

@@ -44,15 +44,15 @@ $current_category = $TEMPLATE_DATA["category"] ?? "";
         <table id="admin-photo-list">
             <thead>
             <tr>
-                <th scope="col"><?php echo \PTW\translation('image-id') ?></th>
-                <th scope="col"><?php echo \PTW\translation('image-order'); ?></th>
-                <th scope="col"><?php echo \PTW\translation('image-title') ?></th>
-                <th scope="col"><?php echo \PTW\translation('image-description') ?></th>
-                <th scope="col"><?php echo \PTW\translation('image-place') ?></th>
-<!--                <th scope="col">--><?php //echo \PTW\translation('image-category') ?><!--</th>-->
-                <th scope="col"><?php echo \PTW\translation('image-date') ?></th>
-                <th scope="col"><?php echo \PTW\translation('image-visibility') ?></th>
-                <th scope="col"><?php echo \PTW\translation('image-actions') ?></th>
+                <th scope="col"><?php echo \PTW\translationWithSpan('image-id') ?></th>
+                <th scope="col"><?php echo \PTW\translationWithSpan('image-order'); ?></th>
+                <th scope="col"><?php echo \PTW\translationWithSpan('image-title') ?></th>
+                <th scope="col"><?php echo \PTW\translationWithSpan('image-description') ?></th>
+                <th scope="col"><?php echo \PTW\translationWithSpan('image-place') ?></th>
+<!--                <th scope="col">--><?php //echo \PTW\translationWithSpan('image-category') ?><!--</th>-->
+                <th scope="col"><?php echo \PTW\translationWithSpan('image-date') ?></th>
+                <th scope="col"><?php echo \PTW\translationWithSpan('image-visibility') ?></th>
+                <th scope="col"><?php echo \PTW\translationWithSpan('image-actions') ?></th>
             </tr>
             </thead>
             <tbody>
@@ -89,7 +89,7 @@ $current_category = $TEMPLATE_DATA["category"] ?? "";
                             <input type='hidden' name='page' value="<?php echo htmlspecialchars($current_page, ENT_QUOTES, 'UTF-8'); ?>">
 
                             <input type='hidden' name='direction' value='up'>
-                            <button type='submit' class="icon-button" aria-label="Sposta su">
+                            <button type='submit' class="icon-button" aria-label="<?php echo \PTW\translation('move-up') ?>">
                                 <?php echo file_get_contents("static/images/icons/arrow-up.svg"); ?>
                             </button>
                         </form>
@@ -99,7 +99,7 @@ $current_category = $TEMPLATE_DATA["category"] ?? "";
                             <input type='hidden' name='page' value="<?php echo htmlspecialchars($current_page, ENT_QUOTES, 'UTF-8'); ?>">
 
                             <input type='hidden' name='direction' value='down'>
-                            <button type='submit' class="icon-button" aria-label="Sposta giù">
+                            <button type='submit' class="icon-button" aria-label="<?php echo \PTW\translation('move-down') ?>">
                                 <?php echo file_get_contents("static/images/icons/arrow-down.svg"); ?>
                             </button>
                         </form>
@@ -121,7 +121,7 @@ $current_category = $TEMPLATE_DATA["category"] ?? "";
                                     <input type='hidden' name='id' value='<?php echo $id;?>'>
                                     <button type='submit' aria-label="<?php echo \PTW\translation('image-toggle-visibility')?>" class="icon-button icon-button-primary">
                                         <?php echo ($imageArray['visible'] == '0' ? file_get_contents("static/images/eye-close.svg") : file_get_contents("static/images/eye-open.svg"));?>
-                                        <span>Visibility</span>
+                                        <?php echo \PTW\translationWithSpan('image-toggle-visibility-btn')?>
                                     </button>
                                 </form>
                             </li>
@@ -131,7 +131,7 @@ $current_category = $TEMPLATE_DATA["category"] ?? "";
                                     <button type='submit' aria-label="<?php echo \PTW\translation('image-edit') ?>"
                                             class="icon-button icon-button-primary">
                                         <?php echo file_get_contents("static/images/edit.svg"); ?>
-                                        <span>Edit</span>
+                                        <?php echo \PTW\translation('image-edit-btn') ?>
                                     </button>
                                 </form>
                             </li>
@@ -142,7 +142,7 @@ $current_category = $TEMPLATE_DATA["category"] ?? "";
                                     <button type='submit' aria-label="<?php echo \PTW\translation('image-delete') ?>"
                                             class="icon-button icon-button-danger">
                                         <?php echo file_get_contents("static/images/delete.svg"); ?>
-                                        <span>Delete</span>
+                                        <?php echo \PTW\translation('image-delete-btn') ?>
                                     </button>
                                 </form>
                             </li>

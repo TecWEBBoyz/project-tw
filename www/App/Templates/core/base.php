@@ -67,7 +67,7 @@ if (!isset($_SERVER['HTTP_REFERER'])) {
                     <?= $toast['type'] === 'success' ? '&#10003;' : ($toast['type'] === 'error' ? '&#10007;' : '') ?>
                 </span>
                 <?= htmlspecialchars($toast['message']) ?>
-                <button type="button" class="toast-close" aria-label="Close">&times;</button>
+                <button type="button" class="toast-close" aria-label="<?php echo \PTW\translation('toast-close'); ?>">&times;</button>
             </div>
         <?php endforeach; ?>
     </div>

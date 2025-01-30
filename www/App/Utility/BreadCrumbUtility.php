@@ -11,81 +11,91 @@ class BreadCrumbUtility {
         "/"
     ];
 
-    public static $breadcrumbMapping = [
-        "/" => [
-            // ["label" => "HOME", "url" => "/"]
-        ],
-        "/home" => [
-            // ["label" => "HOME", "url" => "/"]
-        ],
-        "/about" => [
-            ["label" => "HOME", "url" => "/"],
-            ["label" => "ABOUT ME", "url" => null]
-        ],
-        "/services" => [
-            ["label" => "HOME", "url" => "/"],
-            ["label" => "SERVICES", "url" => null]
-        ],
-        "/contact" => [
-            ["label" => "HOME", "url" => "/"],
-            ["label" => "CONTACT", "url" => null]
-        ],
-        "/register" => [
-            ["label" => "HOME", "url" => "/"],
-            ["label" => "REGISTER", "url" => null]
-        ],
-        "/login" => [
-            ["label" => "HOME", "url" => "/"],
-            ["label" => "LOGIN", "url" => null]
-        ],
-        "/logout" => [
-            ["label" => "HOME", "url" => "/"],
-            ["label" => "LOGOUT", "url" => null]
-        ],
-        "/admin" => [
-            ["label" => "HOME", "url" => "/"],
-            ["label" => "ADMIN", "url" => null]
-        ],
-        "/admin/justuploadedimage" => [
-            ["label" => "HOME", "url" => "/"],
-            ["label" => "ADMIN", "url" => "/admin"],
-            ["label" => "JUST UPLOADED IMAGE", "url" => null]
-        ],
-        "/admin/edit-image" => [
-            ["label" => "HOME", "url" => "/"],
-            ["label" => "ADMIN", "url" => "/admin"],
-            ["label" => "EDIT IMAGE", "url" => null]
-        ],
-        "/admin/upload" => [
-            ["label" => "HOME", "url" => "/"],
-            ["label" => "ADMIN", "url" => "/admin"],
-            ["label" => "UPLOADE IMAGE", "url" => null]
-        ],
-        "/dashboard" => [
-            ["label" => "HOME", "url" => "/"],
-            ["label" => "DASHBOARD", "url" => null]
-        ],
-        "/500" => [
-            ["label" => "HOME", "url" => "/"],
-            ["label" => "ERROR 500", "url" => null]
-        ],
-        "/gallerydetails" => [
-            ["label" => "HOME", "url" => "/"],
-            ["label" => "GALLERY DETAILS", "url" => null]
-        ],
-        "/book-service" => [
-            ["label" => "HOME", "url" => "/"],
-            ["label" => "BOOK SERVICE", "url" => null]
-        ],
-        "/profile" => [
-            ["label" => "HOME", "url" => "/"],
-            ["label" => "PROFILE", "url" => null]
-        ]
-    ];
+    public static $breadcrumbMapping = [];
+
+    // Funzione per inizializzare il mapping dei breadcrumb
+    public static function initBreadcrumbMapping()
+    {
+        self::$breadcrumbMapping = [
+            "/" => [
+                // ["label" => \PTW\translation('breadcrumb-home'), "url" => "/"]
+            ],
+            "/home" => [
+                // ["label" => \PTW\translation('breadcrumb-home'), "url" => "/"]
+            ],
+            "/about" => [
+                ["label" => \PTW\translation('breadcrumb-home'), "url" => "/"],
+                ["label" => \PTW\translation('breadcrumb-about-me'), "url" => null]
+            ],
+            "/services" => [
+                ["label" => \PTW\translation('breadcrumb-home'), "url" => "/"],
+                ["label" => \PTW\translation('breadcrumb-services'), "url" => null]
+            ],
+            "/contact" => [
+                ["label" => \PTW\translation('breadcrumb-home'), "url" => "/"],
+                ["label" => \PTW\translation('breadcrumb-contact'), "url" => null]
+            ],
+            "/register" => [
+                ["label" => \PTW\translation('breadcrumb-home'), "url" => "/"],
+                ["label" => \PTW\translation('breadcrumb-register'), "url" => null]
+            ],
+            "/login" => [
+                ["label" => \PTW\translation('breadcrumb-home'), "url" => "/"],
+                ["label" => \PTW\translation('breadcrumb-login'), "url" => null]
+            ],
+            "/logout" => [
+                ["label" => \PTW\translation('breadcrumb-home'), "url" => "/"],
+                ["label" => \PTW\translation('breadcrumb-logout'), "url" => null]
+            ],
+            "/admin" => [
+                ["label" => \PTW\translation('breadcrumb-home'), "url" => "/"],
+                ["label" => \PTW\translation('breadcrumb-admin'), "url" => null]
+            ],
+            "/admin/justuploadedimage" => [
+                ["label" => \PTW\translation('breadcrumb-home'), "url" => "/"],
+                ["label" => \PTW\translation('breadcrumb-admin'), "url" => "/admin"],
+                ["label" => \PTW\translation('breadcrumb-just-uploaded-image'), "url" => null]
+            ],
+            "/admin/edit-image" => [
+                ["label" => \PTW\translation('breadcrumb-home'), "url" => "/"],
+                ["label" => \PTW\translation('breadcrumb-admin'), "url" => "/admin"],
+                ["label" => \PTW\translation('breadcrumb-edit-image'), "url" => null]
+            ],
+            "/admin/upload" => [
+                ["label" => \PTW\translation('breadcrumb-home'), "url" => "/"],
+                ["label" => \PTW\translation('breadcrumb-admin'), "url" => "/admin"],
+                ["label" => \PTW\translation('breadcrumb-upload-image'), "url" => null]
+            ],
+            "/dashboard" => [
+                ["label" => \PTW\translation('breadcrumb-home'), "url" => "/"],
+                ["label" => \PTW\translation('breadcrumb-dashboard'), "url" => null]
+            ],
+            "/500" => [
+                ["label" => \PTW\translation('breadcrumb-home'), "url" => "/"],
+                ["label" => \PTW\translation('breadcrumb-error-500'), "url" => null]
+            ],
+            "/gallerydetails" => [
+                ["label" => \PTW\translation('breadcrumb-home'), "url" => "/"],
+                ["label" => \PTW\translation('breadcrumb-gallery-details'), "url" => null]
+            ],
+            "/book-service" => [
+                ["label" => \PTW\translation('breadcrumb-home'), "url" => "/"],
+                ["label" => \PTW\translation('breadcrumb-book-service'), "url" => null]
+            ],
+            "/profile" => [
+                ["label" => \PTW\translation('breadcrumb-home'), "url" => "/"],
+                ["label" => \PTW\translation('breadcrumb-profile'), "url" => null]
+            ]
+        ];
+    }
 
     // Funzione per ottenere il breadcrumb basato sulla route senza prefisso
     private static function getBreadcrumb($uri, $usernamePrefix) {
-        $breadcrumb = BreadCrumbUtility::$breadcrumbMapping[$uri] ?? [["label" => "HOME", "url" => $usernamePrefix]];
+        // Inizializza il mapping dei breadcrumb
+        if (empty(BreadCrumbUtility::$breadcrumbMapping)) {
+            BreadCrumbUtility::initBreadcrumbMapping();
+        }
+        $breadcrumb = BreadCrumbUtility::$breadcrumbMapping[$uri] ?? [["label" => \PTW\translation('breadcrumb-home'), "url" => $usernamePrefix]];
         // Aggiunge il prefisso username a ogni link
         foreach ($breadcrumb as &$crumb) {
             if (!empty($crumb['url'])) {
@@ -97,10 +107,14 @@ class BreadCrumbUtility {
 
     public static function getBreadCrumbElement($template, $data = []): string
     {
+        // Inizializza il mapping dei breadcrumb
+        if (empty(BreadCrumbUtility::$breadcrumbMapping)) {
+            BreadCrumbUtility::initBreadcrumbMapping();
+        }
         // Configurazione del prefisso username
         $usernamePrefix = config("router.baseURL")."/";
         $currentUri = $_SERVER['REQUEST_URI']; // Percorso corrente
-        // Remove parameters from the URI
+        // Rimuovi i parametri dall'URI
         if (($pos = strpos($currentUri, '?')) !== false) {
             $currentUri = substr($currentUri, 0, $pos);
         }

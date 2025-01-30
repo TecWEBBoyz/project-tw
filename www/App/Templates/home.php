@@ -1,12 +1,12 @@
 <?php
 
+use PTW\Models\ImageCategory;
 use PTW\Models\ImageType;
 
 $images = $TEMPLATE_DATA['images'] ?? [];
 
 $categories = [];
 
-// Funzione per trovare il ratio più vicino agli standard
 // Funzione per trovare il ratio più vicino agli standard
 function getClosestAspectRatio($ratio)
 {
@@ -80,11 +80,11 @@ foreach ($images as $image) {
 
 <section class="hero-section">
     <div class="hero-text">
-        <p class="caption">/photographer</p>
-        <h1>Filippo Rizzato</h1>
+        <p class="caption"><?php echo \PTW\translationWithSpan('home-caption'); ?></p>
+        <h1><?php echo \PTW\translationWithSpan('home-title'); ?></h1>
 
         <div class="hero-quote">
-            <p>Benvenuti nel mio mondo, dove fotografia significa catturare il crudo ordinario.</p>
+            <p><?php echo \PTW\translationWithSpan('home-quote'); ?></p>
         </div>
     </div>
     <div class="image-me"></div>
@@ -94,24 +94,39 @@ foreach ($images as $image) {
 <nav class="categories-navigation">
     <h2>Latest Work</h2>
     <ul>
-        <?php foreach (array_keys($categories) as $category): ?>
-            <li id="<?php echo $category . "-element" ?>"><a href="#<?php echo htmlspecialchars($category, ENT_QUOTES, 'UTF-8'); ?>">
-                    <?php echo htmlspecialchars($category, ENT_QUOTES, 'UTF-8'); ?>
-                </a></li>
+        <?php
+        $index = 0;
+        foreach (ImageCategory::cases() as $category):
+            if ($category->value == ImageCategory::no_category->value) continue;
+            $index++;
+            $categoryName = PTW\translation('image-category-' . $index);
+            ?>
+            <li id="<?php echo $category->value . "-element" ?>">
+                <a href="#<?php echo htmlspecialchars($category->value, ENT_QUOTES, 'UTF-8'); ?>">
+                    <?php echo htmlspecialchars($categoryName, ENT_QUOTES, 'UTF-8'); ?>
+                </a>
+            </li>
         <?php endforeach; ?>
+
     </ul>
 </nav>
 
 <?php if (empty($categories)) { ?>
-    <p>No images found!</p>
+    <p><?php echo \PTW\translationWithSpan('home-images-not-found') ?></p>
 <?php } ?>
 
 <!-- Gallerie per ogni categoria -->
-<?php foreach ($categories as $category => $imagesInCategory): ?>
+<?php
+$index = 0;
+foreach (ImageCategory::cases() as $category_):
+    if ($category_->value == ImageCategory::no_category->value) continue;
+    $category = $category_->value;
+    $imagesInCategory = $categories[$category] ?? [];
+    ?>
     <section class="gallery-category" id="<?php echo htmlspecialchars($category, ENT_QUOTES, 'UTF-8'); ?>">
         <header>
-            <p class="caption">/photoshoot</p>
-            <h3><?php echo htmlspecialchars($category, ENT_QUOTES, 'UTF-8'); ?></h3>
+            <p class="caption"><?php echo \PTW\translationWithSpan('home-photoshoot-caption'); ?></p>
+            <h3><?php echo \PTW\translation('image-category-' . ++$index); ?></h3>
         </header>
 
         <ul class="gallery">
@@ -128,8 +143,8 @@ foreach ($images as $image) {
                 $imagePathResized = isset($image[ImageType::path->value]) ?
                     preg_replace('/\.(jpg|jpeg|png)$/i', '_25percent.jpg', $image[ImageType::path->value]) : '';
 
-                $date = isset($image[ImageType::date->value]) ? htmlspecialchars($image[ImageType::date->value], ENT_QUOTES, 'UTF-8') : 'Unknown date';
-                $location = isset($image[ImageType::place->value]) && $date !== 'Unknown date' ? htmlspecialchars($image[ImageType::place->value], ENT_QUOTES, 'UTF-8') : 'Unknown location';
+                $date = isset($image[ImageType::date->value]) ? htmlspecialchars($image[ImageType::date->value], ENT_QUOTES, 'UTF-8') : \PTW\translationWithSpan('imag-unknown-date');
+                $location = isset($image[ImageType::place->value]) && $date !== \PTW\translationWithSpan('imag-unknown-date') ? htmlspecialchars($image[ImageType::place->value], ENT_QUOTES, 'UTF-8') : \PTW\translationWithSpan('image-unknown-location');
 
                 $aspectRatio = $image['aspect_ratio'];
                 ?>

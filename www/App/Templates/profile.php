@@ -9,12 +9,12 @@ if (!isset($TEMPLATE_DATA)) {
 
 ?>
 
-<h2>Welcome <?php echo $TEMPLATE_DATA["user"]["username"] ?></h2>
+<h2><?php echo \PTW\translationWithSpan("profile-welcome")?> <?php echo $TEMPLATE_DATA["user"]["username"] ?></h2>
 
 <article>
     <header>
-        <p class="caption">/services</p>
-        <h3>Booked Service</h3>
+        <p class="caption"><?php echo \PTW\translationWithSpan("profile-caption")?></p>
+        <h3><?php echo \PTW\translationWithSpan("profile-book")?></h3>
     </header>
 
     <?php if (isset($TEMPLATE_DATA["bookings"]) && count($TEMPLATE_DATA["bookings"]) > 0) : ?>
@@ -46,13 +46,13 @@ if (!isset($TEMPLATE_DATA)) {
                                 <li>
                                     <button class="icon-button icon-button-primary">
                                         <?php echo file_get_contents("static/images/edit.svg"); ?>
-                                        <span>Edit</span>
+                                        <?php echo \PTW\translationWithSpan("profile-booking-table-edit") ?>
                                     </button>
                                 </li>
                                 <li>
                                     <button class="icon-button icon-button-danger">
                                         <?php echo file_get_contents("static/images/delete.svg"); ?>
-                                        <span>Delete</span>
+                                        <?php echo \PTW\translationWithSpan("profile-booking-table-delete") ?>
                                     </button>
                                 </li>
                             </ul>
@@ -67,9 +67,9 @@ if (!isset($TEMPLATE_DATA)) {
         </div>
     <?php else: ?>
 
-        <p>Non è stato ancora fissato un appuntamento:</p>
+        <p><?php echo \PTW\translationWithSpan("profile-booking-table-no-bookings") ?></p>
         <a href="book-service" class="btn-outlined" id="profile-book-button">
-            <span>Prenota ora un appuntamento</span>
+            <?php echo \PTW\translationWithSpan("profile-booking-table-no-bookings-link") ?>
             <?php echo file_get_contents("static/images/right-chevron.svg") ?>
         </a>
 
