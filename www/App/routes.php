@@ -53,12 +53,12 @@ $router->get("/gallerydetails", \PTW\Controllers\GalleryController::class . "::g
 // Booking page
 $router->get("/book-service", \PTW\Controllers\BookingController::class . "::get");
 $router->post("/book-service", \PTW\Controllers\BookingController::class . "::post");
+$router->post("/book-service/update-booking", \PTW\Controllers\BookingController::class . "::editBooking");
 
 // Profile Page
 $router->get("/profile", \PTW\Controllers\ProfileController::class . "::get");
 $router->post("/profile/cancel-booking", \PTW\Controllers\ProfileController::class . "::deleteBooking");
 $router->get("/profile/edit-booking", \PTW\Controllers\ProfileController::class . "::editSingleBooking");
-$router->post("/profile/update-booking", \PTW\Controllers\ProfileController::class . "::editBooking");
 
 // Style Page
 $router->get("/style.css", \PTW\Controllers\StyleController::class . "::get");

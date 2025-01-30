@@ -90,33 +90,6 @@ class ProfileController extends ControllerContract
         }
     }
 
-    public function editBooking($data)
-    {
-        try {
-            $bookingRepository = new \PTW\Modules\Repositories\BookingRepository();
-            if (!isset($data['id'])) {
-                throw new Exception(\PTW\translation('booking-no-id'));
-            }
-            $booking = $bookingRepository->GetElementByID($data['id']);
-            if($booking == null) {
-                throw new Exception(\PTW\translation('booking-not-found'));
-            }
-
-            $booking->SetData($booking->FilterData($data));
-
-            $bookingRepository->Update($_POST['id'], $booking);
-
-        }catch (CustomException $e) {
-            ToastUtility::addToast('error', $e->getMessage());
-        } catch (Exception $e) {
-            ToastUtility::addToast('error', \PTW\translation('booking-edit-error'));
-
-        } finally {
-            ScrollToUtility::setScrollTarget($data['id']);
-            $this->locationReplace("/profile");
-        }
-    }
-
     public function post(): void
     {
 

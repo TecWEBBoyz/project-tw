@@ -2,13 +2,17 @@
 
 namespace PTW\Controllers;
 
+use Exception;
 use PTW\Contracts\ControllerContract;
 use PTW\Models\Booking;
 use PTW\Models\BookingType;
 use PTW\Models\ServicesUtility;
 use PTW\Modules\Auth\Role;
 use PTW\Modules\Repositories\BookingRepository;
+use PTW\Utility\CustomException;
+use PTW\Utility\ScrollToUtility;
 use PTW\Utility\TemplateUtility;
+use PTW\Utility\ToastUtility;
 
 class BookingController extends ControllerContract
 {
@@ -87,6 +91,61 @@ class BookingController extends ControllerContract
         $repo->Create($booking);
 
         $this->locationReplace('/profile');
+    }
+
+    public function editBooking($data)
+    {
+        $bookingRepository = new \PTW\Modules\Repositories\BookingRepository();
+
+        $values = [];
+        $errors = [];
+
+        $values['service'] = trim($_POST['service']);
+        $values['date'] = trim($_POST['date']);
+        $values['notes'] = trim($_POST['notes']);
+
+        $fields = $values;
+
+        if (!$this->check($values, $errors))
+        {
+            if (!isset($data['id'])) {
+                throw new Exception(\PTW\translation('booking-no-id'));
+            }
+            $booking = $bookingRepository->GetElementByID($data['id']);
+
+            TemplateUtility::getTemplate('booking-edit', [
+                "error" => $errors,
+                "form_fields" => $fields,
+                "booking" => $booking,
+                "title" => \PTW\translation('title-book-service'),
+                "description" => \PTW\translation('description-book-service'),
+                "keywords" => \PTW\translation('keywords-book-service')
+            ]);
+            return;
+        }
+
+        try {
+            if (!isset($data['id'])) {
+                throw new Exception(\PTW\translation('booking-no-id'));
+            }
+            $booking = $bookingRepository->GetElementByID($data['id']);
+            if($booking == null) {
+                throw new Exception(\PTW\translation('booking-not-found'));
+            }
+
+            $booking->SetData($booking->FilterData($data));
+
+            $bookingRepository->Update($_POST['id'], $booking);
+
+        }catch (CustomException $e) {
+            ToastUtility::addToast('error', $e->getMessage());
+        } catch (Exception $e) {
+            ToastUtility::addToast('error', \PTW\translation('booking-edit-error'));
+
+        } finally {
+            ScrollToUtility::setScrollTarget($data['id']);
+            $this->locationReplace("/profile");
+        }
     }
 
     public function put(): void
