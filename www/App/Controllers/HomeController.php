@@ -24,9 +24,10 @@ class HomeController extends ControllerContract
         $repo = new \PTW\Modules\Repositories\ImageRepository();
         $images = $repo->GetAllVisible();
         TemplateUtility::getTemplate("home", [
-            "title" => "Home Page",
-            "description" => "This is the home page description",
-            "images" => $images
+            "images" => $images,
+            "title" => \PTW\translation('title-home'),
+            "description" => \PTW\translation('description-home'),
+            "keywords" => \PTW\translation('keywords-home')
         ]);
     }
 

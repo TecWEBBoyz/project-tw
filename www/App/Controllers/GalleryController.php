@@ -14,8 +14,9 @@ class GalleryController extends ControllerContract
     public function get(): void
     {
         TemplateUtility::getTemplate("gallerydetails", [
-            "title" => "Photo Gallery",
-            "description" => "This is the Photo Gallery description"
+            "title" => \PTW\translation("title-gallery-details"),
+            "description" => \PTW\translation("description-gallery-details"),
+            "keywords" => \PTW\translation("keywords-gallery-details")
         ]);
     }
 

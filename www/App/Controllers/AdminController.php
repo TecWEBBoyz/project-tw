@@ -51,9 +51,17 @@ class AdminController extends ControllerContract
 
         $images = $imageRepository->GetImagesByCategory($category, $current_page, $page_size);
 
-        TemplateUtility::getTemplate('admin', ['title' => 'Admin Dashboard', 'images' => $images, 'category' =>$category, 'current_page' => $current_page, "total_images" => $count_images, "page_size" => $page_size]);
+        TemplateUtility::getTemplate('admin', [
+            "images" => $images,
+            "category" =>$category,
+            "current_page" => $current_page,
+            "total_images" => $count_images,
+            "page_size" => $page_size,
+            "title" => \PTW\translation('title-admin'),
+            "description" => \PTW\translation('description-admin'),
+            "keywords" => \PTW\translation('keywords-admin')
+        ]);
     }
-
     public function post(): void
     {
 
@@ -66,11 +74,20 @@ class AdminController extends ControllerContract
         if(count($images) == 0) {
             $this->locationReplace('/admin');
         }
-        TemplateUtility::getTemplate('image-edit', array_merge(['title' => 'Edit Uploaded Images', 'images' => $images], $templateData));
+        TemplateUtility::getTemplate('image-edit', array_merge([
+            "images" => $images,
+            "title" => \PTW\translation('title-upload-image'),
+            "description" => \PTW\translation('description-edit-image'),
+            "keywords" => \PTW\translation('keywords-edit-image')
+            ], $templateData));
     }
     public function uploadForm()
     {
-        TemplateUtility::getTemplate('upload', ['title' => 'Upload Images']);
+        TemplateUtility::getTemplate('upload', [
+            "title" => \PTW\translation('title-upload-image'),
+            "description" => \PTW\translation('description-upload-image'),
+            "keywords" => \PTW\translation('keywords-upload-image')
+        ]);
     }
     public function uploadImage(): void
     {
@@ -119,21 +136,21 @@ class AdminController extends ControllerContract
         {
             switch ($errorCode) {
                 case UPLOAD_ERR_INI_SIZE:
-                    return "The uploaded file exceeds the upload_max_filesize directive in php.ini.";
+                    return \PTW\translation('admin-image-upload-error-UPLOAD_ERR_INI_SIZE');
                 case UPLOAD_ERR_FORM_SIZE:
-                    return "The uploaded file exceeds the MAX_FILE_SIZE directive in the HTML form.";
+                    return \PTW\translation('admin-image-upload-error-UPLOAD_ERR_FORM_SIZE');
                 case UPLOAD_ERR_PARTIAL:
-                    return "The uploaded file was only partially uploaded.";
+                    return \PTW\translation('admin-image-upload-error-UPLOAD_ERR_PARTIAL');
                 case UPLOAD_ERR_NO_FILE:
-                    return "No file was uploaded.";
+                    return \PTW\translation('admin-image-upload-error-UPLOAD_ERR_NO_FILE');
                 case UPLOAD_ERR_NO_TMP_DIR:
-                    return "Missing a temporary folder.";
+                    return \PTW\translation('admin-image-upload-error-UPLOAD_ERR_NO_TMP_DIR');
                 case UPLOAD_ERR_CANT_WRITE:
-                    return "Failed to write file to disk.";
+                    return \PTW\translation('admin-image-upload-error-UPLOAD_ERR_CANT_WRITE');
                 case UPLOAD_ERR_EXTENSION:
-                    return "A PHP extension stopped the file upload.";
+                    return \PTW\translation('admin-image-upload-error-UPLOAD_ERR_EXTENSION');
                 default:
-                    return "Unknown upload error.";
+                    return \PTW\translation('admin-image-upload-error');
             }
         }
         try {
@@ -160,21 +177,26 @@ class AdminController extends ControllerContract
                                 $imageRepository = new \PTW\Modules\Repositories\ImageRepository();
                                 $imageRepository->Create(new Image([(ImageType::path)->value => $randomImageName]));
                             } else {
-                                $error = "Error moving uploaded file.";
+                                $error = \PTW\translation('admin-image-upload-error');
                             }
                         } else {
                             $error = uploadErrorToMessage($error);
                         }
                     }
                 } else {
-                    $error = "No images uploaded.";
+                    // No files uploaded
+                    $error = \PTW\translation('admin-image-upload-error');
                 }
             }
         } catch (Exception $e) {
-            $error = "Error uploading images.";
+            $error = \PTW\translation('admin-image-upload-error');
         }
         if ($error) {
-            TemplateUtility::getTemplate('upload', ['title' => 'Upload Images', 'error' => $error]);
+            TemplateUtility::getTemplate('upload', [
+                "title" => \PTW\translation('title-upload-image'),
+                "description" => \PTW\translation('description-upload-image'),
+                "keywords" => \PTW\translation('keywords-upload-image'),
+                "error" => $error]);
         } else {
             ToastUtility::addToast('success', \PTW\translation('image-uploaded'));
             $this->locationReplace('/admin/justuploadedimage');
@@ -186,14 +208,18 @@ class AdminController extends ControllerContract
         try {
             $imageRepository = new \PTW\Modules\Repositories\ImageRepository();
             if(!isset($data['id'])) {
-                throw new Exception("No image ID provided.");
+                throw new Exception(\PTW\translation('admin-image-no-id'));
             }
             $image = $imageRepository->GetElementByID($data['id']);
 
             if ($image == null) {
-                throw new Exception("No image found.");
+                throw new Exception(\PTW\translation('admin-image-not-found'));
             }
-            TemplateUtility::getTemplate('image-edit', array_merge(['title' => 'Edit Image', 'images' => [$image]], $templateData));
+            TemplateUtility::getTemplate('image-edit', array_merge([
+                "title" => \PTW\translation('title-edit-image'),
+                "description" => \PTW\translation('description-edit-image'),
+                "keywords" => \PTW\translation('keywords-edit-image'),
+                "images" => [$image]], $templateData));
         }catch (Exception $e) {
             ScrollToUtility::setScrollTarget($data['id']);
             ToastUtility::addToast('error', \PTW\translation('image-edit-error'));
@@ -206,15 +232,15 @@ class AdminController extends ControllerContract
         try {
             $imageRepository = new \PTW\Modules\Repositories\ImageRepository();
             if (!isset($data['id'])) {
-                throw new Exception("No image ID provided.");
+                throw new Exception(\PTW\translation('admin-image-no-id'));
             }
             $image = $imageRepository->GetElementByID($data['id']);
             if($image == null) {
-                throw new Exception("No image found.");
+                throw new Exception(\PTW\translation('admin-image-not-found'));
             }
             if($data['date'] == '') {
                 $data['date'] = 'NULL';
-                throw new Exception("No data provided.");
+                throw new Exception(\PTW\translation('admin-image-no-data'));
             }
             if ($data['visible'] == 'true') {
                 $data['visible'] = 1;
@@ -256,7 +282,7 @@ class AdminController extends ControllerContract
     {
         try {
             if(!isset($data['id'])) {
-                throw new Exception("No image ID provided.");
+                throw new Exception(\PTW\translation('admin-image-no-id'));
             }
             $imageRepository = new \PTW\Modules\Repositories\ImageRepository();
             $image = $imageRepository->GetElementByID($data['id']);
@@ -270,8 +296,6 @@ class AdminController extends ControllerContract
             ScrollToUtility::setScrollTarget($data['id']);
             $this->previusPage();
         }
-
-
     }
 
     public function deleteImage($data)
@@ -313,7 +337,7 @@ class AdminController extends ControllerContract
     {
         try {
             if (!isset($data['id']) || !isset($data['direction'])) {
-                throw new Exception("No image ID or direction provided.");
+                throw new Exception(\PTW\translation('admin-image-no-id-or-direction-provided'));
             }
 
             $params = "";
@@ -326,8 +350,9 @@ class AdminController extends ControllerContract
             $imageRepository = new \PTW\Modules\Repositories\ImageRepository();
             $image = $imageRepository->GetElementByID($data['id']);
             if($image == null) {
-                throw new Exception("No image found.");
+                throw new Exception(\PTW\translation('admin-image-not-found'));
             }
+            
             $nextImage = $imageRepository->GetNextImage($image->ToArray()[ImageType::order->value], $image->ToArray()[ImageType::category->value]);
             $previusImage = $imageRepository->GetPreviusImage($image->ToArray()[ImageType::order->value], $image->ToArray()[ImageType::category->value]);
             if($data['direction'] == 'up' && $previusImage != null) {
@@ -347,7 +372,7 @@ class AdminController extends ControllerContract
                 $imageRepository->Update($data['id'], $image);
                 $imageRepository->Update($nextImageArray['id'], $nextImage);
             } else {
-                throw new Exception("No image found.");
+                throw new Exception(\PTW\translation('admin-image-not-found'));
             }
         } catch (Exception $e) {
             ToastUtility::addToast('error', $e->getMessage());

@@ -16,20 +16,26 @@ class ExceptionController extends ControllerContract
         switch ($error_code) {
             case "404":
                 TemplateUtility::getTemplate("404", [
-                    "title" => "Not Found",
-                    "description" => "This is the home page description"
+                    "errorstring" => $errorstring,
+                    "title" => \PTW\translation('title-404'),
+                    "description" => \PTW\translation('description-404'),
+                    "keywords" => \PTW\translation('keywords-404')
                 ]);
                 break;
             case "500":
                 TemplateUtility::getTemplate("500", [
-                    "title" => "System Error",
                     "errorstring" => $errorstring,
+                    "title" => \PTW\translation('title-500'),
+                    "description" => \PTW\translation('description-500'),
+                    "keywords" => \PTW\translation('keywords-500')
                 ]);
                 break;
             default:
                 TemplateUtility::getTemplate("500", [
-                    "title" => "System Error",
                     "errorstring" => $errorstring,
+                    "title" => \PTW\translation('title-500'),
+                    "description" => \PTW\translation('description-500'),
+                    "keywords" => \PTW\translation('keywords-500')
                 ]);
                 break;
         }
@@ -38,8 +44,10 @@ class ExceptionController extends ControllerContract
     public function error_500(): void
     {
         TemplateUtility::getTemplate("500", [
-            "title" => "System Error",
             "errorstring" => "",
+            "title" => \PTW\translation('title-500'),
+            "description" => \PTW\translation('description-500'),
+            "keywords" => \PTW\translation('keywords-500')
         ]);
     }
 
