@@ -56,6 +56,7 @@ $router->post("/book-service", \PTW\Controllers\BookingController::class . "::po
 
 // Profile Page
 $router->get("/profile", \PTW\Controllers\ProfileController::class . "::get");
+$router->post("/profile/cancel-booking", \PTW\Controllers\ProfileController::class . "::deleteBooking");
 
 // Style Page
 $router->get("/style.css", \PTW\Controllers\StyleController::class . "::get");

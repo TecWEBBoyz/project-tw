@@ -35,6 +35,8 @@ if (!isset($TEMPLATE_DATA)) {
                 /** @var Booking $booking */
                 foreach ($TEMPLATE_DATA["bookings"] as $index => $booking) {
 
+
+                    $id = $booking->ToArray()[\PTW\Models\BookingType::id->value];
                     $service = $booking->ToArray()[\PTW\Models\BookingType::service->value];
                     $date = $booking->ToArray()[\PTW\Models\BookingType::date->value]
                     ?>
@@ -53,10 +55,15 @@ if (!isset($TEMPLATE_DATA)) {
                                     </button>
                                 </li>
                                 <li>
-                                    <button class="icon-button icon-button-danger">
-                                        <?php echo file_get_contents("static/images/delete.svg"); ?>
-                                        <?php echo \PTW\translationWithSpan("profile-booking-table-delete") ?>
-                                    </button>
+                                    <form action='profile/cancel-booking' method='POST' class='form-inline confirm-form'
+                                          data-action="<?php echo str_replace("{ACTION}", \PTW\translation('booking-delete'), \PTW\translation('confirm-action')) ?>">
+                                        <input type='hidden' name='id' value='<?php echo $id;?>'>
+                                        <button type='submit' aria-label="<?php echo \PTW\translation('booking-delete') ?>"
+                                                class="icon-button icon-button-danger">
+                                            <?php echo file_get_contents("static/images/delete.svg"); ?>
+                                            <?php echo \PTW\translationWithSpan("profile-booking-table-delete") ?>
+                                        </button>
+                                    </form>
                                 </li>
                             </ul>
                         </td>

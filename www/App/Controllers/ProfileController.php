@@ -39,6 +39,32 @@ class ProfileController extends ControllerContract
         ]);
     }
 
+    public function deleteBooking($data)
+    {
+        try {
+            if (!isset($data['id'])) {
+                throw new Exception("No booking ID provided.");
+            }
+            $bookingRepository = new \PTW\Modules\Repositories\BookingRepository();
+            $booking = $bookingRepository->GetElementByID($data['id']);
+            if($booking == null) {
+                throw new Exception("No Booking found.");
+            }
+            $booking = $booking->ToArray();
+
+            $res = $bookingRepository->Delete($data['id']);
+
+            if ($res) {
+                throw new Exception("Error deleting booking.");
+            }
+            ToastUtility::addToast('success', \PTW\translation('booking-deleted'));
+        } catch (Exception $e) {
+            ToastUtility::addToast('error', \PTW\translation('booking-delete-error'));
+        } finally {
+            $this->locationReplace("/profile");
+        }
+    }
+
     public function post(): void
     {
 
