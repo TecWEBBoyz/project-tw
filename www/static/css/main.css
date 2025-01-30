@@ -212,6 +212,11 @@ a.link:hover {
     transition: color 0.4s ease;
 }
 
+a[disabled] {
+    pointer-events: none;
+    cursor: default;
+}
+
 strong {
     font-weight: 500;
 }
