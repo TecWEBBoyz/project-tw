@@ -39,6 +39,7 @@ jobs:
       - name: Package PHP app
         run: |
           mkdir release
+          shopt -s dotglob
           cp -R www/* release/
           cp -f release/Config/config.template.php release/Config/config.php
           tar -czvf php-app.tar.gz -C release .
