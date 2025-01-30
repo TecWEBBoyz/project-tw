@@ -67,7 +67,7 @@ function renderMenu($menuItems, $mobile = false) {
 
     <?php renderMenu($menuItems); ?>
 
-    <button class="hamburger" aria-label="<?php echo PTW\translation("nav-menu-mobile-open"); ?>" tabindex="0" onclick="toggleMenu()">
+    <button class="hamburger" aria-label="<?php echo PTW\translation("nav-menu-mobile-open"); ?>" tabindex="0" onclick="toggleMenu(event)">
         <div></div>
         <div></div>
         <div></div>
@@ -75,7 +75,7 @@ function renderMenu($menuItems, $mobile = false) {
 
     <div class="menu hidden" aria-hidden="true">
         <!-- Close button -->
-        <a href="close" class="close" onclick="hideMenu()" role="button" tabindex="0" aria-label="<?php echo PTW\translation("nav-menu-mobile-close"); ?>" data-fake="true" id="mobile-first-item">&times;</a>
+        <a href="close" class="close" onclick="hideMenu(event)" role="button" tabindex="0" aria-label="<?php echo PTW\translation("nav-menu-mobile-close"); ?>" data-fake="true" id="mobile-first-item">&times;</a>
         <?php renderMenu($menuItems, true); ?>
     </div>
 </header>

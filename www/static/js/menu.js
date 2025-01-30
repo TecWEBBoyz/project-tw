@@ -20,4 +20,25 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+    function toggleMenu(event) {
+        event.preventDefault();
+        const menu = document.querySelector('.navbar .menu');
+        const hamburger = document.querySelector('.navbar .hamburger');
+        const isHidden = menu.classList.toggle('hidden');
+        hamburger.classList.toggle('active');
+        menu.setAttribute('aria-hidden', isHidden);
+    }
+
+    window.toggleMenu = toggleMenu;
+
+    function hideMenu(event) {
+        event.preventDefault();
+        const menu = document.querySelector('.navbar .menu');
+        const hamburger = document.querySelector('.navbar .hamburger');
+        menu.classList.add('hidden');
+        hamburger.classList.remove('active');
+        menu.setAttribute('aria-hidden', true);
+    }
+
+    window.hideMenu = hideMenu;
 });
