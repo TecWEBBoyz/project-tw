@@ -24,66 +24,66 @@ class BreadCrumbUtility {
                 ["label" => \PTW\translation('breadcrumb-home'), "url" => "/home"]
             ],
             "/about" => [
-                ["label" => \PTW\translation('breadcrumb-home'), "url" => "/"],
+                ["label" => \PTW\translation('breadcrumb-home'), "url" => "/home"],
                 ["label" => \PTW\translation('breadcrumb-about-me'), "url" => null]
             ],
             "/services" => [
-                ["label" => \PTW\translation('breadcrumb-home'), "url" => "/"],
+                ["label" => \PTW\translation('breadcrumb-home'), "url" => "/home"],
                 ["label" => \PTW\translation('breadcrumb-services'), "url" => null]
             ],
             "/contact" => [
-                ["label" => \PTW\translation('breadcrumb-home'), "url" => "/"],
+                ["label" => \PTW\translation('breadcrumb-home'), "url" => "/home"],
                 ["label" => \PTW\translation('breadcrumb-contact'), "url" => null]
             ],
             "/register" => [
-                ["label" => \PTW\translation('breadcrumb-home'), "url" => "/"],
+                ["label" => \PTW\translation('breadcrumb-home'), "url" => "/home"],
                 ["label" => \PTW\translation('breadcrumb-register'), "url" => null]
             ],
             "/login" => [
-                ["label" => \PTW\translation('breadcrumb-home'), "url" => "/"],
+                ["label" => \PTW\translation('breadcrumb-home'), "url" => "/home"],
                 ["label" => \PTW\translation('breadcrumb-login'), "url" => null]
             ],
             "/logout" => [
-                ["label" => \PTW\translation('breadcrumb-home'), "url" => "/"],
+                ["label" => \PTW\translation('breadcrumb-home'), "url" => "/home"],
                 ["label" => \PTW\translation('breadcrumb-logout'), "url" => null]
             ],
             "/admin" => [
-                ["label" => \PTW\translation('breadcrumb-home'), "url" => "/"],
+                ["label" => \PTW\translation('breadcrumb-home'), "url" => "/home"],
                 ["label" => \PTW\translation('breadcrumb-admin'), "url" => null]
             ],
             "/admin/justuploadedimage" => [
-                ["label" => \PTW\translation('breadcrumb-home'), "url" => "/"],
+                ["label" => \PTW\translation('breadcrumb-home'), "url" => "/home"],
                 ["label" => \PTW\translation('breadcrumb-admin'), "url" => "/admin"],
                 ["label" => \PTW\translation('breadcrumb-just-uploaded-image'), "url" => null]
             ],
             "/admin/edit-image" => [
-                ["label" => \PTW\translation('breadcrumb-home'), "url" => "/"],
+                ["label" => \PTW\translation('breadcrumb-home'), "url" => "/home"],
                 ["label" => \PTW\translation('breadcrumb-admin'), "url" => "/admin"],
                 ["label" => \PTW\translation('breadcrumb-edit-image'), "url" => null]
             ],
             "/admin/upload" => [
-                ["label" => \PTW\translation('breadcrumb-home'), "url" => "/"],
+                ["label" => \PTW\translation('breadcrumb-home'), "url" => "/home"],
                 ["label" => \PTW\translation('breadcrumb-admin'), "url" => "/admin"],
                 ["label" => \PTW\translation('breadcrumb-upload-image'), "url" => null]
             ],
             "/dashboard" => [
-                ["label" => \PTW\translation('breadcrumb-home'), "url" => "/"],
+                ["label" => \PTW\translation('breadcrumb-home'), "url" => "/home"],
                 ["label" => \PTW\translation('breadcrumb-dashboard'), "url" => null]
             ],
             "/500" => [
-                ["label" => \PTW\translation('breadcrumb-home'), "url" => "/"],
+                ["label" => \PTW\translation('breadcrumb-home'), "url" => "/home"],
                 ["label" => \PTW\translation('breadcrumb-error-500'), "url" => null]
             ],
             "/gallerydetails" => [
-                ["label" => \PTW\translation('breadcrumb-home'), "url" => "/"],
+                ["label" => \PTW\translation('breadcrumb-home'), "url" => "/home"],
                 ["label" => \PTW\translation('breadcrumb-gallery-details'), "url" => null]
             ],
             "/book-service" => [
-                ["label" => \PTW\translation('breadcrumb-home'), "url" => "/"],
+                ["label" => \PTW\translation('breadcrumb-home'), "url" => "/home"],
                 ["label" => \PTW\translation('breadcrumb-book-service'), "url" => null]
             ],
             "/profile" => [
-                ["label" => \PTW\translation('breadcrumb-home'), "url" => "/"],
+                ["label" => \PTW\translation('breadcrumb-home'), "url" => "/home"],
                 ["label" => \PTW\translation('breadcrumb-profile'), "url" => null]
             ]
         ];
