@@ -352,6 +352,7 @@ class AdminController extends ControllerContract
             if($image == null) {
                 throw new Exception(\PTW\translation('admin-image-not-found'));
             }
+            
             $nextImage = $imageRepository->GetNextImage($image->ToArray()[ImageType::order->value], $image->ToArray()[ImageType::category->value]);
             $previusImage = $imageRepository->GetPreviusImage($image->ToArray()[ImageType::order->value], $image->ToArray()[ImageType::category->value]);
             if($data['direction'] == 'up' && $previusImage != null) {
