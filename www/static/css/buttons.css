@@ -12,6 +12,7 @@
     width: fit-content;
 
     border: 2px solid var(--color-text);
+    background-color: var(--color-bg);
 
     position: relative;
 
@@ -20,6 +21,10 @@
     -moz-box-shadow: 6px 6px 0px -1px rgba(3, 3, 3,1), 6px 6px 0px 1px rgba(255, 255, 255,1);
 
     transition: border 0.4s ease-in-out, color 0.4s ease-in-out, box-shadow 0.4s ease-in-out, -webkit-box-shadow 0.4s ease-in-out, -moz-box-shadow 0.4s ease-in-out;
+}
+
+.btn-outlined.no-icon {
+    padding: 0.8rem 2rem 0.8rem 2rem;
 }
 
 .btn-outlined:hover, .btn-outlined:focus {
@@ -79,6 +84,33 @@
 
 .btn-outlined.btn-danger:hover svg path, .btn-outlined.btn-danger:focus svg path {
     fill: var(--color-accent-hover);
+}
+
+/* -- Fill Button -- */
+
+.fill-btn {
+    font-size: 1rem;
+    text-transform: uppercase;
+    font-weight: 500;
+    line-height: 1.5em;
+
+    padding: var(--spacing-1) var(--spacing-4);
+}
+
+.fill-btn.fill-btn-primary {
+    border: 2px solid var(--color-accent);
+    color: var(--color-accent);
+    background-color: var(--color-bg);
+
+    border-radius: 4px;
+
+    transition: border 0.4s ease-in-out, background-color 0.4s ease-in-out, color 0.4s ease-in-out;
+}
+
+.fill-btn.fill-btn-primary:hover, .fill-btn.fill-btn-primary:focus {
+    background-color: var(--color-accent);
+    color: var(--color-text);
+    border: 2px solid transparent;
 }
 
 /* -- Link With Icon -- */
