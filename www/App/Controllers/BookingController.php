@@ -17,13 +17,22 @@ class BookingController extends ControllerContract
         if(!$this->sessionManager->authorize(Role::User)) {
             $this->locationReplace('/login');
         }
-        TemplateUtility::getTemplate('booking', ['title' => 'Booking']);
+        TemplateUtility::getTemplate('booking', [
+            "title" => \PTW\translation('title-book-service'),
+            "description" => \PTW\translation('description-book-service'),
+            "keywords" => \PTW\translation('keywords-book-service')
+        ]);
     }
 
     public function post(): void
     {
         if (!isset($_POST['service']) || !isset($_POST['date'])) {
-            TemplateUtility::getTemplate('booking', ['title' => 'Login', 'error' => 'You need to enter service and date']);
+            TemplateUtility::getTemplate('booking', [
+                'error' => \PTW\translation('profile-booking-no-service-date-entered'),
+                "title" => \PTW\translation('title-book-service'),
+                "description" => \PTW\translation('description-book-service'),
+                "keywords" => \PTW\translation('keywords-book-service')
+            ]);
             return;
         }
 

@@ -10,7 +10,11 @@ class ServicesController extends ControllerContract
 {
     public function get(): void
     {
-        TemplateUtility::getTemplate('services', ['title' => 'Services']);
+        TemplateUtility::getTemplate('services', [
+            "title" => \PTW\translation('title-services'),
+            "description" => \PTW\translation('description-services'),
+            "keywords" => \PTW\translation('keywords-services')
+        ]);
     }
 
     public function post(): void

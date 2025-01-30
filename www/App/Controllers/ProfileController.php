@@ -30,7 +30,13 @@ class ProfileController extends ControllerContract
         $repo = new BookingRepository();
         $bookings = $repo->GetElementsByColumn(BookingType::user->value, $this->sessionManager->getUserId());
 
-        TemplateUtility::getTemplate('profile', ['title' => 'Profile page', "user" => $this->sessionManager->getUserData(), "bookings" => $bookings]);
+        TemplateUtility::getTemplate('profile', [
+            "user" => $this->sessionManager->getUserData(),
+            "bookings" => $bookings,
+            "title" => \PTW\translation('title-profile'),
+            "description" => \PTW\translation('description-profile'),
+            "keywords" => \PTW\translation('keywords-profile')
+        ]);
     }
 
     public function post(): void
