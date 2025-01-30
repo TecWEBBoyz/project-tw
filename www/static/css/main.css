@@ -487,6 +487,10 @@ svg {
     padding: var(--spacing-5);
 }
 
+.modal.confirmation-modal {
+    background-color: rgba(3,3,3,0.5);
+}
+
 #modal-image {
     max-height: 70vh;
 }
@@ -525,6 +529,17 @@ svg {
     pointer-events: all;
 }
 
+.modal.confirmation-modal .modal-content {
+    background-color: var(--color-bg);
+
+    position:absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    border: 2px solid var(--color-text);
+}
+
 .custom-modal p {
     margin-bottom: var(--spacing-4);
 }
@@ -533,37 +548,7 @@ svg {
     display: flex;
     justify-content: space-between;
     gap: var(--spacing-2);
-}
-
-.modal-actions .btn {
-    padding: var(--spacing-2) var(--spacing-3);
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
-.modal-actions .btn-danger {
-    background-color: var(--color-orange);
-    color: var(--color-text);
-    transform: scale(1.0);
-    transition: transform 0.4s ease-in-out;
-}
-
-.modal-actions .btn-danger:hover {
-    transform: scale(1.1);
-    transition: transform 0.4s ease-in-out;
-}
-
-.modal-actions .btn-secondary {
-    background-color: var(--color-blue);
-    color: var(--color-text);
-    transform: scale(1.0);
-    transition: transform 0.4s ease-in-out;
-}
-
-.modal-actions .btn-secondary:hover {
-    transform: scale(1.1);
-    transition: transform 0.4s ease-in-out;
+    margin-top: var(--spacing-4);
 }
 
 .no-interaction {

@@ -66,7 +66,7 @@ class LoginController extends ControllerContract
         switch ($this->sessionManager->GetUserRole())
         {
             case Role::Administrator:
-                $this->locationReplace('/dashboard');
+                $this->locationReplace('/admin');
                 break;
             case Role::User:
                 $this->locationReplace('/home');
