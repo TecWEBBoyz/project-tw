@@ -41,6 +41,14 @@ class AdminController extends ControllerContract
 
         $count_images = $imageRepository->Count(["category" => $category]);
         $page_size = 5;
+        $max_page = ceil($count_images / $page_size);
+
+        if ($current_page <= 0) $current_page = 1;
+
+        if ($max_page < $current_page) {
+            $current_page = $max_page;
+        }
+
         $images = $imageRepository->GetImagesByCategory($category, $current_page, $page_size);
 
         TemplateUtility::getTemplate('admin', ['title' => 'Admin Dashboard', 'images' => $images, 'category' =>$category, 'current_page' => $current_page, "total_images" => $count_images, "page_size" => $page_size]);
