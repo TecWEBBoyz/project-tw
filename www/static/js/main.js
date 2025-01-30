@@ -34,12 +34,26 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    scrollTopButton.addEventListener('click', () => {
+    scrollTopButton.addEventListener('click', (e) => {
+        e.preventDefault();
         window.scrollTo({ top: 0, behavior: 'smooth' });
     });
 
-    // Toast
+    // Category navigation
+    const categoryButtons = document.getElementsByClassName("category-navigation-link");
 
+    for(const category of categoryButtons) {
+        category.addEventListener("click", (e) => {
+            e.preventDefault();
+
+            const id = e.target.getAttribute("href").replace("#", "");
+            const scrollToSection = document.getElementById(id);
+
+            scrollToSection.scrollIntoView({behavior: "smooth"});
+        });
+    }
+
+    // Toast
     const toastContainer = document.getElementById("toast-container");
     const toastList = Array.from(toastContainer.children);
 

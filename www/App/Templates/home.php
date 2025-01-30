@@ -92,7 +92,7 @@ foreach ($images as $image) {
 
 
 <nav class="categories-navigation">
-    <h2>Latest Work</h2>
+    <h2><?php echo \PTW\translationWithSpan('home-latest-work'); ?></h2>
     <ul>
         <?php
         $index = 0;
@@ -102,7 +102,7 @@ foreach ($images as $image) {
             $categoryName = PTW\translation('image-category-' . $index);
             ?>
             <li id="<?php echo $category->value . "-element" ?>">
-                <a href="#<?php echo htmlspecialchars($category->value, ENT_QUOTES, 'UTF-8'); ?>">
+                <a class="category-navigation-link" href="#<?php echo htmlspecialchars($category->value, ENT_QUOTES, 'UTF-8'); ?>">
                     <?php echo htmlspecialchars($categoryName, ENT_QUOTES, 'UTF-8'); ?>
                 </a>
             </li>
