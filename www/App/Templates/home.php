@@ -134,14 +134,15 @@ foreach (ImageCategory::cases() as $category_):
 
                 <?php
                 // ToDo(Luca): Teniamo una GET?
-                $detailPage = "gallerydetails?src=" . (isset($image[ImageType::path->value]) ? urlencode($image[ImageType::path->value]) : '') .
+                $imagePathResized = isset($image[ImageType::path->value]) ?
+                    preg_replace('/\.(jpg|jpeg|png)$/i', '_25percent.jpg', $image[ImageType::path->value]) : '';
+                $detailPage = "gallerydetails?src=" . (isset($image[ImageType::path->value]) ? urlencode($imagePathResized) : '') .
                     "&description=" . (isset($image[ImageType::description->value]) ? urlencode($image[ImageType::description->value]) : '') .
                     "&location=" . (isset($image[ImageType::place->value]) ? urlencode($image[ImageType::place->value]) : '') .
                     "&alt=" . (isset($image[ImageType::alt->value]) ? urlencode($image[ImageType::alt->value]) : '') .
                     "&date=" . (isset($image[ImageType::date->value]) ? urlencode($image[ImageType::date->value]) : '');
 
-                $imagePathResized = isset($image[ImageType::path->value]) ?
-                    preg_replace('/\.(jpg|jpeg|png)$/i', '_25percent.jpg', $image[ImageType::path->value]) : '';
+
 
                 $date = isset($image[ImageType::date->value]) ? htmlspecialchars($image[ImageType::date->value], ENT_QUOTES, 'UTF-8') : \PTW\translationWithSpan('imag-unknown-date');
                 $location = isset($image[ImageType::place->value]) && $date !== \PTW\translationWithSpan('imag-unknown-date') ? htmlspecialchars($image[ImageType::place->value], ENT_QUOTES, 'UTF-8') : \PTW\translationWithSpan('image-unknown-location');
