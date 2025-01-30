@@ -19,9 +19,18 @@ class ImageRepository extends BaseRepository
         return $this->CreateInstances($res);
     }
 
-    public function GetImagesByCategory(string $category): array
+    public function GetImagesByCategory(string $category, int|null $current_page = null, int|null $size = 10 ): array
     {
-        $res = $this->database->Query("SELECT * FROM $this->table WHERE category=? ORDER BY order_id", [$category]);
+        $offset = ($current_page - 1) * $size;
+
+        $res = [];
+
+        if (isset($current_page)) {
+            $res = $this->database->Query("SELECT * FROM $this->table WHERE category=? ORDER BY order_id LIMIT {$size} OFFSET {$offset}", [$category]);
+        } else {
+            $res = $this->database->Query("SELECT * FROM $this->table WHERE category=? ORDER BY order_id", [$category]);
+        }
+
         return $this->CreateInstances($res);
     }
 

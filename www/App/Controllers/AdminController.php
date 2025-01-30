@@ -6,6 +6,7 @@
 
 namespace PTW\Controllers;
 
+use Cassandra\Varint;
 use Exception;
 use PTW\Contracts\ControllerContract;
 use PTW\Models\Image;
@@ -35,9 +36,14 @@ class AdminController extends ControllerContract
         }
         $imageRepository = new \PTW\Modules\Repositories\ImageRepository();
 
-        $category = $_GET['category'] ?? "Travels";
-        $images = $imageRepository->GetImagesByCategory($category);
-        TemplateUtility::getTemplate('admin', ['title' => 'Admin Dashboard', 'images' => $images, 'category' =>$category]);
+        $category = isset($_GET['category']) && $_GET["category"] != "" ? $_GET["category"] : "Travels";
+        $current_page = isset($_GET['page']) && $_GET["page"] != "" && is_int((int) $_GET["page"]) ? (int) $_GET["page"] : 1;
+
+        $count_images = $imageRepository->Count(["category" => $category]);
+        $page_size = 5;
+        $images = $imageRepository->GetImagesByCategory($category, $current_page, $page_size);
+
+        TemplateUtility::getTemplate('admin', ['title' => 'Admin Dashboard', 'images' => $images, 'category' =>$category, 'current_page' => $current_page, "total_images" => $count_images, "page_size" => $page_size]);
     }
 
     public function post(): void
@@ -301,6 +307,14 @@ class AdminController extends ControllerContract
             if (!isset($data['id']) || !isset($data['direction'])) {
                 throw new Exception("No image ID or direction provided.");
             }
+
+            $params = "";
+            if (isset($data['page']) || isset($data['category'])) {
+                $params .= "?";
+                $params .= (isset($data['category']) ? "category=" . $data['category'] : "");
+                $params .= (isset($data['page']) ? ($params == "?" ? "" : "&") . "page=" . $data['page'] : "");
+            }
+
             $imageRepository = new \PTW\Modules\Repositories\ImageRepository();
             $image = $imageRepository->GetElementByID($data['id']);
             if($image == null) {
@@ -331,7 +345,7 @@ class AdminController extends ControllerContract
             ToastUtility::addToast('error', $e->getMessage());
         } finally {
             ScrollToUtility::setScrollTarget($data['id']);
-            $this->locationReplace('/admin');
+            $this->locationReplace('/admin' . $params);
         }
     }
 

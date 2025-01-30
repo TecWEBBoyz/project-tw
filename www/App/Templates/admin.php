@@ -1,9 +1,17 @@
 <?php
+
+use PTW\Models\ImageCategory;
+use PTW\Utility\ScrollToUtility;
+
+$total_images = $TEMPLATE_DATA["total_images"] ?? 0;
+$page_size = $TEMPLATE_DATA["page_size"] ?? 0;
+$current_page = $TEMPLATE_DATA["current_page"] ?? 0;
+$left_images = $total_images - ($page_size * $current_page);
+$current_category = $TEMPLATE_DATA["category"] ?? "";
+
 ?>
 <a href="admin/upload" class="btn-outlined" id="upload-button">
-    <span><?php use PTW\Models\ImageCategory;
-
-        echo \PTW\translation('upload-image') ?></span>
+    <span><?php echo \PTW\translation('upload-image') ?></span>
     <?php echo file_get_contents("static/images/right-chevron.svg") ?>
 </a>
 
@@ -77,6 +85,9 @@
                     <td data-label='<?php echo \PTW\translation('image-order') ?>' class='actions'>
                         <form action='admin/reorder-image' method='POST' class='form-inline'>
                             <input type='hidden' name='id' value='<?php echo $id; ?>'>
+                            <input type='hidden' name='category' value="<?php echo htmlspecialchars($current_category, ENT_QUOTES, 'UTF-8'); ?>">
+                            <input type='hidden' name='page' value="<?php echo htmlspecialchars($current_page, ENT_QUOTES, 'UTF-8'); ?>">
+
                             <input type='hidden' name='direction' value='up'>
                             <button type='submit' class="icon-button" aria-label="Sposta su">
                                 <?php echo file_get_contents("static/images/icons/arrow-up.svg"); ?>
@@ -84,6 +95,9 @@
                         </form>
                         <form action='admin/reorder-image' method='POST' class='form-inline'>
                             <input type='hidden' name='id' value='<?php echo $id; ?>'>
+                            <input type='hidden' name='category' value="<?php echo htmlspecialchars($current_category, ENT_QUOTES, 'UTF-8'); ?>">
+                            <input type='hidden' name='page' value="<?php echo htmlspecialchars($current_page, ENT_QUOTES, 'UTF-8'); ?>">
+
                             <input type='hidden' name='direction' value='down'>
                             <button type='submit' class="icon-button" aria-label="Sposta giù">
                                 <?php echo file_get_contents("static/images/icons/arrow-down.svg"); ?>
@@ -138,6 +152,36 @@
             <?php endforeach; ?>
             </tbody>
         </table>
+
+        <div class="pagination-controller">
+            <form action='' method='GET' class=''>
+                <input type='hidden' name='category' value="<?php echo htmlspecialchars($current_category, ENT_QUOTES, 'UTF-8'); ?>">
+
+                <button type="submit" name="page" value="<?php echo $current_page - 1; ?>"
+                        class="icon-button <?php echo $current_page == 1 ? 'disabled' : ''; ?>" <?php echo ($current_page == 1 ? 'disabled="disabled"' : ''); ?>>
+                    <?php echo file_get_contents("static/images/left-chevron.svg"); ?>
+                </button>
+
+            <?php for ($i = $current_page - 1, $inc = 1; $i <= $current_page + $inc; $i++): ?>
+
+                <?php if ($i == 0) $inc++; ?>
+                <?php if ($i > 0 && ceil($total_images / $page_size) >= $i): ?>
+
+                    <button type="submit" name="page" value="<?php echo $i; ?>"
+                            class="icon-button number <?php echo $i == $current_page ? 'selected' : ''; ?>">
+                        <?php echo $i ?>
+                    </button>
+
+                <?php endif; ?>
+
+            <?php endfor; ?>
+
+                <button type="submit" name="page" value="<?php echo $current_page + 1; ?>"
+                        class="icon-button <?php echo $left_images <= 0 ? 'disabled' : ''; ?>" <?php echo ($left_images <= 0 ? 'disabled="disabled"' : ''); ?>>
+                    <?php echo file_get_contents("static/images/right-chevron.svg"); ?>
+                </button>
+        </div>
+
     <?php endif; ?>
 </div>
 
