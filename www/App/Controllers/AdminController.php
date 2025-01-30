@@ -48,9 +48,7 @@ class AdminController extends ControllerContract
         if ($max_page < $current_page) {
             $current_page = $max_page;
         }
-
         $images = $imageRepository->GetImagesByCategory($category, $current_page, $page_size);
-
         TemplateUtility::getTemplate('admin', [
             "images" => $images,
             "category" =>$category,
@@ -352,7 +350,7 @@ class AdminController extends ControllerContract
             if($image == null) {
                 throw new Exception(\PTW\translation('admin-image-not-found'));
             }
-            
+
             $nextImage = $imageRepository->GetNextImage($image->ToArray()[ImageType::order->value], $image->ToArray()[ImageType::category->value]);
             $previusImage = $imageRepository->GetPreviusImage($image->ToArray()[ImageType::order->value], $image->ToArray()[ImageType::category->value]);
             if($data['direction'] == 'up' && $previusImage != null) {

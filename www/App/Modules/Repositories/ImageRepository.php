@@ -54,4 +54,5 @@ class ImageRepository extends BaseRepository
         $res = $this->database->Query("SELECT * FROM $this->table WHERE $order < ? AND category=? ORDER BY $order DESC LIMIT 1", [$order_val, $category]);
         return $this->CreateInstances($res);
     }
+
 }

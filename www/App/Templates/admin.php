@@ -77,11 +77,12 @@ $current_category = $TEMPLATE_DATA["category"] ?? "";
                 $rowStyle = is_null($imageArray['updated_at'] ?? null)
                     ? " class='require-edit' title='" . \PTW\translation('image-require-edit') . "'"
                     : "";
+                $index = ($current_page - 1) * $page_size + $index;
                 ?>
 
                 <tr <?php echo $rowStyle ?> id="<?php echo $id ?>">
 
-                    <td data-label='<?php echo \PTW\translation('image-id') ?>'><?php echo $order; ?></td>
+                    <td data-label='<?php echo \PTW\translation('image-id') ?>'><?php echo $index; ?></td>
                     <td data-label='<?php echo \PTW\translation('image-order') ?>' class='actions'>
                         <form action='admin/reorder-image' method='POST' class='form-inline'>
                             <input type='hidden' name='id' value='<?php echo $id; ?>'>
