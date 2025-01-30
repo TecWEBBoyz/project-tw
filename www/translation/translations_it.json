@@ -92,6 +92,8 @@
   "login-button": "Accedi",
   "login-form-error": "Username o password non validi",
   "login-form-error-user-not-exists": "L'utente non esiste",
+  "login-form-error-username-required": "Il nome utente è obbligatorio",
+  "login-form-error-password-required": "La password è obbligatoria",
   "admin-image-not-found": "Nessuna immagine trovata!",
   "admin-image-no-id": "ID non fornito",
   "admin-image-no-data": "Dati non forniti",

@@ -12,6 +12,7 @@ use PTW\Modules\Auth\Role;
 use PTW\Modules\Auth\SessionManager;
 use PTW\Modules\Repositories\UserRepository;
 use PTW\Utility\TemplateUtility;
+use function PTW\dd;
 
 class LoginController extends ControllerContract
 {
@@ -24,52 +25,73 @@ class LoginController extends ControllerContract
         ]);
     }
 
-    public function post(): void
+    private function addError(array &$errors, string $key, string $msg): void
     {
-        if (!isset($_POST['username']) || !isset($_POST['password'])) {
-            TemplateUtility::getTemplate('login', [
-                'error' => \PTW\translation('login-form-error'),
-                "title"=>\PTW\translation('title-login'),
-                "description"=>\PTW\translation('description-login'),
-                "keywords"=>\PTW\translation('keywords-login')]);
-            return;
+//        if (!isset($errors[$key])) {
+//            $errors[$key] = [];
+//        }
+        $errors[$key] = $msg;
+    }
+
+    private function check(array $values, array &$errors): bool
+    {
+        if (empty($values['username']))
+        {
+            $this->addError($errors, "username", \PTW\translation('login-form-error-username-required'));
+            return false;
         }
 
-        # ToDo(Luca) Refactor Login
+        if (empty($values['password']))
+        {
+            $this->addError($errors, "password", \PTW\translation("login-form-error-password-required"));
+            return false;
+        }
+
         $userRepo = new UserRepository();
-        $user = $userRepo->GetUserByName($_POST['username']);
+        $user = $userRepo->GetUserByName($values['username']);
 
-        if ($user == null)
-        {
-            TemplateUtility::getTemplate('login', [
-                'error' => \PTW\translation('login-form-error-user-not-exists'),
-                "title"=>\PTW\translation('title-login'),
-                "description"=>\PTW\translation('description-login'),
-                "keywords"=>\PTW\translation('keywords-login')]);
-            return;
-        }
 
-        if (!($user->ToArray()[UserType::password->value] == $_POST['password']))
+        if ($user == null || !($user->ToArray()[UserType::password->value] == $_POST['password']))
         {
-            TemplateUtility::getTemplate('login', [
-                'error' => \PTW\translation('login-form-error'),
-                "title"=>\PTW\translation('title-login'),
-                "description"=>\PTW\translation('description-login'),
-                "keywords"=>\PTW\translation('keywords-login')]);
-            return;
+            $this->addError($errors, "form", \PTW\translation('login-form-error'));
+            return false;
         }
 
         $role = $user->ToArray()[UserType::role->value];
         $this->sessionManager->SaveUserData(
             ['username' => $user->ToArray()[UserType::name->value], 'id' => $user->ToArray()[UserType::id->value]], Role::fromCaseName($role));
 
+        return true;
+    }
+
+    public function post(): void
+    {
+        $values = [];
+        $errors = [];
+
+        $values['username'] = trim($_POST['username']);
+        $values['password'] = trim($_POST['password']);
+
+        $fields['username'] = $values['username'];
+
+        if (!$this->check($values, $errors))
+        {
+            TemplateUtility::getTemplate('login', [
+                "error" => $errors,
+                "form_fields" => $fields,
+                "title"=>\PTW\translation('title-login'),
+                "description"=>\PTW\translation('description-login'),
+                "keywords"=>\PTW\translation('keywords-login')]);
+            return;
+        }
+
         switch ($this->sessionManager->GetUserRole())
         {
             case Role::Administrator:
-                $this->locationReplace('/dashboard');
+                $this->locationReplace('/admin');
                 break;
             case Role::User:
-                $this->locationReplace('/home');
+                $this->locationReplace('/profile');
                 break;
         }
     }
