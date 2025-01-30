@@ -78,14 +78,14 @@
                         <form action='admin/reorder-image' method='POST' class='form-inline'>
                             <input type='hidden' name='id' value='<?php echo $id; ?>'>
                             <input type='hidden' name='direction' value='up'>
-                            <button type='submit' class="icon-button" aria-label="Sposta su">
+                            <button type='submit' class="icon-button" aria-label="<?php echo \PTW\translation('move-up') ?>">
                                 <?php echo file_get_contents("static/images/icons/arrow-up.svg"); ?>
                             </button>
                         </form>
                         <form action='admin/reorder-image' method='POST' class='form-inline'>
                             <input type='hidden' name='id' value='<?php echo $id; ?>'>
                             <input type='hidden' name='direction' value='down'>
-                            <button type='submit' class="icon-button" aria-label="Sposta giù">
+                            <button type='submit' class="icon-button" aria-label="<?php echo \PTW\translation('move-down') ?>">
                                 <?php echo file_get_contents("static/images/icons/arrow-down.svg"); ?>
                             </button>
                         </form>
