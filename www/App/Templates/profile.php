@@ -35,10 +35,10 @@ if (!isset($TEMPLATE_DATA)) {
                 /** @var Booking $booking */
                 foreach ($TEMPLATE_DATA["bookings"] as $index => $booking) {
 
-
                     $id = $booking->ToArray()[\PTW\Models\BookingType::id->value];
                     $service = $booking->ToArray()[\PTW\Models\BookingType::service->value];
-                    $date = $booking->ToArray()[\PTW\Models\BookingType::date->value]
+                    $date = $booking->ToArray()[\PTW\Models\BookingType::date->value];
+
                     ?>
 
                     <tr>

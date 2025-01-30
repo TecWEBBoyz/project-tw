@@ -25,7 +25,6 @@
     </div>
 
     <div class="form-group">
-
         <?php if (key_exists("password", $errors)): ?>
             <div class="error-message" role="alert" aria-live="assertive" aria-atomic="true" tabindex="-1">
                 <p><?php echo $errors['password'] ?></p>

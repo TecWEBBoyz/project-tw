@@ -1,4 +1,6 @@
-window.loadJS = () => {
+document.addEventListener("DOMContentLoaded", () => {
+    let script = document.querySelector('script[data-template="upload"]');
+    if (!script) return;
     const dropZone = document.getElementById('drop-zone');
     const fileInput = document.getElementById('image-upload');
 
@@ -22,7 +24,4 @@ window.loadJS = () => {
     });
 
     dropZone.addEventListener('click', () => fileInput.click());
-}
-document.addEventListener("DOMContentLoaded", () => {
-    loadJS();
 });

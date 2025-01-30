@@ -95,8 +95,11 @@ document.addEventListener("DOMContentLoaded", () => {
         const formattedLinkUrl = linkUrl.origin + linkUrl.pathname;
 
         if (formattedLinkUrl === currentUrl) {
-            link.setAttribute("disabled", "true");
+            link.setAttribute("disabled", "disabled");
             link.setAttribute("aria-disabled", "true");
+            link.addEventListener("click", (e) => {
+                e.preventDefault();
+            });
         }
     });
 

@@ -12,7 +12,7 @@ class DateFormatterUtility
     ];
 
     static public function Format(string $date) : string {
-        $date = new DateTime('2024-01-29');
+        $date = new DateTime($date);
         $month = self::$months[(int)$date->format('m')];
 
         return $date->format('d') . ' ' . $month . ' ' . $date->format('Y');

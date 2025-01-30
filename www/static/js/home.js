@@ -1,4 +1,6 @@
-window.loadJS = () => {
+document.addEventListener("DOMContentLoaded", () => {
+    let script = document.querySelector('script[data-template="home"]');
+    if (!script) return;
     const images = document.querySelectorAll(".gallery-item img");
     const modal = document.getElementById("image-modal");
     const modalImage = document.getElementById("modal-image");
@@ -74,13 +76,15 @@ window.loadJS = () => {
         }
     });
 
+    const MAX_ZOOM_LEVEL = 3;
+
     modalImage.addEventListener("wheel", (event) => {
         event.preventDefault();
         isZooming = true;
 
         const scaleAmount = event.deltaY > 0 ? 0.9 : 1.1;
-        zoomLevel = Math.max(1, zoomLevel * scaleAmount);
-        modalImage.style.transform = `scale(${zoomLevel}) translate(${translateX}px, ${translateY}px)`;
+        zoomLevel = Math.min(MAX_ZOOM_LEVEL, Math.max(1, zoomLevel * scaleAmount));
+        applyTransform();
     });
 
     modalImage.addEventListener("touchstart", (event) => {
@@ -100,32 +104,25 @@ window.loadJS = () => {
             event.preventDefault();
             const currentDistance = getTouchDistance(event.touches);
             const scaleAmount = currentDistance / touchStartDistance;
-            zoomLevel = Math.max(1, zoomLevel * scaleAmount);
-            modalImage.style.transform = `scale(${zoomLevel}) translate(${translateX}px, ${translateY}px)`;
+            zoomLevel = Math.min(MAX_ZOOM_LEVEL, Math.max(1, zoomLevel * scaleAmount));
+            applyTransform();
             touchStartDistance = currentDistance;
         } else if (isDragging && event.touches.length === 1) {
             event.preventDefault();
             translateX = event.touches[0].clientX - startX;
             translateY = event.touches[0].clientY - startY;
-            modalImage.style.transform = `scale(${zoomLevel}) translate(${translateX}px, ${translateY}px)`;
+            applyTransform();
         }
     });
 
-    modalImage.addEventListener("touchend", (event) => {
-        if (event.touches.length === 0) {
-            isZooming = false;
-            isDragging = false;
-            modalImage.style.cursor = "grab";
-        }
+    modalImage.addEventListener("touchend", () => {
+        isZooming = false;
+        isDragging = false;
+        modalImage.style.cursor = "grab";
     });
-
-    function getTouchDistance(touches) {
-        const dx = touches[0].clientX - touches[1].clientX;
-        const dy = touches[0].clientY - touches[1].clientY;
-        return Math.sqrt(dx * dx + dy * dy);
-    }
 
     document.addEventListener("mousedown", (event) => {
+        event.preventDefault();
         if (zoomLevel > 1 && event.target === modalImage) {
             isDragging = true;
             startX = event.clientX - translateX;
@@ -133,34 +130,24 @@ window.loadJS = () => {
             modalImage.style.cursor = "grabbing";
 
             document.addEventListener("mousemove", handleMouseMove);
-            document.addEventListener("drag", handleMouseMove);
             document.addEventListener("mouseup", handleMouseUp);
-            document.addEventListener("dragend", handleMouseUp);
         }
     });
+
     function handleMouseMove(event) {
         if (isDragging) {
             event.preventDefault();
             translateX = event.clientX - startX;
             translateY = event.clientY - startY;
-            modalImage.style.transform = `scale(${zoomLevel}) translate(${translateX}px, ${translateY}px)`;
+            applyTransform();
         }
     }
 
-    function handleMouseUp(event) {
-        if (isDragging) {
-            isDragging = false;
-            zoomLevel = 1;
-            modalImage.style.cursor = "grab";
-            translateX = 0;
-            translateY = 0;
-            modalImage.style.transform = `scale(${zoomLevel}) translate(${translateX}px, ${translateY}px)`;
-            document.removeEventListener("mousemove", handleMouseMove);
-            document.removeEventListener("drag", handleMouseMove);
-            document.removeEventListener("mouseup", handleMouseUp);
-            document.removeEventListener("dragend", handleMouseUp);
-
-        }
+    function handleMouseUp() {
+        isDragging = false;
+        modalImage.style.cursor = "grab";
+        document.removeEventListener("mousemove", handleMouseMove);
+        document.removeEventListener("mouseup", handleMouseUp);
     }
 
     document.addEventListener("mouseleave", () => {
@@ -168,11 +155,51 @@ window.loadJS = () => {
             isDragging = false;
             modalImage.style.cursor = "grab";
             document.removeEventListener("mousemove", handleMouseMove);
-            document.removeEventListener("drag", handleMouseMove);
             document.removeEventListener("mouseup", handleMouseUp);
-            document.removeEventListener("dragend", handleMouseUp);
         }
     });
+
+    function applyTransform() {
+        const rect = modalImage.getBoundingClientRect();
+        const container = modalImage.parentElement.getBoundingClientRect();
+
+        // Margine base (scalerà con lo zoom)
+        const baseMargin = 50;
+        const scaledMargin = baseMargin * zoomLevel;
+
+        // Calcola le dimensioni effettive dell'immagine scalata
+        const scaledWidth = rect.width * zoomLevel;
+        const scaledHeight = rect.height * zoomLevel;
+
+        // Calcola i limiti della traslazione
+        const minX = container.width / 2 - scaledWidth / 2 + scaledMargin;
+        const maxX = scaledWidth / 2 - container.width / 2 - scaledMargin;
+
+        const minY = container.height / 2 - scaledHeight / 2 + scaledMargin;
+        const maxY = scaledHeight / 2 - container.height / 2 - scaledMargin;
+
+        // Se l'immagine è più piccola del contenitore, centrarla
+        if (scaledWidth <= container.width - 2 * scaledMargin) {
+            translateX = 0;
+        } else {
+            translateX = Math.min(maxX, Math.max(minX, translateX));
+        }
+
+        if (scaledHeight <= container.height - 2 * scaledMargin) {
+            translateY = 0;
+        } else {
+            translateY = Math.min(maxY, Math.max(minY, translateY));
+        }
+
+        // Applica la trasformazione
+        modalImage.style.transform = `translate(${translateX}px, ${translateY}px) scale(${zoomLevel})`;
+    }
+
+    function getTouchDistance(touches) {
+        const dx = touches[0].clientX - touches[1].clientX;
+        const dy = touches[0].clientY - touches[1].clientY;
+        return Math.sqrt(dx * dx + dy * dy);
+    }
 
     function resetModal() {
         modal.classList.remove("visible");
@@ -194,7 +221,4 @@ window.loadJS = () => {
     window.imageError = (el) => {
         el.classList.add("error");
     }
-}
-document.addEventListener("DOMContentLoaded", () => {
-    loadJS();
 });

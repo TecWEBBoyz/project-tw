@@ -58,6 +58,4 @@ if ($scrollTarget): ?>
         });
     </script>
 <?php endif; ?>
-<script src="static/js/main.js"></script>
-<script src="static/js/menu.js"></script>
-<script data-template="<?php echo $TEMPLATE_DATA['name']; ?>" src="static/js/<?php echo $TEMPLATE_DATA['name']; ?>.js"></script>
+<script src="main.js" data-template="<?php echo $TEMPLATE_DATA['name']; ?>"></script>

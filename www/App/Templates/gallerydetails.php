@@ -14,6 +14,6 @@ $location = $_GET['location'] ?? 'Unknown Location';
     <p><?php echo \PTW\translationWithSpan('gallery-details-error') ?></p>
 <?php endif; ?>
 
-<a href="home"><?php
+<a href="home" class="link"><?php
     echo \PTW\translation('go-homepage');
     ?></a>

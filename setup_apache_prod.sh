@@ -61,6 +61,14 @@ cp /000-default.conf /etc/apache2/sites-available/000-default.conf
 # Configurazione di MariaDB
 service mariadb start
 
+# Configura MariaDB per UTF-8
+sed -i 's/\[mysqld\]/[mysqld]\ncharacter-set-server=utf8mb4\ncollation-server=utf8mb4_unicode_ci\nskip-character-set-client-handshake/' /etc/mysql/mariadb.conf.d/50-server.cnf
+sed -i 's/\[client\]/[client]\ndefault-character-set=utf8mb4/' /etc/mysql/mariadb.conf.d/50-server.cnf
+sed -i 's/\[mysql\]/[mysql]\ndefault-character-set=utf8mb4/' /etc/mysql/mariadb.conf.d/50-server.cnf
+
+# Riavvio di MariaDB per applicare le modifiche
+service mariadb restart
+
 # Configura MariaDB per l'accesso remoto
 sed -i 's/^bind-address.*/bind-address = 0.0.0.0/' /etc/mysql/mariadb.conf.d/50-server.cnf
 
