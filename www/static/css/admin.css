@@ -48,10 +48,6 @@
     box-shadow: none;
 }
 
-.template-admin .form-inline {
-    display: inline;
-}
-
 .template-admin  #upload-button-container {
     display: flex;
     margin-bottom: 10px;

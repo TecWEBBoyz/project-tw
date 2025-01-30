@@ -82,6 +82,25 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     window.loadersOnImages();
+
+    // Ottieni l'URL della pagina corrente senza il fragment (#) e i parametri
+    const currentUrl = window.location.origin + window.location.pathname;
+
+    // Seleziona tutti i link nella pagina
+    const links = document.querySelectorAll("a");
+
+    links.forEach(link => {
+        // Ottieni l'URL assoluto del link
+        const linkUrl = new URL(link.href, window.location.origin);
+        const formattedLinkUrl = linkUrl.origin + linkUrl.pathname;
+
+        if (formattedLinkUrl === currentUrl) {
+            link.setAttribute("disabled", "true");
+            link.setAttribute("aria-disabled", "true");
+        }
+    });
+
+
 });
 
 function focusToast(toast, closeToastBtn) {

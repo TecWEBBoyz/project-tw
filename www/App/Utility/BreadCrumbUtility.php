@@ -7,8 +7,8 @@ use function PTW\config;
 class BreadCrumbUtility {
 
     public static $excludedRoutes = [
-        "/home",
-        "/"
+        // "/home",
+        // "/"
     ];
 
     public static $breadcrumbMapping = [];
@@ -18,10 +18,10 @@ class BreadCrumbUtility {
     {
         self::$breadcrumbMapping = [
             "/" => [
-                // ["label" => \PTW\translation('breadcrumb-home'), "url" => "/"]
+                ["label" => \PTW\translation('breadcrumb-home'), "url" => "/home"]
             ],
             "/home" => [
-                // ["label" => \PTW\translation('breadcrumb-home'), "url" => "/"]
+                ["label" => \PTW\translation('breadcrumb-home'), "url" => "/home"]
             ],
             "/about" => [
                 ["label" => \PTW\translation('breadcrumb-home'), "url" => "/"],
