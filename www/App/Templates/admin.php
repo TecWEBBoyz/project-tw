@@ -107,7 +107,7 @@ $current_category = $TEMPLATE_DATA["category"] ?? "";
                     </td>
                     <td data-label='<?php echo \PTW\translation('image-title') ?>'><?php echo $title; ?></td>
                     <td data-label='<?php echo \PTW\translation('image-description') ?>'
-                        class="long-text"><?php echo $description ?></td>
+                        class="long-text" tabindex="0"><?php echo $description ?></td>
                     <td data-label='<?php echo \PTW\translation('image-place') ?>'><?php echo $place; ?></td>
                     <td data-label='<?php echo \PTW\translation('image-date') ?>'>
                         <time datetime='<?php echo $date ?>'><?php echo DateFormatterUtility::Format($date); ?></time>

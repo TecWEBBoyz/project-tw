@@ -77,10 +77,15 @@
 
 @media screen and (min-width: 900px) {
     .long-text {
-        max-width: 10em;
+        max-width: 25em;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
+    }
+    .long-text:hover,
+    .long-text:focus {
+        max-width: 25em;
+        white-space: normal;
     }
 }
 
