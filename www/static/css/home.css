@@ -86,7 +86,7 @@
     .hero-section {
         min-height: calc(100vh - 5.325rem);
         grid-template-columns: 1fr;
-        grid-template-rows: 45% 55%;
+        grid-template-rows: 1fr auto;
     }
 
     .hero-section .image-me {
