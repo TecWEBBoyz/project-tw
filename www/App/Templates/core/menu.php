@@ -64,9 +64,9 @@ function renderMenu($menuItems, $mobile = false) {
     <?php renderMenu($menuItems); ?>
 
     <button class="hamburger" aria-label="<?php echo PTW\translation("nav-menu-mobile-open"); ?>" tabindex="0" onclick="toggleMenu(event)">
-        <div></div>
-        <div></div>
-        <div></div>
+        <span></span>
+        <span></span>
+        <span></span>
     </button>
 
     <div class="menu hidden" aria-hidden="true">

@@ -103,26 +103,31 @@ EOF
 mysql -u root -p${MYSQL_ROOT_PASSWORD} ${MYSQL_DATABASE} < /init.sql
 
 # Configurazione di Xdebug
-XDEBUG_CONFIG_FILE="/etc/php/8.1/mods-available/xdebug.ini"
-
-cat <<EOL > $XDEBUG_CONFIG_FILE
-zend_extension=xdebug.so
-xdebug.mode=develop,coverage,debug,profile
-xdebug.start_with_request=yes
-xdebug.client_host=host.docker.internal
-xdebug.client_port=9003
-xdebug.log=/var/log/xdebug.log
-xdebug.remote_autostart=1
-xdebug.idekey=PHPSTORM
-EOL
-
-# Abilita Xdebug per PHP
-phpenmod xdebug
+#XDEBUG_CONFIG_FILE="/etc/php/8.1/mods-available/xdebug.ini"
+#
+#cat <<EOL > $XDEBUG_CONFIG_FILE
+#zend_extension=xdebug.so
+#xdebug.mode=develop,coverage,debug,profile
+#xdebug.start_with_request=yes
+#xdebug.client_host=host.docker.internal
+#xdebug.client_port=9003
+#xdebug.log=/var/log/xdebug.log
+#xdebug.remote_autostart=1
+#xdebug.idekey=PHPSTORM
+#EOL
+#
+## Abilita Xdebug per PHP
+#phpenmod xdebug
 
 # Modifica del file php.ini
-sed -i 's/display_errors = .*/display_errors = On/' $PHP_INI_FILE
+#sed -i 's/display_errors = .*/display_errors = On/' $PHP_INI_FILE
+#sed -i 's/log_errors = .*/log_errors = On/' $PHP_INI_FILE
+#sed -i 's/error_reporting = .*/error_reporting = E_ALL/' $PHP_INI_FILE
+# Disable error reporting
+sed -i 's/display_errors = .*/display_errors = Off/' $PHP_INI_FILE
 sed -i 's/log_errors = .*/log_errors = On/' $PHP_INI_FILE
-sed -i 's/error_reporting = .*/error_reporting = E_ALL/' $PHP_INI_FILE
+sed -i 's/error_reporting = .*/error_reporting = E_ALL & ~E_DEPRECATED & ~E_STRICT/' $PHP_INI_FILE
+
 
 # Installazione di Composer
 curl -sS https://getcomposer.org/installer | php -- \

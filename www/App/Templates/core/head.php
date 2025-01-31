@@ -17,14 +17,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 <!-- Meta tag (Open Graph) -->
-<meta property="og:title" content="<?php echo \PTW\translation('meta-title'); ?>" />
-<meta property="og:description" content="<?php echo \PTW\translation('meta-description'); ?>" />
-<meta property="og:image" content="<?php echo config('url'); ?>/static/images/logo-slim-black-bg.png" />
+<meta property="og:title" content="<?php echo \PTW\translation('meta-title'); ?>" >
+<meta property="og:description" content="<?php echo \PTW\translation('meta-description'); ?>" >
+<meta property="og:image" content="<?php echo config('url'); ?>/static/images/logo-slim-black-bg.png" >
 <meta property="og:url" content="<?php echo config('url'); ?>" />
 <meta property="og:type" content="website" />
-<meta property="og:locale" content="<?php echo \PTW\translation('meta-locale'); ?>" />
-<meta property="og:site_name" content="<?php echo \PTW\translation('meta-site-name'); ?>" />
-<!-- Meta tag (Twitter) -->
+<meta property="og:locale" content="<?php echo \PTW\translation('meta-locale'); ?>" >
+<meta property="og:site_name" content="<?php echo \PTW\translation('meta-site-name'); ?>" >
 
 <meta name="description" content="<?php echo $TEMPLATE_DATA['description']; ?>">
 <meta name="keywords" content="<?php echo $TEMPLATE_DATA['keywords']; ?>">
