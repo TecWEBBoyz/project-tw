@@ -208,14 +208,14 @@ a.link:hover {
     transition: color 0.4s ease;
 }
 
-a[disabled="disabled"] {
+a.link:visited {
+    color: var(--color-link-visited);
+}
+
+a.link[disabled="disabled"] {
     pointer-events: none;
     cursor: default;
     color: var(--color-white);
-}
-
-a.link:visited {
-    color: var(--color-link-visited);
 }
 
 strong {
