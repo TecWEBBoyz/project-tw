@@ -348,7 +348,12 @@ class AdminController extends ControllerContract
         } catch (Exception $e) {
             ToastUtility::addToast('error', \PTW\translation('image-delete-error'));
         } finally {
-            $this->locationReplace("/admin");
+            $isFromEdit = $this->InPreviusPageFrom("edit-image");
+            if(!$isFromEdit){
+                $this->previusPage();
+            } else {
+                $this->locationReplace('/admin');
+            }
         }
     }
 
