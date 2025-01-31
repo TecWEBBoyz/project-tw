@@ -56,7 +56,7 @@ $notes = htmlspecialchars($bookingArray[BookingType::notes->value] ?? '');
             <?php endif; ?>
 
             <label class="caption" for="date">Data</label>
-            <input type="date" class="custom-date-input" id="date" name="date" value="<?php echo $date; ?>" required>
+            <input type="date" class="custom-date-input" id="date" min="<?php echo date("Y-m-d"); ?>" name="date" value="<?php echo $date; ?>" required>
         </div>
         <div class="form-group">
             <?php if (key_exists("notes", $errors)): ?>
