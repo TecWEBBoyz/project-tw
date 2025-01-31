@@ -2,6 +2,7 @@
 
 use PTW\Models\ImageCategory;
 use PTW\Models\ImageType;
+use function PTW\dd;
 
 $errors = $TEMPLATE_DATA['error'] ?? [];
 $fields = $TEMPLATE_DATA['form_fields'] ?? [];
@@ -13,6 +14,7 @@ $description = htmlspecialchars($fields[ImageType::description->value] ?? '');
 $place = htmlspecialchars($fields[ImageType::place->value] ?? '');
 $date = htmlspecialchars($fields[ImageType::date->value] ?? '');
 $visible = $fields[ImageType::visible->value] ?? false;
+$actionType = $TEMPLATE_DATA['action_type'] ?? 'single-image';
 
 if (is_null($TEMPLATE_DATA["images"])) {
     echo "<p>" . PTW\translation('no-images') . "</p>";
@@ -40,6 +42,7 @@ foreach ($images as $image) :
 
     <form action='admin/update-image' method='POST'>
         <input type='hidden' name='id' value="<?php echo $id ?>">
+        <input type='hidden' name='action-type' value="<?php echo $actionType; ?>">
         <div>
             <?php if (array_keys($errors) === ['form']) : ?>
                 <div class="error-message" role="alert" aria-live="assertive" aria-atomic="true" tabindex="-1">

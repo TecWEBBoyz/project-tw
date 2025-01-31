@@ -144,14 +144,17 @@ class AdminController extends ControllerContract
     {
         $imageRepository = new \PTW\Modules\Repositories\ImageRepository();
         $images = $imageRepository->GetJustUploadedImages();
+
         if(count($images) == 0) {
             $this->locationReplace('/admin');
         }
+
         TemplateUtility::getTemplate('image-edit', array_merge([
             "images" => $images,
             "title" => \PTW\translation('title-upload-image'),
             "description" => \PTW\translation('description-edit-image'),
-            "keywords" => \PTW\translation('keywords-edit-image')
+            "keywords" => \PTW\translation('keywords-edit-image'),
+            "action_type" => "just-uploaded-image"
             ], $templateData));
     }
     public function uploadForm()
@@ -288,11 +291,14 @@ class AdminController extends ControllerContract
             if ($image == null) {
                 throw new Exception(\PTW\translation('admin-image-not-found'));
             }
+
             TemplateUtility::getTemplate('image-edit', array_merge([
                 "title" => \PTW\translation('title-edit-image'),
                 "description" => \PTW\translation('description-edit-image'),
                 "keywords" => \PTW\translation('keywords-edit-image'),
-                "images" => [$image]], $templateData));
+                "images" => [$image],
+                "action_type" => "single-image"], $templateData));
+
         }catch (Exception $e) {
             ScrollToUtility::setScrollTarget($data['id']);
             ToastUtility::addToast('error', \PTW\translation('image-edit-error'));
@@ -314,18 +320,21 @@ class AdminController extends ControllerContract
         $values['place'] = trim($data['place']);
         $values['date'] = trim($data['date']);
         $values['visible'] = trim($data['visible'] ?? 'off');
+        $values['action-type'] = trim($data['action-type']);
 
         $fields = $values;
 
         if (!$this->checkImage($values, $errors))
         {
+            $singleImage = $imageRepository->GetElementByID($values['id']);
             TemplateUtility::getTemplate('image-edit', [
                 "error" => $errors,
                 "form_fields" => $fields,
-                "images" => $imageRepository->GetJustUploadedImages(),
+                "images" => $values["action-type"] == "single-image" ? [$singleImage] : $imageRepository->GetJustUploadedImages(),
                 "title"=>\PTW\translation('title-image-edit'),
                 "description"=>\PTW\translation('description-image-edit'),
-                "keywords"=>\PTW\translation('keywords-image-edit')]);
+                "keywords"=>\PTW\translation('keywords-image-edit'),
+                "action_type" => $values['action-type']]);
             return;
         }
 
@@ -333,6 +342,10 @@ class AdminController extends ControllerContract
         try {
             if (!isset($values['id'])) {
                 throw new Exception(\PTW\translation('admin-image-no-id'));
+            }
+
+            if (!($values['action-type'] == 'single-image' || $values['action-type'] == 'just-uploaded-image')) {
+                throw new Exception(\PTW\translation('admin-action-not-recognized'));
             }
 
             $image = $imageRepository->GetElementByID($values['id']);
@@ -347,7 +360,11 @@ class AdminController extends ControllerContract
 
             $imageRepository->Update($values['id'], $image);
 
-            $images = $imageRepository->GetJustUploadedImages();
+            $images = [];
+
+            if ($values['action-type'] == 'just-uploaded-image') {
+                $images = $imageRepository->GetJustUploadedImages();
+            }
 
             $numberOfImages = count($images);
 
