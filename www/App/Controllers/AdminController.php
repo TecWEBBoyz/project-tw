@@ -110,7 +110,7 @@ class AdminController extends ControllerContract
             return false;
         }
 
-        if (strlen($value['place']) > 30) {
+        if (strlen($value['place']) < 2 || strlen($value['place']) > 30) {
             $errors['place'] = \PTW\translation('image-place-length');
             return false;
         }
@@ -159,7 +159,7 @@ class AdminController extends ControllerContract
 
         TemplateUtility::getTemplate('image-edit', array_merge([
             "images" => $images,
-            "title" => \PTW\translation('title-upload-image'),
+            "title" => \PTW\translation('title-edit-image'),
             "description" => \PTW\translation('description-edit-image'),
             "keywords" => \PTW\translation('keywords-edit-image'),
             "action_type" => "just-uploaded-image"
@@ -352,9 +352,9 @@ class AdminController extends ControllerContract
                 "error" => $errors,
                 "form_fields" => $fields,
                 "images" => $values["action-type"] == "single-image" ? [$singleImage] : $imageRepository->GetJustUploadedImages(),
-                "title"=>\PTW\translation('title-image-edit'),
-                "description"=>\PTW\translation('description-image-edit'),
-                "keywords"=>\PTW\translation('keywords-image-edit'),
+                "title"=>\PTW\translation('title-edit-image'),
+                "description"=>\PTW\translation('description-edit-image'),
+                "keywords"=>\PTW\translation('keywords-edit-image'),
                 "action_type" => $values['action-type']]);
             return;
         }
