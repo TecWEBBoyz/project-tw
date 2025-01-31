@@ -196,6 +196,7 @@
   "breadcrumb-profile": "PROFILO",
   "breadcrumb-edit-booking": "MODIFICA PRENOTAZIONE",
   "breadcrumb-manage-bookings": "GESTISCI PRENOTAZIONI",
+  "breadcrumb-manage-images": "GESTISCI IMMAGINI",
   "title-404": "404 - Pagina Non Trovata",
   "description-404": "La pagina che stai cercando potrebbe essere stata rimossa, potrebbe avere un nome diverso o essere temporaneamente non disponibile.",
   "keywords-404": "404, pagina non trovata",
@@ -208,6 +209,12 @@
   "title-admin": "Admin",
   "description-admin": "Pagina admin",
   "keywords-admin": "admin, pannello di controllo, immagini, galleria",
+  "title-admin-images": "Gestione Immagine - Admin",
+  "description-admin-images": "Pagina della dashboard per la gestione delle immagini",
+  "keywords-admin-images": "admin, pannello di controllo, immagini, galleria",
+  "title-admin-bookings": "Gestione Appuntamenti - Admin",
+  "description-admin-bookings": "Pagina della dashboard per la gestione delle Appuntamenti",
+  "keywords-admin-bookings": "admin, pannello di controllo, immagini, galleria",
   "title-book-service": "Prenota Servizio",
   "description-book-service": "Prenota il tuo servizio fotografico ora!",
   "keywords-book-service": "prenota, servizio, servizio fotografico",
@@ -252,5 +259,8 @@
   "service-pending" : "In attesa",
   "service-confirmed" : "Confermato",
   "service-cancelled" : "Cancellato",
-  "table-no-action": "Nessuna azione disponibile"
+  "table-no-action": "Nessuna azione disponibile",
+  "admin-handle-images-link": "Gestisci immagini",
+  "admin-handle-bookings-link": "Gestisci prenotazioni",
+  "admin-paragraph": "Da qui puoi gestire le tue immagini e le prenotazioni dei tuoi servizi fotografici."
 }

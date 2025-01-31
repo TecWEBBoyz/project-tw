@@ -196,6 +196,7 @@
   "breadcrumb-profile": "PROFILE",
   "breadcrumb-edit-booking": "EDIT BOOKING",
   "breadcrumb-manage-bookings": "MANAGE BOOKINGS",
+  "breadcrumb-manage-images": "MANAGE IMAGES",
   "title-404": "404 - Page Not Found",
   "description-404": "The page you are looking for might have been removed, it may have a different name, or it may be temporarily unavailable.",
   "keywords-404": "404, page not found",
@@ -208,6 +209,12 @@
   "title-admin": "Admin",
   "description-admin": "Admin page",
   "keywords-admin": "admin, dashboard, images, gallery",
+ "title-admin-images": "Image Management - Admin",
+ "description-admin-images": "Dashboard page for managing images",
+ "keywords-admin-images": "admin, dashboard, images, gallery",
+  "title-admin-bookings": "Booking Management - Admin",
+ "description-admin-bookings": "Dashboard page for managing bookings",
+ "keywords-admin-bookings": "admin, dashboard, bookings, gallery",
   "title-book-service": "Book Service",
   "description-book-service": "Book your photoshoot now!",
   "keywords-book-service": "book, service, photoshoot",
@@ -244,5 +251,8 @@
   "title-upload-image": "Upload Image",
   "description-upload-image": "Page to upload an image",
   "keywords-upload-image": "upload, image, gallery",
-  "table-no-action": "No action available"
+  "table-no-action": "No action available",
+  "admin-handle-images-link": "Manage images",
+  "admin-handle-bookings-link": "Manage bookings",
+  "admin-paragraph": "From here you can manage your images and bookings for your photoshoot services."
 }

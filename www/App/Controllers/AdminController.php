@@ -6,7 +6,6 @@
 
 namespace PTW\Controllers;
 
-use Cassandra\Varint;
 use Exception;
 use PTW\Contracts\ControllerContract;
 use PTW\Models\Image;
@@ -18,7 +17,6 @@ use PTW\Utility\CustomException;
 use PTW\Utility\ScrollToUtility;
 use PTW\Utility\TemplateUtility;
 use PTW\Utility\ToastUtility;
-use function PTW\dd;
 
 
 class AdminController extends ControllerContract
@@ -29,7 +27,21 @@ class AdminController extends ControllerContract
         50 => '_50percent',
         75 => '_75percent'
     ];
+
     public function get(): void
+    {
+        if(!$this->sessionManager->authorize(Role::Administrator)) {
+            $this->locationReplace('/login');
+        }
+
+        TemplateUtility::getTemplate('admin', [
+            "title" => \PTW\translation('title-admin'),
+            "description" => \PTW\translation('description-admin'),
+            "keywords" => \PTW\translation('keywords-admin'),
+            "admin" => $this->sessionManager->getUserData()
+        ]);
+    }
+    public function getImages(): void
     {
         if(!$this->sessionManager->authorize(Role::Administrator)) {
             $this->locationReplace('/login');
@@ -56,16 +68,16 @@ class AdminController extends ControllerContract
         } else {
             $images = $imageRepository->GetImagesByCategory($category, $current_page, $page_size);
         }
-        TemplateUtility::getTemplate('admin', [
+        TemplateUtility::getTemplate('admin-images', [
             "images" => $images,
             "category" =>$category,
             "current_page" => $current_page,
             "total_images" => $count_images,
             "page_size" => $page_size,
             "no_category" => $justUploadedImagesCount > 0 ? "none" : "",
-            "title" => \PTW\translation('title-admin'),
-            "description" => \PTW\translation('description-admin'),
-            "keywords" => \PTW\translation('keywords-admin')
+            "title" => \PTW\translation('title-admin-images'),
+            "description" => \PTW\translation('description-admin-images'),
+            "keywords" => \PTW\translation('keywords-admin-images')
         ]);
     }
     public function getBookings(): void

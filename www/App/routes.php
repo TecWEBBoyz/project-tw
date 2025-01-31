@@ -44,6 +44,7 @@ $router->post("/admin/update-image", \PTW\Controllers\AdminController::class . "
 $router->post("/admin/delete-image", \PTW\Controllers\AdminController::class . "::deleteImage");
 $router->post("/admin/reorder-image", \PTW\Controllers\AdminController::class . "::reorderImage");
 $router->get("/admin/bookings", \PTW\Controllers\AdminController::class . "::getBookings");
+$router->get("/admin/images", \PTW\Controllers\AdminController::class . "::getImages");
 
 // Error Pages
 $router->get("/500", \PTW\Controllers\ExceptionController::class . "::error_500");

@@ -2,6 +2,14 @@
     margin: 0 auto;
 }
 
+.template-admin > ul {
+    margin-left: var(--spacing-4);
+}
+
+.template-admin > p {
+    margin-bottom: var(--spacing-2);
+}
+
 #category-filter-form {
     margin-top: var(--spacing-5);
     display: block;
