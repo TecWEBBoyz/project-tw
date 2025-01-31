@@ -11,5 +11,6 @@
 
 ## Other
 *.log
+translation.logs
 
 config.php
