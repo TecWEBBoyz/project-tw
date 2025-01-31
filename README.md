@@ -3,11 +3,11 @@
 Questa repository contiene il progetto di Tecnologie Web sviluppato da:
 
 | Nome             | Matricola |
-| ---------------- | --------- |
-| Baraldo Davide   |           |
+| ---------------- |-----------|
+| Baraldo Davide   | 2082847   |
 | Monetti Luca     | 2069429   |
-| Trolese Leonardo |           |
-| Zocche Tommaso   |           |
+| Trolese Leonardo | 2068238   |
+| Zocche Tommaso   | 2075547   |
 
 ## Struttura
 
