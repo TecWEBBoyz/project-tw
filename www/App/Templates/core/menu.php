@@ -29,7 +29,7 @@ function renderMenu($menuItems, $mobile = false) {
 
     $navId = $mobile ? 'menu_mobile' : 'menu_desktop';
 
-    echo '<nav id="' . $navId . '"><ul>';
+    echo '<nav aria-label="' . "Navigazione Principale" . '" id="' . $navId . '"><ul>';
     $firstId = $mobile ? '' : 'desktop-first-item';
     $lastId = $mobile ? 'mobile-last-item' : 'desktop-last-item';
     $itemCount = count($menuItems);
@@ -71,7 +71,7 @@ function renderMenu($menuItems, $mobile = false) {
 
     <div class="menu hidden" aria-hidden="true">
         <!-- Close button -->
-        <a href="close" class="close" onclick="hideMenu(event)" role="button" tabindex="0" aria-label="<?php echo PTW\translation("nav-menu-mobile-close"); ?>" data-fake="true" id="mobile-first-item">&times;</a>
+        <a href="" class="close" onclick="hideMenu(event)" role="button" tabindex="0" aria-label="<?php echo PTW\translation("nav-menu-mobile-close"); ?>" data-fake="true" id="mobile-first-item">&times;</a>
         <?php renderMenu($menuItems, true); ?>
     </div>
 </header>
