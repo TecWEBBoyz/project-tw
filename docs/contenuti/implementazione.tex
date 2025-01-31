@@ -9,7 +9,8 @@ Sono stati adottati diversi fogli di stile per garantire un’esperienza ottimal
 \begin{itemize}
 \item Stile Mobile: Ottimizzato per dispositivi mobili, con un layout adattivo che assicura un'ottima leggibilità e usabilità su schermi di dimensioni ridotte;
 \item Stile Desktop: Progettato per schermi di grandi dimensioni, con una struttura più ampia e dettagliata che sfrutta al meglio lo spazio disponibile;
-\item Stile Stampa: Definito per ottimizzare la visualizzazione e la formattazione dei contenuti quando la pagina viene stampata, dando spazio al contenuto rispetto che ai componenti interattivi.
+\item Stile Stampa: Definito per ottimizzare la visualizzazione e la formattazione dei contenuti quando la pagina viene stampata, dando spazio al contenuto rispetto che ai componenti interattivi.\\
+Poiché il sito ha un background scuro con testo bianco, nello stile di stampa questa configurazione viene invertita.
 \end{itemize}
 
 \subsubsection{Gestione Dinamica dei File CSS}
@@ -43,12 +44,137 @@ Una volta caricata un'immagine:
 \end{itemize}
 
 \subsubsection{Translation Manager}
-Il sistema di traduzione \`e stato progettato per garantire un'esperienza multilingue agli utenti, consentendo una gestione centralizzata e flessibile delle traduzioni. La classe \texttt{TranslationManager}, organizzata tramite il namespace \texttt{PTW/Utility}, implementa una sola istanza condivisa nell'intera applicazione tramite:
+\texttt{TranslationManager} \`e una classe PHP che gestisce il caricamento e la traduzione di stringhe in diverse lingue. Implementa un sistema di gestione centralizzata delle traduzioni, utilizzando un'architettura singleton per garantire efficienza e coerenza.
+\\\\
+Il sistema di traduzione \`e stato progettato per garantire un’esperienza multilingue agli utenti, consentendo una gestione centralizzata e flessibile delle traduzioni. La classe \texttt{TranslationManager}, organizzata tramite il namespace \texttt{PTW/Utility}, implementa una sola istanza condivisa nell’intera applicazione tramite:
+
 \begin{itemize}
-\item \textbf{Rilevamento della lingua}: La lingua predefinita viene rilevata automaticamente in base alle impostazioni del browser dell'utente, con un fallback a una lingua di default definita dallo sviluppatore.
-\item \textbf{Caricamento delle traduzioni}: I file JSON contenenti le traduzioni possono essere caricati dinamicamente. Ogni lingua ha il proprio set di chiavi e valori, facilmente estensibile.
-\item \textbf{Gestione delle preferenze}: La lingua selezionata dall'utente viene salvata in un cookie, garantendo un'esperienza persistente.
+    \item \textbf{Rilevamento della lingua}: La lingua predefinita viene rilevata automaticamente in base alle impostazioni del browser dell’utente, con un fallback a una lingua di default definita dallo sviluppatore.
+    \item \textbf{Caricamento delle traduzioni}: I file JSON contenenti le traduzioni possono essere caricati dinamicamente. Ogni lingua ha il proprio set di chiavi e valori, facilmente estensibile.
+    \item \textbf{Gestione delle preferenze}: La lingua selezionata dall’utente viene salvata in un cookie, garantendo un’esperienza persistente.
 \end{itemize}
+
+\subsubsection{Architettura e Funzionalit\`a}
+
+\paragraph{Implementazione Singleton}
+\begin{itemize}
+    \item La classe utilizza un'istanza singleton per garantire che esista un'unica istanza condivisa in tutta l'applicazione.
+    \item Il costruttore \`e privato, impedendo l'istanziazione diretta.
+    \item I metodi \texttt{\_\_clone()} e \texttt{\_\_wakeup()} sono disabilitati per prevenire la duplicazione dell'istanza.
+\end{itemize}
+
+\paragraph{Gestione delle Traduzioni}
+\begin{itemize}
+    \item Le traduzioni vengono caricate da file JSON e salvate in un array associativo.
+    \item Il metodo \texttt{translate()} permette di recuperare una traduzione per una determinata chiave e lingua.
+    \item Se la traduzione non \`e trovata, viene registrato un log.
+\end{itemize}
+
+\paragraph{Ottimizzazione della Lingua Predefinita}
+\begin{itemize}
+    \item Il sistema rileva la lingua predefinita tramite i cookie o l'intestazione \texttt{HTTP\_ACCEPT\_LANGUAGE} del browser.
+    \item Il valore viene salvato in un cookie per mantenere la preferenza dell'utente.
+    \item \`E possibile impostare manualmente la lingua predefinita tramite \texttt{setDefaultLanguage()}.
+\end{itemize}
+
+\paragraph{Sicurezza e Pulizia dei Testi}
+\begin{itemize}
+    \item Le traduzioni sono sanificate con il metodo \texttt{sanitizeTranslation()}, che rimuove eventuali tag di lingua.
+    \item Il metodo \texttt{extractOriginalLanguage()} permette di estrarre la lingua originale da una stringa tradotta.
+\end{itemize}
+
+\paragraph{Benefici dell'Ottimizzazione}
+L'implementazione di \texttt{TranslationManager} porta i seguenti vantaggi:
+
+\begin{itemize}
+    \item \textbf{Efficienza}: grazie all'uso del singleton, evita caricamenti multipli delle traduzioni.
+    \item \textbf{Flessibilit\`a}: supporta il caricamento di file JSON dinamici.
+    \item \textbf{Esperienza utente migliorata}: rileva e mantiene automaticamente la lingua dell'utente.
+    \item \textbf{Migliore gestione delle risorse}: evita richieste ripetute al server per le stesse traduzioni.
+\end{itemize}
+
+\subsubsection{DB}
+\texttt{DB} \`e una classe PHP che gestisce la connessione al database e l'esecuzione di query in modo sicuro ed efficiente. Implementa una serie di funzionalit\`a per semplificare l'interazione con il database, come connessione, interrogazione e manipolazione dei dati.
+
+\subsubsection{Architettura e Funzionalit\`a}
+
+\paragraph{Connessione al Database}
+\begin{itemize}
+    \item Utilizza PDO per stabilire una connessione sicura con il database MySQL.
+    \item Il metodo \texttt{Connect()} gestisce l'apertura della connessione con supporto per la gestione degli errori.
+    \item Il metodo \texttt{Disconnect()} chiude la connessione rilasciando le risorse.
+\end{itemize}
+
+\paragraph{Esecuzione delle Query}
+\begin{itemize}
+    \item \textbf{Metodo Query}: Esegue una query SQL con parametri opzionali per prevenire SQL injection.
+    \item \textbf{Metodo Count}: Conta il numero di record in una tabella con possibilit\`a di applicare filtri.
+    \item \textbf{Metodo All}: Recupera tutti i record di una tabella specifica.
+    \item \textbf{Metodo GetPaged}: Recupera i dati in modalit\`a paginata con offset e limit.
+    \item \textbf{Metodo FindElementByID}: Recupera un record specifico tramite ID.
+    \item \textbf{Metodo FindElementByColumn}: Permette di trovare un record tramite una colonna specifica.
+\end{itemize}
+
+\paragraph{Manipolazione dei Dati}
+\begin{itemize}
+    \item \textbf{Metodo Create}: Inserisce nuovi record nel database.
+    \item \textbf{Metodo Update}: Aggiorna i dati esistenti in base all'ID.
+    \item \textbf{Metodo Delete}: Rimuove un record specifico dal database.
+    \item \textbf{Metodo LastInsertedID}: Recupera l'ID dell'ultimo record inserito.
+\end{itemize}
+
+\paragraph{Sicurezza e Ottimizzazione}
+\begin{itemize}
+    \item Utilizza query preparate per prevenire attacchi SQL injection.
+    \item Gestisce errori in modo sicuro con PDOException.
+    \item Filtra le colonne dei dati per evitare l'inserimento di valori non validi.
+\end{itemize}
+
+\subsubsection{DBItemContracts: Interfaccia per Oggetti Database}
+L'interfaccia \texttt{DBItemContracts} definisce un contratto per gli oggetti che interagiscono con il database, fornendo metodi standard per:
+\begin{itemize}
+    \item \textbf{SetData}: Imposta i dati all'interno di un oggetto.
+    \item \textbf{FilterData}: Filtra i dati in base agli attributi dell'oggetto.
+    \item \textbf{ToArray}: Converte un oggetto in array per la manipolazione dei dati.
+    \item \textbf{\_\_toString}: Converte un oggetto in stringa per facilitare la visualizzazione.
+\end{itemize}
+
+\subsubsection{Benefici dell'Ottimizzazione}
+L'implementazione della classe \texttt{DB} porta i seguenti vantaggi:
+\begin{itemize}
+    \item \textbf{Efficienza}: Utilizzo di PDO con gestione ottimizzata della connessione.
+    \item \textbf{Sicurezza}: Query parametrizzate per prevenire SQL injection.
+    \item \textbf{Flessibilit\`a}: Supporto per operazioni CRUD, ricerca e paginazione.
+    \item \textbf{Modularit\`a}: Interfaccia per garantire uniformit\`a nella gestione dei dati.
+\end{itemize}
+
+\subsubsection{StyleController: Gestione dei CSS}
+\paragraph{Ottimizzazioni Implementate}
+\begin{itemize}
+    \item \textbf{Concatenazione dei file CSS}: i file CSS nella directory \texttt{/static/css} vengono scansionati e concatenati in un'unica risposta HTTP, riducendo il numero di richieste al server.
+    \item \textbf{Priorit\`a dei file CSS}: alcuni file essenziali (es. \texttt{icons.css}, \texttt{main.css}, \texttt{menu.css}) vengono caricati per primi, garantendo un corretto rendering della pagina.
+    \item \textbf{Caching avanzato con ETag}: viene generato un ETag basato sul contenuto CSS. Se il client ha gi\`a il file in cache e l'ETag non \`e cambiato, viene restituito un codice 304 (Not Modified), evitando il download del file.
+    \item \textbf{Cache-Control per massimizzare le performance}: le risorse CSS sono servite con un header che imposta una cache di 1 anno, riducendo il numero di richieste ripetute al server.
+\end{itemize}
+
+\subsubsection{ScriptController: Gestione dei JavaScript}
+\paragraph{Ottimizzazioni Implementate}
+\begin{itemize}
+    \item \textbf{Concatenazione dei file JavaScript}: il controller scansiona la directory \texttt{/static/js} e unisce tutti i file in un'unica risposta HTTP.
+    \item \textbf{Priorit\`a di caricamento}: file essenziali come \texttt{main.js} e \texttt{menu.js} vengono inclusi per primi per garantire il corretto funzionamento dell’interfaccia.
+    \item \textbf{Caching con ETag}: come per i CSS, viene generato un ETag per evitare download non necessari se il contenuto non \`e cambiato.
+    \item \textbf{Cache-Control per migliorare la velocit\`a}: viene impostata una cache di 1 anno per minimizzare le richieste ripetute.
+\end{itemize}
+
+\subsubsection{Benefici dell'Ottimizzazione}
+Grazie a queste strategie, l’applicazione ottiene i seguenti vantaggi:
+\begin{itemize}
+    \item Riduzione del numero di richieste HTTP.
+    \item Minore latenza nel caricamento delle risorse front-end.
+    \item Ottimizzazione dell’uso della cache del browser, migliorando l’esperienza utente.
+    \item Maggiore efficienza nella gestione delle risorse statiche, con riduzione del carico sul server.
+\end{itemize}
+
 
 \subsection{JavaScript}
 \subsubsection{Gestione Modale delle Immagini}
@@ -67,3 +193,7 @@ Un pulsante \texttt{scrollTopButton} permette di tornare velocemente all'inizio 
 \end{itemize}
 \vspace{3cm}
 \textit{immagine relazionale db da PHPmyadmin}
+
+
+
+
