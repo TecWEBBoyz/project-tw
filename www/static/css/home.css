@@ -78,7 +78,12 @@
 
 @media screen and (max-width: 1024px) {
     .hero-section {
+        min-height: 50vh;
         grid-template-columns: 3fr 2fr;
+    }
+    
+    .hero-section .hero-text {
+        width: 90%;
     }
 }
 
@@ -86,7 +91,11 @@
     .hero-section {
         min-height: calc(100vh - 5.325rem);
         grid-template-columns: 1fr;
-        grid-template-rows: 45% 55%;
+        grid-template-rows: 1fr 1.5fr;
+    }
+
+    .hero-section .hero-text {
+        width: 80%;
     }
 
     .hero-section .image-me {
