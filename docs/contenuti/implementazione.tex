@@ -7,18 +7,15 @@ Per lo sviluppo del sito \`e stato utilizzato CSS3, che consente di creare layou
 \subsubsection{Fogli di Stile}
 Sono stati adottati diversi fogli di stile per garantire un’esperienza ottimale su vari dispositivi e modalità di visualizzazione:
 \begin{itemize}
-\item Stile Mobile: Ottimizzato per dispositivi mobili, con un layout adattivo che assicura un'ottima leggibilità e usabilità su schermi di dimensioni ridotte;
-\item Stile Desktop: Progettato per schermi di grandi dimensioni, con una struttura più ampia e dettagliata che sfrutta al meglio lo spazio disponibile;
-\item Stile Stampa: Definito per ottimizzare la visualizzazione e la formattazione dei contenuti quando la pagina viene stampata, dando spazio al contenuto rispetto che ai componenti interattivi.\\
-Poiché il sito ha un background scuro con testo bianco, nello stile di stampa questa configurazione viene invertita.
+\item Stile per gli schermi: Progettato per schermi di tutte le dimensioni attraverso l'uso di breakpoint.
+\item Stile Stampa: Definito per ottimizzare la visualizzazione e la formattazione dei contenuti quando la pagina viene stampata, dando spazio al contenuto rispetto che ai componenti interattivi. Resta comunque necessario abilitare la visualizzazione della "grafica di background" per visualizzare anche le immagini. Poiché il sito ha un background scuro con testo bianco, nello stile di stampa questa configurazione viene invertita.
 \end{itemize}
 
 \subsubsection{Gestione Dinamica dei File CSS}
-La gestione dei file CSS \`e stata ottimizzata tramite la classe \texttt{StyleController}, che offre funzionalit\`a per il caricamento e il merging dinamico dei file di stile. Questo approccio permette di:
+La gestione dei file CSS \`e stata ottimizzata tramite la classe \texttt{StyleController}, che offre funzionalit\`a per il caricamento e l'unificazione dinamica dei file di stile. Questo approccio permette di:
 \begin{itemize}
-\item Ridurre il numero di richieste HTTP unendo pi\`u file CSS in un unico file;
-\item Implementare la priorit\`a di caricamento per file CSS fondamentali come \texttt{main.css}, \texttt{icons.css}, \texttt{menu.css}, e altri;
-\item Includere eventuali file CSS aggiuntivi specificati dinamicamente.
+\item Ridurre il numero di richieste HTTP unendo tutti i file CSS in un unico file;
+\item Implementare la priorit\`a di caricamento per file CSS fondamentali come \texttt{main.css}, \texttt{menu.css}, e altri;
 \end{itemize}
 
 \subsection{PHP}
@@ -28,7 +25,6 @@ La classe \texttt{TemplateUtility} rappresenta il cuore del sistema di gestione 
 \begin{itemize}
 \item Preparare i dati necessari per il rendering del template, inclusi il nome e il titolo del template;
 \item Generare dinamicamente un elemento \textit{breadcrumb} per migliorare l'accessibilit\`a e l'orientamento dell'utente;
-\item Verificare l'intestazione HTTP per determinare se caricare un componente specifico o il layout base dell'applicazione;
 \item Caricare il file template appropriato dalla directory \texttt{Templates}.
 \end{itemize}
 
@@ -54,99 +50,10 @@ Il sistema di traduzione \`e stato progettato per garantire un’esperienza mult
     \item \textbf{Gestione delle preferenze}: La lingua selezionata dall’utente viene salvata in un cookie, garantendo un’esperienza persistente.
 \end{itemize}
 
-\subsubsection{Architettura e Funzionalit\`a}
-
-\paragraph{Implementazione Singleton}
-\begin{itemize}
-    \item La classe utilizza un'istanza singleton per garantire che esista un'unica istanza condivisa in tutta l'applicazione.
-    \item Il costruttore \`e privato, impedendo l'istanziazione diretta.
-    \item I metodi \texttt{\_\_clone()} e \texttt{\_\_wakeup()} sono disabilitati per prevenire la duplicazione dell'istanza.
-\end{itemize}
-
-\paragraph{Gestione delle Traduzioni}
-\begin{itemize}
-    \item Le traduzioni vengono caricate da file JSON e salvate in un array associativo.
-    \item Il metodo \texttt{translate()} permette di recuperare una traduzione per una determinata chiave e lingua.
-    \item Se la traduzione non \`e trovata, viene registrato un log.
-\end{itemize}
-
-\paragraph{Ottimizzazione della Lingua Predefinita}
-\begin{itemize}
-    \item Il sistema rileva la lingua predefinita tramite i cookie o l'intestazione \texttt{HTTP\_ACCEPT\_LANGUAGE} del browser.
-    \item Il valore viene salvato in un cookie per mantenere la preferenza dell'utente.
-    \item \`E possibile impostare manualmente la lingua predefinita tramite \texttt{setDefaultLanguage()}.
-\end{itemize}
-
-\paragraph{Sicurezza e Pulizia dei Testi}
-\begin{itemize}
-    \item Le traduzioni sono sanificate con il metodo \texttt{sanitizeTranslation()}, che rimuove eventuali tag di lingua.
-    \item Il metodo \texttt{extractOriginalLanguage()} permette di estrarre la lingua originale da una stringa tradotta.
-\end{itemize}
-
-\paragraph{Benefici dell'Ottimizzazione}
-L'implementazione di \texttt{TranslationManager} porta i seguenti vantaggi:
-
-\begin{itemize}
-    \item \textbf{Efficienza}: grazie all'uso del singleton, evita caricamenti multipli delle traduzioni.
-    \item \textbf{Flessibilit\`a}: supporta il caricamento di file JSON dinamici.
-    \item \textbf{Esperienza utente migliorata}: rileva e mantiene automaticamente la lingua dell'utente.
-    \item \textbf{Migliore gestione delle risorse}: evita richieste ripetute al server per le stesse traduzioni.
-\end{itemize}
+La struttura è stata implementata in modo da permettere la successiva implementazione di diverse lingue. Per lo scopo di questo progetto si è mantenuta la sola lingua italiana.
 
 \subsubsection{DB}
-\texttt{DB} \`e una classe PHP che gestisce la connessione al database e l'esecuzione di query in modo sicuro ed efficiente. Implementa una serie di funzionalit\`a per semplificare l'interazione con il database, come connessione, interrogazione e manipolazione dei dati.
-
-\subsubsection{Architettura e Funzionalit\`a}
-
-\paragraph{Connessione al Database}
-\begin{itemize}
-    \item Utilizza PDO per stabilire una connessione sicura con il database MySQL.
-    \item Il metodo \texttt{Connect()} gestisce l'apertura della connessione con supporto per la gestione degli errori.
-    \item Il metodo \texttt{Disconnect()} chiude la connessione rilasciando le risorse.
-\end{itemize}
-
-\paragraph{Esecuzione delle Query}
-\begin{itemize}
-    \item \textbf{Metodo Query}: Esegue una query SQL con parametri opzionali per prevenire SQL injection.
-    \item \textbf{Metodo Count}: Conta il numero di record in una tabella con possibilit\`a di applicare filtri.
-    \item \textbf{Metodo All}: Recupera tutti i record di una tabella specifica.
-    \item \textbf{Metodo GetPaged}: Recupera i dati in modalit\`a paginata con offset e limit.
-    \item \textbf{Metodo FindElementByID}: Recupera un record specifico tramite ID.
-    \item \textbf{Metodo FindElementByColumn}: Permette di trovare un record tramite una colonna specifica.
-\end{itemize}
-
-\paragraph{Manipolazione dei Dati}
-\begin{itemize}
-    \item \textbf{Metodo Create}: Inserisce nuovi record nel database.
-    \item \textbf{Metodo Update}: Aggiorna i dati esistenti in base all'ID.
-    \item \textbf{Metodo Delete}: Rimuove un record specifico dal database.
-    \item \textbf{Metodo LastInsertedID}: Recupera l'ID dell'ultimo record inserito.
-\end{itemize}
-
-\paragraph{Sicurezza e Ottimizzazione}
-\begin{itemize}
-    \item Utilizza query preparate per prevenire attacchi SQL injection.
-    \item Gestisce errori in modo sicuro con PDOException.
-    \item Filtra le colonne dei dati per evitare l'inserimento di valori non validi.
-\end{itemize}
-
-\subsubsection{DBItemContracts: Interfaccia per Oggetti Database}
-L'interfaccia \texttt{DBItemContracts} definisce un contratto per gli oggetti che interagiscono con il database, fornendo metodi standard per:
-\begin{itemize}
-    \item \textbf{SetData}: Imposta i dati all'interno di un oggetto.
-    \item \textbf{FilterData}: Filtra i dati in base agli attributi dell'oggetto.
-    \item \textbf{ToArray}: Converte un oggetto in array per la manipolazione dei dati.
-    \item \textbf{\_\_toString}: Converte un oggetto in stringa per facilitare la visualizzazione.
-\end{itemize}
-
-\subsubsection{Benefici dell'Ottimizzazione}
-L'implementazione della classe \texttt{DB} porta i seguenti vantaggi:
-\begin{itemize}
-    \item \textbf{Efficienza}: Utilizzo di PDO con gestione ottimizzata della connessione.
-    \item \textbf{Sicurezza}: Query parametrizzate per prevenire SQL injection.
-    \item \textbf{Flessibilit\`a}: Supporto per operazioni CRUD, ricerca e paginazione.
-    \item \textbf{Modularit\`a}: Interfaccia per garantire uniformit\`a nella gestione dei dati.
-\end{itemize}
+\texttt{DB} \`e una classe PHP che gestisce la connessione al database e l'esecuzione di query in modo centralizzato. Implementa una serie di funzionalit\`a per semplificare l'interazione con il database, come connessione, interrogazione e manipolazione dei dati.
 
 \subsubsection{StyleController: Gestione dei CSS}
 \paragraph{Ottimizzazioni Implementate}
@@ -178,8 +85,8 @@ Grazie a queste strategie, l’applicazione ottiene i seguenti vantaggi:
 
 \subsection{JavaScript}
 \subsubsection{Gestione Modale delle Immagini}
-Un componente fondamentale del sito \`e il sistema per la visualizzazione delle immagini in modal:
-Gli utenti possono cliccare su un'immagine nella galleria per visualizzarla in un modale, con la possibilit\`a di visualizzare una versione ingrandita e leggere una descrizione.
+Un componente fondamentale del sito \`e il sistema per la visualizzazione delle immagini all'interno di un modale:
+Gli utenti possono cliccare su un'immagine nella galleria per visualizzarla in un modale leggendo la descrizione fornita dal fotografo.
 \subsubsection{Loader dinamico}
 Per migliorare l'efficienza e la velocit\`a di caricamento del sito, le immagini nella Home vengono caricate mano a mano che la pagina viene ``percorsa".
 \subsubsection{Scroll Top Button}
@@ -190,10 +97,9 @@ Un pulsante \texttt{scrollTopButton} permette di tornare velocemente all'inizio 
     \item \textbf{user} (\underline{id}, name, email, telephone, password, role, created\_at, updated\_at);
     \item \textbf{image} (\underline{id}, path, alt, description, title, place, date, visible, created\_at, updated\_at, category);
     \item \textbf{booking} (\underline{id}, user, status, service, date, created\_at, updated\_at, notes);
+    \item \textbf{image\_order\_counter} (\underline{category}, last\_order)
 \end{itemize}
-\vspace{3cm}
-\textit{immagine relazionale db da PHPmyadmin}
-
-
-
-
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{immagini/database.png}
+\end{figure}
