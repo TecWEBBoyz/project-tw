@@ -93,8 +93,8 @@ document.addEventListener("DOMContentLoaded", () => {
         // Ottieni l'URL assoluto del link
         const linkUrl = new URL(link.href, window.location.origin);
         const formattedLinkUrl = linkUrl.origin + linkUrl.pathname;
-
-        if (formattedLinkUrl === currentUrl) {
+        let e = link.parentElement.getAttribute("class");
+        if (formattedLinkUrl === currentUrl && !(e && e.includes("navigation-help"))) {
             link.setAttribute("disabled", "disabled");
             link.setAttribute("aria-disabled", "true");
             link.addEventListener("click", (e) => {
