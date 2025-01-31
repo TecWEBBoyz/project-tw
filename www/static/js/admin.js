@@ -43,31 +43,35 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    confirmButton.addEventListener('click', function() {
-        if (currentForm) {
-            currentForm.submit();
-        }
+    if(confirmButton){
+        confirmButton.addEventListener('click', function() {
+            if (currentForm) {
+                currentForm.submit();
+            }
 
-        modal.setAttribute("aria-hidden", "true");
+            modal.setAttribute("aria-hidden", "true");
 
-        modal.classList.remove('visible');
-        document.body.classList.remove('no-scroll');
+            modal.classList.remove('visible');
+            document.body.classList.remove('no-scroll');
 
-        if (lastFocusedElement) {
-            lastFocusedElement.focus();
-        }
-    });
+            if (lastFocusedElement) {
+                lastFocusedElement.focus();
+            }
+        });
+    }
 
-    cancelButton.addEventListener('click', function() {
-        modal.setAttribute("aria-hidden", "true");
+    if (cancelButton){
+        cancelButton.addEventListener('click', function() {
+            modal.setAttribute("aria-hidden", "true");
 
-        modal.classList.remove('visible');
-        document.body.classList.remove('no-scroll');
+            modal.classList.remove('visible');
+            document.body.classList.remove('no-scroll');
 
-        if (lastFocusedElement) {
-            lastFocusedElement.focus();
-        }
-    });
+            if (lastFocusedElement) {
+                lastFocusedElement.focus();
+            }
+        });
+    }
 
     // Close the modal if the user clicks outside of it
     window.addEventListener('click', function(event) {
