@@ -28,6 +28,15 @@ abstract class ControllerContract
         $previusPage = $_SERVER['HTTP_REFERER'] ?? $this->baseURL;
         header("Location: $previusPage");
     }
+
+    public function InPreviusPageFrom($isFrom)
+    {
+        $previusPage = $_SERVER['HTTP_REFERER'] ?? $this->baseURL;
+        if (strpos($previusPage, $isFrom) !== false) {
+            return true;
+        }
+        return false;
+    }
     /**
      * Response to a GET request.
      *
