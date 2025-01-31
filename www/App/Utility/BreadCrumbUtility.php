@@ -85,6 +85,11 @@ class BreadCrumbUtility {
             "/profile" => [
                 ["label" => \PTW\translation('breadcrumb-home'), "url" => "/home"],
                 ["label" => \PTW\translation('breadcrumb-profile'), "url" => null]
+            ],
+            "/profile/edit-booking" => [
+                ["label" => \PTW\translation('breadcrumb-home'), "url" => "/home"],
+                ["label" => \PTW\translation('breadcrumb-profile'), "url" => "/profile"],
+                ["label" => \PTW\translation('breadcrumb-edit-booking'), "url" => null]
             ]
         ];
     }
