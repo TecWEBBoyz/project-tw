@@ -15,7 +15,7 @@
 ?>
 <!-- Meta tags -->
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- Meta tag (Open Graph) -->
 <meta property="og:title" content="<?php echo \PTW\translation('meta-title'); ?>" >
 <meta property="og:description" content="<?php echo \PTW\translation('meta-description'); ?>" >

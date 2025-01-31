@@ -16,7 +16,7 @@ $no_category = $TEMPLATE_DATA["no_category"] ?? "";
     <?php echo file_get_contents("static/images/right-chevron.svg") ?>
 </a>
 
-<form method="GET" action="" id="category-filter-form">
+<form method="GET" id="category-filter-form">
     <div class="form-group">
         <p class="caption label"><?php echo \PTW\translation('image-filter-by-category'); ?></p>
         <ul class="category-buttons">
@@ -44,7 +44,9 @@ $no_category = $TEMPLATE_DATA["no_category"] ?? "";
     <?php if (empty($TEMPLATE_DATA['images'])): ?>
         <p><?php echo \PTW\translation('no-images') ?></p>
     <?php else: ?>
-        <table id="admin-photo-list">
+        <p class="helper-hidden" id="sum">Questa tabella rappresenta tutte le immagini presenti nel sito appartenenti alla categoria <?php echo $current_category ?>. La tabella è organizzata per colonne e descrive ID, comandi per il posizionamento, titolo, descrizione, luogo in cui è stat scattata la foto, data, visibilità della foto e azioni che si possono compiere sulla foto.</p>
+        <table aria-describedby="sum" id="admin-photo-list">
+            <caption class="helper-hidden">Tabella per la categoria <?php echo $current_category;?></caption>
             <thead>
             <tr>
                 <th scope="col"><?php echo \PTW\translation('image-id') ?></th>
@@ -186,6 +188,7 @@ $no_category = $TEMPLATE_DATA["no_category"] ?? "";
                         aria-label="<?php echo \PTW\translation('next-page'); ?>">
                     <?php echo file_get_contents("static/images/right-chevron.svg"); ?>
                 </button>
+            </form>
         </div>
 
     <?php endif; ?>

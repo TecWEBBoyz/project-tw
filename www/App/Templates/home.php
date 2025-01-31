@@ -93,7 +93,7 @@ foreach ($images as $image) {
 </section>
 
 
-<nav class="categories-navigation">
+<nav class="categories-navigation" aria-label="Navigazione categorie">
     <h2><?php echo \PTW\translation('home-latest-work'); ?></h2>
     <ul>
         <?php

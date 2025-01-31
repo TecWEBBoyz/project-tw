@@ -350,10 +350,15 @@ svg {
     }
 }
 
+.helper-hidden {
+    display: none;
+}
+
 .wrapper {
     display: flex;
     flex-direction: column;
-    min-height: calc(100vh - 4rem);
+    padding-top: 10rem;
+    min-height: calc(100vh);
     overflow: hidden;
     justify-content: space-between;
     background-color: var(--color-bg);
