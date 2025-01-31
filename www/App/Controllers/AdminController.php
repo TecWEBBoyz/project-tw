@@ -299,7 +299,6 @@ class AdminController extends ControllerContract
         }
     }
 
-
     public function editSingleImage($data, $templateData = [])
     {
         try {
@@ -326,6 +325,7 @@ class AdminController extends ControllerContract
             $this->previusPage();
         }
     }
+
     public function editImage($data)
     {
         $imageRepository = new \PTW\Modules\Repositories\ImageRepository();
@@ -395,8 +395,9 @@ class AdminController extends ControllerContract
             ToastUtility::addToast('error', \PTW\translation('image-edit-error'));
 
         } finally {
+
             if ($numberOfImages > 0) {
-                $this->previusPage();
+                $this->locationReplace('/admin/justuploadedimage');
             } else {
                 $this->locationReplace('/admin');
             }
