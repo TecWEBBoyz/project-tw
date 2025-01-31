@@ -23,11 +23,11 @@ if (!isset($TEMPLATE_DATA)) {
             <table>
                 <thead>
                 <tr>
-                    <th>ID</th>
-                    <th>Service</th>
-                    <th>Date</th>
-                    <th>Status</th>
-                    <th>Actions</th>
+                    <th><?php echo \PTW\translation("service-ID") ?></th>
+                    <th><?php echo \PTW\translation("service-service") ?></th>
+                    <th><?php echo \PTW\translation("service-date") ?></th>
+                    <th><?php echo \PTW\translation("service-status") ?></th>
+                    <th><?php echo \PTW\translation("service-actions") ?></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -45,7 +45,7 @@ if (!isset($TEMPLATE_DATA)) {
                         <td data-label="id"><?php echo $index + 1; ?></td>
                         <td data-label="service"><?php echo $service; ?></td>
                         <td data-label="date"><time datetime="<?php echo $date?>"><?php echo \PTW\Utility\DateFormatterUtility::Format($date) ?></time></td>
-                        <td data-label="status" class="status cancelled"><span><?php echo $booking->ToArray()[\PTW\Models\BookingType::status->value] ?></span></td>
+                        <td data-label="status" class="status cancelled"><?php echo \PTW\translationWithSpan("service-" . $booking->ToArray()[\PTW\Models\BookingType::status->value]) ?></td>
                         <td data-label="actions" class="actions">
                             <ul>
                                 <li>
