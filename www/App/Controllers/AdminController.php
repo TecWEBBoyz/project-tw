@@ -82,9 +82,9 @@ class AdminController extends ControllerContract
     }
     public function getBookings(): void
     {
-        if(!$this->sessionManager->authorize(Role::Administrator)) {
-            $this->locationReplace('/login');
-        }
+//        if(!$this->sessionManager->authorize(Role::Administrator)) {
+//            $this->locationReplace('/login');
+//        }
         $bookingRepository = new \PTW\Modules\Repositories\BookingRepository();
 
         $status = isset($_GET['status']) && $_GET["status"] != "" ? $_GET["status"] : "confirmed";

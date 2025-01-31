@@ -159,7 +159,8 @@ jobs:
           mkdir -p temp_release/docs
           cp -R *.pdf temp_release/docs/
           echo "Filename: ConsegnaTecWEBBoyz_${{ env.next_version }}.zip"
-          zip -r -9 ConsegnaTecWEBBoyz_${{ env.next_version }}.zip temp_release/*
+          cd temp_release
+          zip -r -9 ConsegnaTecWEBBoyz_${{ env.next_version }}.zip ./*
 
       - name: Create version file
         run: |
@@ -195,6 +196,6 @@ jobs:
           git push --delete origin ${{ env.next_version }} || true
 
           # Recreate the release
-          gh release create ${{ env.next_version }} db-init-app.tar.gz php-app.tar.gz version.txt *.pdf ConsegnaTecWEBBoyz_${{ env.next_version }}.zip \
+          gh release create ${{ env.next_version }} db-init-app.tar.gz php-app.tar.gz version.txt *.pdf temp_release/ConsegnaTecWEBBoyz_${{ env.next_version }}.zip \
             --title "Release ${{ env.next_version }}" \
             --notes "Automated release for version ${{ env.next_version }}."

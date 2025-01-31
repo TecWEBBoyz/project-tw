@@ -13,7 +13,7 @@ $status_selected = $TEMPLATE_DATA["status"] ?? "confirmed";
 
 ?>
 
-<form method="GET" action="" id="category-filter-form">
+<form method="GET" id="category-filter-form">
     <div class="form-group">
         <p class="caption label"><?php echo \PTW\translation('booking-filter-by-status'); ?></p>
         <ul class="category-buttons">
@@ -37,7 +37,9 @@ $status_selected = $TEMPLATE_DATA["status"] ?? "confirmed";
 <?php if (!empty($bookings)): ?>
 
 <div class="table-responsive">
-    <table>
+    <p class="helper-hidden" id="sum">Questa tabella rappresenta tutti i servizi prenotati dagli utenti ed il loro stato. La tabella è organizzata per colonne e descrive ID, nome servizio, data, stato e le azioni che possiamo compiere.</p>
+    <table aria-describedby="sum">
+        <caption class="helper-hidden">Tabella per gli appuntamenti?></caption>
         <thead>
         <tr>
             <th><?php echo \PTW\translation("service-ID") ?></th>
