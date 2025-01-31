@@ -183,7 +183,7 @@ a.link {
     text-transform: uppercase;
     transition: color 0.3s ease;
     position: relative;
-    color: var(--color-text);
+    color: var(--color-blue);
 }
 
 a.link::after {
@@ -211,8 +211,7 @@ a.link:hover {
 a[disabled="disabled"] {
     pointer-events: none;
     cursor: default;
-    color: var(--color-white) !important;
-    opacity: 0.75;
+    color: var(--color-white);
 }
 
 a.link:visited {

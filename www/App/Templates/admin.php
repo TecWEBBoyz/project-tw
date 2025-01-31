@@ -2,17 +2,17 @@
 $admin = $TEMPLATE_DATA['admin']['username'] ?? "";
 ?>
 
-<h2><?php echo \PTW\translationWithSpan("profile-welcome") . " " . $admin; ?></h2>
+<h2><?php echo \PTW\translation("profile-welcome") . " " . $admin; ?></h2>
 <p>
-<?php echo \PTW\translationWithSpan("admin-paragraph")?>
+<?php echo \PTW\translation("admin-paragraph")?>
 </p>
 
 <ul>
     <li>
-        <a class="link" href="admin/images"><?php echo \PTW\translationWithSpan("admin-handle-images-link")?></a>
+        <a class="link" href="admin/images"><?php echo \PTW\translation("admin-handle-images-link")?></a>
     </li>
     <li>
-        <a class="link" href="admin/bookings"><?php echo \PTW\translationWithSpan("admin-handle-bookings-link")?></a>
+        <a class="link" href="admin/bookings"><?php echo \PTW\translation("admin-handle-bookings-link")?></a>
     </li>
 </ul>
 
