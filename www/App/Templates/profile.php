@@ -82,9 +82,9 @@ if (!isset($TEMPLATE_DATA)) {
         </div>
     <?php else: ?>
 
-        <p><?php echo \PTW\translationWithSpan("profile-booking-table-no-bookings") ?></p>
+        <p><?php echo \PTW\translation("profile-booking-table-no-bookings") ?></p>
         <a href="book-service" class="btn-outlined" id="profile-book-button">
-            <?php echo \PTW\translationWithSpan("profile-booking-table-no-bookings-link") ?>
+            <?php echo \PTW\translation("profile-booking-table-no-bookings-link") ?>
             <?php echo file_get_contents("static/images/right-chevron.svg") ?>
         </a>
 
