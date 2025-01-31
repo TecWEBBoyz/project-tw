@@ -1,15 +1,13 @@
 /* -- Hero Section -- */
 
 .hero-section {
-    min-height: calc(100vh - 8.125rem);
+    min-height: calc(100vh - 12rem);
     color: var(--color-text);
 
     display: grid;
     grid-template-columns: 1fr 1fr;
     align-items: center;
     justify-items: center;
-
-    padding-top: var(--spacing-5);
 }
 
 .hero-section h1 {
