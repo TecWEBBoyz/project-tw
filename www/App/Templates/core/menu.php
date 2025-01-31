@@ -29,7 +29,7 @@ function renderMenu($menuItems, $mobile = false) {
 
     $navId = $mobile ? 'menu_mobile' : 'menu_desktop';
 
-    echo '<nav id="' . $navId . '"><ul><span '.(\PTW\getLangAttribute()).'>';
+    echo '<nav id="' . $navId . '"><ul>';
     $firstId = $mobile ? '' : 'desktop-first-item';
     $lastId = $mobile ? 'mobile-last-item' : 'desktop-last-item';
     $itemCount = count($menuItems);
@@ -51,7 +51,7 @@ function renderMenu($menuItems, $mobile = false) {
             'href="' . $href . '" '.\PTW\getOriginalLanguageAttribute($item['label_translation']).'>' .
             htmlspecialchars( \PTW\translation($item['label_translation'])) . '</a></li>' . PHP_EOL;
     }
-    echo '</span></ul></nav>';
+    echo '</ul></nav>';
 }
 
 ?>

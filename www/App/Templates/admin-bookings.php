@@ -40,11 +40,11 @@ $status_selected = $TEMPLATE_DATA["status"] ?? "confirmed";
     <table>
         <thead>
         <tr>
-            <th><?php echo \PTW\translationWithSpan("service-ID") ?></th>
-            <th><?php echo \PTW\translationWithSpan("service-service") ?></th>
-            <th><?php echo \PTW\translationWithSpan("service-date") ?></th>
-            <th><?php echo \PTW\translationWithSpan("service-status") ?></th>
-            <th><?php echo \PTW\translationWithSpan("service-actions") ?></th>
+            <th><?php echo \PTW\translation("service-ID") ?></th>
+            <th><?php echo \PTW\translation("service-service") ?></th>
+            <th><?php echo \PTW\translation("service-date") ?></th>
+            <th><?php echo \PTW\translation("service-status") ?></th>
+            <th><?php echo \PTW\translation("service-actions") ?></th>
         </tr>
         </thead>
         <tbody>
@@ -63,7 +63,7 @@ $status_selected = $TEMPLATE_DATA["status"] ?? "confirmed";
                 <td data-label="<?php echo \PTW\translation("service-ID") ?>"><?php echo $index + 1; ?></td>
                 <td data-label="<?php echo \PTW\translation("service-service") ?>"><?php echo $service; ?></td>
                 <td data-label="<?php echo \PTW\translation("service-date") ?>"><time datetime="<?php echo $date?>"><?php echo \PTW\Utility\DateFormatterUtility::Format($date) ?></time></td>
-                <td data-label="<?php echo \PTW\translation("service-status") ?>" class="status <?php echo $status; ?>"><?php echo \PTW\translationWithSpan("service-" . $booking->ToArray()[\PTW\Models\BookingType::status->value]) ?></td>
+                <td data-label="<?php echo \PTW\translation("service-status") ?>" class="status <?php echo $status; ?>"><?php echo \PTW\translation("service-" . $booking->ToArray()[\PTW\Models\BookingType::status->value]) ?></td>
                 <td data-label="<?php echo \PTW\translation("service-actions") ?>" class="actions">
                     <ul>
                         <?php if ($status === "pending"): ?>
@@ -73,7 +73,7 @@ $status_selected = $TEMPLATE_DATA["status"] ?? "confirmed";
                                 <input type='hidden' name='status' value='confirmed'>
                                 <button type='submit' aria-label="<?php echo \PTW\translation('booking-confirm') ?>"
                                         class="icon-button icon-button-primary no-icon">
-                                    <?php echo \PTW\translationWithSpan("booking-confirm") ?>
+                                    <?php echo \PTW\translation("booking-confirm") ?>
                                 </button>
                             </form>
                         </li>
@@ -87,13 +87,13 @@ $status_selected = $TEMPLATE_DATA["status"] ?? "confirmed";
                                 <button type='submit' aria-label="<?php echo \PTW\translation('booking-cancel') ?>"
                                         class="icon-button icon-button-danger">
                                     <?php echo file_get_contents("static/images/delete.svg"); ?>
-                                    <?php echo \PTW\translationWithSpan("profile-booking-table-delete") ?>
+                                    <?php echo \PTW\translation("profile-booking-table-delete") ?>
                                 </button>
                             </form>
                         </li>
                         <?php endif; ?>
                         <?php if ($status === "cancelled"): ?>
-                            <li><p><?php echo \PTW\translationWithSpan("table-no-action") ?></p></li>
+                            <li><p><?php echo \PTW\translation("table-no-action") ?></p></li>
                         <?php endif; ?>
                     </ul>
                 </td>
@@ -108,7 +108,7 @@ $status_selected = $TEMPLATE_DATA["status"] ?? "confirmed";
 
 <?php else: ?>
 
-<p class="h2"><?php echo \PTW\translationWithSpan("admin-booking-no-status-" . $status_selected) ?></p>
+<p class="h2"><?php echo \PTW\translation("admin-booking-no-status-" . $status_selected) ?></p>
 
 <?php endif; ?>
 

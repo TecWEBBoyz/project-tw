@@ -82,11 +82,11 @@ foreach ($images as $image) {
 
 <section class="hero-section">
     <div class="hero-text">
-        <p class="caption"><?php echo \PTW\translationWithSpan('home-caption'); ?></p>
-        <h1><?php echo \PTW\translationWithSpan('home-title'); ?></h1>
+        <p class="caption"><?php echo \PTW\translation('home-caption'); ?></p>
+        <h1><?php echo \PTW\translation('home-title'); ?></h1>
 
         <div class="hero-quote">
-            <p><?php echo \PTW\translationWithSpan('home-quote'); ?></p>
+            <p><?php echo \PTW\translation('home-quote'); ?></p>
         </div>
     </div>
     <div class="image-me"></div>
@@ -94,7 +94,7 @@ foreach ($images as $image) {
 
 
 <nav class="categories-navigation">
-    <h2><?php echo \PTW\translationWithSpan('home-latest-work'); ?></h2>
+    <h2><?php echo \PTW\translation('home-latest-work'); ?></h2>
     <ul>
         <?php
         $index = 0;
@@ -114,7 +114,7 @@ foreach ($images as $image) {
 </nav>
 
 <?php if (empty($categories)) { ?>
-    <p><?php echo \PTW\translationWithSpan('home-images-not-found') ?></p>
+    <p><?php echo \PTW\translation('home-images-not-found') ?></p>
 <?php } ?>
 
 <!-- Gallerie per ogni categoria -->
@@ -127,7 +127,7 @@ foreach (ImageCategory::cases() as $category_):
     ?>
     <section class="gallery-category" id="<?php echo htmlspecialchars($category, ENT_QUOTES, 'UTF-8'); ?>">
         <header>
-            <p class="caption"><?php echo \PTW\translationWithSpan('home-photoshoot-caption'); ?></p>
+            <p class="caption"><?php echo \PTW\translation('home-photoshoot-caption'); ?></p>
             <h3><?php echo \PTW\translation('image-category-' . ++$index); ?></h3>
         </header>
 
@@ -147,8 +147,8 @@ foreach (ImageCategory::cases() as $category_):
 
 
 
-                $date = isset($image[ImageType::date->value]) ? htmlspecialchars($image[ImageType::date->value], ENT_QUOTES, 'UTF-8') : \PTW\translationWithSpan('image-unknown-date');
-                $location = isset($image[ImageType::place->value]) && $date !== \PTW\translationWithSpan('image-unknown-date') ? htmlspecialchars($image[ImageType::place->value], ENT_QUOTES, 'UTF-8') : \PTW\translationWithSpan('image-unknown-location');
+                $date = isset($image[ImageType::date->value]) ? htmlspecialchars($image[ImageType::date->value], ENT_QUOTES, 'UTF-8') : \PTW\translation('image-unknown-date');
+                $location = isset($image[ImageType::place->value]) && $date !== \PTW\translation('image-unknown-date') ? htmlspecialchars($image[ImageType::place->value], ENT_QUOTES, 'UTF-8') : \PTW\translation('image-unknown-location');
 
                 $aspectRatio = $image['aspect_ratio'];
                 ?>

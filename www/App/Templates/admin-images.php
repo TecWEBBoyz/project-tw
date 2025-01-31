@@ -47,15 +47,15 @@ $no_category = $TEMPLATE_DATA["no_category"] ?? "";
         <table id="admin-photo-list">
             <thead>
             <tr>
-                <th scope="col"><?php echo \PTW\translationWithSpan('image-id') ?></th>
-                <th scope="col"><?php echo \PTW\translationWithSpan('image-order'); ?></th>
-                <th scope="col"><?php echo \PTW\translationWithSpan('image-title') ?></th>
-                <th scope="col"><?php echo \PTW\translationWithSpan('image-description') ?></th>
-                <th scope="col"><?php echo \PTW\translationWithSpan('image-place') ?></th>
+                <th scope="col"><?php echo \PTW\translation('image-id') ?></th>
+                <th scope="col"><?php echo \PTW\translation('image-order'); ?></th>
+                <th scope="col"><?php echo \PTW\translation('image-title') ?></th>
+                <th scope="col"><?php echo \PTW\translation('image-description') ?></th>
+                <th scope="col"><?php echo \PTW\translation('image-place') ?></th>
 <!--                <th scope="col">--><?php //echo \PTW\translationWithSpan('image-category') ?><!--</th>-->
-                <th scope="col"><?php echo \PTW\translationWithSpan('image-date') ?></th>
-                <th scope="col"><?php echo \PTW\translationWithSpan('image-visibility') ?></th>
-                <th scope="col"><?php echo \PTW\translationWithSpan('image-actions') ?></th>
+                <th scope="col"><?php echo \PTW\translation('image-date') ?></th>
+                <th scope="col"><?php echo \PTW\translation('image-visibility') ?></th>
+                <th scope="col"><?php echo \PTW\translation('image-actions') ?></th>
             </tr>
             </thead>
             <tbody>
@@ -124,7 +124,7 @@ $no_category = $TEMPLATE_DATA["no_category"] ?? "";
                                     <input type='hidden' name='id' value='<?php echo $id;?>'>
                                     <button type='submit' aria-label="<?php echo \PTW\translation('image-toggle-visibility')?>" class="icon-button icon-button-primary">
                                         <?php echo ($imageArray['visible'] == '0' ? file_get_contents("static/images/eye-close.svg") : file_get_contents("static/images/eye-open.svg"));?>
-                                        <?php echo \PTW\translationWithSpan('image-toggle-visibility-btn')?>
+                                        <?php echo \PTW\translation('image-toggle-visibility-btn')?>
                                     </button>
                                 </form>
                             </li>
