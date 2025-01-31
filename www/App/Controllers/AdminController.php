@@ -68,6 +68,36 @@ class AdminController extends ControllerContract
             "keywords" => \PTW\translation('keywords-admin')
         ]);
     }
+    public function getBookings(): void
+    {
+        if(!$this->sessionManager->authorize(Role::Administrator)) {
+            $this->locationReplace('/login');
+        }
+        $bookingRepository = new \PTW\Modules\Repositories\BookingRepository();
+
+        $status = isset($_GET['status']) && $_GET["status"] != "" ? $_GET["status"] : "confirmed";
+//        $current_page = isset($_GET['page']) && $_GET["page"] != "" && is_int((int) $_GET["page"]) ? (int) $_GET["page"] : 1;
+
+//        $count_images = $bookingRepository->Count(["category" => $category]);
+//        $page_size = 5;
+//        $max_page = ceil($count_images / $page_size);
+
+//        if ($current_page <= 0) $current_page = 1;
+
+//        if ($max_page < $current_page) {
+//            $current_page = $max_page;
+//        }
+
+        $bookings = $bookingRepository->GetElementsByColumn("status", $status);
+
+        TemplateUtility::getTemplate('admin-bookings', [
+            "bookings" => $bookings,
+            "status" =>$status,
+            "title" => \PTW\translation('title-admin'),
+            "description" => \PTW\translation('description-admin'),
+            "keywords" => \PTW\translation('keywords-admin')
+        ]);
+    }
     public function post(): void
     {
 

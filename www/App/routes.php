@@ -43,6 +43,7 @@ $router->post("/admin/upload", \PTW\Controllers\AdminController::class . "::uplo
 $router->post("/admin/update-image", \PTW\Controllers\AdminController::class . "::editImage");
 $router->post("/admin/delete-image", \PTW\Controllers\AdminController::class . "::deleteImage");
 $router->post("/admin/reorder-image", \PTW\Controllers\AdminController::class . "::reorderImage");
+$router->get("/admin/bookings", \PTW\Controllers\AdminController::class . "::getBookings");
 
 // Error Pages
 $router->get("/500", \PTW\Controllers\ExceptionController::class . "::error_500");
@@ -54,6 +55,7 @@ $router->get("/gallerydetails", \PTW\Controllers\GalleryController::class . "::g
 $router->get("/book-service", \PTW\Controllers\BookingController::class . "::get");
 $router->post("/book-service", \PTW\Controllers\BookingController::class . "::post");
 $router->post("/book-service/update-booking", \PTW\Controllers\BookingController::class . "::editBooking");
+$router->post("/booking/update-status", \PTW\Controllers\BookingController::class . "::updateBookingStatus");
 
 // Profile Page
 $router->get("/profile", \PTW\Controllers\ProfileController::class . "::get");

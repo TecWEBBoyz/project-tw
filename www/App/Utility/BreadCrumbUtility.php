@@ -61,6 +61,11 @@ class BreadCrumbUtility {
                 ["label_translation" => 'breadcrumb-admin', "url" => "/admin"],
                 ["label_translation" => 'breadcrumb-edit-image', "url" => null]
             ],
+            "/admin/bookings" => [
+                ["label_translation" => 'breadcrumb-home', "url" => "/home"],
+                ["label_translation" => 'breadcrumb-admin', "url" => "/admin"],
+                ["label_translation" => 'breadcrumb-manage-bookings', "url" => null]
+            ],
             "/admin/upload" => [
                 ["label_translation" => 'breadcrumb-home', "url" => "/home"],
                 ["label_translation" => 'breadcrumb-admin', "url" => "/admin"],
