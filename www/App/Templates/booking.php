@@ -2,10 +2,12 @@
 $errors = $TEMPLATE_DATA['error'] ?? [];
 $fields = $TEMPLATE_DATA['form_fields'] ?? [];
 
-$service = $fields["service"] ?? "";
+
+$service = $_GET['service'] ?? "";
+
+$service = $fields["service"] ?? $service;
 $date = $fields["date"] ?? "";
 $notes = $fields["notes"] ?? "";
-
 
 ?>
 
@@ -25,7 +27,7 @@ $notes = $fields["notes"] ?? "";
             <?php endif; ?>
 
             <label class="caption" for="service" id="service-label">Servizio</label>
-            <select id="service" name="service" aria-labelledby="service-label" required>
+            <select id="service" name="service" required>
                 <option value="" selected disabled>-- Select an option --</option>
                 <optgroup label="Services">
                     <option value="events" <?php echo ($service == "events" ? "selected" : "")?>>Evento / Concerto</option>
@@ -41,7 +43,7 @@ $notes = $fields["notes"] ?? "";
             <?php endif; ?>
 
             <label class="caption" for="date">Data</label>
-            <input type="date" class="custom-date-input" id="date" value="<?php echo $date ? $date : "" ?>" name="date" required>
+            <input type="date" class="custom-date-input" id="date" min="<?php echo date("Y-m-d"); ?>" value="<?php echo $date; ?>" name="date" required>
         </div>
         <div class="form-group">
             <?php if (key_exists("notes", $errors)): ?>
@@ -51,7 +53,7 @@ $notes = $fields["notes"] ?? "";
             <?php endif; ?>
 
             <label class="caption" for="notes">Notes</label>
-            <textarea id="notes" class="no-resize" name="notes"><?php echo $notes ? $notes : ""?></textarea>
+            <textarea id="notes" class="no-resize" name="notes"><?php echo $notes; ?></textarea>
         </div>
 
     </div>
