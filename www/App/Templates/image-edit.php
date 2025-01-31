@@ -25,8 +25,9 @@ if (is_null($TEMPLATE_DATA["images"])) {
 $images = $TEMPLATE_DATA["images"] ?? [];
 foreach ($images as $image) :
     $imageArray = $image->ToArray();
+    $ext = strtolower(pathinfo($imageArray[ImageType::path->value], PATHINFO_EXTENSION));
     $imagePathResized = isset($imageArray[ImageType::path->value]) ?
-        preg_replace('/\.(jpg|jpeg|png)$/i', '_25percent.jpg', $imageArray[ImageType::path->value]) : '';
+        preg_replace('/\.(jpg|jpeg|png)$/i', '_25percent.'.$ext.'', $imageArray[ImageType::path->value]) : '';
 
     $id = htmlspecialchars($imageArray[ImageType::id->value] ?? $id);
     $title = htmlspecialchars($imageArray[ImageType::title->value] ?? $title);

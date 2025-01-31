@@ -60,7 +60,9 @@ foreach ($images as $image) {
 
     // Calcola l'aspect ratio dell'immagine
     $imagePath = isset($imageArray[ImageType::path->value]) ? 'static/uploads/' . $imageArray[ImageType::path->value] : '';
-    $imagePath = preg_replace('/\.(jpg|jpeg|png)$/i', '_25percent.jpg', $imagePath); // Immagine ridimensionata al 25%
+    $ext = strtolower(pathinfo($imageArray[ImageType::path->value], PATHINFO_EXTENSION));
+    $imagePath = isset($imagePath) ?
+        preg_replace('/\.(jpg|jpeg|png)$/i', '_25percent.'.$ext.'', $imagePath) : '';
     $aspectRatio = '1'; // Default ratio in caso di errore
 
     if (file_exists($imagePath)) {
@@ -134,8 +136,9 @@ foreach (ImageCategory::cases() as $category_):
 
                 <?php
                 // ToDo(Luca): Teniamo una GET?
+                $ext = strtolower(pathinfo($image[ImageType::path->value], PATHINFO_EXTENSION));
                 $imagePathResized = isset($image[ImageType::path->value]) ?
-                    preg_replace('/\.(jpg|jpeg|png)$/i', '_25percent.jpg', $image[ImageType::path->value]) : '';
+                    preg_replace('/\.(jpg|jpeg|png)$/i', '_25percent.'.$ext.'', $image[ImageType::path->value]) : '';
                 $detailPage = "gallerydetails?src=" . (isset($image[ImageType::path->value]) ? urlencode($imagePathResized) : '') .
                     "&description=" . (isset($image[ImageType::description->value]) ? urlencode($image[ImageType::description->value]) : '') .
                     "&location=" . (isset($image[ImageType::place->value]) ? urlencode($image[ImageType::place->value]) : '') .
