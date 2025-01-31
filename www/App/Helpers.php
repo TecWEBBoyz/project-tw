@@ -80,9 +80,10 @@ if (!function_exists('translation')) {
     function getOriginalLanguageAttribute(string $key): string
     {
         $lang = App::GetTranslationManager()->getOriginalLanguage($key);
-        if ($lang == " lang=\"\" ") {
+
+        if ($lang == "") {
             return " ";
         }
-        return " lang=\"".$lang."\" ";
+        return "lang=\"".$lang."\" ";
     }
 }
