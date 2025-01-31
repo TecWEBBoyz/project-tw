@@ -48,13 +48,21 @@ class AdminController extends ControllerContract
         if ($max_page < $current_page) {
             $current_page = $max_page;
         }
-        $images = $imageRepository->GetImagesByCategory($category, $current_page, $page_size);
+        $images = null;
+        $justUploadedImages = $imageRepository->GetJustUploadedImages();
+        $justUploadedImagesCount = count($justUploadedImages);
+        if ($category == "none") {
+            $images = $justUploadedImages;
+        } else {
+            $images = $imageRepository->GetImagesByCategory($category, $current_page, $page_size);
+        }
         TemplateUtility::getTemplate('admin', [
             "images" => $images,
             "category" =>$category,
             "current_page" => $current_page,
             "total_images" => $count_images,
             "page_size" => $page_size,
+            "no_category" => $justUploadedImagesCount > 0 ? "none" : "",
             "title" => \PTW\translation('title-admin'),
             "description" => \PTW\translation('description-admin'),
             "keywords" => \PTW\translation('keywords-admin')

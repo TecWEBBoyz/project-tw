@@ -4,25 +4,25 @@ use PTW\Modules\Auth\Role;
 use PTW\Modules\Auth\SessionManager;
 
 $menuItems = [
-    ['label' => \PTW\translation('nav-navigation-helper-content'), 'link' => $_SERVER['REQUEST_URI'].'#content', 'classes' => '', 'navigation-help' => true],
-    ['label' => \PTW\translation('nav-navigation-helper-footer'), 'link' => $_SERVER['REQUEST_URI'].'#footer', 'classes' => '', 'navigation-help' => true],
-    ['label' => \PTW\translation('nav-menu-home'), 'link' => 'home', 'classes' => ''],
-    ['label' => \PTW\translation('nav-menu-services'), 'link' => 'services', 'classes' => ''],
-    ['label' => \PTW\translation('nav-menu-about'), 'link' => 'about', 'classes' => ''],
+    ['label_translation' => 'nav-navigation-helper-content', 'link' => $_SERVER['REQUEST_URI'].'#content', 'classes' => '', 'navigation-help' => true],
+    ['label_translation' => 'nav-navigation-helper-footer', 'link' => $_SERVER['REQUEST_URI'].'#footer', 'classes' => '', 'navigation-help' => true],
+    ['label_translation' => 'nav-menu-home', 'link' => 'home', 'classes' => ''],
+    ['label_translation' => 'nav-menu-services', 'link' => 'services', 'classes' => ''],
+    ['label_translation' => 'nav-menu-about', 'link' => 'about', 'classes' => ''],
 ];
 
 $sessionManager = new SessionManager();
 if ($sessionManager->isAuthenticated()) {
     if($sessionManager->authorize(Role::Administrator)) {
-        $menuItems[] = ['label' => \PTW\translation('nav-menu-admin'), 'link' => 'admin', 'classes' => ''];
+        $menuItems[] = ['label_translation' => 'nav-menu-admin', 'link' => 'admin', 'classes' => ''];
     } else {
-        $menuItems[] = ['label' => \PTW\translation('nav-menu-profile'), 'link' => 'profile', 'classes' => ''];
-        $menuItems[] = ['label' => \PTW\translation('nav-menu-book'), 'link' => 'book-service', 'classes' => ''];
+        $menuItems[] = ['label_translation' => 'nav-menu-profile', 'link' => 'profile', 'classes' => ''];
+        $menuItems[] = ['label_translation' => 'nav-menu-book', 'link' => 'book-service', 'classes' => ''];
     }
-    $menuItems[] = ['label' => \PTW\translation('nav-menu-logout'), 'link' => 'logout', 'classes' => ''];
+    $menuItems[] = ['label_translation' => 'nav-menu-logout', 'link' => 'logout', 'classes' => ''];
 } else {
-    $menuItems[] = ['label' => \PTW\translation('nav-menu-login'), 'link' => 'login', 'classes' => ''];
-//    $menuItems[] = ['label' => 'Register', 'link' => 'register'];
+    $menuItems[] = ['label_translation' =>'nav-menu-login', 'link' => 'login', 'classes' => ''];
+//    $menuItems[] = ['label_translation' => 'Register', 'link' => 'register'];
 }
 
 function renderMenu($menuItems, $mobile = false) {
@@ -48,8 +48,8 @@ function renderMenu($menuItems, $mobile = false) {
 
         echo '<li' . $navigationHelper . '><a id="' . $id . '" class="nav-link link ' . htmlspecialchars($item['classes']) . '"' .
             ($mobile ? ' data-mobile="true" ' : ' ') .
-            'href="' . $href . '" '.(\PTW\getLangAttribute()).'>' .
-            htmlspecialchars($item['label']) . '</a></li>' . PHP_EOL;
+            'href="' . $href . '" '.\PTW\getOriginalLanguageAttribute($item['label_translation']).'>' .
+            htmlspecialchars( \PTW\translation($item['label_translation'])) . '</a></li>' . PHP_EOL;
     }
     echo '</span></ul></nav>';
 }

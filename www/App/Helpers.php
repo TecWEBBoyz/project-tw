@@ -77,4 +77,12 @@ if (!function_exists('translation')) {
     {
         return " lang=\"".App::GetTranslationManager()->getCurrentLang()."\" ";
     }
+    function getOriginalLanguageAttribute(string $key): string
+    {
+        $lang = App::GetTranslationManager()->getOriginalLanguage($key);
+        if ($lang == " lang=\"\" ") {
+            return " ";
+        }
+        return " lang=\"".$lang."\" ";
+    }
 }

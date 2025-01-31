@@ -20,3 +20,6 @@
 label[for="image-upload"] {
     cursor: pointer;
 }
+#image-upload {
+    pointer-events: none;
+}

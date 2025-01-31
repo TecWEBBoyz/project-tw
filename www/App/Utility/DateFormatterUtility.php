@@ -12,9 +12,8 @@ class DateFormatterUtility
     ];
 
     static public function Format(string $date) : string {
-
         if (!strtotime($date)) {
-            return $date;
+            return \PTW\translation('image-no-date');
         }
 
         $date = new DateTime($date);
