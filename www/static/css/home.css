@@ -274,11 +274,21 @@
     display: none;
 }
 
+#image-modal .modal-content {
+    width: 100%;
+    max-width: 100%;
+    max-height: calc(100vh - 2* var(--spacing-5));
+
+    overflow-y: scroll;
+    text-align: left;
+}
+
 .modal img {
-    max-width: 90%;
+    max-width: 100%;
     max-height: 70%;
     border-radius: 8px;
     margin-bottom: var(--spacing-3);
+    text-align: center;
 }
 
 .modal-description {

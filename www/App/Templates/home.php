@@ -155,6 +155,7 @@ foreach (ImageCategory::cases() as $category_):
 
                 <li class="gallery-item"
                      data-description="<?php echo isset($image[ImageType::description->value]) ? htmlspecialchars($image[ImageType::description->value], ENT_QUOTES, 'UTF-8') : ''; ?>"
+                     data-title="<?php echo isset($image[ImageType::title->value]) ? htmlspecialchars($image[ImageType::title->value], ENT_QUOTES, 'UTF-8') : ''; ?>"
                 >
                     <a href="<?php echo htmlspecialchars($detailPage, ENT_QUOTES, 'UTF-8'); ?>">
                         <img
@@ -166,7 +167,7 @@ foreach (ImageCategory::cases() as $category_):
                     </a>
                     <div class="gallery-item-info">
                         <p class="caption"><?php echo htmlspecialchars($location);?>, <time datetime="<?php echo $date ?>"><?php echo \PTW\Utility\DateFormatterUtility::Format($date)?></time></p>
-                        <h4><?php echo isset($image[ImageType::title->value]) ? $image[ImageType::title->value] : 'Unknown title'; ?></h4>
+                        <h4><?php echo $image[ImageType::title->value] ?? 'Unknown title'; ?></h4>
                     </div>
                 </li>
 
@@ -175,12 +176,18 @@ foreach (ImageCategory::cases() as $category_):
     </section>
 <?php endforeach; ?>
 
+<!-- Custom Confirmation Modal -->
+<div id="image-modal" class="modal home-modal" role="dialog" aria-labelledby="modal-title" aria-describedby="modal-description" aria-hidden="true">
+    <button class="close-button" id="close-modal" aria-label="<?php echo \PTW\translation("home-close-btn"); ?>">&times;</button>
 
-<div class="modal hidden" id="image-modal">
-    <button class="close-button" id="close-modal">&times;</button>
-    <img src="" id="modal-image" alt="">
-    <div class="modal-description" id="modal-description"></div>
-    <!-- loader -->
+    <div class="modal-content">
+        <img src="" id="modal-image" alt="">
+        <div>
+            <h2 id="modal-title"></h2>
+            <p id="modal-description"></p>
+        </div>
+    </div>
+
     <div class="loader">
         <div class="spinner"></div>
     </div>

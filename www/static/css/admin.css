@@ -46,7 +46,9 @@
     margin-top: 2em;
 }
 
-.template-admin form {
+.template-admin form,
+.template-admin-images form,
+.template-admin-bookings form {
     display: flex;
     flex-wrap: wrap;
     gap: 5px;
