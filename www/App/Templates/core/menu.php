@@ -50,7 +50,7 @@ function renderMenu($menuItems, $mobile = false) {
             ($mobile ? ' data-mobile="true" ' : ' ') .
             'href="' . $href . '" '.\PTW\getOriginalLanguageAttribute($item['label_translation']).'>' .
             htmlspecialchars( \PTW\translation($item['label_translation'])) . '</a></li>' . PHP_EOL;
-    }
+    }echo \PTW\getOriginalLanguageAttribute($item['label_translation']);
     echo '</span></ul></nav>';
 }
 
