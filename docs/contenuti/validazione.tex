@@ -1,9 +1,17 @@
 \section{Validazione e Testing}
 \subsection{Analisi con Total Validator}
-manca doctype per qualche motivo
-\subsection{Validazione HTML con validatore W3C}
-Il modale viene visto come immagine vuota
-
-\subsection{Validazione CSS con validatore W3C}
-Non ci sono errori
-\subsection{((Analisi con w3b1y))}
+L'analisi con Total Validator ha prodotto i seguenti errori che giustifichiamo di seguito:
+\begin{itemize}
+    \item WCAG2 A:
+    \begin{itemize}
+        \item E902 - ci sono dei <div> con attributi aria-hidden="true" e contenenti degli elementi con tabindex="0". Questo non rappresenta un errore poichè questi elementi non sono disponibili nel DOM quando aria-hidden è attivo.
+    \end{itemize}
+    \item HTML:
+    \begin{itemize}
+        \item E622 - Il valore individua un attributo con valore nullo nel codice HTML, tuttavia questo avviene perchè tale attributo viene popolato dinamicamente mediante javascript.
+    \end{itemize}
+    \item Spell Check - sono stati individuati svariati errori grammaticali nel sito, ma a seguito di un'analisi è emerso che si tratta di errori dovuti a nomi propri non riconosciuti come parte del vocabolario.
+\end{itemize}
+Sono stati individuati anche alcuni warning e ove possibile il gruppo ha lavorato per risolverli, ma alcuni sono rimasti poichè il gruppo ha ritenuto fossero causati da feature funzionali o di progettazione del sito.
+\subsection{validazione con l'estensione WAVE di WebAIM}
+Il gruppo ha testato ogni pagina con l'estensione, risolvendo gli errori individuati. Di conseguenza l'estensione non individua alcun errore nella versione finale del sito, ma individua alcuni warning che sono dovuti a feature funzionali o di progettazione del sito
