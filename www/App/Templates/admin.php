@@ -77,15 +77,13 @@ $no_category = $TEMPLATE_DATA["no_category"] ?? "";
                 $visible = $imageArray['visible'] ? PTW\translation('image-visibility-yes') : PTW\translation('image-visibility-no');
                 $category = htmlspecialchars($imageArray['category'] ?? PTW\translation('image-no-category'), ENT_QUOTES, 'UTF-8');
                 $order = htmlspecialchars($imageArray['order_id'] ?? PTW\translation('image-no-order'), ENT_QUOTES, 'UTF-8');
-                $rowStyle = is_null($imageArray['updated_at'] ?? null)
-                    ? " class='require-edit' title='" . \PTW\translation('image-require-edit') . "'"
-                    : "";
+
                 if("none" != $current_category) {
                     $index = ($current_page - 1) * $page_size + $index;
                 }
                 ?>
 
-                <tr <?php echo $rowStyle ?> id="<?php echo $id ?>">
+                <tr id="<?php echo $id ?>">
 
                     <td data-label='<?php echo \PTW\translation('image-id') ?>'><?php echo $index; ?></td>
                     <td data-label='<?php echo \PTW\translation('image-order') ?>' class='actions'>
