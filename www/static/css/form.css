@@ -221,12 +221,9 @@ form .helper-text {
     margin-bottom: 15px;
 }
 
-form .error-message {
-    margin-left: var(--spacing-4);
-}
-
 form .error-message p {
     color: var(--color-accent-hover);
+    line-height: 1.2;
 }
 
 form .error-message:has(+button) {
@@ -234,7 +231,7 @@ form .error-message:has(+button) {
 }
 
 form .form-group:has(.error-message) {
-    padding-bottom: var(--spacing-3);
+    padding-bottom: var(--spacing-4);
 }
 
 form .form-group .error-message {

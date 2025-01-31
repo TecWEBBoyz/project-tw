@@ -5,5 +5,5 @@
         <p><?php echo \PTW\translationWithSpan("system-error-text"); ?></p>
         <a href="home"><?php echo \PTW\translation("go-homepage"); ?></a>
     </div>
-    <div id="image-500"></div>
+    <div class="image-500"></div>
 </div>

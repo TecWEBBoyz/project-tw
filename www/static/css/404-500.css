@@ -5,7 +5,7 @@
     align-items: center;
 }
 
-#image-500 {
+.image-500 {
     justify-self: stretch;
     align-self: stretch;
     background-image: url('static/images/Polaroid_TW.png');
