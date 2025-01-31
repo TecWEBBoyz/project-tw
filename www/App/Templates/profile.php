@@ -20,7 +20,9 @@ if (!isset($TEMPLATE_DATA)) {
     <?php if (isset($TEMPLATE_DATA["bookings"]) && count($TEMPLATE_DATA["bookings"]) > 0) : ?>
 
         <div class="table-responsive">
-            <table>
+            <p class="helper-hidden" id="sum">Questa tabella rappresenta tutti i servizi prenotati dall'utente. La tabella è organizzata per colonne e descrive ID, nome servizio, data, stato e le azioni che possiamo compiere.</p>
+            <table aria-describedby="sum">
+                <caption class="helper-hidden">Tabella degli appuntamenti?></caption>
                 <thead>
                 <tr>
                     <th><?php echo \PTW\translation("service-ID") ?></th>
