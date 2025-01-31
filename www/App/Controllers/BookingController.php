@@ -6,7 +6,7 @@ use Exception;
 use PTW\Contracts\ControllerContract;
 use PTW\Models\Booking;
 use PTW\Models\BookingType;
-use PTW\Models\ServicesUtility;
+use PTW\Utility\ServicesUtility;
 use PTW\Modules\Auth\Role;
 use PTW\Modules\Repositories\BookingRepository;
 use PTW\Utility\CustomException;

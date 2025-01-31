@@ -11,14 +11,14 @@ use Exception;
 use PTW\Contracts\ControllerContract;
 use PTW\Models\Image;
 use PTW\Models\ImageCategory;
-use PTW\Models\ImageCategoryUtility;
+use PTW\Utility\ImageCategoryUtility;
 use PTW\Models\ImageType;
 use PTW\Modules\Auth\Role;
 use PTW\Utility\CustomException;
 use PTW\Utility\ScrollToUtility;
 use PTW\Utility\TemplateUtility;
 use PTW\Utility\ToastUtility;
-use function PTW\Models\CheckCategory;
+use function PTW\dd;
 
 
 class AdminController extends ControllerContract
@@ -63,6 +63,81 @@ class AdminController extends ControllerContract
     public function post(): void
     {
 
+    }
+
+    private function checkImage(array $value, array &$errors) : bool
+    {
+        if (!isset($value['title']) || $value['title'] == '') {
+            $errors['title'] = \PTW\translation('image-title-required');
+            return false;
+        }
+
+        if (strlen($value['title']) < 2 || strlen($value['title']) > 50) {
+            $errors['title'] = \PTW\translation('image-title-length');
+            return false;
+        }
+
+        if (!isset($value['alt']) || $value['alt'] == '') {
+            $errors['alt'] = \PTW\translation('image-alt-required');
+            return false;
+        }
+
+        if (strlen($value['alt']) < 2 || strlen($value['alt']) > 100) {
+            $errors['alt'] = \PTW\translation('image-alt-length');
+            return false;
+        }
+
+        if (!isset($value['description']) || $value['description'] == '') {
+            $errors['description'] = \PTW\translation('image-description-required');
+            return false;
+        }
+
+        if (strlen($value['description']) < 2) {
+            $errors['alt'] = \PTW\translation('image-description-length');
+            return false;
+        }
+
+        if (!isset($value['place']) || $value['place'] == '') {
+            $errors['place'] = \PTW\translation('image-place-required');
+            return false;
+        }
+
+        if (strlen($value['place']) > 30) {
+            $errors['place'] = \PTW\translation('image-place-length');
+            return false;
+        }
+
+        if (!isset($value['date']) || $value['date'] == '') {
+            $errors['date'] = \PTW\translation('image-date-required');
+            return false;
+        }
+
+        if (!strtotime($value['date'])) {
+            $errors['date'] = \PTW\translation('image-date-invalid');
+            return false;
+        }
+
+        if (!isset($value['category']) || $value['category'] == '') {
+            $errors['category'] = \PTW\translation('image-category-required');
+            return false;
+        }
+
+        if (!ImageCategoryUtility::CheckCategory($value['category'])) {
+            $errors['category'] = \PTW\translation('image-category-invalid');
+            return false;
+        }
+
+        if(!ImageCategoryUtility::CheckCategorySelected($value['category'])) {
+            $errors['category'] = \PTW\translation('image-category-invalid');
+            return false;
+        }
+
+        if (!($value['visible'] == 'on' | $value['visible'] == 'off')) {
+            $errors['visible'] = \PTW\translation('image-visible-invalid');
+            return false;
+        }
+
+        return true;
     }
 
     public function justUploadedImage($data, $templateData = [])
@@ -226,48 +301,62 @@ class AdminController extends ControllerContract
     }
     public function editImage($data)
     {
+        $imageRepository = new \PTW\Modules\Repositories\ImageRepository();
+
+        $values = [];
+        $errors = [];
+
+        $values['id'] = trim($data['id']);
+        $values['title'] = trim($data['title']);
+        $values['alt'] = trim($data['alt']);
+        $values['description'] = trim($data['description']);
+        $values['category'] = trim($data['category']);
+        $values['place'] = trim($data['place']);
+        $values['date'] = trim($data['date']);
+        $values['visible'] = trim($data['visible'] ?? 'off');
+
+        $fields = $values;
+
+        if (!$this->checkImage($values, $errors))
+        {
+            TemplateUtility::getTemplate('image-edit', [
+                "error" => $errors,
+                "form_fields" => $fields,
+                "images" => $imageRepository->GetJustUploadedImages(),
+                "title"=>\PTW\translation('title-image-edit'),
+                "description"=>\PTW\translation('description-image-edit'),
+                "keywords"=>\PTW\translation('keywords-image-edit')]);
+            return;
+        }
+
         $numberOfImages = 0;
         try {
-            $imageRepository = new \PTW\Modules\Repositories\ImageRepository();
-            if (!isset($data['id'])) {
+            if (!isset($values['id'])) {
                 throw new Exception(\PTW\translation('admin-image-no-id'));
             }
-            $image = $imageRepository->GetElementByID($data['id']);
+
+            $image = $imageRepository->GetElementByID($values['id']);
+
             if($image == null) {
                 throw new Exception(\PTW\translation('admin-image-not-found'));
             }
-            if($data['date'] == '') {
-                $data['date'] = 'NULL';
-                throw new Exception(\PTW\translation('admin-image-no-data'));
-            }
-            if ($data['visible'] == 'true') {
-                $data['visible'] = 1;
-            } else {
-                $data['visible'] = 0;
-            }
 
-            var_dump($data);
+            $values['visible'] = $values['visible'] == 'on' ? 1 : 0;
 
-            if(!ImageCategoryUtility::CheckCategory($data['category'])) {
-                throw new CustomException(\PTW\translation('image-category-invalid'));
-            }
+            $image->SetData($image->FilterData($values));
 
-            if(!ImageCategoryUtility::CheckCategorySelected($data['category'])) {
-                throw new CustomException(\PTW\translation('image-category-required'));
-            }
+            $imageRepository->Update($values['id'], $image);
 
-            $image->SetData($image->FilterData($data));
-
-            $imageRepository->Update($_POST['id'], $image);
             $images = $imageRepository->GetJustUploadedImages();
+
             $numberOfImages = count($images);
+
         }catch (CustomException $e) {
             ToastUtility::addToast('error', $e->getMessage());
         } catch (Exception $e) {
             ToastUtility::addToast('error', \PTW\translation('image-edit-error'));
 
         } finally {
-            ScrollToUtility::setScrollTarget($data['id']);
             if ($numberOfImages > 0) {
                 $this->previusPage();
             } else {

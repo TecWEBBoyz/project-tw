@@ -12,6 +12,11 @@ class DateFormatterUtility
     ];
 
     static public function Format(string $date) : string {
+
+        if (!strtotime($date)) {
+            return $date;
+        }
+
         $date = new DateTime($date);
         $month = self::$months[(int)$date->format('m')];
 
