@@ -46,7 +46,7 @@ function renderMenu($menuItems, $mobile = false) {
         }
         $href = $item['link'];
 
-        echo '<li' . $navigationHelper . '><a id="' . $id . '" class="nav-link link ' . htmlspecialchars($item['classes']) . '"' .
+        echo '<li' . $navigationHelper . '><a ' . 'class="nav-link link ' . htmlspecialchars($item['classes']) . '"' .
             ($mobile ? ' data-mobile="true" ' : ' ') .
             'href="' . $href . '" '.\PTW\getOriginalLanguageAttribute($item['label_translation']).'>' .
             htmlspecialchars( \PTW\translation($item['label_translation'])) . '</a></li>' . PHP_EOL;
