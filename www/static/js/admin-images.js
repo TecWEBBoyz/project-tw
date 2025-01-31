@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-    let script = document.querySelector('script[data-template="admin"]');
+    let script = document.querySelector('script[data-template="admin-images"]');
     if (!script) return;
     const forms = document.querySelectorAll('.confirm-form');
     const modal = document.getElementById('custom-confirm-modal');
