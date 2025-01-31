@@ -66,7 +66,7 @@ $notes = htmlspecialchars($bookingArray[BookingType::notes->value] ?? '');
             <?php endif; ?>
 
             <label class="caption" for="notes">Notes</label>
-            <textarea id="notes" class="no-resize" name="notes" required><?php echo $notes; ?></textarea>
+            <textarea id="notes" class="no-resize" name="notes"><?php echo $notes; ?></textarea>
         </div>
     </div>
 
