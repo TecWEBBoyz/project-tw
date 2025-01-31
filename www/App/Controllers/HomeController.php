@@ -42,4 +42,9 @@ class HomeController extends ControllerContract
     public function delete(): void
     {
     }
+
+    public function redirect_to_home()
+    {
+        $this->locationReplace('/home');
+    }
 }

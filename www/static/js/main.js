@@ -33,11 +33,12 @@ document.addEventListener("DOMContentLoaded", () => {
             scrollTopButton.classList.remove('show');
         }
     });
-
-    scrollTopButton.addEventListener('click', (e) => {
-        e.preventDefault();
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
+    if (scrollTopButton){
+        scrollTopButton.addEventListener('click', (e) => {
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    }
 
     // Category navigation
     const categoryButtons = document.getElementsByClassName("category-navigation-link");
@@ -55,31 +56,34 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Toast
     const toastContainer = document.getElementById("toast-container");
-    const toastList = Array.from(toastContainer.children);
+    if(toastContainer) {
+        const toastList = Array.from(toastContainer.children);
 
-    if (toastList.length > 0) {
-        const firstToast = toastList[0];
-        const closeToastBtn = firstToast.querySelector(".toast-close");
+        if (toastList.length > 0) {
+            const firstToast = toastList[0];
+            const closeToastBtn = firstToast.querySelector(".toast-close");
 
-        // Add focus to the first toast
-        focusToast(firstToast, closeToastBtn);
+            // Add focus to the first toast
+            focusToast(firstToast, closeToastBtn);
 
-        // Add click event to the close button
-        if (closeToastBtn) {
-            closeToastBtn.addEventListener("click", () => {
-                firstToast.remove();
-                focusNextToastOrRestore(toastList, toastContainer);
-            });
-        }
-
-        setTimeout(() => {
-            if (toastContainer.contains(firstToast)) {
-                firstToast.remove();
-                focusNextToastOrRestore(toastList, toastContainer);
+            // Add click event to the close button
+            if (closeToastBtn) {
+                closeToastBtn.addEventListener("click", () => {
+                    firstToast.remove();
+                    focusNextToastOrRestore(toastList, toastContainer);
+                });
             }
-        }, 5000);
 
+            setTimeout(() => {
+                if (toastContainer.contains(firstToast)) {
+                    firstToast.remove();
+                    focusNextToastOrRestore(toastList, toastContainer);
+                }
+            }, 5000);
+
+        }
     }
+
 
     window.loadersOnImages();
 
