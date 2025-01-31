@@ -15,7 +15,7 @@ use PTW\Modules\Router\Router;
 $router = new Router();
 
 // Home Page
-$router->get("/", \PTW\Controllers\HomeController::class . "::get");
+$router->get("/", \PTW\Controllers\HomeController::class . "::redirect_to_home");
 $router->get("/home", \PTW\Controllers\HomeController::class . "::get");
 
 // Utility Page
