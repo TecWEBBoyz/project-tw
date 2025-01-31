@@ -225,10 +225,6 @@
     cursor: pointer;
 }
 
-.gallery-item img.loaded{
-    //
-}
-
 .gallery-item img.error {
     background-color: #fff;
     background-image: url("static/images/placeholder.jpg");

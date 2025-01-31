@@ -48,13 +48,21 @@ class AdminController extends ControllerContract
         if ($max_page < $current_page) {
             $current_page = $max_page;
         }
-        $images = $imageRepository->GetImagesByCategory($category, $current_page, $page_size);
+        $images = null;
+        $justUploadedImages = $imageRepository->GetJustUploadedImages();
+        $justUploadedImagesCount = count($justUploadedImages);
+        if ($category == "none") {
+            $images = $justUploadedImages;
+        } else {
+            $images = $imageRepository->GetImagesByCategory($category, $current_page, $page_size);
+        }
         TemplateUtility::getTemplate('admin', [
             "images" => $images,
             "category" =>$category,
             "current_page" => $current_page,
             "total_images" => $count_images,
             "page_size" => $page_size,
+            "no_category" => $justUploadedImagesCount > 0 ? "none" : "",
             "title" => \PTW\translation('title-admin'),
             "description" => \PTW\translation('description-admin'),
             "keywords" => \PTW\translation('keywords-admin')
@@ -89,117 +97,130 @@ class AdminController extends ControllerContract
     }
     public function uploadImage(): void
     {
-        $error = null;
-        function createResizedImages($filePath, $outputDir, $fileName, $resolutions)
-        {
-            $imageInfo = getimagesize($filePath);
-            $originalWidth = $imageInfo[0];
-            $originalHeight = $imageInfo[1];
-            $mimeType = $imageInfo['mime'];
-
-            switch ($mimeType) {
-                case 'image/jpeg':
-                    $sourceImage = imagecreatefromjpeg($filePath);
-                    break;
-                case 'image/png':
-                    $sourceImage = imagecreatefrompng($filePath);
-                    break;
-                default:
-                    $error = "Unsupported image type $mimeType.";
-                    return;
-            }
-
-            foreach ($resolutions as $scale => $suffix) {
-                $scale = $scale / 100;
-                $newWidth = (int) round($originalWidth * $scale);
-                $newHeight = (int) round($originalHeight * $scale);
-                $resizedImage = imagecreatetruecolor($newWidth, $newHeight);
-                imagecopyresampled($resizedImage, $sourceImage, 0, 0, 0, 0, $newWidth, $newHeight, $originalWidth, $originalHeight);
-
-                $newFilePath = $outputDir . '/' . pathinfo($fileName, PATHINFO_FILENAME) . $suffix . '.' . pathinfo($fileName, PATHINFO_EXTENSION);
-                switch ($mimeType) {
-                    case 'image/jpeg':
-                        imagejpeg($resizedImage, $newFilePath);
-                        break;
-                    case 'image/png':
-                        imagepng($resizedImage, $newFilePath);
-                        break;
-                }
-                imagedestroy($resizedImage);
-            }
-            imagedestroy($sourceImage);
-        }
-
-        function uploadErrorToMessage($errorCode)
-        {
-            switch ($errorCode) {
-                case UPLOAD_ERR_INI_SIZE:
-                    return \PTW\translation('admin-image-upload-error-UPLOAD_ERR_INI_SIZE');
-                case UPLOAD_ERR_FORM_SIZE:
-                    return \PTW\translation('admin-image-upload-error-UPLOAD_ERR_FORM_SIZE');
-                case UPLOAD_ERR_PARTIAL:
-                    return \PTW\translation('admin-image-upload-error-UPLOAD_ERR_PARTIAL');
-                case UPLOAD_ERR_NO_FILE:
-                    return \PTW\translation('admin-image-upload-error-UPLOAD_ERR_NO_FILE');
-                case UPLOAD_ERR_NO_TMP_DIR:
-                    return \PTW\translation('admin-image-upload-error-UPLOAD_ERR_NO_TMP_DIR');
-                case UPLOAD_ERR_CANT_WRITE:
-                    return \PTW\translation('admin-image-upload-error-UPLOAD_ERR_CANT_WRITE');
-                case UPLOAD_ERR_EXTENSION:
-                    return \PTW\translation('admin-image-upload-error-UPLOAD_ERR_EXTENSION');
-                default:
-                    return \PTW\translation('admin-image-upload-error');
-            }
-        }
         try {
-            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                if (isset($_FILES['images'])) {
-                    $uploadDir = __DIR__ . '/../../static/uploads/';
-                    if (!is_dir($uploadDir)) {
-                        mkdir($uploadDir, 0777, true);
-                    }
-
-                    foreach ($_FILES['images']['name'] as $key => $name) {
-                        $tmpName = $_FILES['images']['tmp_name'][$key];
-                        $error = $_FILES['images']['error'][$key];
-                        $size = $_FILES['images']['size'][$key];
-
-                        if ($error === UPLOAD_ERR_OK && $size > 0) {
-                            $ext = pathinfo($name, PATHINFO_EXTENSION);
-                            $randomImageName = uniqid() . '.' . strtolower($ext);
-                            $filePath = $uploadDir . $randomImageName;
-
-                            if (move_uploaded_file($tmpName, $filePath)) {
-                                createResizedImages($filePath, $uploadDir, $randomImageName, $this->resolutions);
-
-                                $imageRepository = new \PTW\Modules\Repositories\ImageRepository();
-                                $imageRepository->Create(new Image([(ImageType::path)->value => $randomImageName]));
-                            } else {
-                                $error = \PTW\translation('admin-image-upload-error');
-                            }
-                        } else {
-                            $error = uploadErrorToMessage($error);
-                        }
-                    }
-                } else {
-                    // No files uploaded
-                    $error = \PTW\translation('admin-image-upload-error');
-                }
+            if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+                throw new Exception("Invalid request method.");
             }
+
+            if (!isset($_FILES['images'])) {
+                throw new Exception(\PTW\translation('admin-upload-error-UPLOAD_ERR_NO_FILE'));
+            }
+
+            $uploadDir = __DIR__ . '/../../static/uploads/';
+            if (!is_dir($uploadDir) && !mkdir($uploadDir, 0777, true) && !is_dir($uploadDir)) {
+                throw new Exception("Failed to create upload directory.");
+            }
+
+            $imageRepository = new \PTW\Modules\Repositories\ImageRepository();
+
+            foreach ($_FILES['images']['name'] as $key => $name) {
+                $tmpName = $_FILES['images']['tmp_name'][$key];
+                $error = $_FILES['images']['error'][$key];
+                $size = $_FILES['images']['size'][$key];
+
+                if ($error !== UPLOAD_ERR_OK || $size <= 0) {
+                    throw new Exception($this->uploadErrorToMessage($error));
+                }
+
+                $ext = strtolower(pathinfo($name, PATHINFO_EXTENSION));
+                $randomImageName = uniqid() . '.' . $ext;
+                $filePath = $uploadDir . $randomImageName;
+
+                if (!move_uploaded_file($tmpName, $filePath)) {
+                    throw new Exception(\PTW\translation('admin-upload-error'));
+                }
+                $this->createResizedImages($filePath, $uploadDir, $randomImageName);
+
+                $imageRepository->Create(new Image([ImageType::path->value => $randomImageName]));
+            }
+
+            \PTW\Utility\ToastUtility::addToast('success', \PTW\translation('image-uploaded'));
+            $this->locationReplace('/admin/justuploadedimage');
+
         } catch (Exception $e) {
-            $error = \PTW\translation('admin-image-upload-error');
-        }
-        if ($error) {
             TemplateUtility::getTemplate('upload', [
                 "title" => \PTW\translation('title-upload-image'),
                 "description" => \PTW\translation('description-upload-image'),
                 "keywords" => \PTW\translation('keywords-upload-image'),
-                "error" => $error]);
-        } else {
-            ToastUtility::addToast('success', \PTW\translation('image-uploaded'));
-            $this->locationReplace('/admin/justuploadedimage');
+                "error" => $e->getMessage()
+            ]);
         }
     }
+
+    private function createResizedImages($filePath, $outputDir, $fileName)
+    {
+        $resolutions = $this->resolutions;
+
+        $imageInfo = getimagesize($filePath);
+        if (!$imageInfo) {
+            throw new Exception("Invalid image file.");
+        }
+
+        list($originalWidth, $originalHeight) = $imageInfo;
+        $mimeType = $imageInfo['mime'];
+
+        switch ($mimeType) {
+            case 'image/jpeg':
+                $sourceImage = imagecreatefromjpeg($filePath);
+                break;
+            case 'image/png':
+                $sourceImage = imagecreatefrompng($filePath);
+                break;
+            default:
+                throw new Exception("Unsupported image type.");
+        }
+
+        foreach ($resolutions as $scale => $suffix) {
+            $newWidth = (int) round($originalWidth * ($scale / 100));
+            $newHeight = (int) round($originalHeight * ($scale / 100));
+            $resizedImage = imagecreatetruecolor($newWidth, $newHeight);
+
+            imagecopyresampled($resizedImage, $sourceImage, 0, 0, 0, 0, $newWidth, $newHeight, $originalWidth, $originalHeight);
+
+            $newFilePath = $outputDir . pathinfo($fileName, PATHINFO_FILENAME) . $suffix . '.' . pathinfo($fileName, PATHINFO_EXTENSION);
+
+            $saveSuccess = false;
+            switch ($mimeType) {
+                case 'image/jpeg':
+                    $saveSuccess = imagejpeg($resizedImage, $newFilePath);
+                    break;
+                case 'image/png':
+                    $saveSuccess = imagepng($resizedImage, $newFilePath);
+                    break;
+            }
+
+            imagedestroy($resizedImage);
+
+            if (!$saveSuccess || !file_exists($newFilePath)) {
+                throw new Exception("Failed to create resized image: " . $newFilePath);
+            }
+        }
+
+        imagedestroy($sourceImage);
+    }
+
+    private function uploadErrorToMessage($errorCode)
+    {
+        switch ($errorCode) {
+            case UPLOAD_ERR_INI_SIZE:
+                return \PTW\translation('admin-upload-error-UPLOAD_ERR_INI_SIZE');
+            case UPLOAD_ERR_FORM_SIZE:
+                return \PTW\translation('admin-upload-error-UPLOAD_ERR_FORM_SIZE');
+            case UPLOAD_ERR_PARTIAL:
+                return \PTW\translation('admin-upload-error-UPLOAD_ERR_PARTIAL');
+            case UPLOAD_ERR_NO_FILE:
+                return \PTW\translation('admin-upload-error-UPLOAD_ERR_NO_FILE');
+            case UPLOAD_ERR_NO_TMP_DIR:
+                return \PTW\translation('admin-upload-error-UPLOAD_ERR_NO_TMP_DIR');
+            case UPLOAD_ERR_CANT_WRITE:
+                return \PTW\translation('admin-upload-error-UPLOAD_ERR_CANT_WRITE');
+            case UPLOAD_ERR_EXTENSION:
+                return \PTW\translation('admin-upload-error-UPLOAD_ERR_EXTENSION');
+            default:
+                return \PTW\translation('admin-upload-error');
+        }
+    }
+
 
     public function editSingleImage($data, $templateData = [])
     {

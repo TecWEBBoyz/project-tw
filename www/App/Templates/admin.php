@@ -8,6 +8,7 @@ $page_size = $TEMPLATE_DATA["page_size"] ?? 0;
 $current_page = $TEMPLATE_DATA["current_page"] ?? 0;
 $left_images = $total_images - ($page_size * $current_page);
 $current_category = $TEMPLATE_DATA["category"] ?? "";
+$no_category = $TEMPLATE_DATA["no_category"] ?? "";
 
 ?>
 <a href="admin/upload" class="btn-outlined" id="upload-button">
@@ -20,10 +21,12 @@ $current_category = $TEMPLATE_DATA["category"] ?? "";
         <p class="caption label"><?php echo \PTW\translation('image-filter-by-category'); ?></p>
         <ul class="category-buttons">
             <?php
-            $index = 0;
+            $index = -1;
             foreach (ImageCategory::cases() as $category):
-                if ($category->value == ImageCategory::no_category->value) continue;
                 $index++;
+                if($category->value == "none" && $no_category != "none") {
+                    continue;
+                }
                 $isSelected = isset($TEMPLATE_DATA['category']) && $TEMPLATE_DATA['category'] === $category->value;
                 ?>
                 <li>
@@ -70,14 +73,16 @@ $current_category = $TEMPLATE_DATA["category"] ?? "";
                 $description = htmlspecialchars(!empty($imageArray['description']) ? $imageArray['description'] : PTW\translation('image-no-description'), ENT_QUOTES, 'UTF-8');
                 $title = htmlspecialchars(!empty($imageArray['title']) ? $imageArray['title'] : PTW\translation('image-no-title'), ENT_QUOTES, 'UTF-8');
                 $place = htmlspecialchars(!empty($imageArray['place']) ? $imageArray['place'] : PTW\translation('image-no-place'), ENT_QUOTES, 'UTF-8');
-                $date = htmlspecialchars($imageArray['date'] ?? PTW\translation('image-no-date'), ENT_QUOTES, 'UTF-8');
+                $date = $imageArray['date']."";
                 $visible = $imageArray['visible'] ? PTW\translation('image-visibility-yes') : PTW\translation('image-visibility-no');
                 $category = htmlspecialchars($imageArray['category'] ?? PTW\translation('image-no-category'), ENT_QUOTES, 'UTF-8');
                 $order = htmlspecialchars($imageArray['order_id'] ?? PTW\translation('image-no-order'), ENT_QUOTES, 'UTF-8');
                 $rowStyle = is_null($imageArray['updated_at'] ?? null)
                     ? " class='require-edit' title='" . \PTW\translation('image-require-edit') . "'"
                     : "";
-                $index = ($current_page - 1) * $page_size + $index;
+                if("none" != $current_category) {
+                    $index = ($current_page - 1) * $page_size + $index;
+                }
                 ?>
 
                 <tr <?php echo $rowStyle ?> id="<?php echo $id ?>">
@@ -90,7 +95,7 @@ $current_category = $TEMPLATE_DATA["category"] ?? "";
                             <input type='hidden' name='page' value="<?php echo htmlspecialchars($current_page, ENT_QUOTES, 'UTF-8'); ?>">
 
                             <input type='hidden' name='direction' value='up'>
-                            <button type='submit' class="icon-button" aria-label="<?php echo \PTW\translation('admin-move-up') ?>">
+                            <button type='submit' class="icon-button"<?php echo "none" == $current_category  ? ' disabled="disabled" ' : ' '; ?>aria-label="<?php echo \PTW\translation('admin-move-up') ?>">
                                 <?php echo file_get_contents("static/images/icons/arrow-up.svg"); ?>
                             </button>
                         </form>
@@ -100,14 +105,14 @@ $current_category = $TEMPLATE_DATA["category"] ?? "";
                             <input type='hidden' name='page' value="<?php echo htmlspecialchars($current_page, ENT_QUOTES, 'UTF-8'); ?>">
 
                             <input type='hidden' name='direction' value='down'>
-                            <button type='submit' class="icon-button" aria-label="<?php echo \PTW\translation('admin-move-down') ?>">
+                            <button type='submit' class="icon-button"<?php echo "none" == $current_category  ? ' disabled="disabled" ' : ' '; ?>aria-label="<?php echo \PTW\translation('admin-move-down') ?>">
                                 <?php echo file_get_contents("static/images/icons/arrow-down.svg"); ?>
                             </button>
                         </form>
                     </td>
                     <td data-label='<?php echo \PTW\translation('image-title') ?>'><?php echo $title; ?></td>
                     <td data-label='<?php echo \PTW\translation('image-description') ?>'
-                        class="long-text"><?php echo $description ?></td>
+                        class="long-text" tabindex="0"><?php echo $description ?></td>
                     <td data-label='<?php echo \PTW\translation('image-place') ?>'><?php echo $place; ?></td>
                     <td data-label='<?php echo \PTW\translation('image-date') ?>'>
                         <time datetime='<?php echo $date ?>'><?php echo DateFormatterUtility::Format($date); ?></time>
