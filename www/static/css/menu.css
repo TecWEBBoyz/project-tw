@@ -13,6 +13,14 @@
     display: none;
 }
 
+header.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 10;
+}
+
 @media (max-width: 768px) {
     #menu_mobile {
         display: block;
@@ -53,19 +61,19 @@
 
 /* Todo(Luca): Rimuovere animazione o rifare. Non viene visualizzata */
 /* -- Hamburger Animation -- */
-.navbar .hamburger div {
+.navbar .hamburger span {
     transition: transform 0.3s ease, background-color 0.3s ease, opacity 0.3s ease;
 }
 
-.navbar .hamburger.active div:nth-child(1) {
+.navbar .hamburger.active span:nth-child(1) {
     transform: rotate(45deg) translate(5px, 5px);
 }
 
-.navbar .hamburger.active div:nth-child(2) {
+.navbar .hamburger.active span:nth-child(2) {
     opacity: 0;
 }
 
-.navbar .hamburger.active div:nth-child(3) {
+.navbar .hamburger.active span:nth-child(3) {
     transform: rotate(-45deg) translate(5px, -5px);
 }
 
@@ -125,7 +133,7 @@
     text-decoration: none;
 }
 
-.navbar .hamburger div {
+.navbar .hamburger span {
     width: 25px;
     height: 3px;
     background-color: white;

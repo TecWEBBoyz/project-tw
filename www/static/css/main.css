@@ -208,14 +208,14 @@ a.link:hover {
     transition: color 0.4s ease;
 }
 
-a[disabled="disabled"] {
+a.link:visited {
+    color: var(--color-link-visited);
+}
+
+a.link[disabled="disabled"] {
     pointer-events: none;
     cursor: default;
     color: var(--color-white);
-}
-
-a.link:visited {
-    color: var(--color-link-visited);
 }
 
 strong {
@@ -670,4 +670,14 @@ body.no-scroll {
     0% { transform: scale(1); box-shadow: 0 0 25px 5px rgba(255, 215, 0, 0.8); } /* Oro brillante */
     50% { transform: scale(1.05); box-shadow: 0 0 35px 10px rgba(255, 215, 0, 0.9); } /* Aumenta dimensione e intensità */
     100% { transform: scale(1); box-shadow: 0 0 25px 5px rgba(255, 215, 0, 0.8); } /* Torna alla normalità */
+}
+
+@media print {
+    .wrapper{
+        background-color: #FFF;
+    }
+
+    body, p, h1, h2, h3, h4, h5, h6 {
+        color: var(--color-black);
+    }
 }
