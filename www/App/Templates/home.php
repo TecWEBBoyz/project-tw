@@ -147,8 +147,8 @@ foreach (ImageCategory::cases() as $category_):
 
 
 
-                $date = isset($image[ImageType::date->value]) ? htmlspecialchars($image[ImageType::date->value], ENT_QUOTES, 'UTF-8') : \PTW\translationWithSpan('imag-unknown-date');
-                $location = isset($image[ImageType::place->value]) && $date !== \PTW\translationWithSpan('imag-unknown-date') ? htmlspecialchars($image[ImageType::place->value], ENT_QUOTES, 'UTF-8') : \PTW\translationWithSpan('image-unknown-location');
+                $date = isset($image[ImageType::date->value]) ? htmlspecialchars($image[ImageType::date->value], ENT_QUOTES, 'UTF-8') : \PTW\translationWithSpan('image-unknown-date');
+                $location = isset($image[ImageType::place->value]) && $date !== \PTW\translationWithSpan('image-unknown-date') ? htmlspecialchars($image[ImageType::place->value], ENT_QUOTES, 'UTF-8') : \PTW\translationWithSpan('image-unknown-location');
 
                 $aspectRatio = $image['aspect_ratio'];
                 ?>
