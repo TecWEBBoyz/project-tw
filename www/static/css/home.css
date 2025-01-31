@@ -273,16 +273,21 @@
 /* -- Modal -- */
 
 .loader.hidden {
-    display: none;
+    display: none;  
 }
 
 #image-modal .modal-content {
     width: 100%;
-    max-width: 100%;
+    max-width: var(--max-content-width);
+    margin: 0 auto;
     max-height: calc(100vh - 2* var(--spacing-5));
 
     overflow-y: scroll;
     text-align: left;
+}
+
+#image-modal .image-wrapper{
+    text-align: center;
 }
 
 .modal img {
