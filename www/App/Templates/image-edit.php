@@ -59,7 +59,7 @@ foreach ($images as $image) :
                 <?php endif; ?>
 
                 <label for='title' class='caption'><?php echo PTW\translation('image-title') ?></label>
-                <input type='text' id='title' name='title' maxlength='255' value="<?php echo "{$title}" ?>" required/>
+                <input type='text' id='title' name='title' min="2" max="50" value="<?php echo "{$title}" ?>" required/>
             </div>
             <div class='form-group'>
                 <?php if (array_keys($errors) === ['alt']) : ?>
@@ -69,7 +69,7 @@ foreach ($images as $image) :
                 <?php endif; ?>
 
                 <label for='alt' class='caption'><?php echo PTW\translation('image-alt') ?></label>
-                <input type='text' id='alt' name='alt' value="<?php echo "{$alt}" ?>" required>
+                <input type='text' id='alt' name='alt' min="2" max="100" value="<?php echo "{$alt}" ?>" required>
             </div>
             <div class='form-group'>
                 <?php if (array_keys($errors) === ['description']) : ?>
@@ -79,7 +79,7 @@ foreach ($images as $image) :
                 <?php endif; ?>
 
                 <label for='description' class='caption'><?php echo PTW\translation('image-description') ?></label>
-                <textarea id='description' name='description' maxlength='512'
+                <textarea id='description' class="no-resize" name='description' minlength="2"
                           required><?php echo "{$description}" ?></textarea>
             </div>
 
