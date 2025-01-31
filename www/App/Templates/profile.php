@@ -23,11 +23,11 @@ if (!isset($TEMPLATE_DATA)) {
             <table>
                 <thead>
                 <tr>
-                    <th><?php echo \PTW\translation("service-ID") ?></th>
-                    <th><?php echo \PTW\translation("service-service") ?></th>
-                    <th><?php echo \PTW\translation("service-date") ?></th>
-                    <th><?php echo \PTW\translation("service-status") ?></th>
-                    <th><?php echo \PTW\translation("service-actions") ?></th>
+                    <th><?php echo \PTW\translationWithSpan("service-ID") ?></th>
+                    <th><?php echo \PTW\translationWithSpan("service-service") ?></th>
+                    <th><?php echo \PTW\translationWithSpan("service-date") ?></th>
+                    <th><?php echo \PTW\translationWithSpan("service-status") ?></th>
+                    <th><?php echo \PTW\translationWithSpan("service-actions") ?></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -37,16 +37,17 @@ if (!isset($TEMPLATE_DATA)) {
 
                     $id = $booking->ToArray()[\PTW\Models\BookingType::id->value];
                     $service = $booking->ToArray()[\PTW\Models\BookingType::service->value];
+                    $status = $booking->ToArray()[\PTW\Models\BookingType::status->value];
                     $date = $booking->ToArray()[\PTW\Models\BookingType::date->value];
 
                     ?>
 
                     <tr>
-                        <td data-label="id"><?php echo $index + 1; ?></td>
-                        <td data-label="service"><?php echo $service; ?></td>
-                        <td data-label="date"><time datetime="<?php echo $date?>"><?php echo \PTW\Utility\DateFormatterUtility::Format($date) ?></time></td>
-                        <td data-label="status" class="status cancelled"><?php echo \PTW\translationWithSpan("service-" . $booking->ToArray()[\PTW\Models\BookingType::status->value]) ?></td>
-                        <td data-label="actions" class="actions">
+                        <td data-label="<?php echo \PTW\translation("service-ID") ?>"><?php echo $index + 1; ?></td>
+                        <td data-label="<?php echo \PTW\translation("service-service") ?>"><?php echo $service; ?></td>
+                        <td data-label="<?php echo \PTW\translation("service-date") ?>"><time datetime="<?php echo $date?>"><?php echo \PTW\Utility\DateFormatterUtility::Format($date) ?></time></td>
+                        <td data-label="<?php echo \PTW\translation("service-status") ?>" class="status <?php echo $status; ?>"><?php echo \PTW\translationWithSpan("service-" . $booking->ToArray()[\PTW\Models\BookingType::status->value]) ?></td>
+                        <td data-label="<?php echo \PTW\translation("service-actions") ?>" class="actions">
                             <ul>
                                 <li>
                                     <form action='profile/edit-booking' method='GET' class='form-inline'>
