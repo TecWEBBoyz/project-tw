@@ -86,10 +86,52 @@ class TranslationManager
     {
         $language = $language ?? $this->defaultLanguage;
         if (isset($this->translations[$language][$key])) {
-            return $this->translations[$language][$key];
+            return $this->sanitizeTranslation($this->translations[$language][$key]);
         }
 
         return "Translation not present";
+    }
+
+    /**
+     * Extract and return the original language from a translation string.
+     *
+     * @param string $key The translation key.
+     * @param string|null $language The language code. If null, the default language will be used.
+     * @return string|null The detected original language, or null if not found.
+     */
+    public function getOriginalLanguage($key, $language = null)
+    {
+        $language = $language ?? $this->defaultLanguage;
+        if (isset($this->translations[$language][$key])) {
+            return $this->extractOriginalLanguage($this->translations[$language][$key]);
+        }
+
+        return null;
+    }
+
+    /**
+     * Sanitize translation by removing language tag.
+     *
+     * @param string $text The translation text.
+     * @return string Cleaned text.
+     */
+    private function sanitizeTranslation($text)
+    {
+        return preg_replace("/{{lang='.*?'}}/", '', $text);
+    }
+
+    /**
+     * Extract the original language tag from the translation text.
+     *
+     * @param string $text The translation text.
+     * @return string|null The extracted language code or null if not found.
+     */
+    private function extractOriginalLanguage($text)
+    {
+        if (preg_match("/{{lang='([^']+)'}}/", $text, $matches)) {
+            return $matches[1];
+        }
+        return null;
     }
 
     /**

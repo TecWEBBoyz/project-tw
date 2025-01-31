@@ -18,77 +18,77 @@ class BreadCrumbUtility {
     {
         self::$breadcrumbMapping = [
             "/" => [
-                ["label" => \PTW\translation('breadcrumb-home'), "url" => "/home"]
+                ["label_translation" => 'breadcrumb-home', "url" => "/home"]
             ],
             "/home" => [
-                ["label" => \PTW\translation('breadcrumb-home'), "url" => "/home"]
+                ["label_translation" => 'breadcrumb-home', "url" => "/home"]
             ],
             "/about" => [
-                ["label" => \PTW\translation('breadcrumb-home'), "url" => "/home"],
-                ["label" => \PTW\translation('breadcrumb-about-me'), "url" => null]
+                ["label_translation" => 'breadcrumb-home', "url" => "/home"],
+                ["label_translation" => 'breadcrumb-about-me', "url" => null]
             ],
             "/services" => [
-                ["label" => \PTW\translation('breadcrumb-home'), "url" => "/home"],
-                ["label" => \PTW\translation('breadcrumb-services'), "url" => null]
+                ["label_translation" => 'breadcrumb-home', "url" => "/home"],
+                ["label_translation" => 'breadcrumb-services', "url" => null]
             ],
             "/contact" => [
-                ["label" => \PTW\translation('breadcrumb-home'), "url" => "/home"],
-                ["label" => \PTW\translation('breadcrumb-contact'), "url" => null]
+                ["label_translation" => 'breadcrumb-home', "url" => "/home"],
+                ["label_translation" => 'breadcrumb-contact', "url" => null]
             ],
             "/register" => [
-                ["label" => \PTW\translation('breadcrumb-home'), "url" => "/home"],
-                ["label" => \PTW\translation('breadcrumb-register'), "url" => null]
+                ["label_translation" => 'breadcrumb-home', "url" => "/home"],
+                ["label_translation" => 'breadcrumb-register', "url" => null]
             ],
             "/login" => [
-                ["label" => \PTW\translation('breadcrumb-home'), "url" => "/home"],
-                ["label" => \PTW\translation('breadcrumb-login'), "url" => null]
+                ["label_translation" => 'breadcrumb-home', "url" => "/home"],
+                ["label_translation" => 'breadcrumb-login', "url" => null]
             ],
             "/logout" => [
-                ["label" => \PTW\translation('breadcrumb-home'), "url" => "/home"],
-                ["label" => \PTW\translation('breadcrumb-logout'), "url" => null]
+                ["label_translation" => 'breadcrumb-home', "url" => "/home"],
+                ["label_translation" => 'breadcrumb-logout', "url" => null]
             ],
             "/admin" => [
-                ["label" => \PTW\translation('breadcrumb-home'), "url" => "/home"],
-                ["label" => \PTW\translation('breadcrumb-admin'), "url" => null]
+                ["label_translation" => 'breadcrumb-home', "url" => "/home"],
+                ["label_translation" => 'breadcrumb-admin', "url" => null]
             ],
             "/admin/justuploadedimage" => [
-                ["label" => \PTW\translation('breadcrumb-home'), "url" => "/home"],
-                ["label" => \PTW\translation('breadcrumb-admin'), "url" => "/admin"],
-                ["label" => \PTW\translation('breadcrumb-just-uploaded-image'), "url" => null]
+                ["label_translation" => 'breadcrumb-home', "url" => "/home"],
+                ["label_translation" => 'breadcrumb-admin', "url" => "/admin"],
+                ["label_translation" => 'breadcrumb-just-uploaded-image', "url" => null]
             ],
             "/admin/edit-image" => [
-                ["label" => \PTW\translation('breadcrumb-home'), "url" => "/home"],
-                ["label" => \PTW\translation('breadcrumb-admin'), "url" => "/admin"],
-                ["label" => \PTW\translation('breadcrumb-edit-image'), "url" => null]
+                ["label_translation" => 'breadcrumb-home', "url" => "/home"],
+                ["label_translation" => 'breadcrumb-admin', "url" => "/admin"],
+                ["label_translation" => 'breadcrumb-edit-image', "url" => null]
             ],
             "/admin/upload" => [
-                ["label" => \PTW\translation('breadcrumb-home'), "url" => "/home"],
-                ["label" => \PTW\translation('breadcrumb-admin'), "url" => "/admin"],
-                ["label" => \PTW\translation('breadcrumb-upload-image'), "url" => null]
+                ["label_translation" => 'breadcrumb-home', "url" => "/home"],
+                ["label_translation" => 'breadcrumb-admin', "url" => "/admin"],
+                ["label_translation" => 'breadcrumb-upload-image', "url" => null]
             ],
             "/dashboard" => [
-                ["label" => \PTW\translation('breadcrumb-home'), "url" => "/home"],
-                ["label" => \PTW\translation('breadcrumb-dashboard'), "url" => null]
+                ["label_translation" => 'breadcrumb-home', "url" => "/home"],
+                ["label_translation" => 'breadcrumb-dashboard', "url" => null]
             ],
             "/500" => [
-                ["label" => \PTW\translation('breadcrumb-home'), "url" => "/home"]
+                ["label_translation" => 'breadcrumb-home', "url" => "/home"]
             ],
             "/gallerydetails" => [
-                ["label" => \PTW\translation('breadcrumb-home'), "url" => "/home"],
-                ["label" => \PTW\translation('breadcrumb-gallery-details'), "url" => null]
+                ["label_translation" => 'breadcrumb-home', "url" => "/home"],
+                ["label_translation" => 'breadcrumb-gallery-details', "url" => null]
             ],
             "/book-service" => [
-                ["label" => \PTW\translation('breadcrumb-home'), "url" => "/home"],
-                ["label" => \PTW\translation('breadcrumb-book-service'), "url" => null]
+                ["label_translation" => 'breadcrumb-home', "url" => "/home"],
+                ["label_translation" => 'breadcrumb-book-service', "url" => null]
             ],
             "/profile" => [
-                ["label" => \PTW\translation('breadcrumb-home'), "url" => "/home"],
-                ["label" => \PTW\translation('breadcrumb-profile'), "url" => null]
+                ["label_translation" => 'breadcrumb-home', "url" => "/home"],
+                ["label_translation" => 'breadcrumb-profile', "url" => null]
             ],
             "/profile/edit-booking" => [
-                ["label" => \PTW\translation('breadcrumb-home'), "url" => "/home"],
-                ["label" => \PTW\translation('breadcrumb-profile'), "url" => "/profile"],
-                ["label" => \PTW\translation('breadcrumb-edit-booking'), "url" => null]
+                ["label_translation" => 'breadcrumb-home', "url" => "/home"],
+                ["label_translation" => 'breadcrumb-profile', "url" => "/profile"],
+                ["label_translation" => 'breadcrumb-edit-booking', "url" => null]
             ]
         ];
     }
@@ -99,7 +99,7 @@ class BreadCrumbUtility {
         if (empty(BreadCrumbUtility::$breadcrumbMapping)) {
             BreadCrumbUtility::initBreadcrumbMapping();
         }
-        $breadcrumb = BreadCrumbUtility::$breadcrumbMapping[$uri] ?? [["label" => \PTW\translation('breadcrumb-home'), "url" => $usernamePrefix]];
+        $breadcrumb = BreadCrumbUtility::$breadcrumbMapping[$uri] ?? [["label_translation" => 'breadcrumb-home', "url" => $usernamePrefix]];
         // Aggiunge il prefisso username a ogni link
         foreach ($breadcrumb as &$crumb) {
             if (!empty($crumb['url'])) {
@@ -136,9 +136,9 @@ class BreadCrumbUtility {
         $totalCrumbs = count($currentBreadcrumb);
         foreach ($currentBreadcrumb as $index => $crumb) {
             if (!empty($crumb['url'])) {
-                $breadcrumb .= "<a href='".htmlspecialchars($crumb['url'])."' class='link'>".htmlspecialchars($crumb['label'])."</a>";
+                $breadcrumb .= "<a href='".htmlspecialchars($crumb['url'])."' class='link' ".\PTW\getOriginalLanguageAttribute($crumb['label_translation']).">".htmlspecialchars(\PTW\translation($crumb['label_translation']))."</a>";
             } else {
-                $breadcrumb .= "<p> " .htmlspecialchars($crumb['label']) . "</p>";
+                $breadcrumb .= "<p".\PTW\getOriginalLanguageAttribute($crumb['label_translation'])."> " .htmlspecialchars(\PTW\translation($crumb['label_translation'])) . "</p>";
             }
 
             // Aggiungi il separatore solo se non è l'ultimo elemento
