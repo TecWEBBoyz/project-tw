@@ -71,8 +71,7 @@ class BreadCrumbUtility {
                 ["label" => \PTW\translation('breadcrumb-dashboard'), "url" => null]
             ],
             "/500" => [
-                ["label" => \PTW\translation('breadcrumb-home'), "url" => "/home"],
-                ["label" => \PTW\translation('breadcrumb-error-500'), "url" => null]
+                ["label" => \PTW\translation('breadcrumb-home'), "url" => "/home"]
             ],
             "/gallerydetails" => [
                 ["label" => \PTW\translation('breadcrumb-home'), "url" => "/home"],
