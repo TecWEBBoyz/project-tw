@@ -50,8 +50,8 @@ class LoginController extends ControllerContract
         $userRepo = new UserRepository();
         $user = $userRepo->GetUserByName($values['username']);
 
-
-        if ($user == null || !($user->ToArray()[UserType::password->value] == $_POST['password']))
+        $sha265 = hash('sha256', $_POST['password']);
+        if ($user == null || !($user->ToArray()[UserType::password->value] == $sha265))
         {
             $this->addError($errors, "form", \PTW\translation('login-form-error'));
             return false;

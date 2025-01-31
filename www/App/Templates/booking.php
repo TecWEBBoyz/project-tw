@@ -26,12 +26,12 @@ $notes = $fields["notes"] ?? "";
                 </div>
             <?php endif; ?>
 
-            <label class="caption" for="service" id="service-label"><?php echo PTW\translationWithSpan("booking-service")?></label>
+            <label class="caption" for="service" id="service-label"><?php echo PTW\translation("booking-service")?></label>
             <select id="service" name="service" required>
-                <option value="" selected disabled><?php echo PTW\translationWithSpan("booking-option")?></option>
+                <option value="" selected disabled><?php echo PTW\translation("booking-option")?></option>
                 <optgroup label="<?php echo PTW\translation('booking-services')?>"> 
-                    <option value="events" <?php echo ($service == "events" ? "selected" : "")?>><?php echo PTW\translationWithSpan("booking-event")?></option>
-                    <option value="other"  <?php echo ($service == "other" ? "selected" : "")?>><?php echo PTW\translationWithSpan("booking-more")?></option>
+                    <option value="events" <?php echo ($service == "events" ? "selected" : "")?>><?php echo PTW\translation("booking-event")?></option>
+                    <option value="other"  <?php echo ($service == "other" ? "selected" : "")?>><?php echo PTW\translation("booking-more")?></option>
                 </optgroup>
             </select>
         </div>
@@ -42,7 +42,7 @@ $notes = $fields["notes"] ?? "";
                 </div>
             <?php endif; ?>
 
-            <label class="caption" for="date"><?php echo PTW\translationWithSpan("booking-date")?></label>
+            <label class="caption" for="date"><?php echo PTW\translation("booking-date")?></label>
             <input type="date" class="custom-date-input" id="date" min="<?php echo date("Y-m-d"); ?>" value="<?php echo $date; ?>" name="date" required>
         </div>
         <div class="form-group">
@@ -52,13 +52,13 @@ $notes = $fields["notes"] ?? "";
                 </div>
             <?php endif; ?>
 
-            <label class="caption" for="notes"><?php echo PTW\translationWithSpan("booking-notes")?></label>
+            <label class="caption" for="notes"><?php echo PTW\translation("booking-notes")?></label>
             <textarea id="notes" class="no-resize" name="notes"><?php echo $notes; ?></textarea>
         </div>
 
     </div>
     <button class="btn-outlined" type="submit">
-        <span><?php echo PTW\translationWithSpan("booking-book")?></span>
+        <span><?php echo PTW\translation("booking-book")?></span>
         <?php echo file_get_contents("static/images/paper-plane.svg"); ?>
     </button>
 </form>

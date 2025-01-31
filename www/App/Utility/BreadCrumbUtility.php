@@ -54,16 +54,29 @@ class BreadCrumbUtility {
             "/admin/justuploadedimage" => [
                 ["label_translation" => 'breadcrumb-home', "url" => "/home"],
                 ["label_translation" => 'breadcrumb-admin', "url" => "/admin"],
+                ["label_translation" => 'breadcrumb-manage-images', "url" => "/admin/images"],
                 ["label_translation" => 'breadcrumb-just-uploaded-image', "url" => null]
             ],
             "/admin/edit-image" => [
                 ["label_translation" => 'breadcrumb-home', "url" => "/home"],
                 ["label_translation" => 'breadcrumb-admin', "url" => "/admin"],
+                ["label_translation" => 'breadcrumb-manage-images', "url" => "/admin/images"],
                 ["label_translation" => 'breadcrumb-edit-image', "url" => null]
+            ],
+            "/admin/bookings" => [
+                ["label_translation" => 'breadcrumb-home', "url" => "/home"],
+                ["label_translation" => 'breadcrumb-admin', "url" => "/admin"],
+                ["label_translation" => 'breadcrumb-manage-bookings', "url" => null]
+            ],
+            "/admin/images" => [
+                ["label_translation" => 'breadcrumb-home', "url" => "/home"],
+                ["label_translation" => 'breadcrumb-admin', "url" => "/admin"],
+                ["label_translation" => 'breadcrumb-manage-images', "url" => null]
             ],
             "/admin/upload" => [
                 ["label_translation" => 'breadcrumb-home', "url" => "/home"],
                 ["label_translation" => 'breadcrumb-admin', "url" => "/admin"],
+                ["label_translation" => 'breadcrumb-manage-images', "url" => "/admin/images"],
                 ["label_translation" => 'breadcrumb-upload-image', "url" => null]
             ],
             "/dashboard" => [

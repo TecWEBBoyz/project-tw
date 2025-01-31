@@ -11,7 +11,7 @@ $location = $_GET['location'] ?? 'Unknown Location';
         <p><strong><?php echo \PTW\translation('gallery-details-location'); ?></strong> <?= htmlspecialchars($location) ?></p>
     </div>
 <?php else: ?>
-    <p><?php echo \PTW\translationWithSpan('gallery-details-error') ?></p>
+    <p><?php echo \PTW\translation('gallery-details-error') ?></p>
 <?php endif; ?>
 
 <a href="home" class="link"><?php

@@ -2,6 +2,14 @@
     margin: 0 auto;
 }
 
+.template-admin > ul {
+    margin-left: var(--spacing-4);
+}
+
+.template-admin > p {
+    margin-bottom: var(--spacing-2);
+}
+
 #category-filter-form {
     margin-top: var(--spacing-5);
     display: block;
@@ -78,13 +86,13 @@
 @media screen and (min-width: 900px) {
     .long-text {
         max-width: 25em;
+        min-width: 25em;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
     }
     .long-text:hover,
     .long-text:focus {
-        max-width: 25em;
         white-space: normal;
     }
 }

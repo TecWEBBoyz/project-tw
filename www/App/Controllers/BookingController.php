@@ -6,7 +6,7 @@ use Exception;
 use PTW\Contracts\ControllerContract;
 use PTW\Models\Booking;
 use PTW\Models\BookingType;
-use PTW\Models\ServicesUtility;
+use PTW\Utility\ServicesUtility;
 use PTW\Modules\Auth\Role;
 use PTW\Modules\Repositories\BookingRepository;
 use PTW\Utility\CustomException;
@@ -32,6 +32,37 @@ class BookingController extends ControllerContract
         ]);
     }
 
+    public function updateBookingStatus($data) {
+        $bookingRepository = new BookingRepository();
+        try {
+            if (!isset($data['id'])) {
+                throw new Exception(\PTW\translation('booking-no-id'));
+            }
+
+            if (!\PTW\Utility\BookingStatusUtility::CheckStatus($data['status'])) {
+                throw new Exception(\PTW\translation('booking-status-invalid'));
+            }
+
+            $booking = $bookingRepository->GetElementByID($data['id']);
+
+            if($booking == null) {
+                throw new Exception(\PTW\translation('booking-not-found'));
+            }
+
+            $booking->SetData($booking->FilterData($data));
+
+            $bookingRepository->Update($_POST['id'], $booking);
+
+        }catch (CustomException $e) {
+            ToastUtility::addToast('error', $e->getMessage());
+        } catch (Exception $e) {
+            ToastUtility::addToast('error', \PTW\translation('booking-edit-error'));
+
+        } finally {
+            ScrollToUtility::setScrollTarget($data['id']);
+            $this->locationReplace("/admin/bookings");
+        }
+    }
     private function check(array $values, array &$errors): bool
     {
         if (empty($values['service'])) {

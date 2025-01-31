@@ -103,18 +103,18 @@ DELIMITER ;
 
 -- Esempi di dati per la tabella utente
 INSERT INTO user (name, email, password, role, telephone) VALUES
-("admin", "admin", "admin","Administrator", "+39 320 123 4567"),
-("Mario Rossi", "mario.rossi@example.com", "password123",   "User", "+39 320 123 4568"),
-("Luigi Verdi", "luigi.verdi@example.com", "securepass456", "User", "+39 320 234 5678"),
-("Anna Bianchi", "anna.bianchi@example.com", "mypassword789", "User", "+39 320 345 6789"),
-("Elena Neri", "elena.neri@example.com", "pass4elena", "User", "+39 320 456 7890"),
-("Paolo Gialli", "paolo.gialli@example.com", "paolo2023", "User", "+39 320 567 8901"),
-("Giulia Rosa", "giulia.rosa@example.com", "giulia_pwd", "User", "+39 320 678 9012"),
-("Francesco Blu", "francesco.blu@example.com", "francesco_secure", "User", "+39 320 789 0123"),
-("Silvia Marrone", "silvia.marrone@example.com", "silvia1234", "User", "+39 320 890 1234"),
-("Roberto Viola", "roberto.viola@example.com", "robertopass", "User", "+39 320 901 2345"),
-("Chiara Verde", "chiara.verde@example.com", "chiara_pw", "User", "+39 320 012 3456"),
-("user", "user@example.com", "user", "User", "+39 333 333 3333");
+("admin", "admin", SHA2("admin", 256), "Administrator", "+39 320 123 4567"),
+("Mario Rossi", "mario.rossi@example.com", SHA2("password123", 256), "User", "+39 320 123 4568"),
+("Luigi Verdi", "luigi.verdi@example.com", SHA2("securepass456", 256), "User", "+39 320 234 5678"),
+("Anna Bianchi", "anna.bianchi@example.com", SHA2("mypassword789", 256), "User", "+39 320 345 6789"),
+("Elena Neri", "elena.neri@example.com", SHA2("pass4elena", 256), "User", "+39 320 456 7890"),
+("Paolo Gialli", "paolo.gialli@example.com", SHA2("paolo2023", 256), "User", "+39 320 567 8901"),
+("Giulia Rosa", "giulia.rosa@example.com", SHA2("giulia_pwd", 256), "User", "+39 320 678 9012"),
+("Francesco Blu", "francesco.blu@example.com", SHA2("francesco_secure", 256), "User", "+39 320 789 0123"),
+("Silvia Marrone", "silvia.marrone@example.com", SHA2("silvia1234", 256), "User", "+39 320 890 1234"),
+("Roberto Viola", "roberto.viola@example.com", SHA2("robertopass", 256), "User", "+39 320 901 2345"),
+("Chiara Verde", "chiara.verde@example.com", SHA2("chiara_pw", 256), "User", "+39 320 012 3456"),
+("user", "user@example.com", SHA2("user", 256), "User", "+39 333 333 3333");
 
 INSERT INTO image (path, alt, description, title, place, date) VALUES
 ("502A6233.JPG", "Cantante su palco con chitarra elettrica rossa", "In una notte estiva a Milano, un musicista appassionato regala un\'esibizione emozionante durante un festival locale, la sua musica si fonde con le luci rosse che riempiono l\'atmosfera e il cuore del pubblico.", "Concerto sotto luce scarlatta", "Milano", "2023-08-15"),

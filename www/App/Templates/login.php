@@ -5,7 +5,7 @@
     $username = $fields["username"] ?? "";
 ?>
 
-<p class="h1 text-center"><?php echo PTW\translationWithSpan('login-title') ?></p>
+<p class="h1 text-center"><?php echo PTW\translation('login-title') ?></p>
 
 <form action="login" method="POST">
     <div>
@@ -22,7 +22,7 @@
             </div>
         <?php endif; ?>
 
-        <label class="caption" for="username"><?php echo PTW\translationWithSpan('login-username'); ?></label>
+        <label class="caption" for="username"><?php echo PTW\translation('login-username'); ?></label>
         <input type="text" id="username" name="username" placeholder="<?php echo PTW\translation('login-username'); ?>" value="<?php echo $username; ?>" <?php echo key_exists("username", $errors) ? 'class="error"' : '' ?>>
     </div>
 
@@ -33,13 +33,13 @@
             </div>
         <?php endif; ?>
 
-        <label class="caption" for="password"><?php echo PTW\translationWithSpan('login-password') ?></label>
+        <label class="caption" for="password"><?php echo PTW\translation('login-password') ?></label>
         <input type="password" id="password" name="password" placeholder="Password" <?php echo key_exists("password", $errors) ? 'class="error"': '' ?>>
     </div>
     </div>
 
     <button class="btn-outlined" type="submit">
-        <span><?php echo PTW\translationWithSpan('login-button') ?></span>
+        <span><?php echo PTW\translation('login-button') ?></span>
         <?php echo file_get_contents("static/images/paper-plane.svg"); ?>
     </button>
 </form>

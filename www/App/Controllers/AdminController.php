@@ -6,19 +6,17 @@
 
 namespace PTW\Controllers;
 
-use Cassandra\Varint;
 use Exception;
 use PTW\Contracts\ControllerContract;
 use PTW\Models\Image;
 use PTW\Models\ImageCategory;
-use PTW\Models\ImageCategoryUtility;
+use PTW\Utility\ImageCategoryUtility;
 use PTW\Models\ImageType;
 use PTW\Modules\Auth\Role;
 use PTW\Utility\CustomException;
 use PTW\Utility\ScrollToUtility;
 use PTW\Utility\TemplateUtility;
 use PTW\Utility\ToastUtility;
-use function PTW\Models\CheckCategory;
 
 
 class AdminController extends ControllerContract
@@ -29,7 +27,21 @@ class AdminController extends ControllerContract
         50 => '_50percent',
         75 => '_75percent'
     ];
+
     public function get(): void
+    {
+        if(!$this->sessionManager->authorize(Role::Administrator)) {
+            $this->locationReplace('/login');
+        }
+
+        TemplateUtility::getTemplate('admin', [
+            "title" => \PTW\translation('title-admin'),
+            "description" => \PTW\translation('description-admin'),
+            "keywords" => \PTW\translation('keywords-admin'),
+            "admin" => $this->sessionManager->getUserData()
+        ]);
+    }
+    public function getImages(): void
     {
         if(!$this->sessionManager->authorize(Role::Administrator)) {
             $this->locationReplace('/login');
@@ -56,13 +68,43 @@ class AdminController extends ControllerContract
         } else {
             $images = $imageRepository->GetImagesByCategory($category, $current_page, $page_size);
         }
-        TemplateUtility::getTemplate('admin', [
+        TemplateUtility::getTemplate('admin-images', [
             "images" => $images,
             "category" =>$category,
             "current_page" => $current_page,
             "total_images" => $count_images,
             "page_size" => $page_size,
             "no_category" => $justUploadedImagesCount > 0 ? "none" : "",
+            "title" => \PTW\translation('title-admin-images'),
+            "description" => \PTW\translation('description-admin-images'),
+            "keywords" => \PTW\translation('keywords-admin-images')
+        ]);
+    }
+    public function getBookings(): void
+    {
+        if(!$this->sessionManager->authorize(Role::Administrator)) {
+            $this->locationReplace('/login');
+        }
+        $bookingRepository = new \PTW\Modules\Repositories\BookingRepository();
+
+        $status = isset($_GET['status']) && $_GET["status"] != "" ? $_GET["status"] : "confirmed";
+//        $current_page = isset($_GET['page']) && $_GET["page"] != "" && is_int((int) $_GET["page"]) ? (int) $_GET["page"] : 1;
+
+//        $count_images = $bookingRepository->Count(["category" => $category]);
+//        $page_size = 5;
+//        $max_page = ceil($count_images / $page_size);
+
+//        if ($current_page <= 0) $current_page = 1;
+
+//        if ($max_page < $current_page) {
+//            $current_page = $max_page;
+//        }
+
+        $bookings = $bookingRepository->GetElementsByColumn("status", $status);
+
+        TemplateUtility::getTemplate('admin-bookings', [
+            "bookings" => $bookings,
+            "status" =>$status,
             "title" => \PTW\translation('title-admin'),
             "description" => \PTW\translation('description-admin'),
             "keywords" => \PTW\translation('keywords-admin')
@@ -73,18 +115,96 @@ class AdminController extends ControllerContract
 
     }
 
+    private function checkImage(array $value, array &$errors) : bool
+    {
+        if (!isset($value['title']) || $value['title'] == '') {
+            $errors['title'] = \PTW\translation('image-title-required');
+            return false;
+        }
+
+        if (strlen($value['title']) < 2 || strlen($value['title']) > 50) {
+            $errors['title'] = \PTW\translation('image-title-length');
+            return false;
+        }
+
+        if (!isset($value['alt']) || $value['alt'] == '') {
+            $errors['alt'] = \PTW\translation('image-alt-required');
+            return false;
+        }
+
+        if (strlen($value['alt']) < 2 || strlen($value['alt']) > 100) {
+            $errors['alt'] = \PTW\translation('image-alt-length');
+            return false;
+        }
+
+        if (!isset($value['description']) || $value['description'] == '') {
+            $errors['description'] = \PTW\translation('image-description-required');
+            return false;
+        }
+
+        if (strlen($value['description']) < 2) {
+            $errors['alt'] = \PTW\translation('image-description-length');
+            return false;
+        }
+
+        if (!isset($value['place']) || $value['place'] == '') {
+            $errors['place'] = \PTW\translation('image-place-required');
+            return false;
+        }
+
+        if (strlen($value['place']) < 2 || strlen($value['place']) > 30) {
+            $errors['place'] = \PTW\translation('image-place-length');
+            return false;
+        }
+
+        if (!isset($value['date']) || $value['date'] == '') {
+            $errors['date'] = \PTW\translation('image-date-required');
+            return false;
+        }
+
+        if (!strtotime($value['date'])) {
+            $errors['date'] = \PTW\translation('image-date-invalid');
+            return false;
+        }
+
+        if (!isset($value['category']) || $value['category'] == '') {
+            $errors['category'] = \PTW\translation('image-category-required');
+            return false;
+        }
+
+        if (!ImageCategoryUtility::CheckCategory($value['category'])) {
+            $errors['category'] = \PTW\translation('image-category-invalid');
+            return false;
+        }
+
+        if(!ImageCategoryUtility::CheckCategorySelected($value['category'])) {
+            $errors['category'] = \PTW\translation('image-category-invalid');
+            return false;
+        }
+
+        if (!($value['visible'] == 'on' | $value['visible'] == 'off')) {
+            $errors['visible'] = \PTW\translation('image-visible-invalid');
+            return false;
+        }
+
+        return true;
+    }
+
     public function justUploadedImage($data, $templateData = [])
     {
         $imageRepository = new \PTW\Modules\Repositories\ImageRepository();
         $images = $imageRepository->GetJustUploadedImages();
+
         if(count($images) == 0) {
             $this->locationReplace('/admin');
         }
+
         TemplateUtility::getTemplate('image-edit', array_merge([
             "images" => $images,
-            "title" => \PTW\translation('title-upload-image'),
+            "title" => \PTW\translation('title-edit-image'),
             "description" => \PTW\translation('description-edit-image'),
-            "keywords" => \PTW\translation('keywords-edit-image')
+            "keywords" => \PTW\translation('keywords-edit-image'),
+            "action_type" => "just-uploaded-image"
             ], $templateData));
     }
     public function uploadForm()
@@ -221,7 +341,6 @@ class AdminController extends ControllerContract
         }
     }
 
-
     public function editSingleImage($data, $templateData = [])
     {
         try {
@@ -234,63 +353,93 @@ class AdminController extends ControllerContract
             if ($image == null) {
                 throw new Exception(\PTW\translation('admin-image-not-found'));
             }
+
             TemplateUtility::getTemplate('image-edit', array_merge([
                 "title" => \PTW\translation('title-edit-image'),
                 "description" => \PTW\translation('description-edit-image'),
                 "keywords" => \PTW\translation('keywords-edit-image'),
-                "images" => [$image]], $templateData));
+                "images" => [$image],
+                "action_type" => "single-image"], $templateData));
+
         }catch (Exception $e) {
             ScrollToUtility::setScrollTarget($data['id']);
             ToastUtility::addToast('error', \PTW\translation('image-edit-error'));
             $this->previusPage();
         }
     }
+
     public function editImage($data)
     {
+        $imageRepository = new \PTW\Modules\Repositories\ImageRepository();
+
+        $values = [];
+        $errors = [];
+
+        $values['id'] = trim($data['id']);
+        $values['title'] = trim($data['title']);
+        $values['alt'] = trim($data['alt']);
+        $values['description'] = trim($data['description']);
+        $values['category'] = trim($data['category']);
+        $values['place'] = trim($data['place']);
+        $values['date'] = trim($data['date']);
+        $values['visible'] = trim($data['visible'] ?? 'off');
+        $values['action-type'] = trim($data['action-type']);
+
+        $fields = $values;
+
+        if (!$this->checkImage($values, $errors))
+        {
+            $singleImage = $imageRepository->GetElementByID($values['id']);
+            TemplateUtility::getTemplate('image-edit', [
+                "error" => $errors,
+                "form_fields" => $fields,
+                "images" => $values["action-type"] == "single-image" ? [$singleImage] : $imageRepository->GetJustUploadedImages(),
+                "title"=>\PTW\translation('title-edit-image'),
+                "description"=>\PTW\translation('description-edit-image'),
+                "keywords"=>\PTW\translation('keywords-edit-image'),
+                "action_type" => $values['action-type']]);
+            return;
+        }
+
         $numberOfImages = 0;
         try {
-            $imageRepository = new \PTW\Modules\Repositories\ImageRepository();
-            if (!isset($data['id'])) {
+            if (!isset($values['id'])) {
                 throw new Exception(\PTW\translation('admin-image-no-id'));
             }
-            $image = $imageRepository->GetElementByID($data['id']);
+
+            if (!($values['action-type'] == 'single-image' || $values['action-type'] == 'just-uploaded-image')) {
+                throw new Exception(\PTW\translation('admin-action-not-recognized'));
+            }
+
+            $image = $imageRepository->GetElementByID($values['id']);
+
             if($image == null) {
                 throw new Exception(\PTW\translation('admin-image-not-found'));
             }
-            if($data['date'] == '') {
-                $data['date'] = 'NULL';
-                throw new Exception(\PTW\translation('admin-image-no-data'));
-            }
-            if ($data['visible'] == 'true') {
-                $data['visible'] = 1;
-            } else {
-                $data['visible'] = 0;
-            }
 
-            var_dump($data);
+            $values['visible'] = $values['visible'] == 'on' ? 1 : 0;
 
-            if(!ImageCategoryUtility::CheckCategory($data['category'])) {
-                throw new CustomException(\PTW\translation('image-category-invalid'));
+            $image->SetData($image->FilterData($values));
+
+            $imageRepository->Update($values['id'], $image);
+
+            $images = [];
+
+            if ($values['action-type'] == 'just-uploaded-image') {
+                $images = $imageRepository->GetJustUploadedImages();
             }
 
-            if(!ImageCategoryUtility::CheckCategorySelected($data['category'])) {
-                throw new CustomException(\PTW\translation('image-category-required'));
-            }
-
-            $image->SetData($image->FilterData($data));
-
-            $imageRepository->Update($_POST['id'], $image);
-            $images = $imageRepository->GetJustUploadedImages();
             $numberOfImages = count($images);
+
         }catch (CustomException $e) {
             ToastUtility::addToast('error', $e->getMessage());
         } catch (Exception $e) {
             ToastUtility::addToast('error', \PTW\translation('image-edit-error'));
 
         } finally {
-            ScrollToUtility::setScrollTarget($data['id']);
+
             if ($numberOfImages > 0) {
-                $this->previusPage();
+                $this->locationReplace('/admin/justuploadedimage');
             } else {
                 $this->locationReplace('/admin');
             }
@@ -348,7 +497,12 @@ class AdminController extends ControllerContract
         } catch (Exception $e) {
             ToastUtility::addToast('error', \PTW\translation('image-delete-error'));
         } finally {
-            $this->locationReplace("/admin");
+            $isFromEdit = $this->InPreviusPageFrom("edit-image");
+            if(!$isFromEdit){
+                $this->previusPage();
+            } else {
+                $this->locationReplace('/admin');
+            }
         }
     }
 

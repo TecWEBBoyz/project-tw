@@ -12,8 +12,10 @@ class DateFormatterUtility
     ];
 
     static public function Format(string $date) : string {
-        if ($date === null || $date === '')
+        if (!strtotime($date)) {
             return \PTW\translation('image-no-date');
+        }
+
         $date = new DateTime($date);
         $month = self::$months[(int)$date->format('m')];
 

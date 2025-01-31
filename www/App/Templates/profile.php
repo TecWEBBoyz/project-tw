@@ -9,12 +9,12 @@ if (!isset($TEMPLATE_DATA)) {
 
 ?>
 
-<h2><?php echo \PTW\translationWithSpan("profile-welcome")?> <?php echo $TEMPLATE_DATA["user"]["username"] ?></h2>
+<h2><?php echo \PTW\translation("profile-welcome")?> <?php echo $TEMPLATE_DATA["user"]["username"] ?></h2>
 
 <article>
     <header>
-        <p class="caption"><?php echo \PTW\translationWithSpan("profile-caption")?></p>
-        <h3><?php echo \PTW\translationWithSpan("profile-book")?></h3>
+        <p class="caption"><?php echo \PTW\translation("profile-caption")?></p>
+        <h3><?php echo \PTW\translation("profile-book")?></h3>
     </header>
 
     <?php if (isset($TEMPLATE_DATA["bookings"]) && count($TEMPLATE_DATA["bookings"]) > 0) : ?>
@@ -23,11 +23,11 @@ if (!isset($TEMPLATE_DATA)) {
             <table>
                 <thead>
                 <tr>
-                    <th>ID</th>
-                    <th>Service</th>
-                    <th>Date</th>
-                    <th>Status</th>
-                    <th>Actions</th>
+                    <th><?php echo \PTW\translation("service-ID") ?></th>
+                    <th><?php echo \PTW\translation("service-service") ?></th>
+                    <th><?php echo \PTW\translation("service-date") ?></th>
+                    <th><?php echo \PTW\translation("service-status") ?></th>
+                    <th><?php echo \PTW\translation("service-actions") ?></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -37,16 +37,17 @@ if (!isset($TEMPLATE_DATA)) {
 
                     $id = $booking->ToArray()[\PTW\Models\BookingType::id->value];
                     $service = $booking->ToArray()[\PTW\Models\BookingType::service->value];
+                    $status = $booking->ToArray()[\PTW\Models\BookingType::status->value];
                     $date = $booking->ToArray()[\PTW\Models\BookingType::date->value];
 
                     ?>
 
                     <tr>
-                        <td data-label="id"><?php echo $index + 1; ?></td>
-                        <td data-label="service"><?php echo $service; ?></td>
-                        <td data-label="date"><time datetime="<?php echo $date?>"><?php echo \PTW\Utility\DateFormatterUtility::Format($date) ?></time></td>
-                        <td data-label="status" class="status cancelled"><span><?php echo $booking->ToArray()[\PTW\Models\BookingType::status->value] ?></span></td>
-                        <td data-label="actions" class="actions">
+                        <td data-label="<?php echo \PTW\translation("service-ID") ?>"><?php echo $index + 1; ?></td>
+                        <td data-label="<?php echo \PTW\translation("service-service") ?>"><?php echo $service; ?></td>
+                        <td data-label="<?php echo \PTW\translation("service-date") ?>"><time datetime="<?php echo $date?>"><?php echo \PTW\Utility\DateFormatterUtility::Format($date) ?></time></td>
+                        <td data-label="<?php echo \PTW\translation("service-status") ?>" class="status <?php echo $status; ?>"><?php echo \PTW\translation("service-" . $booking->ToArray()[\PTW\Models\BookingType::status->value]) ?></td>
+                        <td data-label="<?php echo \PTW\translation("service-actions") ?>" class="actions">
                             <ul>
                                 <li>
                                     <form action='profile/edit-booking' method='GET' class='form-inline'>
@@ -54,7 +55,7 @@ if (!isset($TEMPLATE_DATA)) {
                                         <button type='submit' aria-label="<?php echo \PTW\translation('booking-edit') ?>"
                                                 class="icon-button icon-button-primary">
                                             <?php echo file_get_contents("static/images/edit.svg"); ?>
-                                            <?php echo \PTW\translationWithSpan("profile-booking-table-edit") ?>
+                                            <?php echo \PTW\translation("profile-booking-table-edit") ?>
                                         </button>
                                     </form>
                                 </li>
@@ -65,7 +66,7 @@ if (!isset($TEMPLATE_DATA)) {
                                         <button type='submit' aria-label="<?php echo \PTW\translation('booking-delete') ?>"
                                                 class="icon-button icon-button-danger">
                                             <?php echo file_get_contents("static/images/delete.svg"); ?>
-                                            <?php echo \PTW\translationWithSpan("profile-booking-table-delete") ?>
+                                            <?php echo \PTW\translation("profile-booking-table-delete") ?>
                                         </button>
                                     </form>
                                 </li>
@@ -81,9 +82,9 @@ if (!isset($TEMPLATE_DATA)) {
         </div>
     <?php else: ?>
 
-        <p><?php echo \PTW\translationWithSpan("profile-booking-table-no-bookings") ?></p>
+        <p><?php echo \PTW\translation("profile-booking-table-no-bookings") ?></p>
         <a href="book-service" class="btn-outlined" id="profile-book-button">
-            <?php echo \PTW\translationWithSpan("profile-booking-table-no-bookings-link") ?>
+            <?php echo \PTW\translation("profile-booking-table-no-bookings-link") ?>
             <?php echo file_get_contents("static/images/right-chevron.svg") ?>
         </a>
 

@@ -89,6 +89,7 @@ class TranslationManager
             return $this->sanitizeTranslation($this->translations[$language][$key]);
         }
 
+        file_put_contents("translation.logs", $key . " \n", FILE_APPEND);
         return "Translation not present";
     }
 
