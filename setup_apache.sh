@@ -70,8 +70,8 @@ service mariadb restart
 # Configura MariaDB per l'accesso remoto
 sed -i 's/^bind-address.*/bind-address = 0.0.0.0/' /etc/mysql/mariadb.conf.d/50-server.cnf
 
-# Configura il firewall per MariaDB
-ufw allow 3306
+# # Configura il firewall per MariaDB
+# ufw allow 3306
 
 # Configurazione dell'utente di default per MariaDB
 MYSQL_ROOT_PASSWORD="root_password"
@@ -112,8 +112,8 @@ sed -i 's/;error_log = php_errors.log/error_log = \/var\/log\/php_errors.log/' $
 curl -sS https://getcomposer.org/installer | php -- \
 --install-dir=/usr/bin --filename=composer
 
-# Update del composer
-cd /var/www/html/username && composer update
+# # Update del composer
+# cd /usr/bin/composer && composer update
 
 # #Copy files
 # cp -r /var/www/html/username/static/uploads_temp/** /var/www/html/username/static/uploads
