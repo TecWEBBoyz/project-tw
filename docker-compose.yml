@@ -6,7 +6,7 @@ services:
     hostname: apache_website
     volumes:
       - ./www:/var/www/html
-      #- ./config/apache/000-default.conf:/000-default.conf
+      - ./config/apache/000-default.conf:/000-default.conf
       - ./setup_apache.sh:/setup_apache.sh
       - ./init.sql:/init.sql
       #- ./php_errors.log:/var/log/php_errors.log
