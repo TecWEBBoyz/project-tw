@@ -41,6 +41,23 @@ class Database {
         return null;
     }
 
+    public static function getAllAnimals($fields = []) {
+        $sql = "SELECT ";
+        if(empty($fields)) {
+            $sql .= "* FROM animal";
+        } else {
+            $sql .= implode(", ", array_map('trim', $fields)) . " FROM animal";
+        }
+        echo $sql;
+        return self::query($sql);
+    }
+
+    public static function getAnimalByID($id) {
+        $sql = "SELECT * FROM animal WHERE id = :id";
+        $params = [':id' => $id];
+        return self::query($sql, $params);
+    }
+
 }
 
 ?>

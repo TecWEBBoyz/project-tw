@@ -4,8 +4,8 @@ require_once("phplibs/DBManager.php");
 
 
 $currentFile = basename(__FILE__);
-$indexHtmlContent = Templating::renderHtml($currentFile);
-echo $indexHtmlContent;
+$htmlContent = Templating::renderHtml($currentFile);
+echo $htmlContent;
 
 
 ?>

@@ -7,7 +7,8 @@ CREATE TABLE animal (
     name VARCHAR(50) NOT NULL DEFAULT '',
     age INT NOT NULL,
     description TEXT DEFAULT '',
-    image VARCHAR(255) NOT NULL DEFAULT ''
+    image VARCHAR(255) NOT NULL DEFAULT '',
+    imgAlt TEXT DEFAULT ''
 );
 CREATE TABLE user (
     id CHAR(36) PRIMARY KEY DEFAULT UUID(),
