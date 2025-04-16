@@ -48,7 +48,6 @@ class Database {
         } else {
             $sql .= implode(", ", array_map('trim', $fields)) . " FROM animal";
         }
-        echo $sql;
         return self::query($sql);
     }
 
