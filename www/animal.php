@@ -17,15 +17,15 @@ $animal = $result[0];
 
 $currentFile = basename(__FILE__);
 $htmlContent = Templating::renderHtml($currentFile, [
-    "{{specie}}" => htmlspecialchars($animal['specie'] ?? ''),
-    "{{name}}" => htmlspecialchars($animal['name'] ?? ''),
-    "{{age}}" => htmlspecialchars($animal['age'] ?? ''),
-    "{{habitat}}" => htmlspecialchars($animal['habitat'] ?? ''),
-    "{{dimensions}}" => htmlspecialchars($animal['dimensions'] ?? ''),
-    "{{lifespan}}" => htmlspecialchars($animal['lifespan'] ?? ''),
-    "{{diet}}" => htmlspecialchars($animal['diet'] ?? ''),
-    "{{description}}" => htmlspecialchars($animal['description'] ?? ''),
-    "{{image}}" => htmlspecialchars($animal['image'] ?? '')
+    "[[specie]]" => htmlspecialchars($animal['specie'] ?? ''),
+    "[[name]]" => htmlspecialchars($animal['name'] ?? ''),
+    "[[age]]" => htmlspecialchars($animal['age'] ?? ''),
+    "[[habitat]]" => htmlspecialchars($animal['habitat'] ?? ''),
+    "[[dimensions]]" => htmlspecialchars($animal['dimensions'] ?? ''),
+    "[[lifespan]]" => htmlspecialchars($animal['lifespan'] ?? ''),
+    "[[diet]]" => htmlspecialchars($animal['diet'] ?? ''),
+    "[[description]]" => htmlspecialchars($animal['description'] ?? ''),
+    "[[image]]" => htmlspecialchars($animal['image'] ?? '')
 ]);
 
 echo $htmlContent;
