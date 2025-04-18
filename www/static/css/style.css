@@ -1,0 +1,29 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+
+:root{
+    --bgcolor: #F7F3F3;
+    --txtcolor: #000;
+    --breadcolor: #163F77;
+    --menutxtcolor: #F7F3F3;
+    --menubgcolor: #44633F;
+    --linkcolor: #44633F;
+    --visitedcolor: #89023E;
+}
+
+html, body {
+    color: var(--txtcolor);
+    background-color: var(--bgcolor);
+}
+
+a {
+    color: var(--linkcolor);
+    text-decoration: none;
+}
+
+a:visited {
+    color: var(--visitedcolor);
+}
+
