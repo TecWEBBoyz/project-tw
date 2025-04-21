@@ -66,6 +66,16 @@ header {
 
 #hamburger-button {
     display: none;
+    background-color: var(--menubgcolor);
+    border: none;
+    box-shadow: none;
+    height: fit-content;
+    padding: 0.7em 0.7em 0.7em 0;
+    cursor: pointer;
+    min-width: 45px;
+    min-height: 45px;
+    color: var(--menutxtcolor); 
+    font-size: 1.5em;
 }
 
 #navigation {
@@ -99,7 +109,7 @@ header {
 #logo {
     width: 15%;
     height: 6vw;
-    padding: 1em;
+    margin: 1em;
     font-size: 5px;
     text-indent: -999em;
     white-space: nowrap;
@@ -152,6 +162,14 @@ header {
 }
 
 @media (max-width: 768px) {
+    header {
+        align-items: flex-start;
+    }
+    
+    #logo {
+        background-image: url(./styleImages/AnimaliaLogoSlim.png);
+    }
+
     #top-help {
         width: 94%;
         padding: 0 3% 0 3%;
@@ -187,11 +205,23 @@ header {
     #hamburger-button {
         display: block;
     }
+    
+    #top-help a {
+        font-size: 1.5em;
+    }
+
+    #menu ul {
+        margin: 0 0 1.2em 0;
+    }
 
     #menu li {
-        padding: 0.5em 0 0.5em 0;
-        font-size: 3vw;
+        padding: 0.1em 0 0.1em 0;
+        font-size: 1.5em;
         display: list-item;
+    }
+
+    #breadcrumb {
+        font-size: 1em;
     }
 
     .drop-content {
@@ -200,5 +230,10 @@ header {
 
     .show-drop-content {
         display: block;
+    }
+
+    #logo {
+        
+        padding-bottom: 1.2em;
     }
 }
