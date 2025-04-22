@@ -1,0 +1,60 @@
+\documentclass[12pt, a4paper]{article}
+\usepackage[main=italian,provide=*]{babel}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{longtable}
+\usepackage{float}
+\usepackage{svg}
+\usepackage[colorlinks=true, linkcolor=black, urlcolor=blue, citecolor=green]{hyperref}
+\usepackage{enumitem}
+\usepackage{lastpage}
+\usepackage{fancyhdr}
+\usepackage{graphicx}
+\usepackage[export]{adjustbox}
+\usepackage[margin=1in]{geometry}
+\usepackage{array}
+\newcolumntype{C}[1]{>{\centering\arraybackslash}p{#1}}
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
+\definecolor{unipd}{HTML}{B5121B}
+
+\addto\captionsitalian{\renewcommand{\contentsname}{Indice}}
+
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyfoot[C]{\thepage{} di \pageref{LastPage}}
+\renewcommand{\headrulewidth}{0pt}
+
+\newcommand{\titolo}{Relazione Progetto Tecnologie Web}
+\newcommand{\componenti}{
+& Davide Baraldo (2082847) \\
+& Luca Monetti (2069429) \\
+& Leonardo Trolese (2068238) \\
+& Tommaso Zocche (2075547)
+}
+\newcommand{\Emailreferente}{
+& luca.monetti.1@studenti.unipd.it
+}
+\newcommand{\sito}{
+& \href{http://tecweb.studenti.math.unipd.it/lmonetti/}{http://tecweb.studenti.math.unipd.it/lmonetti/}
+}
+\newcommand{\gruppo}{& TecWEBBoyz}
+
+\begin{document}
+
+\input{contenuti/intestazione}
+\input{contenuti/titolo}
+\input{contenuti/infoDocumento}
+\newpage
+\tableofcontents
+\newpage
+\input{contenuti/abstract}
+\input{contenuti/analisi}
+\input{contenuti/progettazione}
+\input{contenuti/implementazione}
+\input{contenuti/accessibilita}
+\input{contenuti/SEO}
+\input{contenuti/validazione}
+\input{contenuti/organizzazioneDelLavoro}
+\input{contenuti/autorizzazione_contenuti}
+\end{document}

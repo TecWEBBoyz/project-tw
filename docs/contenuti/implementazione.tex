@@ -1,0 +1,105 @@
+\section{Implementazione}
+\subsection{HTML}
+Le componenti delle pagine del sito sono state scritte in HTML5 in quanto nell'imminente futuro, diventer\`a il linguaggio predefinito per la realizzazione di pagine web.
+
+\subsection{CSS}
+Per lo sviluppo del sito \`e stato utilizzato CSS3, che consente di creare layout moderni, responsivi e accessibili.
+\subsubsection{Fogli di Stile}
+Sono stati adottati diversi fogli di stile per garantire un’esperienza ottimale su vari dispositivi e modalità di visualizzazione:
+\begin{itemize}
+\item Stile per gli schermi: Progettato per schermi di tutte le dimensioni attraverso l'uso di breakpoint.
+\item Stile Stampa: Definito per ottimizzare la visualizzazione e la formattazione dei contenuti quando la pagina viene stampata, dando spazio al contenuto rispetto che ai componenti interattivi. Resta comunque necessario abilitare la visualizzazione della "grafica di background" per visualizzare anche le immagini. Poiché il sito ha un background scuro con testo bianco, nello stile di stampa questa configurazione viene invertita.
+\end{itemize}
+
+\subsubsection{Gestione Dinamica dei File CSS}
+La gestione dei file CSS \`e stata ottimizzata tramite la classe \texttt{StyleController}, che offre funzionalit\`a per il caricamento e l'unificazione dinamica dei file di stile. Questo approccio permette di:
+\begin{itemize}
+\item Ridurre il numero di richieste HTTP unendo tutti i file CSS in un unico file;
+\item Implementare la priorit\`a di caricamento per file CSS fondamentali come \texttt{main.css}, \texttt{menu.css}, e altri;
+\end{itemize}
+
+\subsection{PHP}
+\subsubsection{Templating}
+Al fine di ottimizzare l'efficienza e la manutenibilit\`a del sito, \`e stata implementata un'architettura basata sull'uso di \textit{template} e \textit{componenti}. Questo approccio consente una netta separazione tra la logica di business e la presentazione, facilitando la riutilizzazione del codice e semplificando le future modifiche e aggiornamenti.
+La classe \texttt{TemplateUtility} rappresenta il cuore del sistema di gestione dei template. Essa fornisce un metodo statico \texttt{getTemplate}, che si occupa di:
+\begin{itemize}
+\item Preparare i dati necessari per il rendering del template, inclusi il nome e il titolo del template;
+\item Generare dinamicamente un elemento \textit{breadcrumb} per migliorare l'accessibilit\`a e l'orientamento dell'utente;
+\item Caricare il file template appropriato dalla directory \texttt{Templates}.
+\end{itemize}
+
+Questa implementazione non solo migliora la modularit\`a del codice, ma consente anche una gestione pi\`u efficiente delle risorse del server e una maggiore flessibilit\`a nella progettazione di nuove funzionalit\`a. Inoltre, l'uso di una struttura basata su namespace (es. \texttt{PTW/Utility}) garantisce una chiara organizzazione e una facile estendibilit\`a del progetto.
+
+\subsubsection{Image Resizer}
+Per ottimizzare la gestione delle immagini caricate e migliorare le performance del sito, \`e stato implementato un sistema di resizing delle immagini. Questo consente di generare versioni ridotte delle immagini caricate, da utilizzare nelle anteprime o laddove non sia necessaria la massima risoluzione.
+Una volta caricata un'immagine:
+\begin{itemize}
+    \item Viene identificato il tipo MIME (i.e. JPEG o PNG) per determinare come gestire il file;
+    \item Sono generate quattro versioni ridimensionate dell'immagine originale: 5\%, 25\%, 50\% e 75\%;
+    \item I file ridimensionati vengono salvati in una directory dedicata, mantenendo un suffisso identificativo (es. \texttt{\_5percent}).
+\end{itemize}
+
+\subsubsection{Translation Manager}
+\texttt{TranslationManager} \`e una classe PHP che gestisce il caricamento e la traduzione di stringhe in diverse lingue. Implementa un sistema di gestione centralizzata delle traduzioni, utilizzando un'architettura singleton per garantire efficienza e coerenza.
+\\\\
+Il sistema di traduzione \`e stato progettato per garantire un’esperienza multilingue agli utenti, consentendo una gestione centralizzata e flessibile delle traduzioni. La classe \texttt{TranslationManager}, organizzata tramite il namespace \texttt{PTW/Utility}, implementa una sola istanza condivisa nell’intera applicazione tramite:
+
+\begin{itemize}
+    \item \textbf{Rilevamento della lingua}: La lingua predefinita viene rilevata automaticamente in base alle impostazioni del browser dell’utente, con un fallback a una lingua di default definita dallo sviluppatore.
+    \item \textbf{Caricamento delle traduzioni}: I file JSON contenenti le traduzioni possono essere caricati dinamicamente. Ogni lingua ha il proprio set di chiavi e valori, facilmente estensibile.
+    \item \textbf{Gestione delle preferenze}: La lingua selezionata dall’utente viene salvata in un cookie, garantendo un’esperienza persistente.
+\end{itemize}
+
+La struttura è stata implementata in modo da permettere la successiva implementazione di diverse lingue. Per lo scopo di questo progetto si è mantenuta la sola lingua italiana.
+
+\subsubsection{DB}
+\texttt{DB} \`e una classe PHP che gestisce la connessione al database e l'esecuzione di query in modo centralizzato. Implementa una serie di funzionalit\`a per semplificare l'interazione con il database, come connessione, interrogazione e manipolazione dei dati.
+
+\subsubsection{StyleController: Gestione dei CSS}
+\paragraph{Ottimizzazioni Implementate}
+\begin{itemize}
+    \item \textbf{Concatenazione dei file CSS}: i file CSS nella directory \texttt{/static/css} vengono scansionati e concatenati in un'unica risposta HTTP, riducendo il numero di richieste al server.
+    \item \textbf{Priorit\`a dei file CSS}: alcuni file essenziali (es. \texttt{icons.css}, \texttt{main.css}, \texttt{menu.css}) vengono caricati per primi, garantendo un corretto rendering della pagina.
+    \item \textbf{Caching avanzato con ETag}: viene generato un ETag basato sul contenuto CSS. Se il client ha gi\`a il file in cache e l'ETag non \`e cambiato, viene restituito un codice 304 (Not Modified), evitando il download del file.
+    \item \textbf{Cache-Control per massimizzare le performance}: le risorse CSS sono servite con un header che imposta una cache di 1 anno, riducendo il numero di richieste ripetute al server.
+\end{itemize}
+
+\subsubsection{ScriptController: Gestione dei JavaScript}
+\paragraph{Ottimizzazioni Implementate}
+\begin{itemize}
+    \item \textbf{Concatenazione dei file JavaScript}: il controller scansiona la directory \texttt{/static/js} e unisce tutti i file in un'unica risposta HTTP.
+    \item \textbf{Priorit\`a di caricamento}: file essenziali come \texttt{main.js} e \texttt{menu.js} vengono inclusi per primi per garantire il corretto funzionamento dell’interfaccia.
+    \item \textbf{Caching con ETag}: come per i CSS, viene generato un ETag per evitare download non necessari se il contenuto non \`e cambiato.
+    \item \textbf{Cache-Control per migliorare la velocit\`a}: viene impostata una cache di 1 anno per minimizzare le richieste ripetute.
+\end{itemize}
+
+\subsubsection{Benefici dell'Ottimizzazione}
+Grazie a queste strategie, l’applicazione ottiene i seguenti vantaggi:
+\begin{itemize}
+    \item Riduzione del numero di richieste HTTP.
+    \item Minore latenza nel caricamento delle risorse front-end.
+    \item Ottimizzazione dell’uso della cache del browser, migliorando l’esperienza utente.
+    \item Maggiore efficienza nella gestione delle risorse statiche, con riduzione del carico sul server.
+\end{itemize}
+
+
+\subsection{JavaScript}
+\subsubsection{Gestione Modale delle Immagini}
+Un componente fondamentale del sito \`e il sistema per la visualizzazione delle immagini all'interno di un modale:
+Gli utenti possono cliccare su un'immagine nella galleria per visualizzarla in un modale leggendo la descrizione fornita dal fotografo.
+\subsubsection{Loader dinamico}
+Per migliorare l'efficienza e la velocit\`a di caricamento del sito, le immagini nella Home vengono caricate mano a mano che la pagina viene ``percorsa".
+\subsubsection{Scroll Top Button}
+Un pulsante \texttt{scrollTopButton} permette di tornare velocemente all'inizio della pagina, con un'animazione fluida.
+
+\subsection{SQL}
+\begin{itemize}
+    \item \textbf{user} (\underline{id}, name, email, telephone, password, role, created\_at, updated\_at);
+    \item \textbf{image} (\underline{id}, path, alt, description, title, place, date, visible, created\_at, updated\_at, category);
+    \item \textbf{booking} (\underline{id}, user, status, service, date, created\_at, updated\_at, notes);
+    \item \textbf{image\_order\_counter} (\underline{category}, last\_order)
+\end{itemize}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{immagini/database.png}
+\end{figure}

@@ -1,0 +1,52 @@
+-----------------------------------------------------------------------------------------\\
+------------------------------↓↓↓TO BE DONE↓↓↓------------------------------\\
+-----------------------------------------------------------------------------------------
+\section{Progettazione}
+\subsection{Struttura Generale}
+\subsubsection{Pagine Pubbliche}
+\begin{itemize}
+    \item \textbf{Home}: la prima pagina visualizzata accedendo al sito.\\
+    Si compone di una sezione iniziale in cui sono visibili il fotografo e una sua citazione, seguita da una 
+    griglia di fotografie divise per categoria di appartenenza. La griglia ha la caratteristica di 
+    preservare l'aspect-ratio delle immagini creando un layout particolare;
+    \item \textbf{Chi sono}: pagina informativa che racconta il significato della fotografia per il fotografo;
+    \item \textbf{Accedi}: pagina dedicata all'accesso degli utenti registrati, dove è possibile inserire le proprie 
+    credenziali per accedere alle funzionalità riservate del sito;
+    \item \textbf{Servizi}: pagina dove sono presentati i servizi offerti dal fotografo. La pagina presenta dei
+    pulsanti che portano l'utente nella pagina \textbf{Prenota servizio}. Se l'utente non autenticato viene indirizzato alla
+    pagina \textbf{Accedi}
+\end{itemize}
+
+\subsubsection{Pagine Utenti autenticati}
+\begin{itemize}
+\item \textbf{Prenota Sevizio}: pagina dedicata agli utenti autenticati, dove \`e possibile prenotare un servizio in una certa data.
+\item \textbf{Profilo}: pagina in cui l'utente può visualizzare e gestire i servizi prenotati
+\end{itemize}
+
+\subsubsection{Pagine Amministratore}
+\begin{itemize}
+\item \textbf{Admin}: pagina dedicata dedicata alle opzioni di gestione che ha a disposizione l'admin.
+\item \textbf{Gestisci Immagini}: pagina dedicata alla gestione delle fotografie presenti nella Homepage. \`E possibile eliminarle,
+ ``nasconderle" o accedere alla pagina di modifica delle informazioni testuali quali titolo, descrizione, data e luogo dello scatto.
+\item \textbf{Carica immagine}: pagina per il caricamento delle nuove immagini in Homepage. Subito dopo l'inserimento 
+si accede alla pagina di modica delle immagini appena caricate.
+\item \textbf{Modifica Immagine}: pagina per modificare i dati di un'immagine caricata nel sito.
+\item \textbf{Gestione Prenotazioni}: Pagina per visualizzare, confermare o annullare le prenotazioni ricevute dagli utenti registrati.
+\end{itemize}
+
+\subsubsection{Pagine di Errore}
+\begin{itemize}
+    \item \textbf{Errore 404:} L'utente ha richiesto una pagina inesistente.
+    \item \textbf{Errore 500:} C'\`e stato un errore lato server nella gestione della richiesta.
+\end{itemize}
+\subsection{Header con barra di navigazione}
+L'Header, che fa parte dei Template \textit{Core}, contiene il logo (la firma del fotografo) oltre alla barra di navigazione. Quest'ultima in modalit\`a mobile \`e accessibile tramite \textit{Hamburger Button}.\\
+Inoltre, in ogni pagina, viene disattivato il link alla stessa per evitare la creazione di collegamenti circolari. Lo stesso principio è applicato al logo: normalmente, cliccandoci sopra, si viene reindirizzati alla Home, ma quando ci si trova già in Home, il link viene disattivato.
+
+\subsection{Breadcrumb}
+Il sito integra una breadcrumb in ogni pagina, progettata per aiutare l'utente a rispondere alle domande  \textit{``Dove Sono?"} e \textit{``Come ci sono arrivato?"}. Questo strumento migliora l'esperienza di navigazione, riducendo il possibile disorientamento dell'utente.\\
+Il livello di profondità viene mantenuto, mostrando le pagine che precedono quella attuale. La pagina attuale non è cliccabile, evitando così la creazione di link circolari.
+
+\subsection{Footer}
+Il sito dispone di un footer con i link ai social del fotografo, le informazioni relative ai diritti della pagina, 
+e nel quale vengono visualizzati i messaggi toast di conferma/errore.
