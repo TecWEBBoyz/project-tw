@@ -21,6 +21,9 @@ CREATE TABLE user (
     password VARCHAR(255) NOT NULL,
     role ENUM("Administrator", "User") NOT NULL DEFAULT "User"
 );
+INSERT INTO user (name, email, telephone, password, role) VALUES
+('admin', 'admin@gmail.com', '1234567890', 'admin', 'Administrator'),
+('user', 'user@gmail.com', '0987654321', 'user', 'User');
 CREATE TABLE booking (
     id CHAR(36) PRIMARY KEY DEFAULT UUID(),
     user_id CHAR(36) NOT NULL,

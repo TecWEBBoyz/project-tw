@@ -57,6 +57,13 @@ class Database {
         return self::query($sql, $params);
     }
 
+    public static function getUser($username) {
+        $sql = "SELECT * FROM user WHERE name = :username";
+        $params = [':username' => $username];
+        $result = self::query($sql, $params); 
+        return $result ? $result[0] : null; // Return the first result or null if not found
+    }
+
 }
 
 ?>

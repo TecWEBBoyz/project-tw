@@ -112,6 +112,9 @@ sed -i 's/;error_log = php_errors.log/error_log = \/var\/log\/php_errors.log/' $
 curl -sS https://getcomposer.org/installer | php -- \
 --install-dir=/usr/bin --filename=composer
 
+# Install JWT library
+cd /var/www/html/phplibs/external && composer require firebase/php-jwt
+
 # # Update del composer
 # cd /usr/bin/composer && composer update
 
