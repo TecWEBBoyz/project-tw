@@ -16,9 +16,7 @@ class Templating {
         }
 
         // Replace specified placeholders in the HTML template with actual values
-        foreach ($replacements as $key => $value) {
-            $html = str_replace($key, $value, $html);
-        }
+        $html = strtr($html, $replacements);
 
         // Replace logged user placeholders
         if (AuthManager::isUserLoggedIn()) {
