@@ -8,7 +8,7 @@ $currentFile = basename(__FILE__);
 $htmlContent = Templating::renderHtml($currentFile);
 
 // Check authentication before allowing access
-AuthMiddleware::requireAuth();
+AuthMiddleware::requireAdminAuth();
 
 echo $htmlContent;
 ?>

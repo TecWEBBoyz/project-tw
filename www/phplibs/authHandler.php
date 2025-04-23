@@ -12,25 +12,28 @@ class Token {
 
     public $iat;
     public $exp;
-    public $sub;
-    public $username;
+    public $id;
+    public $name;
     public $role;
 
     public function __construct($user) {
-        $issuedAt = time();
-        $expire = $issuedAt + JWT_EXPIRATION;
+        if (isset($user['iat']) && isset($user['exp'])) {
+            $this->iat = $user['iat'];
+            $this->exp = $user['exp'];
+        } else {
+            $this->iat = time();
+            $this->exp = $this->iat + JWT_EXPIRATION;
+        }
 
-        $this->iat = $issuedAt;
-        $this->exp = $expire;
-        $this->sub = $user['id'];
-        $this->username = $user['name'];
+        $this->id = $user['id'];
+        $this->name = $user['name'];
         $this->role = $user['role'];
 
         $payload = [
-            'iat' => $issuedAt,
-            'exp' => $expire,
-            'sub' => $user['id'],
-            'username' => $user['name'],
+            'iat' => $this->iat,
+            'exp' => $this->exp,
+            'id' => $user['id'],
+            'name' => $user['name'],
             'role' => $user['role']
         ];
 
@@ -41,7 +44,14 @@ class Token {
     public static function validate($token) {
         try {
             $decoded = JWT::decode($token, new \Firebase\JWT\Key(JWT_SECRET_KEY, 'HS256'));
-            return (array) $decoded;
+            $decoded_user = new Token((array)$decoded);
+            print_r((array)$decoded_user);
+            if ($decoded_user->exp < time()) {
+                echo "returning false";
+                return false; // Token expired
+            }
+            echo "returning Token object";
+            return $decoded_user;
         } catch (Exception $e) {
             return false;
         }
