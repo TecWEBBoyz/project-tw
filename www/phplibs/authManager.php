@@ -8,13 +8,12 @@ define('JWT_EXPIRATION', 3600); // Token expiration in seconds (1 hour)
 use \Firebase\JWT\JWT;
 
 class Token {
-    public $payload;
-
     public $iat;
     public $exp;
     public $id;
     public $name;
     public $role;
+    public $payload;
 
     public function __construct($user) {
         if (isset($user['iat']) && isset($user['exp'])) {
@@ -41,16 +40,42 @@ class Token {
         return $payload;
     }
 
+    // Getters
+    public function getIat(): int {
+        return $this->iat;
+    }
+
+    public function getExp(): int {
+        return $this->exp;
+    }
+
+    public function getId(): int {
+        return $this->id;
+    }
+
+    public function getName(): string {
+        return $this->name;
+    }
+
+    public function getRole(): string {
+        return $this->role;
+    }
+
+    public function getPayload(): string {
+        return $this->payload;
+    }
+
     public static function validate($token) {
+        if ($token === null) {
+            return false; // Token not provided
+        }
         try {
             $decoded = JWT::decode($token, new \Firebase\JWT\Key(JWT_SECRET_KEY, 'HS256'));
             $decoded_user = new Token((array)$decoded);
-            print_r((array)$decoded_user);
+
             if ($decoded_user->exp < time()) {
-                echo "returning false";
                 return false; // Token expired
             }
-            echo "returning Token object";
             return $decoded_user;
         } catch (Exception $e) {
             return false;
@@ -60,37 +85,45 @@ class Token {
 
 class AuthManager {
 
-    // private function generateToken($user) {
-    //     $issuedAt = time();
-    //     $expire = $issuedAt + JWT_EXPIRATION;
-
-    //     $payload = [
-    //         'iat' => $issuedAt,
-    //         'exp' => $expire,
-    //         'sub' => $user['id'],
-    //         'username' => $user['name'],
-    //         'role' => $user['role']
-    //     ];
-
-    //     return JWT::encode($payload, JWT_SECRET_KEY, 'HS256');
-    // }
-
-    public function authenticate($username, $password) {
+    public static function authenticate($username, $password) {
         $user = Database::getUser($username);
 
         if ($user && $password === $user['password']) { //password_verify($password, $user['password'])
-            return new Token($user);
+            $token = new Token($user);
+            // Set token in HTTP-only cookie
+            setcookie('jwt_token', $token->getPayload(), $token->getExp(), '/', '', true, true);
+            return $token;
         }
         return false;
     }
 
-    public static function validateToken($token) {
-        try {
-            $decoded = JWT::decode($token, new \Firebase\JWT\Key(JWT_SECRET_KEY, 'HS256'));
-            return (array) $decoded;
-        } catch (Exception $e) {
-            return false;
+    public static function getRedirectUrlForRole($token): string {
+        if (!$token) {
+            return 'login.php';
         }
+
+        return match ($token->getRole()) {
+            'Administrator' => 'adminDashboard.php',
+            'User' => 'userDashboard.php',
+            default => 'login.php'
+        };
+    }
+
+    public static function requireAuth($role) {
+        $token = Token::validate($_COOKIE['jwt_token'] ?? null);
+
+        if (!$token || $token->getRole() != $role) {
+            header('Location: login.php?error=unauthorized');
+            exit;
+        }
+    }
+
+    public static function requireUserAuth() {
+        AuthManager::requireAuth('User');
+    }
+
+    public static function requireAdminAuth() {
+        AuthManager::requireAuth('Administrator');
     }
 }
 
