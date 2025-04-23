@@ -8,7 +8,10 @@ $currentFile = basename(__FILE__);
 $htmlContent = Templating::renderHtml($currentFile);
 
 // Check authentication before allowing access
-AuthManager::requireAdminAuth();
+if (!AuthManager::isAdminLoggedIn()) {
+    header('Location: login.php?error=unauthorized');
+    exit;
+}
 
 echo $htmlContent;
 ?>

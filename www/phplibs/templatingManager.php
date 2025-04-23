@@ -1,4 +1,5 @@
 <?php
+require_once("authManager.php");
 
 class Templating {
 
@@ -14,8 +15,18 @@ class Templating {
             throw new Exception("Could not read template file: " . $templatePath);
         }
 
+        // Replace specified placeholders in the HTML template with actual values
         foreach ($replacements as $key => $value) {
             $html = str_replace($key, $value, $html);
+        }
+
+        // Replace logged user placeholders
+        if (AuthManager::isUserLoggedIn()) {
+            $html = str_replace("[[ifLoggedIn]]", '<li><a href="userDashboard.php">Prenotazioni</a></li><li><a href="logout.php">Logout</a></li>', $html);
+        } else if (AuthManager::isAdminLoggedIn()) {
+            $html = str_replace("[[ifLoggedIn]]", '<li><a href="adminDashboard.php">Gestione</a></li><li><a href="logout.php"><span lang="en">Logout</span></a></li>', $html);
+        } else {
+            $html = str_replace("[[ifLoggedIn]]", '<li><a href="login.php"><span lang="en">Login</span></a></li>', $html);
         }
 
         return $html;

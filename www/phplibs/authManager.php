@@ -109,21 +109,20 @@ class AuthManager {
         };
     }
 
-    public static function requireAuth($role) {
+    public static function isUserLoggedIn(): bool {
         $token = Token::validate($_COOKIE['jwt_token'] ?? null);
-
-        if (!$token || $token->getRole() != $role) {
-            header('Location: login.php?error=unauthorized');
-            exit;
+        if ($token && $token->getRole() === 'User') {
+            return true;
         }
+        return false;
     }
 
-    public static function requireUserAuth() {
-        AuthManager::requireAuth('User');
-    }
-
-    public static function requireAdminAuth() {
-        AuthManager::requireAuth('Administrator');
+    public static function isAdminLoggedIn(): bool {
+        $token = Token::validate($_COOKIE['jwt_token'] ?? null);
+        if ($token && $token->getRole() === 'Administrator') {
+            return true;
+        }
+        return false;
     }
 }
 
