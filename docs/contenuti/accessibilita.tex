@@ -1,0 +1,30 @@
+\section{Accessibilit\`a}
+\subsection{Panoramica}
+Per offrire un'esperienza utente inclusiva e intuitiva, sono state adottate specifiche soluzioni per migliorare l'usabilità e l’accessibilità del sito:
+\begin{itemize}
+    \item La navigazione è completamente accessibile tramite tastiera.
+    \item Sono stati scelti font leggibili, con contrasto adeguato, per garantire una fruizione confortevole a un’ampia varietà di utenti;
+    \item In tutte le pagine del sito sono presenti strumenti di supporto alla navigazione, inclusi breadcrumb e jump button, per agevolare l’esperienza dell’utente;
+    \item Le immagini non diversamente descritte sono corredate da testi alternativi, facilitando la comprensione per utenti non vedenti o con disabilità visive. Ogni immagine presente nella galleria viene descritta sia da un alt che ne illustra il contenuto, sia da una descrizione inserita dal fotografo per spiegarne il significato.
+    \item La struttura del sito è minimale e intuitiva, con una gerarchia poco profonda;
+    \item La palette di colori è stata selezionata con particolare attenzione all’accessibilità, garantendo un contrasto elevato tra gli elementi per migliorare la leggibilità e l’usabilità da parte di utenti con disabilità visive.
+\end{itemize}
+
+\subsection{Jump Button}
+I Jump Button sono stati realizzati come link che diventano visibili quando ricevono il focus tramite la navigazione con il tasto Tab.\\
+Questa soluzione è stata adottata per facilitare l’esperienza di utenti che navigano tramite tastiera e di chi utilizza screen reader.
+Esempi di Jump Button si hanno nel menu come aiuti alla navigazione, e a fondo pagina come pulsante per tornare in cima.
+
+\subsection{Palette Colori}
+La scelta della palette di colori è stata effettuata con attenzione per garantire la conformità agli standard AA delle WCAG. Per verificare i contrasti, è stato utilizzato lo strumento \href{https://coolors.co/contrast-checker}{Color Contrast Checker di Coolors}, con l’obiettivo di mantenere un rapporto di contrasto minimo di 4.5:1 dei colori con lo sfondo.
+Lo stesso rapporto non viene raggiunto tra tutte le combianzioni possibili.\\
+La palette è stata sottoposta a un’analisi tramite il simulatore di daltonismo disponibile sullo stesso sito.
+
+Per garantire un contrasto adeguato tra le immagini presenti nella Home e i testi sovrapposti (titolo, città e data dello scatto), è stato applicato un gradiente lineare che sfuma dal basso verso l'alto. Inoltre, è stata effettuata una verifica manuale per assicurarsi che il testo rimanga leggibile anche su immagini prevalentemente bianche (tramite il Color Contrast Checker sopra citato).
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\textwidth]{immagini/palette.png}
+    \caption{\href{https://coolors.co/030303-fefefe-f78e69-23b5d3}{link alla palette su coolors.co}}
+    \label{fig:palette}
+\end{figure}

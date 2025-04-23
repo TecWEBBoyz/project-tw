@@ -1,0 +1,24 @@
+\section{Validazione e Testing}
+\subsection{Analisi con Total Validator}
+L'analisi con Total Validator ha prodotto i seguenti errori:
+\begin{itemize}
+    \item WCAG2 A:
+    \begin{itemize}
+        \item E902 - ci sono dei div con attributi aria-hidden="true" e contenenti degli elementi con tabindex="0". Questo non rappresenta un errore poichè questi elementi non sono disponibili nel DOM quando aria-hidden è attivo.
+    \end{itemize}
+    \item HTML:
+    \begin{itemize}
+        \item E622 - Il valore individua un attributo con valore nullo nel codice HTML, tuttavia questo avviene perchè tale attributo viene popolato dinamicamente mediante javascript.
+    \end{itemize}
+    \item Link
+    \begin{itemize}
+        \item E400 - E' stato segnalato un link problematico, con suggerimento del validatore di verificare manualmente, tuttavia a seguito di suddetta analisi manuale il link si è rivelato funzionante e privo di problemi.
+    \end{itemize}
+    \item Spell Check 
+    \begin{itemize}
+        \item E31 - sono stati individuati diversi errori grammaticali nel sito, ma a seguito di un'analisi è emerso che si tratta di errori dovuti a nomi propri non riconosciuti come parte del vocabolario.
+    \end{itemize}
+\end{itemize}
+Sono stati individuati anche alcuni warning e ove possibile il gruppo ha lavorato per risolverli.
+\subsection{validazione con l'estensione WAVE di WebAIM}
+Il gruppo ha testato ogni pagina con l'estensione, risolvendo gli errori individuati. Di conseguenza l'estensione non individua alcun errore nella versione finale del sito, ma individua alcuni warning che sono dovuti a feature funzionali o di progettazione del sito
