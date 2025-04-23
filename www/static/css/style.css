@@ -1,0 +1,239 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+
+:root{
+    --bgcolor: #F7F3F3;
+    --txtcolor: #000;
+    --breadcolor: #163F77;
+    --menutxtcolor: #F7F3F3;
+    --menubgcolor: #44633F;
+    --linkcolor: #FFE570;
+    --visitedcolor: #ff9651;
+}
+
+html, body {
+    color: var(--txtcolor);
+    background-color: var(--bgcolor);
+    font-family: "Lexend", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+}
+
+a {
+    color: var(--linkcolor);
+    text-decoration: none;
+}
+
+a:visited {
+    color: var(--visitedcolor);
+}
+
+#top-help {
+    position: fixed;
+    width: 60%;
+    padding: 0 20% 0 20%;
+    z-index: 9999;
+    height: 1.6em;
+    top: -3em;
+}
+
+#top-help a {
+    background-color: var(--linkcolor);
+    color: var(--menubgcolor);
+    padding: 0.1em;
+    border-radius: 0 0 0.3em 0.3em;
+    font-size: 1.5vw;
+}
+
+#top-help:focus-within {
+    transition: 0.3s ease-in-out;
+    top: 0em;       
+}
+
+header {
+    background-color: var(--menubgcolor);
+    color: var(--menutxtcolor);
+    width: 60%;
+    padding: 0 20% 0 20%;
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#hamburger-button {
+    display: none;
+    background-color: var(--menubgcolor);
+    border: none;
+    box-shadow: none;
+    height: fit-content;
+    padding: 0.7em 0.7em 0.7em 0;
+    cursor: pointer;
+    min-width: 45px;
+    min-height: 45px;
+    color: var(--menutxtcolor); 
+    font-size: 1.5em;
+}
+
+#navigation {
+    width: auto;
+    margin: 0.3em;
+}
+
+#menu {
+    margin: 1vw 0 1vw 0;
+}
+
+#menu ul {
+    list-style: none;
+}
+
+#menu li {
+    display: inline-block;
+    padding: 0 1em 0 0;
+    font-size: 1.5vw;
+}
+
+#menu li a {
+    color: var(--menutxtcolor);
+}
+
+#breadcrumb {
+    margin-bottom: 0.2vw;
+    font-size: 1.2vw;
+}
+
+#logo {
+    width: 15%;
+    height: 6vw;
+    margin: 1em;
+    font-size: 5px;
+    text-indent: -999em;
+    white-space: nowrap;
+    overflow: hidden;
+    background-image: url(./styleImages/AnimaliaLogo.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+}
+
+#logo h1 {
+    height: 6vw;
+}
+
+@media (max-width: 1024px) {
+    #top-help {
+        width: 80%;
+        padding: 0 10% 0 10%;
+    }
+    
+    #top-help a {
+        font-size: 1.8vw;
+    }   
+    
+    header {
+        width: 80%;
+        padding: 0 10% 0 10%;
+    }
+
+    #menu {
+        margin: 0.5vw 0 1vw 0;
+    }
+    
+    #menu li {
+        font-size: 1.7vw;
+    }
+    
+    #breadcrumb {
+        margin-bottom: 0.2vw;
+        font-size: 1.5vw;
+    }
+    
+    #logo {
+        height: 8vw;
+    }
+    
+    #logo h1 {
+        height: 8vw;
+    }
+}
+
+@media (max-width: 768px) {
+    header {
+        align-items: flex-start;
+    }
+    
+    #logo {
+        background-image: url(./styleImages/AnimaliaLogoSlim.png);
+    }
+
+    #top-help {
+        width: 94%;
+        padding: 0 3% 0 3%;
+    }
+    
+    #top-help a {
+        font-size: 2.5vw;
+    }   
+    
+    header {
+        width: 94%;
+        padding: 0 3% 0 3%;
+    }
+
+    #menu li {
+        font-size: 2.5vw;
+    }
+    
+    #breadcrumb {
+        font-size: 2vw;
+    }
+    
+    #logo {
+        height: 12vw;
+    }
+    
+    #logo h1 {
+        height: 12vw;
+    }
+}
+
+@media (max-width: 480px) {
+    #hamburger-button {
+        display: block;
+    }
+    
+    #top-help a {
+        font-size: 1.5em;
+    }
+
+    #menu ul {
+        margin: 0 0 1.2em 0;
+    }
+
+    #menu li {
+        padding: 0.1em 0 0.1em 0;
+        font-size: 1.5em;
+        display: list-item;
+    }
+
+    #breadcrumb {
+        font-size: 1em;
+    }
+
+    .drop-content {
+        display: none;
+    }
+
+    .show-drop-content {
+        display: block;
+    }
+
+    #logo {
+        
+        padding-bottom: 1.2em;
+    }
+}

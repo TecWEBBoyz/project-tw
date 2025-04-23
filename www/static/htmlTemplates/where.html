@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="static/css/style.css" media="screen">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <script src="static/javascript/script.js" defer></script>
+</head>
+<body>
+    <nav id="top-help">
+        <a href="#contenuto">Vai al contenuto</a>
+    </nav>
+    <header>
+        <div id="logo"><h1 tabindex="0">Zoo Animalia</h1></div>
+        <div id="navigation">
+            <button id="hamburger-button" aria-label="Apri menù" onclick="toggleHamburgerMenu()">
+                MEN&Uacute;
+            </button>
+            <nav id="menu" aria-label="menù di navigazione" class="drop-content">
+                <ul>
+                    <li><a href="index.php"><span lang="en">Home</span></a></li>
+                    <li><a href="about.php">Chi siamo</a></li>
+                    <li><a href="where.php">Dove trovarci</a></li>
+                    <li><a href="animals.php">Animali</a></li>
+                    [[ifLoggedIn]]
+                </ul>
+            </nav>
+            <nav id="breadcrumb" aria-label="breadcrumb" class="drop-content">
+                <p><a href="index.php"><span lang="en">Home</span></a> &gt; Dove trovarci</p>
+            </nav>
+        </div>
+    </header>
+    <main id="contenuto">
+        <h1>Dove trovarci</h1>
+    </main>
+</body>
+</html>
