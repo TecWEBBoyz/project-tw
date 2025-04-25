@@ -21,17 +21,24 @@ CREATE TABLE user (
     password VARCHAR(255) NOT NULL,
     role ENUM("Administrator", "User") NOT NULL DEFAULT "User"
 );
-INSERT INTO user (name, email, telephone, password, role) VALUES
-('admin', 'admin@gmail.com', '1234567890', 'admin', 'Administrator'),
-('user', 'user@gmail.com', '0987654321', 'user', 'User');
 CREATE TABLE booking (
     id CHAR(36) PRIMARY KEY DEFAULT UUID(),
     user_id CHAR(36) NOT NULL,
     date DATE NOT NULL,
     start_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     end_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    type ENUM('safari', 'entrance') NOT NULL,
+    num_people INT NOT NULL,
+    notes TEXT,
     FOREIGN KEY (user_id) REFERENCES user(id)
 );
+INSERT INTO user (name, email, telephone, password, role) VALUES
+('admin', 'admin@gmail.com', '1234567890', 'admin', 'Administrator'),
+('user', 'user@gmail.com', '0987654321', 'user', 'User');
+-- INSERT INTO booking (user_id, date, start_time, end_time, type, num_people, notes) VALUES 
+-- ('a1b2c3d4-e5f6-7890-g1h2-i3j4k5l6m7n8', '2025-04-23', '2025-04-23 09:00:00', '2025-04-23 11:30:00', 'safari', 4, 'Famiglia con 2 bambini, se possibile posti anteriori'),
+-- ('b2c3d4e5-f6g7-8901-h2i3-j4k5l6m7n8o9', '2025-04-24', '2025-04-24 13:00:00', '2025-04-24 16:00:00', 'entrance', 5, 'Anziani, potrebbe servire accesso per sedia a rotelle'),
+-- ('c3d4e5f6-g7h8-9012-i3j4-k5l6m7n8o9p0', '2025-04-25', '2025-04-25 10:30:00', '2025-04-25 12:00:00', 'safari', 20, 'Gita scolastica, richiesta fattura separata per il pagamento');
 INSERT INTO animal (specie, name, age, habitat, dimensions, lifespan, diet, description, image) VALUES
 ('Elefante', 'Dumbo', '45 anni', 'Savane e foreste africane', 'Fino a 4 metri di altezza e 6.000 kg', '60-70 anni', 'Erbivoro – foglie, frutti e cortecce', 'A differenza di molti altri animali, gli elefanti vivono in gruppi familiari guidati da una femmina anziana, la matriarca. Questi giganti gentili sono noti per la loro incredibile memoria e per il legame profondo che instaurano con i membri del branco. Comunicano tra loro attraverso suoni a bassa frequenza, vibrazioni nel terreno e il contatto fisico. Passano gran parte della giornata a cercare cibo e acqua, e sono fondamentali per l’ecosistema, poiché aprono sentieri e disperdono semi. Nonostante la loro mole, gli elefanti possono muoversi con sorprendente grazia e sensibilità.', './static/images/elephant.jpg'),
 ('Tigre', 'Strisce', '8 anni', 'Foreste tropicali e taiga', 'Fino a 3 metri di lunghezza, 200-300 kg', '10-15 anni', 'Carnivora – cervi, cinghiali, bufali', 'La tigre è un predatore solitario e furtivo che vive e caccia da sola nel cuore delle foreste. Contrariamente ad altri felini sociali, stabilisce e difende un proprio territorio marcandolo con odori e graffi sugli alberi. Si muove silenziosa attraverso la vegetazione, sfruttando il mimetismo offerto dalle sue strisce, e attacca con precisione fulminea. Le tigri sono anche eccellenti nuotatrici e spesso si rinfrescano nei corsi d’acqua. Fiere, misteriose e potenti, sono considerate simboli di forza e bellezza selvaggia.', './static/images/tiger.jpg'),
