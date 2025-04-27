@@ -2,9 +2,10 @@
 require_once("authManager.php");
 
 class Templating {
+    private static $basedir = __DIR__ . "/../static/htmlTemplates/";
 
     public static function renderHtml($callerFile, $replacements = []) {
-        $templatePath = __DIR__ . "/../static/htmlTemplates/" . str_replace(".php", ".html", $callerFile);
+        $templatePath = self::$basedir . str_replace(".php", ".html", $callerFile);
         
         if (!file_exists($templatePath)) {
             throw new Exception("Template file not found: " . $templatePath);
