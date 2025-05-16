@@ -5,12 +5,12 @@ namespace PTW\Models;
 use Firebase\JWT\JWT;
 
 class Token {
-    public $iat;
-    public $exp;
-    public $id;
-    public $name;
-    public $role;
-    public $payload;
+    private $iat;
+    private $exp;
+    private $id;
+    private $name;
+    private $role;
+    private $payload;
 
     public function __construct($user) {
         if (isset($user['iat']) && isset($user['exp'])) {
