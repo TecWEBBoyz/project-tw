@@ -4,18 +4,14 @@ namespace PTW\Services;
 
 use PDO;
 use PDOException;
+use function PTW\config;
 
 class DBService {
 
-    private static $host = 'localhost';
-    private static $dbname = 'default_database';
-    private static $username = 'default_user';
-    private static $password = 'default_password';
-
     private function connect() {
         try {
-            $dsn = "mysql:host=" . self::$host . ";dbname=" . self::$dbname;
-            $pdo = new PDO($dsn, self::$username, self::$password);
+            $dsn = "mysql:host=" . config("database.host") . ";dbname=" . config("database.database");
+            $pdo = new PDO($dsn, config("database.username"), config("database.password"));
             $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             return $pdo;
         } catch (PDOException $e) {

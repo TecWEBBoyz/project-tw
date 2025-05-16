@@ -1,5 +1,5 @@
 <?php
-require_once 'vendor/autoload.php';
+require_once 'init.php';
 
 use PTW\Services\AuthService;
 use PTW\Services\TemplateService;

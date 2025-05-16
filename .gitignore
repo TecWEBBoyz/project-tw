@@ -9,8 +9,9 @@
 **/composer.lock
 **/vendor/
 
-## Other
+# Other
 *.log
 translation.logs
 
-config.php
+# Local configuration
+*.local.php

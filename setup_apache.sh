@@ -113,7 +113,7 @@ curl -sS https://getcomposer.org/installer | php -- \
 --install-dir=/usr/bin --filename=composer
 
 # Install JWT library
-cd /var/www/html/phplibs/external && composer require firebase/php-jwt
+cd /var/www/html/ && composer install
 
 # # Update del composer
 # cd /usr/bin/composer && composer update

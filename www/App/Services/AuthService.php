@@ -3,17 +3,21 @@
 namespace PTW\Services;
 
 use PTW\Models\Token;
+use function PTW\config;
 
-define('JWT_SECRET_KEY', 'hfwuerkao&w09q3/%$ur4(32wdxò[e');  // Change this to a secure random string
-define('JWT_EXPIRATION', 3600); // Token expiration in seconds (1 hour)
+define('JWT_SECRET_KEY', config("JWT.JWT_SECRET_KEY"));
+define('JWT_EXPIRATION', config("JWT.JWT_EXPIRATION"));
 
 class AuthService {
 
     public static function authenticate($username, $password) {
         $user = DBService::getUser($username);
 
-        if ($user && $password === $user['password']) { //password_verify($password, $user['password'])
+        if ($user && $password === $user['password']) {
+            //password_verify($password, $user['password'])
+
             $token = new Token($user);
+
             // Set token in HTTP-only cookie
             setcookie('jwt_token', $token->getPayload(), $token->getExp(), '/', '', true, true);
             return $token;
