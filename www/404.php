@@ -1,11 +1,10 @@
 <?php
-require_once("phplibs/templatingManager.php");
-require_once("phplibs/DBManager.php");
+require_once 'vendor/autoload.php';
 
+use PTW\Services\TemplateService;
 
 $currentFile = basename(__FILE__);
-$htmlContent = Templating::renderHtml($currentFile);
+$htmlContent = TemplateService::renderHtml($currentFile);
 echo $htmlContent;
-
 
 ?>

@@ -1,11 +1,8 @@
 <?php
-require_once __DIR__ . '/external/vendor/autoload.php';
-require_once 'DBManager.php';
 
-define('JWT_SECRET_KEY', 'hfwuerkao&w09q3/%$ur4(32wdxò[e');  // Change this to a secure random string
-define('JWT_EXPIRATION', 3600); // Token expiration in seconds (1 hour)
+namespace PTW\Models;
 
-use \Firebase\JWT\JWT;
+use Firebase\JWT\JWT;
 
 class Token {
     public $iat;
@@ -71,7 +68,7 @@ class Token {
         }
         try {
             $decoded = JWT::decode($token, new \Firebase\JWT\Key(JWT_SECRET_KEY, 'HS256'));
-            $decoded_user = new Token((array)$decoded);
+            $decoded_user = new \PTW\Services\Token((array)$decoded);
 
             if ($decoded_user->exp < time()) {
                 return false; // Token expired
@@ -82,48 +79,3 @@ class Token {
         }
     }
 }
-
-class AuthManager {
-
-    public static function authenticate($username, $password) {
-        $user = Database::getUser($username);
-
-        if ($user && $password === $user['password']) { //password_verify($password, $user['password'])
-            $token = new Token($user);
-            // Set token in HTTP-only cookie
-            setcookie('jwt_token', $token->getPayload(), $token->getExp(), '/', '', true, true);
-            return $token;
-        }
-        return false;
-    }
-
-    public static function getRedirectUrlForRole($token): string {
-        if (!$token) {
-            return 'login.php';
-        }
-
-        return match ($token->getRole()) {
-            'Administrator' => 'adminDashboard.php',
-            'User' => 'userDashboard.php',
-            default => 'login.php'
-        };
-    }
-
-    public static function isUserLoggedIn(): bool {
-        $token = Token::validate($_COOKIE['jwt_token'] ?? null);
-        if ($token && $token->getRole() === 'User') {
-            return true;
-        }
-        return false;
-    }
-
-    public static function isAdminLoggedIn(): bool {
-        $token = Token::validate($_COOKIE['jwt_token'] ?? null);
-        if ($token && $token->getRole() === 'Administrator') {
-            return true;
-        }
-        return false;
-    }
-}
-
-?>

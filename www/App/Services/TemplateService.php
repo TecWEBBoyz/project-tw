@@ -1,8 +1,10 @@
 <?php
-require_once("authManager.php");
+namespace PTW\Services;
 
-class Templating {
-    private static $basedir = __DIR__ . "/../static/htmlTemplates/";
+use Exception;
+
+class TemplateService {
+    private static $basedir = __DIR__ . "/../../static/htmlTemplates/";
 
     public static function renderHtml($callerFile, $replacements = []) {
         $templatePath = self::$basedir . str_replace(".php", ".html", $callerFile);
@@ -20,9 +22,9 @@ class Templating {
         $html = strtr($html, $replacements);
 
         // Replace logged user placeholders
-        if (AuthManager::isUserLoggedIn()) {
+        if (AuthService::isUserLoggedIn()) {
             $html = str_replace("[[ifLoggedIn]]", '<li><a href="userDashboard.php">Prenotazioni</a></li><li><a href="logout.php">Logout</a></li>', $html);
-        } else if (AuthManager::isAdminLoggedIn()) {
+        } else if (AuthService::isAdminLoggedIn()) {
             $html = str_replace("[[ifLoggedIn]]", '<li><a href="adminDashboard.php">Gestione</a></li><li><a href="logout.php"><span lang="en">Logout</span></a></li>', $html);
         } else {
             $html = str_replace("[[ifLoggedIn]]", '<li><a href="login.php"><span lang="en">Login</span></a></li>', $html);

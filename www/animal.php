@@ -1,14 +1,16 @@
 <?php
-require_once("phplibs/templatingManager.php");
-require_once("phplibs/DBManager.php");
+require_once 'vendor/autoload.php';
+
+use PTW\Services\DBService;
+use PTW\Services\TemplateService;
 
 if (!isset($_GET['id']) || !preg_match('/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i', $_GET['id'])) {
     header("Location: animals.php?error=invalid_id");
     exit();
 }
 
-$result = Database::getAnimalByID($_GET['id']);
-if (!$result || empty($result)) {
+$result = DBService::getAnimalByID($_GET['id']);
+if (empty($result)) {
     header("Location: animals.php?error=not_found");
     exit();
 }
@@ -16,7 +18,7 @@ if (!$result || empty($result)) {
 $animal = $result[0];
 
 $currentFile = basename(__FILE__);
-$htmlContent = Templating::renderHtml($currentFile, [
+$htmlContent = TemplateService::renderHtml($currentFile, [
     "[[specie]]" => htmlspecialchars($animal['specie'] ?? ''),
     "[[name]]" => htmlspecialchars($animal['name'] ?? ''),
     "[[age]]" => htmlspecialchars($animal['age'] ?? ''),

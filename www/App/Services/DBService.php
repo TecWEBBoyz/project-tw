@@ -1,6 +1,11 @@
 <?php
 
-class Database {
+namespace PTW\Services;
+
+use PDO;
+use PDOException;
+
+class DBService {
 
     private static $host = 'localhost';
     private static $dbname = 'default_database';

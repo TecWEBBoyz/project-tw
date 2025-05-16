@@ -1,15 +1,17 @@
 <?php
-require_once("phplibs/authManager.php");
-require_once("phplibs/templatingManager.php");
-require_once("phplibs/DBManager.php");
+require_once 'vendor/autoload.php';
+
+use PTW\Services\AuthService;
+use PTW\Services\DBService;
+use PTW\Services\TemplateService;
 
 // Check authentication before allowing access
-if (!AuthManager::isAdminLoggedIn()) {
+if (!AuthService::isAdminLoggedIn()) {
     header('Location: login.php?error=unauthorized');
     exit;
 }
 
-$animals = Database::getAllAnimals();
+$animals = DBService::getAllAnimals();
 
 $animalRows = '';
 foreach ($animals as $animal) {
@@ -25,7 +27,7 @@ foreach ($animals as $animal) {
 }
 
 $currentFile = basename(__FILE__);
-$htmlContent = Templating::renderHtml($currentFile);
+$htmlContent = TemplateService::renderHtml($currentFile);
 
 $htmlContent = str_replace('[[animalTable]]', $animalRows, $htmlContent);
 

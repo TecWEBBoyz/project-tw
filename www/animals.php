@@ -1,18 +1,11 @@
 <?php
-require_once("phplibs/templatingManager.php");
-require_once("phplibs/DBManager.php");
+require_once 'vendor/autoload.php';
 
-
-
-// Render base html
-$currentFile = basename(__FILE__);
-$htmlContent = Templating::renderHtml($currentFile);
-
-
-
+use PTW\Services\TemplateService;
+use PTW\Services\DBService;
 
 // Render animals list
-$animalsList = Database::getAllAnimals(['id', 'specie', 'image', 'name']);
+$animalsList = DBService::getAllAnimals(['id', 'specie', 'image', 'name']);
 $htmlAnimalsList = "<div id='animalsList'>" . PHP_EOL;
 foreach ($animalsList as $animal) {
     $htmlAnimalsList .= "<div class='animalItem'>" . PHP_EOL;
@@ -21,16 +14,12 @@ foreach ($animalsList as $animal) {
 }
 $htmlAnimalsList .= "</div>";
 
-$htmlContent = str_replace("[[animalsList]]", $htmlAnimalsList, $htmlContent);
-
-
-
-
 // Render error messages
 $errorMessages = [
     'invalid_id' => 'Non ci è chiaro dove vuoi andare, prova una delle pagine di questa lista.',
     'not_found' => 'L\'animale che cerchi sembra essere scappato. Scegline un\'altro dalla lista.',
 ];
+
 // Checks if there are errors in the URL parameters
 $htmlError = '';
 if (isset($_GET['error']) && !empty($_GET['error'])) {
@@ -42,8 +31,12 @@ if (isset($_GET['error']) && !empty($_GET['error'])) {
     $htmlError .= '<script>document.getElementById("error-notification").focus();</script>' . PHP_EOL; // TODO: trova soluzione migliore per il focus
 }
 
-$htmlContent = str_replace("[[errorMessage]]", $htmlError, $htmlContent);
-
+// Render base html
+$currentFile = basename(__FILE__);
+$htmlContent = TemplateService::renderHtml($currentFile, [
+    "[[animalsList]]" => htmlspecialchars($htmlAnimalsList || ""),
+    "[[errorMessage]]" => htmlspecialchars($htmlError || ""),
+]);
 echo $htmlContent;
 
 ?>
