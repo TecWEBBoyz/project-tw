@@ -1,1 +1,16 @@
-test.html
+# Remove editor configuration file
+.DS_Store
+.vscode
+.idea
+.idea_modules
+.env
+
+# Composer
+**/composer.lock
+**/vendor/
+
+## Other
+*.log
+translation.logs
+
+config.php
