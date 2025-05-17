@@ -1,7 +1,6 @@
 <?php
 require_once 'init.php';
 
-use PTW\Services\DBService;
 use PTW\Services\TemplateService;
 
 if (!isset($_GET['id']) || !preg_match('/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i', $_GET['id'])) {
@@ -9,25 +8,27 @@ if (!isset($_GET['id']) || !preg_match('/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0
     exit();
 }
 
-$result = DBService::getAnimalByID($_GET['id']);
-if (empty($result)) {
+$animalRepo = new \PTW\Repositories\AnimalRepository();
+
+/** @var \PTW\Models\Animal|null $animal */
+$animal = $animalRepo->GetElementByID($_GET['id']);
+
+if (empty($animal)) {
     header("Location: animals.php?error=not_found");
     exit();
 }
 
-$animal = $result[0];
-
 $currentFile = basename(__FILE__);
 $htmlContent = TemplateService::renderHtml($currentFile, [
-    "[[specie]]" => htmlspecialchars($animal['specie'] ?? ''),
-    "[[name]]" => htmlspecialchars($animal['name'] ?? ''),
-    "[[age]]" => htmlspecialchars($animal['age'] ?? ''),
-    "[[habitat]]" => htmlspecialchars($animal['habitat'] ?? ''),
-    "[[dimensions]]" => htmlspecialchars($animal['dimensions'] ?? ''),
-    "[[lifespan]]" => htmlspecialchars($animal['lifespan'] ?? ''),
-    "[[diet]]" => htmlspecialchars($animal['diet'] ?? ''),
-    "[[description]]" => htmlspecialchars($animal['description'] ?? ''),
-    "[[image]]" => htmlspecialchars($animal['image'] ?? '')
+    "[[specie]]" => htmlspecialchars($animal->getSpecies()),
+    "[[name]]" => htmlspecialchars($animal->getName()),
+    "[[age]]" => htmlspecialchars($animal->getAge()),
+    "[[habitat]]" => htmlspecialchars($animal->getHabitat()),
+    "[[dimensions]]" => htmlspecialchars($animal->getDimensions()),
+    "[[lifespan]]" => htmlspecialchars($animal->getLifespan()),
+    "[[diet]]" => htmlspecialchars($animal->getDiet()),
+    "[[description]]" => htmlspecialchars($animal->getDescription()),
+    "[[image]]" => htmlspecialchars($animal->getImage())
 ]);
 
 echo $htmlContent;
