@@ -3,6 +3,7 @@
 namespace PTW\Models;
 
 use Cassandra\Date;
+use DateMalformedStringException;
 use DateTime;
 use Exception;
 
@@ -21,6 +22,9 @@ class Review implements DBItem
      */
     public function __construct(array $data = [])
     {
+        if (empty($data))
+            return;
+
         try {
             $this->setData($data);
         } catch (\Throwable $e) {
@@ -66,6 +70,22 @@ class Review implements DBItem
             'comment' => $this->comment,
             'created_at' => $this->createdAt->format('Y-m-d H:i:s'),
             'updated_at' => $this->updatedAt->format('Y-m-d H:i:s'),
+        ];
+    }
+
+    /**
+     * @throws DateMalformedStringException
+     */
+    public function filterData(array $data): array
+    {
+        return [
+            "id" => $data['id'],
+            "user_id" => $data['user_id'],
+            "animal_id" => $data['animal_id'],
+            "rating" => $data['rating'],
+            "comment" => $data['comment'] ?? "",
+            "created_at" => new DateTime($data['created_at']),
+            "updated_at" => new DateTime($data['updated_at']),
         ];
     }
 

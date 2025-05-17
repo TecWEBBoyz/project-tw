@@ -22,6 +22,9 @@ class Animal implements DBItem
      */
     public function __construct(array $data = [])
     {
+        if (empty($data))
+            return;
+
         try {
             $this->setData($data);
         } catch (\Throwable $e) {
@@ -74,6 +77,22 @@ class Animal implements DBItem
             'diet' => $this->diet,
             'description' => $this->description,
             'image' => $this->image
+        ];
+    }
+
+    public function filterData(array $data): array
+    {
+        return [
+            "id" => $data['id'],
+            "species" => $data['species'],
+            "name" => $data['name'],
+            "age" => $data['age'],
+            "habitat" => $data['habitat'] ?? '',
+            "dimensions" => $data['dimensions'] ?? '',
+            "lifespan" => $data['lifespan'] ?? '',
+            "diet" => $data['diet'] ?? '',
+            "description" => $data['description'] ?? '',
+            "image" => $data['image'],
         ];
     }
 

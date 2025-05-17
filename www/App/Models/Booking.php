@@ -18,6 +18,9 @@ class Booking implements DBItem
      */
     public function __construct(array $data = [])
     {
+        if (empty($data))
+            return;
+
         try {
             $this->setData($data);
         } catch (\Throwable $e) {
@@ -36,14 +39,14 @@ class Booking implements DBItem
         $this->userId = $data['user_id'];
         $this->serviceId = $data['service_id'];
         $this->date = new DateTime($data['date']);
-        $this->numberOfPeople = $data['number_of_people'];
+        $this->numberOfPeople = $data['num_people'];
         $this->notes = $data['notes'] ?? '';
     }
 
     private function validateArray(array $data): bool
     {
         if (!isset($data['user_id']) || !isset($data['service_id']) ||
-            !isset($data['date']) || !isset($data['number_of_people']) || !isset($data['user']) || !isset($data['service'])) {
+            !isset($data['date']) || !isset($data['num_people'])) {
             return false;
         }
 
@@ -56,8 +59,19 @@ class Booking implements DBItem
             'user_id' => $this->userId,
             'service_id' => $this->serviceId,
             'date' => $this->date->format('Y-m-d'),
-            'number_of_people' => $this->numberOfPeople,
+            'num_people' => $this->numberOfPeople,
             'notes' => $this->notes
+        ];
+    }
+
+    public function filterData(array $data): array
+    {
+        return [
+            "user_id" => $data['user_id'],
+            "service_id" => $data['service_id'],
+            "date" => new DateTime($data['date']),
+            "number_of_people" => $data['number_of_people'],
+            "notes" => $data['notes'] ?? '',
         ];
     }
 

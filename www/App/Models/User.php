@@ -18,6 +18,9 @@ class User implements DBItem
      */
     public function __construct(array $data = [])
     {
+        if (empty($data))
+            return;
+
         try {
             $this->setData($data);
         } catch (\Throwable $e) {
@@ -60,6 +63,18 @@ class User implements DBItem
             'telephone' => $this->telephone,
             'password' => $this->password,
             'role' => $this->role
+        ];
+    }
+
+    public function filterData(array $data): array
+    {
+        return [
+            "id" => $data['id'],
+            "username" => $data['username'],
+            "email" => $data['email'],
+            "telephone" => $data['telephone'],
+            "password" => $data['password'],
+            "role" => $data['role'],
         ];
     }
 

@@ -9,7 +9,7 @@ class Service implements DBItem
     protected string $id;
     protected string $name;
     protected string $description;
-    protected float $prince;
+    protected float $price;
     protected int $duration;
     protected int $maxPeople;
 
@@ -18,6 +18,9 @@ class Service implements DBItem
      */
     public function __construct(array $data = [])
     {
+        if (empty($data))
+            return;
+
         try {
             $this->setData($data);
         } catch (\Throwable $e) {
@@ -36,7 +39,7 @@ class Service implements DBItem
         $this->id = $data['id'];
         $this->name = $data['name'];
         $this->description = $data['description'] ?? '';
-        $this->prince = $data['prince'];
+        $this->price = $data['price'];
         $this->duration = $data['duration'];
         $this->maxPeople = $data['max_people'];
     }
@@ -44,7 +47,7 @@ class Service implements DBItem
     private function validateArray(array $data): bool
     {
         if (!isset($data['id']) || !isset($data['name']) ||
-            !isset($data['description']) || !isset($data['prince']) ||
+            !isset($data['description']) || !isset($data['price']) ||
             !isset($data['duration']) || !isset($data['max_people'])) {
             return false;
         }
@@ -58,9 +61,21 @@ class Service implements DBItem
             'id' => $this->id,
             'name' => $this->name,
             'description' => $this->description,
-            'prince' => $this->prince,
+            'price' => $this->price,
             'duration' => $this->duration,
             'max_people' => $this->maxPeople
+        ];
+    }
+
+    public function filterData(array $data): array
+    {
+        return [
+            "id" => $data['id'],
+            "name" => $data['name'],
+            "description" => $data['description'] ?? '',
+            "price" => $data['price'],
+            "duration" => $data['duration'],
+            "max_people" => $data['max_people'],
         ];
     }
 
@@ -79,9 +94,9 @@ class Service implements DBItem
         return $this->description;
     }
 
-    public function getPrince(): float
+    public function getPrice(): float
     {
-        return $this->prince;
+        return $this->price;
     }
 
     public function getDuration(): int
