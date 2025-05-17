@@ -2,7 +2,6 @@
 require_once 'init.php';
 
 use PTW\Services\AuthService;
-use PTW\Services\DBService;
 use PTW\Services\TemplateService;
 
 // Check authentication before allowing access
@@ -11,18 +10,20 @@ if (!AuthService::isAdminLoggedIn()) {
     exit;
 }
 
-$animals = DBService::getAllAnimals();
+$animalRepo = new \PTW\Repositories\AnimalRepository();
+$animals = $animalRepo->All();
 
 $animalRows = '';
 foreach ($animals as $animal) {
-    $name = htmlspecialchars($animal['name'] ?? '');
-    $specie = htmlspecialchars($animal['specie'] ?? ''); // assuming 'type' is used instead of 'species'
-    $description = htmlspecialchars($animal['description'] ?? '');
+
+    if (!$animal instanceof \PTW\Models\Animal) {
+        continue;
+    }
 
     $animalRows .= "<tr>
-        <td>{$name}</td>
-        <td>{$specie}</td>
-        <td>{$description}</td>
+        <td>{$animal->getName()}</td>
+        <td>{$animal->getSpecies()}</td>
+        <td>{$animal->getDescription()}</td>
     </tr>";
 }
 
