@@ -2,15 +2,20 @@
 require_once 'init.php';
 
 use PTW\Services\TemplateService;
-use PTW\Services\DBService;
 
 // Render animals list
-$animalsList = DBService::getAllAnimals(['id', 'specie', 'image', 'name']);
+$animalRepo = new \PTW\Repositories\AnimalRepository();
+
+$animalsList = $animalRepo->All();
 $htmlAnimalsList = "<div id='animalsList'>" . PHP_EOL;
 foreach ($animalsList as $animal) {
+    if (!$animal instanceof \PTW\Models\Animal) {
+        continue;
+    }
+
     $htmlAnimalsList .= "<div class='animalItem'>" . PHP_EOL;
-    $htmlAnimalsList .= "<img src='" . htmlspecialchars($animal['image']) . "' alt='" . htmlspecialchars($animal['name']) . "' />" . PHP_EOL;
-    $htmlAnimalsList .= "<h2><a href='animal.php?id=" . htmlspecialchars($animal['id']) . "'>" . htmlspecialchars($animal['specie']) . "</a></h2>" . PHP_EOL . "</div>" . PHP_EOL;
+    $htmlAnimalsList .= "<img src='" . htmlspecialchars($animal->getImage()) . "' alt='" . htmlspecialchars($animal->getName()) . "' />" . PHP_EOL;
+    $htmlAnimalsList .= "<h2><a href='animal.php?id=" . htmlspecialchars($animal->getId()) . "'>" . htmlspecialchars($animal->getSpecies()) . "</a></h2>" . PHP_EOL . "</div>" . PHP_EOL;
 }
 $htmlAnimalsList .= "</div>";
 
@@ -34,8 +39,8 @@ if (isset($_GET['error']) && !empty($_GET['error'])) {
 // Render base html
 $currentFile = basename(__FILE__);
 $htmlContent = TemplateService::renderHtml($currentFile, [
-    "[[animalsList]]" => htmlspecialchars($htmlAnimalsList || ""),
-    "[[errorMessage]]" => htmlspecialchars($htmlError || ""),
+    "[[animalsList]]" => $htmlAnimalsList,
+    "[[errorMessage]]" => $htmlError,
 ]);
 echo $htmlContent;
 
