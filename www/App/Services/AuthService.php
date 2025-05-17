@@ -3,6 +3,7 @@
 namespace PTW\Services;
 
 use PTW\Models\Token;
+use PTW\Repositories\UserRepository;
 use function PTW\config;
 
 define('JWT_SECRET_KEY', config("JWT.JWT_SECRET_KEY"));
@@ -11,9 +12,14 @@ define('JWT_EXPIRATION', config("JWT.JWT_EXPIRATION"));
 class AuthService {
 
     public static function authenticate($username, $password) {
-        $user = DBService::getUser($username);
+        $userRepo = new UserRepository();
+        $user = $userRepo->GetElementByUsername($username);
 
-        if ($user && $password === $user['password']) {
+        if (!$user instanceof \PTW\Models\User) {
+            return false;
+        }
+
+        if ($password === $user->getPassword()) {
             //password_verify($password, $user['password'])
 
             $token = new Token($user);

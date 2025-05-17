@@ -12,25 +12,35 @@ class Token {
     private $role;
     private $payload;
 
-    public function __construct($user) {
-        if (isset($user['iat']) && isset($user['exp'])) {
-            $this->iat = $user['iat'];
-            $this->exp = $user['exp'];
-        } else {
+    public function __construct(User|array $user) {
+        if ($user instanceof User) {
             $this->iat = time();
             $this->exp = $this->iat + JWT_EXPIRATION;
-        }
 
-        $this->id = $user['id'];
-        $this->name = $user['name'];
-        $this->role = $user['role'];
+            $this->id = $user->getId();
+            $this->name = $user->getUsername();
+            $this->role = $user->getRole();
+
+        } else {
+            if (isset($user['iat']) && isset($user['exp'])) {
+                $this->iat = $user['iat'];
+                $this->exp = $user['exp'];
+            } else {
+                $this->iat = time();
+                $this->exp = $this->iat + JWT_EXPIRATION;
+            }
+
+            $this->id = $user['id'];
+            $this->name = $user['name'];
+            $this->role = $user['role'];
+        }
 
         $payload = [
             'iat' => $this->iat,
             'exp' => $this->exp,
-            'id' => $user['id'],
-            'name' => $user['name'],
-            'role' => $user['role']
+            'id' => $this->id,
+            'name' => $this->name,
+            'role' => $this->role
         ];
 
         $this->payload = JWT::encode($payload, JWT_SECRET_KEY, 'HS256');
@@ -68,7 +78,7 @@ class Token {
         }
         try {
             $decoded = JWT::decode($token, new \Firebase\JWT\Key(JWT_SECRET_KEY, 'HS256'));
-            $decoded_user = new \PTW\Services\Token((array)$decoded);
+            $decoded_user = new Token((array)$decoded);
 
             if ($decoded_user->exp < time()) {
                 return false; // Token expired
