@@ -27,7 +27,7 @@ $errorMessages = [
 
 // Checks if there are errors in the URL parameters
 $htmlError = '';
-if (isset($_GET['error']) && !empty($_GET['error'])) {
+if (!empty($_GET['error'])) {
     $errorMsg = $errorMessages[$_GET['error']] ?? 'Errore sconosciuto.';
     $htmlError .= '<div class="error-message" role="alert" aria-live="assertive" tabindex="-1" id="error-notification">' . PHP_EOL;
     $htmlError .= '<svg aria-hidden="true" class="error-icon" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>' . PHP_EOL;
