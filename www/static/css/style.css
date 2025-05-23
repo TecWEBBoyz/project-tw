@@ -254,7 +254,12 @@ h3 + .muted {
 a {
     font-family: "Nunito Medium", sans-serif;
     font-size: clamp(calc(14 / 16 * 1rem), calc(100vw * 16 / var(--max-content-width)), calc(16 / 16 * 1rem));
-    line-height: 2;
+    line-height: 44px;
+    min-width: 44px; 
+    min-height: 44px;
+    display: inline-block;
+    padding-top: auto;
+    padding-bottom: auto;
 }
 
 a.menu-link {

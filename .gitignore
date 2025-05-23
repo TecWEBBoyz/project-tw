@@ -15,3 +15,8 @@ translation.logs
 
 # Local configuration
 *.local.php
+
+# Tex files
+*.aux
+*.out
+*.toc

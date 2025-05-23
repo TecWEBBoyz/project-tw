@@ -2,7 +2,7 @@
 <html lang="it">
 <head>
     <meta charset="utf-8">
-    <title></title>
+    <title>Errore 404</title>
     <meta name="description" content="">
     <meta name="keywords" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,27 +13,29 @@
     <script src="static/javascript/script.js" defer></script>
 </head>
 <body>
-    <nav id="top-help">
-        <a href="#contenuto">Vai al contenuto</a>
+    <nav>
+        <a href="#contenuto" class="navigation-help">Vai al contenuto</a>
+        <a href="#footer" class="navigation-help">Vai al <span lang="en">footer</span></a>
     </nav>
     <header>
-        <div id="logo"><h1 tabindex="0">Zoo Animalia</h1></div>
-        <div id="navigation">
-            <button id="hamburger-button" aria-label="Apri menù" onclick="toggleHamburgerMenu()">
-                MEN&Uacute;
-            </button>
-            <nav id="menu" aria-label="menù di navigazione" class="drop-content">
-                <ul>
-                    <li><a href="index.php"><span lang="en">Home</span></a></li>
-                    <li><a href="about.php">Chi siamo</a></li>
-                    <li><a href="where.php">Dove trovarci</a></li>
-                    <li><a href="animals.php">Animali</a></li>
-                    [[ifLoggedIn]]
-                </ul>
-            </nav>
-            <nav id="breadcrumb" aria-label="breadcrumb" class="drop-content">
-                <p><a href="index.php"><span lang="en">Home</span></a> &gt; Errore 404</p>
-            </nav>
+        <div class="header-content">
+            <div id="logo"><h1 tabindex="0">Zoo Animalia</h1></div>
+            <div id="menu-navigation">
+                <button id="hamburger-button" aria-label="Apri menù">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </button>
+                <nav id="menu" aria-label="menù di navigazione" class="drop-content">
+                    <ul>
+                        <li><a class="menu-link" href="index.php"><span lang="en">Home</span></a></li>
+                        <li><a class="menu-link" href="about.php">Chi siamo</a></li>
+                        <li><a class="menu-link" href="where.php">Dove trovarci</a></li>
+                        <li><a class="menu-link" href="animals.php">Animali</a></li>
+                        [[ifLoggedIn]]
+                    </ul>
+                </nav>
+            </div>
         </div>
     </header>
     <main id="contenuto">
