@@ -1,8 +1,20 @@
 // Open and close menu when clicking the hamburger-button button
 document.addEventListener('DOMContentLoaded', function() {
     const menuBtn = document.getElementById('hamburger-button');
+    const menu = document.getElementById('menu');
 
+    // Existing click handler
     menuBtn.addEventListener('click', () => onClickMenuBtn(menuBtn));
+
+    // Add focusout handler for the menu container
+    menu.addEventListener('focusout', (event) => {
+        // Check if the new focus target is outside menu and button
+        const isClickInside = menu.contains(event.relatedTarget) || 
+                            menuBtn.contains(event.relatedTarget);
+        if (!isClickInside) {
+            onClickMenuBtn(menuBtn)
+        }
+    });
 });
 
 function onClickMenuBtn(button) {
