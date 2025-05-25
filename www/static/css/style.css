@@ -764,6 +764,59 @@ main > section > .section-content h2 {
 }
 
 /* -----------------------
+        About Section
+   ----------------------- */
+
+#about-section .about-item {
+    max-height: 400px;
+    display: flex;
+    gap: 2rem;
+    align-items: flex-start;
+    margin: 3rem 0;
+}
+
+#about-section .about-item:nth-child(2n+1) {
+    flex-direction: row-reverse;
+}
+
+.about-item-image {
+    width: 48%;
+    object-fit: contain;
+    border-radius: 8px;
+}
+
+main > #about-section > .section-content .about-item:nth-child(2n+1) h2,
+main > #about-section > .section-content .about-item:nth-child(2n+1) p {
+  text-align: right;
+}
+
+main > #about-section > .section-content .about-item:nth-child(2n) h2,
+main > #about-section > .section-content .about-item:nth-child(2n) p {
+  text-align: left;
+}
+
+
+@media screen and (max-width: 880px) {
+    #about-section .about-item {
+        flex-direction: column;
+        max-height: none;
+    }
+
+    .about-item-image {
+        width: 100%;
+    }
+
+    #about-section .about-item:nth-child(2n+1) {
+        flex-direction: column;
+    }
+
+    main > #about-section > .section-content .about-item:nth-child(2n+1) h2,
+    main > #about-section > .section-content .about-item:nth-child(2n+1) p {
+        text-align: left;
+    }
+}
+
+/* -----------------------
          Animations
    ----------------------- */
 
