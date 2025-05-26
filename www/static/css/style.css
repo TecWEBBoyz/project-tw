@@ -10,6 +10,7 @@
     src: url("../fonts/Nunito/Nunito-Black.ttf");
     font-weight: 900;
 }
+
 @font-face {
     font-family: "Nunito Black Italic";
     src: url("../fonts/Nunito/Nunito-BlackItalic.ttf");
@@ -22,6 +23,7 @@
     src: url("../fonts/Nunito/Nunito-ExtraBold.ttf");
     font-weight: 800;
 }
+
 @font-face {
     font-family: "Nunito Extra Bold Italic";
     src: url("../fonts/Nunito/Nunito-ExtraBoldItalic.ttf");
@@ -34,6 +36,7 @@
     src: url("../fonts/Nunito/Nunito-Bold.ttf");
     font-weight: 700;
 }
+
 @font-face {
     font-family: "Nunito Bold Italic";
     src: url("../fonts/Nunito/Nunito-BoldItalic.ttf");
@@ -45,6 +48,7 @@
     src: url("../fonts/Nunito/Nunito-SemiBold.ttf");
     font-weight: 600;
 }
+
 @font-face {
     font-family: "Nunito Semi Bold Italic";
     src: url("../fonts/Nunito/Nunito-SemiBoldItalic.ttf");
@@ -57,6 +61,7 @@
     src: url("../fonts/Nunito/Nunito-Medium.ttf");
     font-weight: 500;
 }
+
 @font-face {
     font-family: "Nunito Medium Italic";
     src: url("../fonts/Nunito/Nunito-MediumItalic.ttf");
@@ -69,6 +74,7 @@
     src: url("../fonts/Nunito/Nunito-Regular.ttf");
     font-weight: 400;
 }
+
 @font-face {
     font-family: "Nunito Italic";
     src: url("../fonts/Nunito/Nunito-Italic.ttf");
@@ -81,6 +87,7 @@
     src: url("../fonts/Nunito/Nunito-Light.ttf");
     font-weight: 300;
 }
+
 @font-face {
     font-family: "Nunito Light Italic";
     src: url("../fonts/Nunito/Nunito-LightItalic.ttf");
@@ -93,6 +100,7 @@
     src: url("../fonts/Nunito/Nunito-ExtraLight.ttf");
     font-weight: 200;
 }
+
 @font-face {
     font-family: "Nunito Extra Light Italic";
     src: url("../fonts/Nunito/Nunito-ExtraLightItalic.ttf");
@@ -101,13 +109,13 @@
 }
 
 
-*{
+* {
     padding: 0;
     margin: 0;
     box-sizing: border-box;
 }
 
-:root{
+:root {
     /* Base Colors */
     --dark: #050402;
     --light: #FFFFFA;
@@ -191,7 +199,8 @@
          Typography
    ----------------------- */
 
-html, body {
+html,
+body {
     font-family: "Nunito Regular", sans-serif;
     font-size: var(--base-font-size);
 }
@@ -205,6 +214,7 @@ h1 {
 
     color: var(--accent-1);
 }
+
 h2 {
     font-family: "Bree Serif", serif;
     font-size: clamp(calc(26 / 16 * 1rem), calc(100vw * 33 / var(--max-content-width)), calc(33 / 16 * 1rem));
@@ -213,12 +223,14 @@ h2 {
 
     color: var(--accent-1);
 }
+
 h3 {
     font-family: "Bree Serif", serif;
     font-size: clamp(calc(20 / 16 * 1rem), calc(100vw * 26 / var(--max-content-width)), calc(26 / 16 * 1rem));
     font-weight: 400;
     line-height: 1.76;
 }
+
 h4 {
     font-family: "Bree Serif", serif;
     font-size: clamp(calc(16 / 16 * 1rem), calc(100vw * 20 / var(--max-content-width)), calc(20 / 16 * 1rem));
@@ -247,7 +259,7 @@ p {
     color: var(--muted);
 }
 
-h3 + .muted {
+h3+.muted {
     margin-top: -0.5rem;
 }
 
@@ -255,7 +267,7 @@ a {
     font-family: "Nunito Medium", sans-serif;
     font-size: clamp(calc(14 / 16 * 1rem), calc(100vw * 16 / var(--max-content-width)), calc(16 / 16 * 1rem));
     line-height: 44px;
-    min-width: 44px; 
+    min-width: 44px;
     min-height: 44px;
     display: inline-block;
     padding-top: auto;
@@ -268,9 +280,11 @@ a.menu-link {
     text-transform: uppercase;
     letter-spacing: 0.05em;
 }
+
 a.menu-link:hover {
     color: var(--menu-link-hover);
 }
+
 a.menu-link:visited {
     color: var(--menu-link-visited);
 }
@@ -283,9 +297,11 @@ a.light-link {
 
     transition: color 0.3s ease;
 }
+
 a.light-link:hover {
     color: var(--light-link-hover);
 }
+
 a.light-link:visited {
     color: var(--light-link-visited);
 }
@@ -315,9 +331,11 @@ a.dark-link {
     color: var(--dark-link);
     text-decoration: none;
 }
+
 a.dark-link:hover {
     color: var(--dark-link-hover);
 }
+
 a.dark-link:visited {
     color: var(--dark-link-visited);
 }
@@ -326,9 +344,11 @@ a.light-accent-link {
     color: var(--light-accent-link);
     text-decoration: none;
 }
+
 a.light-accent-link:hover {
     color: var(--light-accent-link-hover);
 }
+
 a.light-accent-link:visited {
     color: var(--light-accent-link-visited);
 }
@@ -337,9 +357,11 @@ a.dark-accent-link {
     color: var(--dark-accent-link);
     text-decoration: none;
 }
+
 a.dark-accent-link:hover {
     color: var(--dark-accent-link-hover);
 }
+
 a.dark-accent-link:visited {
     color: var(--dark-accent-link-visited);
 }
@@ -368,7 +390,8 @@ a.dark-accent-link:visited {
     font-family: "Nunito Medium", sans-serif;
 }
 
-.btn.btn-filled.btn-important:hover {
+.btn.btn-filled.btn-important:hover,
+.btn.btn-filled.btn-important:focus {
     box-shadow: 0 1em 2.5em -1em var(--dark);
     transform: translateY(-0.25em);
 }
@@ -384,7 +407,8 @@ a.dark-accent-link:visited {
     font-family: "Nunito Medium", sans-serif;
 }
 
-.btn.btn-outlined.btn-info:hover {
+.btn.btn-outlined.btn-info:hover,
+.btn.btn-outlined.btn-info:focus {
     background-color: var(--button-outlined-info-hover);
     box-shadow: 0 1em 2.5em -1em var(--dark);
     transform: translateY(-0.25em);
@@ -463,13 +487,35 @@ header .header-content {
     background-size: contain;
 }
 
-#menu-navigation nav ul{
+#menu-navigation nav ul {
     list-style: none;
     display: flex;
     gap: 1rem;
 }
 
-#hamburger-button{
+#menu-navigation nav ul li {
+    position: relative;
+}
+
+#menu-navigation nav ul li::after {
+    content: "";
+    position: absolute;
+    bottom: 5px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    border-radius: 5px;
+    background-color: var(--menu-link-hover);
+    transition: width 0.4s ease;
+}
+
+#menu-navigation nav ul li:hover::after {
+    width: 100%;
+}
+
+
+
+#hamburger-button {
     width: 40px;
     height: 30px;
     background: none;
@@ -512,7 +558,7 @@ header .header-content {
     transition: margin 0.4s ease, width 0.4s ease, transform 0.4s ease, opacity 0.4s ease;
 }
 
-#hamburger-button .bar + .bar {
+#hamburger-button .bar+.bar {
     margin-top: 10px;
 }
 
@@ -593,14 +639,14 @@ main.content {
     width: 100%
 }
 
-main > section > .section-content {
+main>section>.section-content {
     width: 100%;
     max-width: calc(var(--max-content-width) * 1px);
     margin: 0 auto;
     padding: 3rem 1rem;
 }
 
-main > section > .section-content h2 {
+main>section>.section-content h2 {
     text-align: center;
 }
 
@@ -750,15 +796,19 @@ main > section > .section-content h2 {
 .stars-5 {
     background-image: url("styleImages/5-stars.png");
 }
+
 .stars-4 {
     background-image: url("styleImages/4-stars.png");
 }
+
 .stars-3 {
     background-image: url("styleImages/3-stars.png");
 }
+
 .stars-2 {
     background-image: url("styleImages/2-stars.png");
 }
+
 .stars-1 {
     background-image: url("styleImages/1-stars.png");
 }
@@ -785,14 +835,14 @@ main > section > .section-content h2 {
     border-radius: 8px;
 }
 
-main > #about-section > .section-content .about-item:nth-child(2n+1) h2,
-main > #about-section > .section-content .about-item:nth-child(2n+1) p {
-  text-align: right;
+main>#about-section>.section-content .about-item:nth-child(2n+1) h2,
+main>#about-section>.section-content .about-item:nth-child(2n+1) p {
+    text-align: right;
 }
 
-main > #about-section > .section-content .about-item:nth-child(2n) h2,
-main > #about-section > .section-content .about-item:nth-child(2n) p {
-  text-align: left;
+main>#about-section>.section-content .about-item:nth-child(2n) h2,
+main>#about-section>.section-content .about-item:nth-child(2n) p {
+    text-align: left;
 }
 
 
@@ -810,8 +860,8 @@ main > #about-section > .section-content .about-item:nth-child(2n) p {
         flex-direction: column;
     }
 
-    main > #about-section > .section-content .about-item:nth-child(2n+1) h2,
-    main > #about-section > .section-content .about-item:nth-child(2n+1) p {
+    main>#about-section>.section-content .about-item:nth-child(2n+1) h2,
+    main>#about-section>.section-content .about-item:nth-child(2n+1) p {
         text-align: left;
     }
 }
@@ -824,6 +874,7 @@ main > #about-section > .section-content .about-item:nth-child(2n) p {
     0% {
         width: 0;
     }
+
     100% {
         width: 400px;
     }
@@ -833,6 +884,7 @@ main > #about-section > .section-content .about-item:nth-child(2n) p {
     0% {
         opacity: 0;
     }
+
     100% {
         opacity: 1;
     }
