@@ -39,14 +39,54 @@
         </div>
     </header>
     <main id="contenuto">
-        <h1>[[name]] – [[specie]]</h1>
-        <img src="[[image]]" alt="[[name]]">
-        <p>Età: [[age]]</p>
-        <p>Habitat: [[habitat]]</p>
-        <p>Dimensioni: [[dimensions]]</p>
-        <p>Aspettativa di vita: [[lifespan]]</p>
-        <p>Dieta: [[diet]]</p>
-        <p>Descrizione: [[description]]</p>
+        <div class="animal-detail-container">
+            <div class="animal-main-content">
+                <h1 class="animal-title">[[name]] - [[specie]]</h1>
+                <!-- <h2 class="animal-species">[[specie]]</h2> -->
+                <div class="animal-image-container">
+                    <img src="[[image]]" alt="Fotografia di [[name]], esemplare di [[specie]]" class="animal-image">
+                </div>
+                
+                <div class="animal-description">
+                    <h3>Descrizione</h3>
+                    <p>[[description]]</p>
+                </div>
+            </div>
+            
+            <aside class="animal-identikit" aria-labelledby="identikit-title">
+                <h3 id="identikit-title">Identikit</h3>
+                <dl class="identikit-info">
+                    <div class="info-item">
+                        <dt>Nome:</dt>
+                        <dd>[[name]]</dd>
+                    </div>
+                    <div class="info-item">
+                        <dt>Specie:</dt>
+                        <dd>[[specie]]</dd>
+                    </div>
+                    <div class="info-item">
+                        <dt>Età:</dt>
+                        <dd>[[age]]</dd>
+                    </div>
+                    <div class="info-item">
+                        <dt>Habitat:</dt>
+                        <dd>[[habitat]]</dd>
+                    </div>
+                    <div class="info-item">
+                        <dt>Dimensioni:</dt>
+                        <dd>[[dimensions]]</dd>
+                    </div>
+                    <div class="info-item">
+                        <dt>Aspettativa di vita:</dt>
+                        <dd>[[lifespan]]</dd>
+                    </div>
+                    <div class="info-item">
+                        <dt>Dieta:</dt>
+                        <dd>[[diet]]</dd>
+                    </div>
+                </dl>
+            </aside>
+        </div>
     </main>
 </body>
 </html>
