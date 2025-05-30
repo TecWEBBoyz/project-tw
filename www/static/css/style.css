@@ -613,22 +613,84 @@ header .header-content {
 #footer {
     background-color: var(--footer-background);
     color: var(--footer-text);
+    width: 100%;
 }
 
 #footer h2 {
     color: var(--footer-text);
 }
 
+#footer a {
+    text-decoration: none;
+    letter-spacing: 0.05em;
+    color: var(--menu-link);
+    font-weight:900;
+}
+
+#footer a:visited {
+    color: var(--menu-link-visited);
+}
+
 #footer .footer-content {
-    width: 100%;
+    width: 80%;
     max-width: calc(var(--max-content-width) * 1px);
-    padding: 1rem;
-
-
+    margin: 0 auto;
+    padding: 3rem 1rem;
     display: flex;
-    justify-content: space-between;
-    gap: 1rem;
+    justify-content: center;
+    gap: 3rem 12rem;
     flex-wrap: wrap;
+
+}
+
+@media (max-width: 778px) {
+  #footer .footer-content {
+    justify-content: flex-start; /* Allinea a sinistra su mobile */
+  }
+}
+
+#footer .footer-content h2 {
+    font-size: clamp(calc(24 / 16 * 1rem), calc(100vw * 25 / var(--max-content-width)), calc(30 / 16 * 1rem));
+}
+
+#footer .footer-content hr {
+    width: 2em;
+    height: 3px;
+    background-color: var(--accent-2);
+    border: none;
+    margin: 4px 0;
+}
+
+.footer-item {
+    max-width: 350px;
+}
+
+.footer-where-item {
+    margin: 0.5em 0;
+}
+
+.footer-where-item svg,
+.footer-where-item p {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.footer-where-item svg {
+  margin-right: 10px;
+}
+
+.footer-where-item p {
+  margin: 0;
+}
+
+.icon-link svg g {
+    fill: var(--menu-link);
+    transition: fill 0.3s ease;
+}
+
+/* Style for visited links */
+.icon-link:visited svg g {
+    fill: var(--menu-link-visited);
 }
 
 /* -----------------------
