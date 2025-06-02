@@ -272,6 +272,15 @@ a {
     display: inline-block;
     padding-top: auto;
     padding-bottom: auto;
+    color: var(--light-link)
+}
+
+a:hover {
+    color: var(--light-link-hover)
+}
+
+a:visited {
+    color: var(--light-link-visited)
 }
 
 a.menu-link {
@@ -628,12 +637,7 @@ header .header-content {
 #footer a {
     text-decoration: none;
     letter-spacing: 0.05em;
-    color: var(--menu-link);
     font-weight: 900;
-}
-
-#footer a:visited {
-    color: var(--menu-link-visited);
 }
 
 #footer .footer-content {
@@ -662,7 +666,7 @@ header .header-content {
 #footer .footer-content hr {
     width: 2em;
     height: 3px;
-    background-color: var(--accent-2);
+    background-color: var(--accent-1);
     border: none;
     margin: 4px 0;
 }
@@ -683,6 +687,7 @@ header .header-content {
 
 .footer-where-item svg {
     margin-right: 10px;
+    fill: var(--accent-2)
 }
 
 .footer-where-item p {
@@ -697,7 +702,7 @@ header .header-content {
 
 .icon-link svg g {
     transition: fill 0.3s ease;
-    fill: var(--dark);
+    fill: var(--light-link);
     fill-rule: nonzero;
     stroke: none;
     stroke-width: 1;
@@ -714,12 +719,12 @@ header .header-content {
 }
 
 /* Style for visited links */
-.icon-link:visited svg g {
+a.icon-link:visited svg g {
     fill: var(--menu-link-visited);
 }
 
-.icon-link:hover svg g {
-    fill: var(--light-accent-link-hover);
+a.icon-link:hover svg g {
+    fill: var(--light-link-hover);
     transition: fill 0.3s ease;
 }
 
