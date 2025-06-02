@@ -451,6 +451,11 @@ a.dark-accent-link:visited {
     outline: none;
 }
 
+.max-width {
+    max-width: calc(var(--max-content-width) * 1px);
+    margin: 0 auto;
+}
+
 header {
     width: 100%;
     border-bottom: 1px solid black;
@@ -624,7 +629,7 @@ header .header-content {
     text-decoration: none;
     letter-spacing: 0.05em;
     color: var(--menu-link);
-    font-weight:900;
+    font-weight: 900;
 }
 
 #footer a:visited {
@@ -644,9 +649,10 @@ header .header-content {
 }
 
 @media (max-width: 778px) {
-  #footer .footer-content {
-    justify-content: flex-start; /* Allinea a sinistra su mobile */
-  }
+    #footer .footer-content {
+        justify-content: flex-start;
+        /* Allinea a sinistra su mobile */
+    }
 }
 
 #footer .footer-content h2 {
@@ -671,16 +677,16 @@ header .header-content {
 
 .footer-where-item svg,
 .footer-where-item p {
-  display: inline-block;
-  vertical-align: middle;
+    display: inline-block;
+    vertical-align: middle;
 }
 
 .footer-where-item svg {
-  margin-right: 10px;
+    margin-right: 10px;
 }
 
 .footer-where-item p {
-  margin: 0;
+    margin: 0;
 }
 
 .icon-link svg {
@@ -734,6 +740,7 @@ main>section>.section-content {
 
 main>section>.section-content h2 {
     text-align: center;
+    margin-bottom: 2rem;
 }
 
 /* -----------------------
@@ -798,7 +805,7 @@ main>section>.section-content h2 {
     }
 }
 
-/* -----------------------
+/* -----------------------s
        Meet Animal Section
    ----------------------- */
 
@@ -953,14 +960,104 @@ main>#about-section>.section-content .about-item:nth-child(2n) p {
 }
 
 /* -----------------------
+         Animals Page
+   ----------------------- */
+
+.animals-section .animal-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+
+    list-style: none;
+}
+
+.animals-section .animal-list .animal-item {
+    width: 350px;
+    aspect-ratio: 1 / 1;
+    border-radius: 8px;
+    overflow: hidden;
+
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+
+    position: relative;
+}
+
+.animals-section .animal-list .animal-item::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+
+    background: linear-gradient(to top, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0));
+    z-index: inherit;
+}
+
+.animals-section .animal-list .animal-item .animal-item-content {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    padding: 1rem;
+    width: 100%;
+    color: var(--dark-text-foreground);
+    background-color: rgba(255, 255, 255, 0);
+    z-index: 2;
+}
+
+.animals-section .animal-list .animal-item-content .animal-item-caption {
+    margin-bottom: -0.5rem;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+}
+
+.animals-section .animal-list .animal-item-content .animal-item-description {
+    visibility: hidden;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    width: 100%;
+    height: 0;
+}
+
+.animals-section .animal-list .animal-item:hover .animal-item-content {
+    top: 0;
+    background-color: var(--light-accent-backgorund);
+    color: var(--light-accent-text-foreground);
+}
+
+.animals-section .animal-list .animal-item:hover .animal-item-description {
+    visibility: visible;
+    height: auto;
+    margin: 1rem 0;
+}
+
+.animals-section .animal-list .animal-item-content .learn-more {
+    visibility: hidden;
+    width: 100%;
+    height: 0;
+}
+
+.animals-section .animal-list .animal-item:hover .learn-more {
+    visibility: visible;
+    height: auto;
+}
+
+/* -----------------------
        Animal Section
    ----------------------- */
 
+.animal-title {
+    padding: 2rem 1rem 0rem 1rem;
+}
+
 .animal-detail-container {
     width: 100%;
-    max-width: calc(var(--max-content-width) * 1px);
     margin: 0 auto;
-    padding: 3rem 1rem;
+    padding: 2rem 1rem 3rem 1rem;
     display: grid;
     grid-template-columns: 2fr 1fr;
     gap: 3rem;
@@ -1017,7 +1114,7 @@ main>#about-section>.section-content .about-item:nth-child(2n) p {
     border-radius: 16px;
     box-shadow: 0 20px 60px -20px rgba(5, 4, 2, 0.3);
     position: sticky;
-    top: 120px;
+    top: 9rem;
 }
 
 .animal-identikit h3 {
@@ -1061,18 +1158,16 @@ main>#about-section>.section-content .about-item:nth-child(2n) p {
         flex-direction: column;
         gap: 2rem;
     }
-    
+
     .animal-main-content {
         display: flex;
         flex-direction: column;
     }
-    
+
     .animal-identikit {
         position: static;
         margin: 0 auto;
         width: 100%;
-        max-width: 500px;
-
     }
 }
 
@@ -1080,30 +1175,30 @@ main>#about-section>.section-content .about-item:nth-child(2n) p {
     .animal-detail-container {
         padding: 2rem 1rem;
     }
-    
+
     .animal-header {
         padding: 1.5rem 1rem;
     }
-    
+
     .animal-description {
         padding: 1.5rem;
     }
-    
+
     .animal-identikit {
         padding: 1.5rem;
     }
-    
+
     .info-item {
         flex-direction: column;
         align-items: flex-start;
         gap: 0.5rem;
     }
-    
+
     .info-item dt {
         margin-right: 0;
         color: var(--darker-light);
     }
-    
+
     .info-item dd {
         text-align: left;
     }
@@ -1114,12 +1209,101 @@ main>#about-section>.section-content .about-item:nth-child(2n) p {
         padding: 1rem;
         gap: 1.5rem;
     }
-    
+
     .animal-header,
     .animal-description,
     .animal-identikit {
         padding: 1rem;
     }
+}
+
+/* -----------------------
+         Login Page
+   ----------------------- */
+
+.login-wrapper{
+    margin: 3rem auto;
+    padding: 2rem;
+    width: 450px;
+    max-width: 100%;
+    border-radius: 16px;
+    box-shadow: 0 20px 60px -20px rgba(5, 4, 2, 0.3);
+}
+
+.login-wrapper h1 {
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.login-wrapper button[type="submit"] {
+    margin-top: 1rem;
+}
+
+.login-wrapper form {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    justify-content: space-between;
+}
+
+input{
+    width:100%;
+    padding: 1rem 2rem;
+    border:1px solid var(--muted);
+    border-radius: 8px;
+    transition:0.3s ease-out;
+}
+::placeholder{
+    color: var(--muted);
+}
+.input-wrapper {
+    position: relative;
+}
+
+/* ToDo(Luca) Add variation for valid and invalid inputs */
+input:hover, input:focus{
+    border: 1px solid var(--accent-1);
+    outline: 1px solid var(--accent-1);
+}
+
+label {
+    color: var(--muted);
+    position: absolute;
+    padding: 0 0.4rem;
+    background-color: var(--light);
+    top: 50%;
+    left: 2rem;
+    transform: translateY(-50%);
+    transition: top 0.4s ease;
+}
+
+label:has(+ input:focus),
+label:has(+ input:hover),
+label:has(+ input:valid),
+label:has(+ input:active) {
+    top: 0;
+    font-weight: 600;
+    color: var(--accent-1);
+}
+
+.submit-button{
+    width:100%;
+    height:48px;
+    background-color:var(--accent-1);
+    color:#fff;
+    padding:8px 16px;
+    text-align:center;
+    font-size:15px;
+    font-weight:700;
+    border-radius:8px;
+    border:none;
+    margin-bottom: 10px;
+    letter-spacing:0.5px;
+    cursor:pointer;
+    transition:0.2s ease-out;
+}
+.submit-button:hover{
+    background-color:#36424e;
 }
 
 /* -----------------------
@@ -1144,4 +1328,14 @@ main>#about-section>.section-content .about-item:nth-child(2n) p {
     100% {
         opacity: 1;
     }
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+body > main {
+    flex: 1;
 }

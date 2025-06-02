@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="it">
+
 <head>
     <meta charset="utf-8">
     <title>Tutti i nostri animali</title>
@@ -9,9 +10,12 @@
     <link rel="stylesheet" type="text/css" href="static/css/style.css" media="screen">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&family=Mulish:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&family=Mulish:ital,wght@0,200..1000;1,200..1000&display=swap"
+        rel="stylesheet">
     <script src="static/javascript/script.js" defer></script>
 </head>
+
 <body>
     <nav>
         <a href="#contenuto" class="navigation-help">Vai al contenuto</a>
@@ -19,7 +23,9 @@
     </nav>
     <header>
         <div class="header-content">
-            <div id="logo"><h1 tabindex="0">Zoo Animalia</h1></div>
+            <div id="logo">
+                <h1 tabindex="0">Zoo Animalia</h1>
+            </div>
             <div id="menu-navigation">
                 <button id="hamburger-button" aria-label="Apri menù">
                     <span class="bar"></span>
@@ -40,8 +46,15 @@
     </header>
     <main id="contenuto">
         [[errorMessage]]
-        <h1>Animali</h1>
-        [[animalsList]]
+        <section class="animals-section">
+            <div class="section-content">
+                <h2>Animali</h2>
+
+                [[animalsList]]
+
+            </div>
+        </section>
+
     </main>
     <footer id="footer">
         <div class="footer-content">
@@ -101,4 +114,5 @@
         </div>
     </footer>
 </body>
+
 </html>
