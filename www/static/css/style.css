@@ -187,8 +187,8 @@
 
 
     /* Footer */
-    --footer-background: var(--dark);
-    --footer-text: var(--light);
+    --footer-background: var(--light);
+    --footer-text: var(--dark);
 
     /* Sizes */
     --max-content-width: 1200;
@@ -683,14 +683,38 @@ header .header-content {
   margin: 0;
 }
 
+.icon-link svg {
+    width: 50px;
+    height: 50px;
+    viewBox: 0 0 256 256;
+}
+
 .icon-link svg g {
-    fill: var(--menu-link);
     transition: fill 0.3s ease;
+    fill: var(--dark);
+    fill-rule: nonzero;
+    stroke: none;
+    stroke-width: 1;
+    stroke-linecap: butt;
+    stroke-linejoin: miter;
+    stroke-miterlimit: 10;
+    stroke-dasharray: none;
+    stroke-dashoffset: 0;
+    font-family: none;
+    font-weight: none;
+    font-size: none;
+    text-anchor: none;
+    mix-blend-mode: normal;
 }
 
 /* Style for visited links */
 .icon-link:visited svg g {
     fill: var(--menu-link-visited);
+}
+
+.icon-link:hover svg g {
+    fill: var(--light-accent-link-hover);
+    transition: fill 0.3s ease;
 }
 
 /* -----------------------
