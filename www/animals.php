@@ -14,16 +14,20 @@ foreach ($animalsList as $animal) {
     if (!$animal instanceof \PTW\Models\Animal) {
         continue;
     }
+
     $htmlAnimalsList .= "<a href=\"animal.php?id=" . htmlspecialchars($animal->getId()) . "\">" . PHP_EOL;
 
     $htmlAnimalsList .= "<li class='animal-item' data-image-url=\"".htmlspecialchars($animal->getImage()) . "\">" . PHP_EOL;
 
-    $htmlAnimalsList .= "<div class=\"animal-content\">" . PHP_EOL;
-    $htmlAnimalsList .= "<p class=\"animal-caption\">" . htmlspecialchars($animal->getHabitat()) . "</p>" . PHP_EOL;
-    $htmlAnimalsList .= "<h3 class=\"animal-title\">" . htmlspecialchars($animal->getName()) . "</h3>" . PHP_EOL;
-    $htmlAnimalsList .= "<p class=\"animal-description\">" . htmlspecialchars($animal->getDescription()) . "</p>" . PHP_EOL;
+    $htmlAnimalsList .= "<div class=\"animal-item-content\">" . PHP_EOL;
+    $htmlAnimalsList .= "<p class=\"animal-item-caption\">" . htmlspecialchars($animal->getSpecies()) . ", " . htmlspecialchars($animal->getHabitat()) .  "</p>" . PHP_EOL;
+    $htmlAnimalsList .= "<h3 class=\"animal-item-title\">" . htmlspecialchars($animal->getName()) .", " . htmlspecialchars($animal->getSpecies()) .  "</h3>" . PHP_EOL;
+    $htmlAnimalsList .= "<p class=\"animal-item-description\">" . htmlspecialchars(trim(preg_split("/\./", $animal->getDescription())[0]) . ".") . "</p>" . PHP_EOL;
 
-    $htmlAnimalsList . "</div></li></a>" . PHP_EOL;
+    // ToDo(Luca): Capire come mostrare il link per scoprire di più
+    // $htmlAnimalsList .= "<p class='learn-more'>Clicca per scoprire di più</p>" . PHP_EOL;
+
+    $htmlAnimalsList .= "</div></li></a>" . PHP_EOL;
 }
 $htmlAnimalsList .= "</ul>";
 

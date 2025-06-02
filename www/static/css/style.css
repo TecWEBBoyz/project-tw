@@ -711,6 +711,7 @@ main>section>.section-content {
 
 main>section>.section-content h2 {
     text-align: center;
+    margin-bottom: 2rem;
 }
 
 /* -----------------------
@@ -775,7 +776,7 @@ main>section>.section-content h2 {
     }
 }
 
-/* -----------------------
+/* -----------------------s
        Meet Animal Section
    ----------------------- */
 
@@ -943,7 +944,7 @@ main>#about-section>.section-content .about-item:nth-child(2n) p {
     list-style: none;
 }
 
-.animals-section .animal-item {
+.animals-section .animal-list .animal-item {
     width: 350px;
     aspect-ratio: 1 / 1;
     border-radius: 8px;
@@ -956,7 +957,7 @@ main>#about-section>.section-content .about-item:nth-child(2n) p {
     position: relative;
 }
 
-.animals-section .animal-item::after {
+.animals-section .animal-list .animal-item::after {
     content: "";
     position: absolute;
     top: 0;
@@ -968,7 +969,7 @@ main>#about-section>.section-content .about-item:nth-child(2n) p {
     z-index: inherit;
 }
 
-.animals-section .animal-item .animal-content {
+.animals-section .animal-list .animal-item .animal-item-content {
     position: absolute;
     bottom: 0;
     left: 0;
@@ -979,28 +980,42 @@ main>#about-section>.section-content .about-item:nth-child(2n) p {
     z-index: 2;
 }
 
-.animals-section .animal-content .animal-caption {
+.animals-section .animal-list .animal-item-content .animal-item-caption {
     margin-bottom: -0.5rem;
     text-transform: uppercase;
     font-size: 0.8rem;
 }
 
-.animals-section .animal-content .animal-description {
+.animals-section .animal-list .animal-item-content .animal-item-description {
     visibility: hidden;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    width: 100%;
     height: 0;
 }
 
-.animals-section .animal-item:hover .animal-content {
+.animals-section .animal-list .animal-item:hover .animal-item-content {
     top: 0;
     background-color: var(--light-accent-backgorund);
     color: var(--light-accent-text-foreground);
 }
 
-.animals-section .animal-item:hover .animal-description {
+.animals-section .animal-list .animal-item:hover .animal-item-description {
+    visibility: visible;
+    height: auto;
+    margin: 1rem 0;
+}
+
+.animals-section .animal-list .animal-item-content .learn-more {
+    visibility: hidden;
+    width: 100%;
+    height: 0;
+}
+
+.animals-section .animal-list .animal-item:hover .learn-more {
     visibility: visible;
     height: auto;
 }
-
 
 /* -----------------------
        Animal Section
