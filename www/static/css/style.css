@@ -451,6 +451,11 @@ a.dark-accent-link:visited {
     outline: none;
 }
 
+.max-width {
+    max-width: calc(var(--max-content-width) * 1px);
+    margin: 0 auto;
+}
+
 header {
     width: 100%;
     border-bottom: 1px solid black;
@@ -1021,11 +1026,14 @@ main>#about-section>.section-content .about-item:nth-child(2n) p {
        Animal Section
    ----------------------- */
 
+.animal-title {
+    padding: 2rem 1rem 0rem 1rem;
+}
+
 .animal-detail-container {
     width: 100%;
-    max-width: calc(var(--max-content-width) * 1px);
     margin: 0 auto;
-    padding: 3rem 1rem;
+    padding: 2rem 1rem 3rem 1rem;
     display: grid;
     grid-template-columns: 2fr 1fr;
     gap: 3rem;
@@ -1082,7 +1090,7 @@ main>#about-section>.section-content .about-item:nth-child(2n) p {
     border-radius: 16px;
     box-shadow: 0 20px 60px -20px rgba(5, 4, 2, 0.3);
     position: sticky;
-    top: 120px;
+    top: 9rem;
 }
 
 .animal-identikit h3 {
@@ -1136,8 +1144,6 @@ main>#about-section>.section-content .about-item:nth-child(2n) p {
         position: static;
         margin: 0 auto;
         width: 100%;
-        max-width: 500px;
-
     }
 }
 
