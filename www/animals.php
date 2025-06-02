@@ -7,17 +7,25 @@ use PTW\Services\TemplateService;
 $animalRepo = new \PTW\Repositories\AnimalRepository();
 
 $animalsList = $animalRepo->All();
-$htmlAnimalsList = "<div id='animalsList'>" . PHP_EOL;
+
+$htmlAnimalsList = "<ul class=\"animal-list\">" . PHP_EOL;
+
 foreach ($animalsList as $animal) {
     if (!$animal instanceof \PTW\Models\Animal) {
         continue;
     }
+    $htmlAnimalsList .= "<a href=\"animal.php?id=" . htmlspecialchars($animal->getId()) . "\">" . PHP_EOL;
 
-    $htmlAnimalsList .= "<div class='animalItem'>" . PHP_EOL;
-    $htmlAnimalsList .= "<img src='" . htmlspecialchars($animal->getImage()) . "' alt='" . htmlspecialchars($animal->getName()) . "' />" . PHP_EOL;
-    $htmlAnimalsList .= "<h2><a href='animal.php?id=" . htmlspecialchars($animal->getId()) . "'>" . htmlspecialchars($animal->getSpecies()) . "</a></h2>" . PHP_EOL . "</div>" . PHP_EOL;
+    $htmlAnimalsList .= "<li class='animal-item' data-image-url=\"".htmlspecialchars($animal->getImage()) . "\">" . PHP_EOL;
+
+    $htmlAnimalsList .= "<div class=\"animal-content\">" . PHP_EOL;
+    $htmlAnimalsList .= "<p class=\"animal-caption\">" . htmlspecialchars($animal->getHabitat()) . "</p>" . PHP_EOL;
+    $htmlAnimalsList .= "<h3 class=\"animal-title\">" . htmlspecialchars($animal->getName()) . "</h3>" . PHP_EOL;
+    $htmlAnimalsList .= "<p class=\"animal-description\">" . htmlspecialchars($animal->getDescription()) . "</p>" . PHP_EOL;
+
+    $htmlAnimalsList . "</div></li></a>" . PHP_EOL;
 }
-$htmlAnimalsList .= "</div>";
+$htmlAnimalsList .= "</ul>";
 
 // Render error messages
 $errorMessages = [
@@ -45,4 +53,3 @@ $htmlContent = TemplateService::renderHtml($currentFile, [
 echo $htmlContent;
 
 ?>
-
