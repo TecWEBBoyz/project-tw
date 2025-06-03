@@ -30,7 +30,7 @@ if (empty($bookings)) {
             continue;
         }
 
-        $service = $serviceRepo->getElementById($booking->getServiceId());
+        $service = $serviceRepo->GetElementById($booking->getServiceId());
 
         if (!$service instanceof \PTW\Models\Service) {
             continue;
@@ -46,9 +46,9 @@ if (empty($bookings)) {
 
         if ($booking->getDate() >= new DateTime()) {
             $bookingsList .= "<ul class='booking-item-actions'>
-                    <li class='edit-action' method='POST'>
-                        <form action='action/bookings/edit.php'>
-                            <input type='hidden' name='booking_id' value='" . $booking->getId() ."'>
+                    <li class='edit-action' method='GET'>
+                        <form action='editBooking.php'>
+                            <input type='hidden' name='id' value='" . $booking->getId() ."'>
                             <button type='submit'>Modifica</button>
                         </form>
                     </li>

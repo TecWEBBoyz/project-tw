@@ -2,9 +2,7 @@
 require_once 'init.php';
 
 use PTW\Repositories\BookingRepository;
-use PTW\Repositories\ServiceRepository;
 use PTW\Services\AuthService;
-use PTW\Services\TemplateService;
 
 // Check authentication before allowing access
 if (!AuthService::isUserLoggedIn()) {
