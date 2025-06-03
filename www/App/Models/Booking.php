@@ -7,6 +7,7 @@ use Exception;
 
 class Booking implements DBItem
 {
+    protected string $id;
     protected string $userId;
     protected string $serviceId;
     protected DateTime $date;
@@ -36,6 +37,7 @@ class Booking implements DBItem
         if (!$this->ValidateArray($data))
             throw new Exception("Invalid data array");
 
+        $this->id = $data["id"];
         $this->userId = $data['user_id'];
         $this->serviceId = $data['service_id'];
         $this->date = new DateTime($data['date']);
@@ -45,7 +47,7 @@ class Booking implements DBItem
 
     private function validateArray(array $data): bool
     {
-        if (!isset($data['user_id']) || !isset($data['service_id']) ||
+        if (!isset($data['id']) || !isset($data['user_id']) || !isset($data['service_id']) ||
             !isset($data['date']) || !isset($data['num_people'])) {
             return false;
         }
@@ -56,6 +58,7 @@ class Booking implements DBItem
     public function toArray(): array
     {
         return [
+            'id' => $this->id,
             'user_id' => $this->userId,
             'service_id' => $this->serviceId,
             'date' => $this->date->format('Y-m-d'),
@@ -67,6 +70,7 @@ class Booking implements DBItem
     public function filterData(array $data): array
     {
         return [
+            "id" => $data['id'],
             "user_id" => $data['user_id'],
             "service_id" => $data['service_id'],
             "date" => new DateTime($data['date']),
@@ -75,6 +79,10 @@ class Booking implements DBItem
         ];
     }
 
+    public function getId(): string
+    {
+        return $this->id;
+    }
     public function getUserId(): string
     {
         return $this->userId;

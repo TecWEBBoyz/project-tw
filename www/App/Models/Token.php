@@ -12,7 +12,7 @@ class Token {
     private $role;
     private $payload;
 
-    public function __construct(User|array $user) {
+    private function __construct(User|array $user) {
         if ($user instanceof User) {
             $this->iat = time();
             $this->exp = $this->iat + JWT_EXPIRATION;
@@ -44,7 +44,10 @@ class Token {
         ];
 
         $this->payload = JWT::encode($payload, JWT_SECRET_KEY, 'HS256');
-        return $payload;
+    }
+
+    public static function create(User|array $user) {
+        return new Token($user);
     }
 
     // Getters
@@ -56,7 +59,7 @@ class Token {
         return $this->exp;
     }
 
-    public function getId(): int {
+    public function getId(): string {
         return $this->id;
     }
 
@@ -84,7 +87,7 @@ class Token {
                 return false; // Token expired
             }
             return $decoded_user;
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             return false;
         }
     }

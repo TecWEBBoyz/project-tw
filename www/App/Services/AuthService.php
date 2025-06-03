@@ -3,6 +3,8 @@
 namespace PTW\Services;
 
 use PTW\Models\Token;
+use PTW\Models\TokenDTO;
+use PTW\Models\User;
 use PTW\Repositories\UserRepository;
 use function PTW\config;
 
@@ -15,14 +17,14 @@ class AuthService {
         $userRepo = new UserRepository();
         $user = $userRepo->GetElementByUsername($username);
 
-        if (!$user instanceof \PTW\Models\User) {
+        if (!$user instanceof User) {
             return false;
         }
 
         if ($password === $user->getPassword()) {
             //password_verify($password, $user['password'])
 
-            $token = new Token($user);
+            $token = Token::create($user);
 
             // Set token in HTTP-only cookie
             setcookie('jwt_token', $token->getPayload(), $token->getExp(), '/', '', true, true);
@@ -57,6 +59,16 @@ class AuthService {
             return true;
         }
         return false;
+    }
+
+    public static function getCurrentUser(): ?TokenDTO {
+        $token = Token::validate($_COOKIE['jwt_token'] ?? null);
+
+        if ($token) {
+            return TokenDTO::create($token);
+        }
+
+        return null;
     }
 }
 

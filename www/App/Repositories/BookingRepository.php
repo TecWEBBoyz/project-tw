@@ -11,4 +11,8 @@ class BookingRepository extends BaseRepository
         $this->element_class = new Booking();
     }
 
+    public function GetByUser(string $userId) : array|null {
+        return $this->GetElementsByColumn("user_id", $userId);
+    }
+
 }

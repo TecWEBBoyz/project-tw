@@ -68,6 +68,11 @@ class BaseRepository
         return $this->database->Delete($this->table, $id);
     }
 
+    public function ExistsId(string $id): bool
+    {
+        return !!$this->GetElementByID($id);
+    }
+
     public function GetElementByID(string $id): DBItem|null
     {
         $data = $this->database->FindElementByID($this->table, $id);

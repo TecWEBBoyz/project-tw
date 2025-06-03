@@ -259,7 +259,11 @@ p {
     color: var(--muted);
 }
 
-h3+.muted {
+.bold {
+    font-weight: 600;
+}
+
+h3+.muted, .muted+h3 {
     margin-top: -0.5rem;
 }
 
@@ -461,6 +465,8 @@ a.dark-accent-link:visited {
 }
 
 .max-width {
+    width: 100%;
+    padding: 1rem;
     max-width: calc(var(--max-content-width) * 1px);
     margin: 0 auto;
 }
@@ -1309,6 +1315,69 @@ label:has(+ input:active) {
 }
 .submit-button:hover{
     background-color:#36424e;
+}
+
+/* -----------------------
+         User Dashboard
+   ----------------------- */
+
+.bookings-list {
+    list-style: none;
+}
+
+.booking-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 1rem;
+}
+
+.booking-item + .booking-item {
+    border-top: 1px solid var(--muted);
+}
+
+.booking-item-actions {
+    list-style: none;
+}
+
+.booking-item-actions li + li {
+    margin-top: 0.5rem;
+}
+
+.booking-item-actions button{
+    padding: 0.5rem 2rem;
+    width: 100%;
+    border-radius: 8px;
+    border: none;
+
+    cursor: pointer;
+}
+
+.booking-item-actions .edit-action button{
+    background-color: var(--dark-accent-background);
+    color: var(--dark-accent-text-foreground);
+    letter-spacing: 0.05em;
+
+    transition: transform 0.4s ease;
+}
+
+.booking-item-actions .edit-action button:hover, 
+.booking-item-actions .edit-action button:focus{
+    transform: translateY(-5px);
+}
+
+.booking-item-actions .delete-action button{
+    background-color: var(--accent-2);
+    color: var(--dark-accent-text-foreground);
+    letter-spacing: 0.05em;
+
+    transition: transform 0.4s ease;
+}
+
+.booking-item-actions .delete-action button:hover, 
+.booking-item-actions .delete-action button:focus{
+    transform: translateY(-5px);
 }
 
 /* -----------------------
