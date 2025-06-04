@@ -139,7 +139,15 @@ jobs:
         id: next_version
         run: |
           BRANCH_NAME="${{ github.ref_name }}"
-          IFS='.' read -r major minor patch <<< "${latest_tag#v}"
+
+          # Strip the leading “v” from LATEST_TAG, then split on dots:
+          IFS='.' read -r major minor patch <<< "${LATEST_TAG#v}"
+
+          # If any of major/minor/patch is empty, default to 0
+          major=${major:-0}
+          minor=${minor:-0}
+          patch=${patch:-0}
+
           if [[ "$BRANCH_NAME" == "develop" ]]; then
             patch=$((patch + 1))
             next_version="v$major.$minor.$patch-dev"
@@ -147,7 +155,9 @@ jobs:
             patch=$((patch + 1))
             next_version="v$major.$minor.$patch"
           fi
-          echo "next_version=$next_version" >> $GITHUB_ENV
+
+          echo "NEXT_VERSION=$next_version" >> $GITHUB_ENV
+
           
       - name: Prepare unified release package
         run: |
