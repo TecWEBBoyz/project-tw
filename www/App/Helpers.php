@@ -17,7 +17,7 @@ if (!function_exists("config")) {
         $config = [];
 
         try {
-            $config = require(__DIR__ . "/../Config/Config.local.php");
+            $config = require(__DIR__ . "/../Config/Config.php");
         }
         catch(Exception $e) {
             echo "Error: " . $e->getMessage();
