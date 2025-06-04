@@ -1,0 +1,43 @@
+version: "3.0"
+services:
+  server:
+    image: ubuntu:22.04
+    container_name: server_container
+    hostname: apache_website
+    volumes:
+      - ./www:/var/www/html
+      - ./config/apache/000-default.conf:/000-default.conf
+      - ./setup_apache_prod.sh:/setup_apache_prod.sh
+      - ./init.sql:/init.sql
+      - certs:/etc/letsencrypt
+    working_dir: /var/www/html
+    ports:
+      - "80:80"
+      - "443:443"
+      - "3306:3306"
+    environment:
+      DEBIAN_FRONTEND: noninteractive
+    command: >
+      /bin/bash -c "apt-get update && apt-get install -y dos2unix &&
+      cp /setup_apache_prod.sh /tmp/setup_apache_prod.sh &&
+      dos2unix /tmp/setup_apache_prod.sh &&
+      chmod +x /tmp/setup_apache_prod.sh &&
+      /tmp/setup_apache_prod.sh"
+
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    container_name: phpmyadmin_container
+    environment:
+      PMA_HOST: apache_website
+      PMA_USER: default_user
+      PMA_PASSWORD: default_password
+      UPLOAD_LIMIT: 64M
+    ports:
+      - "8181:80"
+    depends_on:
+      - server
+
+volumes:
+  certs:
+    driver: local

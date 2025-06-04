@@ -1,0 +1,19 @@
+{
+  "name": "tecweboyz/project-tw",
+  "type": "project",
+  "license": "MIT",
+  "autoload": {
+    "psr-4": {
+      "PTW\\": "App/"
+    }
+  },
+  "authors": [
+    {
+      "name": "TecWEBBoyz",
+      "email": "tecwebboyz@gmail.com"
+    }
+  ],
+  "require": {
+    "firebase/php-jwt": "^6.11"
+  }
+}

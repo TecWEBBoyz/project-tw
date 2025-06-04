@@ -1,24 +1,15 @@
 \section{Validazione e Testing}
-\subsection{Analisi con Total Validator}
-L'analisi con Total Validator ha prodotto i seguenti errori:
+\subsection{Analisi con silktide}
+L'analisi con silktide ha evidenziato alcuni errori, che sono stati risolti. A seguire sono riportati gli errori individuati:
 \begin{itemize}
-    \item WCAG2 A:
+    \item Accessibilità:
     \begin{itemize}
-        \item E902 - ci sono dei div con attributi aria-hidden="true" e contenenti degli elementi con tabindex="0". Questo non rappresenta un errore poichè questi elementi non sono disponibili nel DOM quando aria-hidden è attivo.
+        \item Missing title [WCAG 2.0 A 2.4.2] - Risolto mediante l'inserimento di un titolo sifficativo per ogni pagina.
+        \item Duplicate IDs [WCAG 2.0 A 4.1.1] - Risolto mediante l'inserimento di ID univoci per ogni elemento, o l'uso di classi per gli elementi ripetuti.
+        \item High text contrast [WCAG 2.0 AAA 1.4.6] - TO SOLVE
+        \item Large enough controls [WCAG 2.1 AAA 2.5.5] - Risolto mediante l'aggiunta di larghezza e altezza minima di 44px per tutti i link.
+        \item Screen reader links [WCAG 2.0 A 4.1.2] - Risolto usando aria-label in link contenti solo icone svg e privi di testo (trattasi dei link alle pagine social, contenuti nel footer)
     \end{itemize}
-    \item HTML:
-    \begin{itemize}
-        \item E622 - Il valore individua un attributo con valore nullo nel codice HTML, tuttavia questo avviene perchè tale attributo viene popolato dinamicamente mediante javascript.
-    \end{itemize}
-    \item Link
-    \begin{itemize}
-        \item E400 - E' stato segnalato un link problematico, con suggerimento del validatore di verificare manualmente, tuttavia a seguito di suddetta analisi manuale il link si è rivelato funzionante e privo di problemi.
-    \end{itemize}
-    \item Spell Check 
-    \begin{itemize}
-        \item E31 - sono stati individuati diversi errori grammaticali nel sito, ma a seguito di un'analisi è emerso che si tratta di errori dovuti a nomi propri non riconosciuti come parte del vocabolario.
-    \end{itemize}
+
 \end{itemize}
-Sono stati individuati anche alcuni warning e ove possibile il gruppo ha lavorato per risolverli.
-\subsection{validazione con l'estensione WAVE di WebAIM}
-Il gruppo ha testato ogni pagina con l'estensione, risolvendo gli errori individuati. Di conseguenza l'estensione non individua alcun errore nella versione finale del sito, ma individua alcuni warning che sono dovuti a feature funzionali o di progettazione del sito
+

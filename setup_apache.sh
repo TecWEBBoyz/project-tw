@@ -70,8 +70,8 @@ service mariadb restart
 # Configura MariaDB per l'accesso remoto
 sed -i 's/^bind-address.*/bind-address = 0.0.0.0/' /etc/mysql/mariadb.conf.d/50-server.cnf
 
-# # Configura il firewall per MariaDB
-# ufw allow 3306
+# Configura il firewall per MariaDB
+ufw allow 3306
 
 # Configurazione dell'utente di default per MariaDB
 MYSQL_ROOT_PASSWORD="root_password"
@@ -112,33 +112,30 @@ sed -i 's/;error_log = php_errors.log/error_log = \/var\/log\/php_errors.log/' $
 curl -sS https://getcomposer.org/installer | php -- \
 --install-dir=/usr/bin --filename=composer
 
-# Install JWT library
-cd /var/www/html/phplibs/external && composer require firebase/php-jwt
-
-# # Update del composer
-# cd /usr/bin/composer && composer update
+# Update del composer
+cd /var/www/html/username && composer update
 
 # #Copy files
 # cp -r /var/www/html/username/static/uploads_temp/** /var/www/html/username/static/uploads
 # chmod -R 777 /var/www/html/username/static/uploads
 
-# # Set Local Configurations
-# rm /var/www/html/username/Config/config.php
-# cp /var/www/html/username/Config/config.local.php /var/www/html/username/Config/config.php
+# Set Local Configurations
+rm /var/www/html/username/Config/Config.php
+cp /var/www/html/username/Config/Config.local.php /var/www/html/username/Config/Config.php
 
 # Creazione di un index.html per il redirect
-# cat <<EOL > /var/www/html/index.html
-# <!DOCTYPE html>
-# <html>
-# <head>
-#     <meta http-equiv="refresh" content="0;url=/username" />
-#     <title>Redirecting...</title>
-# </head>
-# <body>
-#     <p>Redirecting to <a href="/username">/username</a>...</p>
-# </body>
-# </html>
-# EOL
+cat <<EOL > /var/www/html/index.html
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="refresh" content="0;url=/username" />
+    <title>Redirecting...</title>
+</head>
+<body>
+    <p>Redirecting to <a href="/username">/username</a>...</p>
+</body>
+</html>
+EOL
 
 # Riavvio dei servizi per applicare le configurazioni
 service apache2 restart
