@@ -5,13 +5,10 @@ services:
     container_name: server_container
     hostname: apache_website
     volumes:
-      - ./www:/var/www/html
+      - ./www:/var/www/html/username
       - ./config/apache/000-default.conf:/000-default.conf
       - ./setup_apache.sh:/setup_apache.sh
       - ./init.sql:/init.sql
-      #- ./php_errors.log:/var/log/php_errors.log
-      #- /var/www/html/username/static/uploads
-      #- ./www/static/uploads:/var/www/html/username/static/uploads_temp
     working_dir: /var/www/html
     ports:
       - "3000:80"
