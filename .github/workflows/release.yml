@@ -1,0 +1,201 @@
+name: Build and Release
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+    tags:
+      - '*'
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-compile:
+    name: Build and Compile Artifacts
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install PHP and Composer
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y software-properties-common
+          sudo add-apt-repository ppa:ondrej/php -y
+          sudo apt-get update
+          sudo apt-get install -y php8.1 php8.1-mbstring php8.1-intl php8.1-mysql
+          curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+
+      - name: Install dependencies
+        run: |
+          cd www
+          composer install --no-dev --optimize-autoloader
+
+      - name: Package PHP app
+        run: |
+          mkdir release
+          shopt -s dotglob
+          cp -R www/* release/
+          cp -f release/Config/Config.template.php release/Config/config.php
+          tar -czvf php-app.tar.gz -C release .
+
+      - name: Upload PHP artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: php-app
+          path: php-app.tar.gz
+
+      - name: Package database initialization script
+        run: |
+          mkdir db
+          cp -f ./init.sql db/init.sql
+          tar -czvf db-init-app.tar.gz -C db .
+
+      - name: Upload DB artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: db-init-app
+          path: db-init-app.tar.gz
+
+      - name: Install LaTeX
+        run: |
+          sudo apt-get update && \
+          sudo apt-get install -y texlive-base texlive-lang-italian texlive-fonts-recommended texlive-latex-extra
+
+      - name: Identify .tex files
+        run: |
+          cd docs
+          ls -R | grep .tex > modified_files.txt
+
+      - name: Read modified .tex files
+        run: |
+          cd docs
+          cat modified_files.txt | while read line; do
+            echo "Modified file: $line"
+          done
+
+      - name: Read modified .tex files
+        run: |
+          cd docs
+          mkdir -p output
+          cp ./*.pdf output/
+      - name: Compile .tex files
+        run: |
+          cd docs
+          mkdir -p output
+          while IFS= read -r tex_file; do
+            if [ -f "$tex_file" ]; then
+              output_dir="output/$(dirname "$tex_file" | sed 's|docs/||')"
+              mkdir -p "$output_dir"
+              pdflatex -interaction=nonstopmode -output-directory "$output_dir" "$tex_file" || true
+              pdflatex -interaction=nonstopmode -output-directory "$output_dir" "$tex_file" || true
+            fi
+          done < modified_files.txt
+
+      - name: Upload LaTeX PDFs
+        uses: actions/upload-artifact@v4
+        with:
+          name: pdf-artifacts
+          path: docs/output/*.pdf
+
+  release:
+    name: Create GitHub Release
+    needs: build-and-compile
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Download PHP artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: php-app
+
+      - name: Download DB artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: db-init-app
+
+      - name: Download PDF artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: pdf-artifacts
+
+      - name: Get latest tag
+        id: get_tag
+        run: |
+          TAG=$(git tag --sort=-v:refname | head -n 1 2>/dev/null || echo "v0.0.0")
+          echo "latest_tag=$TAG" >> $GITHUB_ENV
+
+      - name: Calculate next version
+        id: next_version
+        run: |
+          BRANCH_NAME="${{ github.ref_name }}"
+          IFS='.' read -r major minor patch <<< "${latest_tag#v}"
+          if [[ "$BRANCH_NAME" == "develop" ]]; then
+            patch=$((patch + 1))
+            next_version="v$major.$minor.$patch-dev"
+          else
+            patch=$((patch + 1))
+            next_version="v$major.$minor.$patch"
+          fi
+          echo "next_version=$next_version" >> $GITHUB_ENV
+          
+      - name: Prepare unified release package
+        run: |
+          mkdir temp_release
+          mkdir -p temp_release/www
+          mkdir -p temp_release/initdb
+          tar -xzvf php-app.tar.gz -C temp_release/www
+          tar -xzvf db-init-app.tar.gz -C temp_release/initdb
+          mkdir -p temp_release/docs
+          cp -R *.pdf temp_release/docs/
+          echo "Filename: ConsegnaTecWEBBoyz_${{ env.next_version }}.zip"
+          cd temp_release
+          zip -r -9 ConsegnaTecWEBBoyz_${{ env.next_version }}.zip ./*
+
+      - name: Create version file
+        run: |
+          echo "${{ env.latest_tag }}" > version.txt
+
+      - name: Attempt to create release
+        id: create_release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release create ${{ env.next_version }} db-init-app.tar.gz php-app.tar.gz version.txt *.pdf ConsegnaTecWEBBoyz_${{ env.next_version }}.zip \
+            --title "Release ${{ env.next_version }}" \
+            --notes "Automated release for version ${{ env.next_version }}."
+        continue-on-error: true
+
+      - name: Check if release creation failed
+        id: check_release_failed
+        run: |
+          if [[ "${{ steps.create_release.outcome }}" == "failure" ]]; then
+            echo "failed=true" >> $GITHUB_ENV
+          else
+            echo "failed=false" >> $GITHUB_ENV
+          fi
+
+      - name: Recreate release if it failed
+        if: env.failed == 'true'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          echo "Release creation failed. Cleaning up and recreating release."
+          gh release delete ${{ env.next_version }} --yes || true
+          git tag -d ${{ env.next_version }} || true
+          git push --delete origin ${{ env.next_version }} || true
+
+          # Recreate the release
+          gh release create ${{ env.next_version }} db-init-app.tar.gz php-app.tar.gz version.txt *.pdf temp_release/ConsegnaTecWEBBoyz_${{ env.next_version }}.zip \
+            --title "Release ${{ env.next_version }}" \
+            --notes "Automated release for version ${{ env.next_version }}."

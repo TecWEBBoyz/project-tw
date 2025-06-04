@@ -113,7 +113,7 @@ curl -sS https://getcomposer.org/installer | php -- \
 --install-dir=/usr/bin --filename=composer
 
 # Install JWT library
-cd /var/www/html/ && composer install
+cd /var/www/html/ && composer update
 
 # # Update del composer
 # cd /usr/bin/composer && composer update
