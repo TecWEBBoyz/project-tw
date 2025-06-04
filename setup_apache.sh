@@ -70,8 +70,8 @@ service mariadb restart
 # Configura MariaDB per l'accesso remoto
 sed -i 's/^bind-address.*/bind-address = 0.0.0.0/' /etc/mysql/mariadb.conf.d/50-server.cnf
 
-# # Configura il firewall per MariaDB
-# ufw allow 3306
+# Configura il firewall per MariaDB
+ufw allow 3306
 
 # Configurazione dell'utente di default per MariaDB
 MYSQL_ROOT_PASSWORD="root_password"
@@ -122,9 +122,9 @@ cd /var/www/html/ && composer install
 # cp -r /var/www/html/username/static/uploads_temp/** /var/www/html/username/static/uploads
 # chmod -R 777 /var/www/html/username/static/uploads
 
-# # Set Local Configurations
-# rm /var/www/html/username/Config/config.php
-# cp /var/www/html/username/Config/config.local.php /var/www/html/username/Config/config.php
+# Set Local Configurations
+rm /var/www/html/username/Config/Config.php
+cp /var/www/html/username/Config/Config.local.php /var/www/html/username/Config/Config.php
 
 # Creazione di un index.html per il redirect
 # cat <<EOL > /var/www/html/index.html
