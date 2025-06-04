@@ -79,11 +79,12 @@ jobs:
             echo "Modified file: $line"
           done
 
-      - name: Read modified .tex files
+      - name: Copy existing PDFs to output
         run: |
           cd docs
           mkdir -p output
           cp ./*.pdf output/
+
       - name: Compile .tex files
         run: |
           cd docs
@@ -133,32 +134,28 @@ jobs:
         id: get_tag
         run: |
           TAG=$(git tag --sort=-v:refname | head -n 1 2>/dev/null || echo "v0.0.0")
-          echo "latest_tag=$TAG" >> $GITHUB_ENV
+          echo "LATEST_TAG=$TAG" >> $GITHUB_ENV
 
       - name: Calculate next version
         id: next_version
         run: |
           BRANCH_NAME="${{ github.ref_name }}"
 
-          # Strip the leading “v” from LATEST_TAG, then split on dots:
           IFS='.' read -r major minor patch <<< "${LATEST_TAG#v}"
-
-          # If any of major/minor/patch is empty, default to 0
           major=${major:-0}
           minor=${minor:-0}
           patch=${patch:-0}
 
           if [[ "$BRANCH_NAME" == "develop" ]]; then
             patch=$((patch + 1))
-            next_version="v$major.$minor.$patch-dev"
+            NEXT_VERSION="v$major.$minor.$patch-dev"
           else
             patch=$((patch + 1))
-            next_version="v$major.$minor.$patch"
+            NEXT_VERSION="v$major.$minor.$patch"
           fi
 
-          echo "NEXT_VERSION=$next_version" >> $GITHUB_ENV
+          echo "NEXT_VERSION=$NEXT_VERSION" >> $GITHUB_ENV
 
-          
       - name: Prepare unified release package
         run: |
           mkdir temp_release
@@ -168,22 +165,23 @@ jobs:
           tar -xzvf db-init-app.tar.gz -C temp_release/initdb
           mkdir -p temp_release/docs
           cp -R *.pdf temp_release/docs/
-          echo "Filename: ConsegnaTecWEBBoyz_${{ env.next_version }}.zip"
+          echo "Filename: ConsegnaTecWEBBoyz_${{ env.NEXT_VERSION }}.zip"
           cd temp_release
-          zip -r -9 ConsegnaTecWEBBoyz_${{ env.next_version }}.zip ./*
+          zip -r -9 ConsegnaTecWEBBoyz_${{ env.NEXT_VERSION }}.zip ./*
 
       - name: Create version file
         run: |
-          echo "${{ env.latest_tag }}" > version.txt
+          echo "${{ env.NEXT_VERSION }}" > version.txt
 
       - name: Attempt to create release
         id: create_release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          gh release create ${{ env.next_version }} db-init-app.tar.gz php-app.tar.gz version.txt *.pdf ConsegnaTecWEBBoyz_${{ env.next_version }}.zip \
-            --title "Release ${{ env.next_version }}" \
-            --notes "Automated release for version ${{ env.next_version }}."
+          gh release create ${{ env.NEXT_VERSION }} \
+            db-init-app.tar.gz php-app.tar.gz version.txt *.pdf ConsegnaTecWEBBoyz_${{ env.NEXT_VERSION }}.zip \
+            --title "Release ${{ env.NEXT_VERSION }}" \
+            --notes "Automated release for version ${{ env.NEXT_VERSION }}."
         continue-on-error: true
 
       - name: Check if release creation failed
@@ -201,11 +199,11 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           echo "Release creation failed. Cleaning up and recreating release."
-          gh release delete ${{ env.next_version }} --yes || true
-          git tag -d ${{ env.next_version }} || true
-          git push --delete origin ${{ env.next_version }} || true
+          gh release delete ${{ env.NEXT_VERSION }} --yes || true
+          git tag -d ${{ env.NEXT_VERSION }} || true
+          git push --delete origin ${{ env.NEXT_VERSION }} || true
 
-          # Recreate the release
-          gh release create ${{ env.next_version }} db-init-app.tar.gz php-app.tar.gz version.txt *.pdf temp_release/ConsegnaTecWEBBoyz_${{ env.next_version }}.zip \
-            --title "Release ${{ env.next_version }}" \
-            --notes "Automated release for version ${{ env.next_version }}."
+          gh release create ${{ env.NEXT_VERSION }} \
+            db-init-app.tar.gz php-app.tar.gz version.txt *.pdf temp_release/ConsegnaTecWEBBoyz_${{ env.NEXT_VERSION }}.zip \
+            --title "Release ${{ env.NEXT_VERSION }}" \
+            --notes "Automated release for version ${{ env.NEXT_VERSION }}."
