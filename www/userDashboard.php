@@ -18,13 +18,12 @@ $serviceRepo = new ServiceRepository();
 
 $bookings = $bookingRepo->GetByUser($currentUser->getId());
 $bookingsList = "";
-
+$repeated_replacements = [];
 if (empty($bookings)) {
     $bookingsList .= "<p>Non hai ancora prenotato nessuna delle nostre attività!</p>";
     $bookingsList .= "<a>Scopri le nostre attività</a>";
 } else {
-    $bookingsList = "<ul class='bookings-list'>";
-
+    $bookingsList = "";
     foreach ($bookings as $booking) {
         if (!$booking instanceof \PTW\Models\Booking) {
             continue;
@@ -35,17 +34,13 @@ if (empty($bookings)) {
         if (!$service instanceof \PTW\Models\Service) {
             continue;
         }
-
-        $bookingsList .= "<li class='booking-item'><div class='booking-item-info'>";
-
-        $bookingsList .= "<p class='muted'><time datetime='" . $booking->getDate()->format("Y-m-d") . "'>" . $booking->getDate()->format("d M Y") . "</time></p>";
-        $bookingsList .= "<h3 class='booking-item-title'>" . $service->getName() . "<h3>";
-        $bookingsList .= "<p class='booking-item-people'><span class='bold'>Persone: </span>" . $booking->getNumberOfPeople() . "</p>";
-
-        $bookingsList .= "</div>";
-
+        $single_replacement = [
+            '[[service]]' => $service->getName(),
+            '[[numberOfPeople]]' => $booking->getNumberOfPeople(),
+            '[[date]]' => "<time datetime='" . $booking->getDate()->format("Y-m-d") . "'>" . $booking->getDate()->format("d M Y") . "</time>",
+        ];
         if ($booking->getDate() >= new DateTime()) {
-            $bookingsList .= "<ul class='booking-item-actions'>
+            $single_replacement["[[actions]]"] = "<ul class='booking-item-actions'>
                     <li class='edit-action' method='GET'>
                         <form action='editBooking.php'>
                             <input type='hidden' name='id' value='" . $booking->getId() ."'>
@@ -60,68 +55,19 @@ if (empty($bookings)) {
                     </li>
                 </ul>";
         } else {
-            $bookingsList .= "<p>Attività Completata</p>";
+            $single_replacement["[[actions]]"] = "Attività completata";
         }
 
-        $bookingsList .= "</li>";
-
+        $repeated_replacements[] = $single_replacement;
     }
-
-    $bookingsList .= "</ul>";
 }
-
-
-
-/*
-
-
-            
-                    
-                </div>
-
-                
-            </li>
-
-            <li class="booking-item">
-                <div class="booking-item-info">
-                    <p class="muted">10 Giugno 2025</p>
-                    <h3 class="booking-item-title">Safari con i leoni<h3>
-                    <p class="booking-item-people"><span class="bold">Persone: </span>10</p>
-                </div>
-
-                <ul class="booking-item-actions">
-                    <li class="edit-action">
-                        <form action="">
-                            <button type="submit">Modifica</button>
-                        </form>
-                    </li>
-                    <li class="delete-action">
-                        <form action="">
-                            <button type="submit">Elimina</button>
-                        </form>
-                    </li>
-                </ul>
-            </li>
-
-            <li class="booking-item">
-                <div class="booking-item-info">
-                    <p class="muted">10 Giugno 2025</p>
-                    <h3 class="booking-item-title">Safari con i leoni<h3>
-                    <p class="booking-item-people"><span class="bold">Persone: </span>10</p>
-                </div>
-
-                <p>Attività Completata</p>
-            </li>
-        </ul>
-
- */
 
 
 $currentFile = basename(__FILE__);
 $htmlContent = TemplateService::renderHtml($currentFile, [
     "[[userName]]" => $currentUser->getName(),
     "[[userBookings]]" => $bookingsList,
-]);
+], $repeated_replacements);
 
 echo $htmlContent;
 ?>
