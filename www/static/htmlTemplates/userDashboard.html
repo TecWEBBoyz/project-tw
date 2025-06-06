@@ -40,14 +40,13 @@
     </header>
     <main id="contenuto" class="max-width">
         <h1>Benvenuto, [[userName]]</h1>
-        <p>Qui potrai gestire le tue pronotazioni!</p>
-
-        <h2>Prenotazioni</h2>
-        [[userBookings]]
-        <table>
-            <caption>Tutte le prenotazioni</caption>
+        <p>Da questa pagina potrei gestire tutte le tue prenotazioni, e visualizzare i serivizi di cui hai già usufruito in passato. Se vuoi prontare altri servizi dai un'occhiata alla <a href="services.php">pagina dei servizi</a></p><!--TODO: creare pagina servizi-->
+        <p id="bookings-tab-desc" class="hidden">La tabella contiene i dettagli delle prenotazioni e, per ognuna di esse, un campo dedicato a dei pulsanti di modifica o cancellazione della prenotazione stessa</p>
+        <table id="bookings-table" aria-describedby="bookings-tab-desc">
+            <caption>Le tue prenotazioni</caption>
             <thead>
                 <tr>
+                    <th></th>
                     <th scope="col">Servizio prenotato</th>
                     <th scope="col">Posti prenotati</th>
                     <th scope="col">Data</th>
@@ -57,14 +56,16 @@
             <tbody>
                 {{
                 <tr>
-                    <td>[[service]]</td>
-                    <td>[[numberOfPeople]]</td>
-                    <td>[[date]]</td>
-                    <td>[[actions]]</td>
+                    <th scope="row">[[booking]]</th>
+                    <td data-title="Servizio prenotato">[[service]]</td>
+                    <td data-title="Posti Prenotati">[[numberOfPeople]]</td>
+                    <td data-title="Data">[[date]]</td>
+                    <td data-title="Azioni">[[actions]]</td>
                 </tr>
                 }}
             </tbody>
         </table>
+        [[userBookings]]
     </main>
     <footer id="footer">
         <div class="footer-content">

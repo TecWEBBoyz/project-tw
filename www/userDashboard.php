@@ -24,6 +24,7 @@ if (empty($bookings)) {
     $bookingsList .= "<a>Scopri le nostre attività</a>";
 } else {
     $bookingsList = "";
+    $counter = 1;
     foreach ($bookings as $booking) {
         if (!$booking instanceof \PTW\Models\Booking) {
             continue;
@@ -35,30 +36,28 @@ if (empty($bookings)) {
             continue;
         }
         $single_replacement = [
+            '[[booking]]' => 'Prenotazione ' . $counter,
             '[[service]]' => $service->getName(),
             '[[numberOfPeople]]' => $booking->getNumberOfPeople(),
             '[[date]]' => "<time datetime='" . $booking->getDate()->format("Y-m-d") . "'>" . $booking->getDate()->format("d M Y") . "</time>",
         ];
         if ($booking->getDate() >= new DateTime()) {
-            $single_replacement["[[actions]]"] = "<ul class='booking-item-actions'>
-                    <li class='edit-action' method='GET'>
-                        <form action='editBooking.php'>
+            $single_replacement["[[actions]]"] = "<div class='booking-actions'>
+                        <form action='editBooking.php' method='GET'>
                             <input type='hidden' name='id' value='" . $booking->getId() ."'>
-                            <button type='submit'>Modifica</button>
+                            <button type='submit' aria-label='Modifica prenotazione'>Modifica</button>
                         </form>
-                    </li>
-                    <li class='delete-action'>
                         <form action='bookingsDelete.php' method='POST'>
                             <input type='hidden' name='booking_id' value='" . $booking->getId() ."'>
-                            <button type='submit'>Elimina</button>
+                            <button type='submit' aria-label='Elimina prenotazione'>Elimina</button>
                         </form>
-                    </li>
-                </ul>";
+                    </div>";
         } else {
             $single_replacement["[[actions]]"] = "Attività completata";
         }
 
         $repeated_replacements[] = $single_replacement;
+        $counter++;
     }
 }
 

@@ -122,6 +122,7 @@
     --darker-light: #F4E8C1;
     --accent-1: #44633F;
     --accent-2: #BE5745;
+    --lighter-accent-1: #68955F;
 
     /* ToDo(Luca): Need to add this to color-contrast check */
     --muted: #6c757d;
@@ -189,6 +190,11 @@
     /* Footer */
     --footer-background: var(--light);
     --footer-text: var(--dark);
+
+    /* Tables */
+    --table-th-background: var(--accent-1);
+    --table-th-color: var(--light);
+    --table-base-background: var(--light);
 
     /* Sizes */
     --max-content-width: 1200;
@@ -1383,6 +1389,86 @@ label:has(+ input:active) {
 .booking-item-actions .delete-action button:focus{
     transform: translateY(-5px);
 }
+
+.hidden {
+    position: absolute;
+    left: -999rem;
+}
+
+#bookings-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 2rem 0;
+}
+
+#bookings-table caption {
+    font-family: "Bree Serif", serif;
+    font-size: clamp(calc(26 / 16 * 1rem), calc(100vw * 33 / var(--max-content-width)), calc(33 / 16 * 1rem));
+    font-weight: 400;
+    color:var(--accent-1);
+    margin-bottom: 1rem;
+    text-align: left;
+}
+
+#bookings-table thead th {
+    text-align: left;
+    padding: 0.75rem;
+    color: var(--table-th-color);
+    background-color: var(--table-th-background);
+}
+
+#bookings-table tbody td,
+#bookings-table tbody th {
+    padding: 0.75rem;
+    border-bottom: 1px solid var(--accent-1);
+    vertical-align: middle;
+}
+
+#bookings-table .booking-actions button{
+    padding: 0.5rem 2rem;
+    margin: 0.1rem;
+    width: 100%;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    background-color: var(--dark-accent-background);
+    color: var(--dark-accent-text-foreground);
+    letter-spacing: 0.05em;
+    transition: transform 0.4s ease;
+}
+
+#bookings-table .booking-actions button:hover, 
+#bookings-table .booking-actions button:focus{
+    transform: translateY(-5px);
+}
+
+@media screen and (max-width: 768px) {
+    table thead {
+        display: none;
+    }
+
+    table tr,
+    table th,
+    table td {
+        display: block;
+    }
+
+    table tr th {
+        background-color: var(--table-th-background);
+        color: var(--table-th-color)
+    }
+
+    th[data-title]:before,
+    td[data-title]:before {
+        content: attr(data-title) ":\00A0";
+        font-weight: bold;
+    }
+
+    #bookings-table .booking-actions button{
+        width: 100%;
+    }
+}
+
 
 /* -----------------------
          Animations
