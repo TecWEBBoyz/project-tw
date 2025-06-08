@@ -691,29 +691,42 @@ header .header-content {
     max-width: 350px;
 }
 
-.footer-where-item {
-    margin: 0.5em 0;
+#footer-contact-list {
+    list-style: none;
+    padding: 0;
 }
 
-.footer-where-item svg,
-.footer-where-item p {
-    display: inline-block;
+#footer-contact-list li {
+    position: relative;
+    padding-left: 35px; /* spazio per l'immagine */
+    margin-bottom: 0.5em;
+}
+
+#footer-contact-list li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: clamp(5px, 1vw, 7px);
+    width: 30px;
+    height: 30px;
+    background-size: contain;
+    background-repeat: no-repeat;
     vertical-align: middle;
 }
 
-.footer-where-item svg {
-    margin-right: 10px;
-    fill: var(--accent-2)
+/* Diverse immagini per ogni bullet */
+#bullet-1::before {
+    background-image: url("styleImages/pin-icon.png");
 }
-
-.footer-where-item p {
-    margin: 0;
+#bullet-2::before {
+    background-image: url("styleImages/phone-icon.png");
 }
-
+#bullet-3::before {
+    background-image: url("styleImages/mail-icon.png");
+}
 .icon-link svg {
     width: 50px;
     height: 50px;
-    viewBox: 0 0 256 256;
 }
 
 .icon-link svg g {
