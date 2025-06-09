@@ -941,7 +941,7 @@ main>section>.section-content h2 {
 }
 
 /* -----------------------
-        About Section
+        About page
    ----------------------- */
 
 #about-section .about-item {
@@ -1437,22 +1437,26 @@ label:has(+ input:active) {
     vertical-align: middle;
 }
 
-#bookings-table .booking-actions button{
+button.booking-button{
     padding: 0.5rem 2rem;
     margin: 0.1rem;
-    width: 100%;
+    width: 15em;
     border-radius: 8px;
     border: none;
     cursor: pointer;
-    background-color: var(--dark-accent-background);
-    color: var(--dark-accent-text-foreground);
+    font-weight: bold;
+    background-color: var(--light);
+    color: var(--accent-1);
+    border: 2px solid var(--accent-1);
     letter-spacing: 0.05em;
     transition: transform 0.4s ease;
 }
 
-#bookings-table .booking-actions button:hover, 
-#bookings-table .booking-actions button:focus{
+button.booking-button:hover, 
+button.booking-button:focus{
     transform: translateY(-5px);
+    background-color: var(--accent-1);
+    color: var(--light);
 }
 
 @media screen and (max-width: 768px) {
@@ -1482,6 +1486,46 @@ label:has(+ input:active) {
     }
 }
 
+/* -----------------------
+         Services
+   ----------------------- */
+
+#services-container {
+    width: 100%;
+    max-width: calc(var(--max-content-width) * 1px);
+    margin: 0 auto;
+    padding: 3rem 1rem;
+}
+
+#services-container .service {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; 
+    height: 300px; 
+    margin: 1em; 
+    overflow: hidden; 
+    gap: 3em;
+}
+
+#services-container .service:nth-child(2n) {
+    flex-direction: row-reverse;
+}
+
+#services-container .service .service-content {
+    flex: 1;
+}
+
+#services-container .service:nth-child(2n+1) .service-content {
+    text-align: right;
+}
+
+#services-container .service .service-image {
+    flex: 1; 
+    background: url('styleImages/image.jpg') no-repeat center center; 
+    background-size: cover; 
+    height: 100%;
+    border-radius: 12px;
+}
 
 /* -----------------------
          Animations

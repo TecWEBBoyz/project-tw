@@ -39,7 +39,42 @@
         </div>
     </header>
     <main id="contenuto">
-        <h1>Dove trovarci</h1>
+        <div id="services-container">
+            <h1>I nostri servizi</h1>
+            <div class="service">
+                <div class="service-content">
+                    <h2>Safari</h2>
+                    <p>Un'esperienza unica per osservare gli animali nel loro habitat naturale.</p>
+                    <form action="editBooking.php" method="get">
+                        <input type="hidden" name="service" value="[[serviceId]]">
+                        <button class="booking-button" type="submit">Prenota ora</button>
+                    </form>
+                </div>
+                <div class="service-image"></div>
+            </div>
+            <div class="service">
+                <div class="service-content">
+                    <h2>Ingresso</h2>
+                    <p>Accesso al parco per una giornata indimenticabile</p>
+                    <form action="editBooking.php" method="get">
+                        <input type="hidden" name="service" value="[[serviceId]]">
+                        <button class="booking-button" type="submit">Prenota ora</button>
+                    </form>
+                </div>
+                <div class="service-image"></div>
+            </div>
+            <div class="service">
+                <div class="service-content">
+                    <h2>Visita guidata</h2>
+                    <p>Tour guidato del parco con un esperto zoologo.</p>
+                    <form action="editBooking.php" method="get">
+                        <input type="hidden" name="service" value="[[serviceId]]">
+                        <button class="booking-button" type="submit">Prenota ora</button>
+                    </form>
+                </div>
+                <div class="service-image"></div>
+            </div>
+        </div>
     </main>
     <footer id="footer">
         <div class="footer-content">

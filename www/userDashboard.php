@@ -45,11 +45,11 @@ if (empty($bookings)) {
             $single_replacement["[[actions]]"] = "<div class='booking-actions'>
                         <form action='editBooking.php' method='GET'>
                             <input type='hidden' name='id' value='" . $booking->getId() ."'>
-                            <button type='submit' aria-label='Modifica prenotazione'>Modifica</button>
+                            <button class='booking-button' type='submit' aria-label='Modifica prenotazione'>Modifica</button>
                         </form>
                         <form action='bookingsDelete.php' method='POST'>
                             <input type='hidden' name='booking_id' value='" . $booking->getId() ."'>
-                            <button type='submit' aria-label='Elimina prenotazione'>Elimina</button>
+                            <button class='booking-button' type='submit' aria-label='Elimina prenotazione'>Elimina</button>
                         </form>
                     </div>";
         } else {
