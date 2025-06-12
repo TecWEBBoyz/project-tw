@@ -29,7 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     var_dump($_POST);
     
     // Check if all fields (except for user_id are present)
-    if (!array_key_exists('service_id', $_POST) 
+    if (!array_key_exists('service', $_POST) 
         || !array_key_exists('numberOfPeople', $_POST) 
         || !array_key_exists('date', $_POST)) {
     
@@ -38,11 +38,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit();
     }
 
+    // Get service by selected name to restrive its ID (used to create new booking)
+    $service = $serviceRepo->GetElementByUnique('name', $_POST['service']);
+    if (!$service) {
+        http_response_code(404);
+        exit();
+    }
+
     // Create new booking
     $newBooking = new Booking([
         'id' => uniqid(),
         'user_id' => $currentUser->getId(),
-        'service_id' => $_POST['service_id'],
+        'service_id' => $service->getId(),
         'num_people' => $_POST['numberOfPeople'],
         'date' => $_POST['date']
     ]);
@@ -72,6 +79,7 @@ $htmlContent = TemplateService::renderHtml($currentFile, [
     "[[serviceName]]" => $service->getName(),
     "[[serviceMaxPeople]]" => $service->getMaxPeople(),
     "[[minDate]]" => (new DateTime("now"))->format("Y-m-d"),
+    "<option value=\"" . $service->getName() ."\"" => "<option value=\"" . $service->getName() ."\" selected", 
 ]);
 echo $htmlContent;
 

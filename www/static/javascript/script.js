@@ -1,10 +1,10 @@
 // Open and close menu when clicking the hamburger-button button
 document.addEventListener("DOMContentLoaded", function () {
+	//----------------------------------------------------
+	//						Menu button
+	//----------------------------------------------------
 	const menuBtn = document.getElementById("hamburger-button");
 	const menu = document.getElementById("menu");
-
-	// Existing click handler
-	menuBtn.addEventListener("click", () => onClickMenuBtn(menuBtn));
 
 	// Add focusout handler for the menu container
 	menu.addEventListener("focusout", (event) => {
@@ -23,6 +23,27 @@ document.addEventListener("DOMContentLoaded", function () {
 			changeBackgroundImage(animalItems[i]);
 		}
 	}
+
+	//----------------------------------------------------
+	//				Service change in booking
+	//----------------------------------------------------	
+	//ToDO: read max people from db
+	const maxPeopleMap = {
+		"Safari": 10,
+		"Ingresso": 100,
+		"Visita guidata": 15
+	};
+
+	// Elementi HTML
+	const serviceSelect = document.getElementById('service');
+	const numberOfPeopleInput = document.getElementById('numberOfPeople');
+
+	// Evento per aggiornare il numero massimo di persone
+	serviceSelect.addEventListener('change', () => updateMaxPeople(serviceSelect, numberOfPeopleInput, maxPeopleMap));
+
+
+	// Existing click handler
+	menuBtn.addEventListener("click", () => onClickMenuBtn(menuBtn));
 });
 
 function onClickMenuBtn(button) {
@@ -52,3 +73,12 @@ function changeBackgroundImage(element) {
 		console.warn("No background image URL found for element:", element);
 	}
 }
+
+function updateMaxPeople(serviceSelect, numberOfPeopleInput, maxPeopleMap) {
+		const selectedService = serviceSelect.value;
+		const maxPeople = maxPeopleMap[selectedService] || 7; // Default max se non selezionato
+		numberOfPeopleInput.max = maxPeople;
+		numberOfPeopleInput.value = Math.min(numberOfPeopleInput.value, maxPeople); // Adatta il valore corrente
+	}
+
+

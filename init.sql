@@ -6,7 +6,7 @@ DROP TABLE IF EXISTS service;
 
 CREATE TABLE service (
     id CHAR(36) DEFAULT UUID(),
-    name VARCHAR(50) NOT NULL,
+    name VARCHAR(50) NOT NULL UNIQUE,
     description TEXT DEFAULT '',
     price DECIMAL(10, 2) NOT NULL,
     duration INT NOT NULL,
@@ -76,8 +76,8 @@ INSERT INTO user (id, username, email, telephone, password, role) VALUES
 ('e2a26785-c0f3-4261-a2ad-be4f1574cca4','user', 'user@gmail.com', '0987654361', 'user', 'User');
 
 INSERT INTO service (id, name, description, price, duration, max_people) VALUES
-("43591738-588f-4a58-a04f-f3826de22345", "Safari", "Un'esperienza unica per osservare gli animali nel loro habitat naturale.", 50.00, 120, 15),
-("b2c3d4e5-f6g7-8901-h2i3-j4k5l6m7n8o9", "Ingresso", "Accesso al parco per una giornata indimenticabile.", 20.00, 480, 15),
+("43591738-588f-4a58-a04f-f3826de22345", "Safari", "Un'esperienza unica per osservare gli animali nel loro habitat naturale.", 50.00, 120, 10),
+("b2c3d4e5-f6g7-8901-h2i3-j4k5l6m7n8o9", "Ingresso", "Accesso al parco per una giornata indimenticabile.", 20.00, 480, 100),
 ("c3d4e5f6-g7h8-9012-i3j4-k5l6m7n8o9p0", "Visita guidata", "Tour guidato del parco con un esperto zoologo.", 30.00, 90, 15);
 
 INSERT INTO animal (id, species, name, age, habitat, dimensions, lifespan, diet, description, image) VALUES

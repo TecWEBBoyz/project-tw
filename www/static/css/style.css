@@ -1280,7 +1280,8 @@ main>#about-section>.section-content .about-item:nth-child(2n) p {
     justify-content: space-between;
 }
 
-input{
+input,
+select{
     width:100%;
     padding: 1rem 2rem;
     border:1px solid var(--muted);
@@ -1295,7 +1296,8 @@ input{
 }
 
 /* ToDo(Luca) Add variation for valid and invalid inputs */
-input:hover, input:focus{
+input:hover, input:focus
+select:hover, select:focus{
     border: 1px solid var(--accent-1);
     outline: 1px solid var(--accent-1);
 }
@@ -1314,7 +1316,11 @@ label {
 label:has(+ input:focus),
 label:has(+ input:hover),
 label:has(+ input:valid),
-label:has(+ input:active) {
+label:has(+ input:active),
+label:has(+ select:focus),
+label:has(+ select:hover),
+label:has(+ select:valid),
+label:has(+ select:active) {
     top: 0;
     font-weight: 600;
     color: var(--accent-1);
