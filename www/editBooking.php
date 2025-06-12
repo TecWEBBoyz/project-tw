@@ -1,6 +1,8 @@
 <?php
 require_once 'init.php';
 
+session_start();
+
 use \PTW\Repositories\BookingRepository;
 use \PTW\Repositories\ServiceRepository;
 use \PTW\Services\AuthService;
@@ -14,6 +16,8 @@ $serviceRepo = new ServiceRepository();
 
 // Check authentication before allowing access
 if (!AuthService::isUserLoggedIn()) {
+    // Salva l'URL corrente nella sessione
+    $_SESSION['redirect_after_login'] = $_SERVER['REQUEST_URI'];
     header('Location: login.php?error=unauthorized');
     exit;
 }
