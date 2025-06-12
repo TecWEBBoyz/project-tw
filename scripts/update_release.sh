@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Configuration
-USERHOME="{{USER}}" # Automatically fetch the username of the user
+USERHOME=$USER # Automatically fetch the username of the user
 DEST_DIR="/home/$USERHOME/public_html"
 VERSION_FILE="/home/$USERHOME/scripts/current_version.txt"
 RESET_FILE="/home/$USERHOME/scripts/reset_time.txt"
@@ -193,7 +193,7 @@ if [[ "$LATEST_VERSION" != "$CURRENT_VERSION" ]]; then
         log_to_file "Modifying Config.php..."
         sed -i "s/{DB_PASSWORD}/$(cat /home/$USERHOME/pwd_db_2024-25.txt)/g" "$CONFIG_FILE"
         sed -i "s/{USERNAME}/$USERHOME/g" "$CONFIG_FILE"
-        // replace {JWT_SECRET_KEY} with a random string
+
         sed -i "s/{JWT_SECRET_KEY}/$(openssl rand -base64 32)/g" "$CONFIG_FILE"
     else
         log_to_file "Warning: Config.php not found at $CONFIG_FILE"
