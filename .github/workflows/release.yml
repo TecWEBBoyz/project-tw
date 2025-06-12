@@ -41,7 +41,7 @@ jobs:
           mkdir release
           shopt -s dotglob
           cp -R www/* release/
-          cp -f release/Config/Config.template.php release/Config/config.php
+          cp -f release/Config/Config.template.php release/Config/Config.php
           tar -czvf php-app.tar.gz -C release .
 
       - name: Upload PHP artifact
