@@ -2,7 +2,7 @@
 <html lang="it">
 <head>
     <meta charset="utf-8">
-    <title>Dove trovarci</title>
+    <title>Modifica Prenotazione</title>
     <meta name="description" content="">
     <meta name="keywords" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -38,45 +38,27 @@
             </div>
         </div>
     </header>
-    <main id="contenuto">
-        <div id="services-container">
-            <h1>I nostri servizi</h1>
-            <div class="service">
-                <div class="service-content">
-                    <h2>Safari</h2>
-                    <hr>
-                    <p>Un'esperienza immersiva a bordo di una navetta o con il proprio veicolo tra giraffe, leoni, zebre e altri animali in semi-libertà. Ideale per vivere la fauna da vicino in ambienti che riproducono il loro habitat.</p>
-                    <form action="createBooking.php" method="get">
-                        <input type="hidden" name="service_id" value="43591738-588f-4a58-a04f-f3826de22345">
-                        <button class="booking-button" type="submit">Prenota ora</button>
-                    </form>
+    <main id="contenuto" class="full-page">
+        <div class="login-wrapper">
+            <h1>Prenota</h1>
+            <form method="POST" action="createBooking.php">
+                <input type="hidden" name="service_id" value="[[serviceId]]">
+
+                <div class="input-wrapper">
+                    <label for="service">Servizio:</label>
+                    <input type="text" id="service" name="service" value="[[serviceName]]" disabled>
                 </div>
-                <div class="service-image" id="safari-image"></div>
-            </div>
-            <div class="service">
-                <div class="service-content">
-                    <h2>Ingresso</h2>
-                    <hr>
-                    <p>Consente l'accesso all'intero parco pedonale, con percorsi tra aree tematiche dedicate a rettili, primati, volatili e animali da fattoria. Perfetto per una visita in autonomia e in totale libertà.</p>
-                    <form action="createBooking.php" method="get">
-                        <input type="hidden" name="service_id" value="b2c3d4e5-f6g7-8901-h2i3-j4k5l6m7n8o9">
-                        <button class="booking-button" type="submit">Prenota ora</button>
-                    </form>
+                <div class="input-wrapper">
+                    <label for="numberOfPeople">Partecipanti:</label>
+                    <input type="number" id="numberOfPeople" name="numberOfPeople" 
+                    required min="1" max="[[serviceMaxPeople]]" value="1">
                 </div>
-                <div class="service-image" id="ingresso-image"></div>
-            </div>
-            <div class="service">
-                <div class="service-content">
-                    <h2>Visita guidata</h2>
-                    <hr>
-                    <p>Un percorso accompagnato da guide esperte che illustrano curiosità, abitudini e caratteristiche degli animali. Adatto a gruppi, scolaresche o a chi desidera approfondire l’esperienza educativa.</p>
-                    <form action="createBooking.php" method="get">
-                        <input type="hidden" name="service_id" value="c3d4e5f6-g7h8-9012-i3j4-k5l6m7n8o9p0">
-                        <button class="booking-button" type="submit">Prenota ora</button>
-                    </form>
+                <div class="input-wrapper">
+                    <label for="date">Data:</label>
+                    <input type="date" id="date" name="date" required min="[[minDate]]">
                 </div>
-                <div class="service-image" id="visita-guidata-image"></div>
-            </div>
+                <button type="submit" class="submit-button">Prenota ora</button>
+            </form>
         </div>
     </main>
     <footer id="footer">

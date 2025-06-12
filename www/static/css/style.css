@@ -1502,9 +1502,24 @@ button.booking-button:focus{
     align-items: center;
     justify-content: space-between; 
     height: 300px; 
-    margin: 1em; 
+    margin: 3rem 0; 
     overflow: hidden; 
     gap: 3em;
+}
+
+#services-container .service hr {
+    width: 2em;
+    height: 3px;
+    background-color: var(--accent-1);
+    border: none;
+}
+
+#services-container .service:nth-child(2n+1) hr {
+    margin-left: auto;
+}
+
+#services-container .service p {
+    margin: 0.5em 0;
 }
 
 #services-container .service:nth-child(2n) {
@@ -1520,11 +1535,23 @@ button.booking-button:focus{
 }
 
 #services-container .service .service-image {
-    flex: 1; 
-    background: url('styleImages/image.jpg') no-repeat center center; 
-    background-size: cover; 
+    flex: 1;  
+    background-position: center;
+    background-repeat: no-repeat;
     height: 100%;
     border-radius: 12px;
+}
+
+#services-container .service #safari-image {
+    background: url('styleImages/safari-image.jpg') no-repeat center center;
+}
+
+#services-container .service #ingresso-image {
+    background: url('styleImages/ingresso-image.jpg') no-repeat center center;
+}
+
+#services-container .service #visita-guidata-image {
+    background: url('styleImages/visita-guidata-image.jpg') no-repeat center center;
 }
 
 /* -----------------------
