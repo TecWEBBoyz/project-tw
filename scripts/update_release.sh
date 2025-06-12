@@ -188,13 +188,15 @@ if [[ "$LATEST_VERSION" != "$CURRENT_VERSION" ]]; then
     log_to_file "Copying version.txt to destination directory..."
     cp "$TEMP_DIR/version.txt" "$DEST_DIR/version.txt"
 
-    CONFIG_FILE="$DEST_DIR/Config/config.php"
+    CONFIG_FILE="$DEST_DIR/Config/Config.php"
     if [[ -f "$CONFIG_FILE" ]]; then
-        log_to_file "Modifying config.php..."
+        log_to_file "Modifying Config.php..."
         sed -i "s/{DB_PASSWORD}/$(cat /home/$USERHOME/pwd_db_2024-25.txt)/g" "$CONFIG_FILE"
         sed -i "s/{USERNAME}/$USERHOME/g" "$CONFIG_FILE"
+        // replace {JWT_SECRET_KEY} with a random string
+        sed -i "s/{JWT_SECRET_KEY}/$(openssl rand -base64 32)/g" "$CONFIG_FILE"
     else
-        log_to_file "Warning: config.php not found at $CONFIG_FILE"
+        log_to_file "Warning: Config.php not found at $CONFIG_FILE"
     fi
 
     echo "$LATEST_VERSION" > "$VERSION_FILE"
