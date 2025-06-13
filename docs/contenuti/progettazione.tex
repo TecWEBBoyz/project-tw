@@ -3,26 +3,42 @@
 -----------------------------------------------------------------------------------------
 \section{Progettazione}
 \subsection{Struttura Generale}
+La navigazione all'interno del sito è possibile attrverso l'uso di un menu posto nella parte superiore destra della pagina. Questo menù ha degli elementi comuni a tutti gli utenti e altri elementi specifici per l'utente attualmente autenticato.
 \subsubsection{Pagine Pubbliche}
 \begin{itemize}
     \item \textbf{Home}: la prima pagina visualizzata accedendo al sito.\\
-    Si compone di una sezione iniziale in cui sono visibili il fotografo e una sua citazione, seguita da una 
-    griglia di fotografie divise per categoria di appartenenza. La griglia ha la caratteristica di 
-    preservare l'aspect-ratio delle immagini creando un layout particolare;
-    \item \textbf{Chi sono}: pagina informativa che racconta il significato della fotografia per il fotografo;
-    \item \textbf{Accedi}: pagina dedicata all'accesso degli utenti registrati, dove è possibile inserire le proprie 
-    credenziali per accedere alle funzionalità riservate del sito;
-    \item \textbf{Servizi}: pagina dove sono presentati i servizi offerti dal fotografo. La pagina presenta dei
-    pulsanti che portano l'utente nella pagina \textbf{Prenota servizio}. Se l'utente non autenticato viene indirizzato alla
+    Nell'area sicura, visualizzata senza necessità di scroll appena l'utente entra nel sito, sono presenti: 
+    \begin{itemize}
+        \item una call to action, che invita l'utente a approfondire la sua interazione con il sito; 
+        \item un pulsasante che invita l'utente a prenotare un servizio dello zoo, e che conduce alla pagina dedicata ai servizi offerti dallo zoo; 
+        \item un pulsante che invita l'utente a esplorare la pagina dedicata agli animali dello zoo.
+    \end{itemize}
+    Inizialmente, il gruppo non aveva previsto l'implementazione di un'area sicura. Tuttavia, in una fase successiva, si è deciso di arricchire questa sezione con una call to action e due pulsanti. Questi pulsanti guidano l'utente verso due elementi chiave del sito: la pagina dedicata ai servizi offerti e quella dedicata agli animali dello zoo.\\
+    La pagina \textbf{Home} prosegue quindi con una sezione contenente delle carte che presentano brevemente alcuni degli animali dello zoo, invitando l'utnete a esplorare le pagine ad essi dedicate.\\
+    La \textbf{Home} si conclude quindi con il footer comune a tutte le pagine e contente informazioni circa i contatti dello zoo, i suoi orari di apertura e i link alle pagine social dello stesso.
+    \item \textbf{Chi siamo}: pagina raggiungibile dal menu principale del sito.\\
+    La pagina presenta un desing semplice che accompagna s dei brevi paragrafi dedicati alla storia, ai dipendenti e ai principi etici di rispetto degli animali, delle immagini di contenuto che rappresentano graficamente i contenuti testuali di tali paragrafi.\\
+    \item \textbf{Servizi}: pagina dove sono presentati i servizi messi a disposizione dallo zoo.\\
+    Con un design simile a quello della pagina \textbf{Chi siamo}, questa scheda presenta i servizi offerti dallo zoo. Tali servizi includono:
+    \begin{itemize}
+        \item Safari - un giro nel parco con navetta o con la propria macchina;
+        \item Ingresso - un ingresso libero, a piedi, nelle zone recintate del parco;
+        \item Visita guidata - un ingresso a piedi nel parco, accompagnato da una guida dedicata al gruppo dell'utente;
+    \end{itemize}
+    Tutti i servizi sono corredati da un pulsante che conduce l'utente autenticato nella pagina di prenotazione, e l'utente non autenticato nella pagina di login (a seguito del quale l'utnete verrà poi reindirizzato nella pagina di prenotazione).\\
+    Le immagini che affiancano ciascun servizio sono in questo caso immagini non di contenuto, e sono pertanto state inserite come immagini di sfondo, non esplorabili mediante screen reader.
+    %TODO
+    \item \textbf{Animali}: la pagina dedicata alla presentazione di tutti gli animali.\\
+    Contiene un elenco con tutti gli animali, le loro immagini, il nome della specie e quello dell'animale stesso. Cliccando una qualunque delle immagini si verrà reindirizzati alla
     pagina \textbf{Accedi}
 \end{itemize}
-
+%TODO
 \subsubsection{Pagine Utenti autenticati}
 \begin{itemize}
 \item \textbf{Prenota Sevizio}: pagina dedicata agli utenti autenticati, dove \`e possibile prenotare un servizio in una certa data.
 \item \textbf{Profilo}: pagina in cui l'utente può visualizzare e gestire i servizi prenotati
 \end{itemize}
-
+%TODO
 \subsubsection{Pagine Amministratore}
 \begin{itemize}
 \item \textbf{Admin}: pagina dedicata dedicata alle opzioni di gestione che ha a disposizione l'admin.
@@ -33,7 +49,7 @@ si accede alla pagina di modica delle immagini appena caricate.
 \item \textbf{Modifica Immagine}: pagina per modificare i dati di un'immagine caricata nel sito.
 \item \textbf{Gestione Prenotazioni}: Pagina per visualizzare, confermare o annullare le prenotazioni ricevute dagli utenti registrati.
 \end{itemize}
-
+%TODO
 \subsubsection{Pagine di Errore}
 \begin{itemize}
     \item \textbf{Errore 404:} L'utente ha richiesto una pagina inesistente.
@@ -42,11 +58,11 @@ si accede alla pagina di modica delle immagini appena caricate.
 \subsection{Header con barra di navigazione}
 L'Header, che fa parte dei Template \textit{Core}, contiene il logo (la firma del fotografo) oltre alla barra di navigazione. Quest'ultima in modalit\`a mobile \`e accessibile tramite \textit{Hamburger Button}.\\
 Inoltre, in ogni pagina, viene disattivato il link alla stessa per evitare la creazione di collegamenti circolari. Lo stesso principio è applicato al logo: normalmente, cliccandoci sopra, si viene reindirizzati alla Home, ma quando ci si trova già in Home, il link viene disattivato.
-
+%TODO
 \subsection{Breadcrumb}
 Il sito integra una breadcrumb in ogni pagina, progettata per aiutare l'utente a rispondere alle domande  \textit{``Dove Sono?"} e \textit{``Come ci sono arrivato?"}. Questo strumento migliora l'esperienza di navigazione, riducendo il possibile disorientamento dell'utente.\\
 Il livello di profondità viene mantenuto, mostrando le pagine che precedono quella attuale. La pagina attuale non è cliccabile, evitando così la creazione di link circolari.
-
+%TODO
 \subsection{Footer}
 Il sito dispone di un footer con i link ai social del fotografo, le informazioni relative ai diritti della pagina, 
 e nel quale vengono visualizzati i messaggi toast di conferma/errore.
