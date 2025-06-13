@@ -650,6 +650,7 @@ header .header-content {
     text-decoration: none;
     letter-spacing: 0.05em;
     font-weight: 900;
+    line-height: 44px;
 }
 
 #footer #double-line-link {

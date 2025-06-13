@@ -24,7 +24,7 @@ class TemplateService {
 
         // Replace logged user placeholders
         if (AuthService::isUserLoggedIn()) {
-            $html = str_replace("[[ifLoggedIn]]", '<li><a class="menu-link" href="userDashboard.php">Prenotazioni</a></li><li><a class="menu-link" href="logout.php">Logout</a></li>', $html);
+            $html = str_replace("[[ifLoggedIn]]", '<li><a class="menu-link" href="userDashboard.php">Prenotazioni</a></li><li><a class="menu-link" href="logout.php"><span lang="en">Logout</span></a></li>', $html);
         } else if (AuthService::isAdminLoggedIn()) {
             $html = str_replace("[[ifLoggedIn]]", '<li><a class="menu-link" href="adminDashboard.php">Gestione</a></li><li><a class="menu-link" href="logout.php"><span lang="en">Logout</span></a></li>', $html);
         } else {

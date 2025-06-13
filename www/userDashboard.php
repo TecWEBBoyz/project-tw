@@ -36,10 +36,11 @@ if (empty($bookings)) {
             continue;
         }
         $single_replacement = [
-            '[[booking]]' => 'Prenotazione ' . $counter,
+            '[[booking]]' => $counter,
             '[[service]]' => $service->getName(),
             '[[numberOfPeople]]' => $booking->getNumberOfPeople(),
             '[[date]]' => "<time datetime='" . $booking->getDate()->format("Y-m-d") . "'>" . $booking->getDate()->format("d M Y") . "</time>",
+            '[[notes]]' => $booking->getNotes() !== '' ? $booking->getNotes() : 'Nessuna',
         ];
         if ($booking->getDate() >= new DateTime()) {
             $single_replacement["[[actions]]"] = "<div class='booking-actions'>
