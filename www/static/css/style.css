@@ -276,13 +276,13 @@ h3+.muted, .muted+h3 {
 a {
     font-family: "Nunito Medium", sans-serif;
     font-size: clamp(calc(14 / 16 * 1rem), calc(100vw * 16 / var(--max-content-width)), calc(16 / 16 * 1rem));
-    line-height: 44px;
     min-width: 44px;
-    min-height: 44px;
+    min-height: 44.1px;
     display: inline-block;
     padding-top: auto;
     padding-bottom: auto;
-    color: var(--light-link)
+    color: var(--light-link);
+    display: inline-block;
 }
 
 a:hover {
@@ -395,6 +395,7 @@ a.dark-accent-link:visited {
     font-weight: 500;
     letter-spacing: 0.05em;
     text-decoration: none;
+    line-height: 44px;
 }
 
 .btn.btn-filled.btn-important {
@@ -1453,6 +1454,7 @@ label:has(+ select:active) {
     padding: 0.75rem;
     border-bottom: 1px solid var(--accent-1);
     vertical-align: middle;
+    text-align: left;
 }
 
 button.booking-button{
@@ -1492,7 +1494,12 @@ button.booking-button:focus{
         display: block;
     }
 
+    table td {
+        border: 1px solid var(--accent-1);
+    }
+
     table tr th {
+        margin-top: 2em;
         background-color: var(--table-th-background);
         color: var(--table-th-color)
     }
