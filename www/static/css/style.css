@@ -279,8 +279,6 @@ a {
     min-width: 44px;
     min-height: 44.1px;
     display: inline-block;
-    padding-top: auto;
-    padding-bottom: auto;
     color: var(--light-link);
     display: inline-block;
 }
@@ -298,6 +296,7 @@ a.menu-link {
     text-decoration: none;
     text-transform: uppercase;
     letter-spacing: 0.05em;
+    line-height: 44px;
 }
 
 a.menu-link:hover {
@@ -313,7 +312,7 @@ a.light-link {
     text-decoration: none;
     text-transform: uppercase;
     position: relative;
-
+    line-height: 44px;
     transition: color 0.3s ease;
 }
 
