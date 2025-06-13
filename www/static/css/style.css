@@ -125,7 +125,7 @@
     --lighter-accent-1: #68955F;
 
     /* ToDo(Luca): Need to add this to color-contrast check */
-    --muted: #6c757d;
+    --muted: #43494E;
 
     /* Basic Background Colors */
     --light-background: var(--light);
@@ -172,7 +172,7 @@
     --button-filled-important: var(--accent-2);
     --button-filled-important-hover: var(--darker-light);
     --button-filled-border-important: var(--accent-2);
-    --button-filled-text-important: var(--darker-light);
+    --button-filled-text-important: var(--light);
     --button-filled-text-important-hover: var(--accent-2);
 
     --button-outlined-info: transparent;
@@ -1019,7 +1019,19 @@ main>#about-section>.section-content .about-item:nth-child(2n) p {
 
     position: relative;
 }
-
+.animals-section .animal-list .animal-item a {
+    display: block;
+    color: inherit;
+    text-decoration: none;
+}
+.animals-section .animal-list .animal-item a:focus-visible {
+    outline: 20px solid var(--dark);
+    outline-offset: 4px;
+    border-radius: 8px;
+    height: calc(100% - 30px);
+    margin: 15px;
+    width: calc(100% - 30px);
+}
 .animals-section .animal-list .animal-item::after {
     content: "";
     position: absolute;
