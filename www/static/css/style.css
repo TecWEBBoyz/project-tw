@@ -120,8 +120,8 @@
     --dark: #050402;
     --light: #FFFFFA;
     --darker-light: #F4E8C1;
-    --accent-1: #44633F;
-    --accent-2: #BE5745;
+    --accent-1: #2F452C;
+    --accent-2: #76362B;
     --lighter-accent-1: #68955F;
 
     /* ToDo(Luca): Need to add this to color-contrast check */
@@ -1459,6 +1459,10 @@ button.booking-button{
     padding: 0.5rem 2rem;
     margin: 0.1rem;
     width: 15em;
+    min-width: 44px;
+    min-height: 44px;
+    padding: 12px 16px; 
+    font-size: 16px;
     border-radius: 8px;
     border: none;
     cursor: pointer;
