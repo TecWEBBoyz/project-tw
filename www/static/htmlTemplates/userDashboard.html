@@ -40,13 +40,19 @@
     </header>
     <main id="contenuto" class="max-width">
         <h1>Benvenuto, [[userName]]</h1>
-        <p>Da questa pagina potrei gestire tutte le tue prenotazioni, e visualizzare i serivizi di cui hai già usufruito in passato. Se vuoi prontare altri servizi dai un'occhiata alla <a href="services.php">pagina dei servizi</a></p><!--TODO: creare pagina servizi-->
-        <p id="bookings-tab-desc" class="hidden">La tabella contiene i dettagli delle prenotazioni e, per ognuna di esse, un campo dedicato a dei pulsanti di modifica o cancellazione della prenotazione stessa</p>
+        <p>
+            Da questa pagina potrei gestire tutte le tue prenotazioni, e visualizzare i serivizi di cui hai già usufruito in passato. 
+            Se vuoi prontare altri servizi dai un'occhiata alla <a href="services.php">pagina dei 
+            servizi</a>.</p>
+        <p id="bookings-tab-desc" class="hidden">
+            La tabella contiene i dettagli delle prenotazioni e, 
+            per ognuna di esse, un campo dedicato a dei pulsanti di modifica o cancellazione della 
+            prenotazione stessa</p>
         <table id="bookings-table" aria-describedby="bookings-tab-desc">
             <caption>Le tue prenotazioni</caption>
             <thead>
                 <tr>
-                    <th scope="col"></th>
+                    <th scope="col"><abbr title="Numero">N.</abbr> prenotazione</th>
                     <th scope="col">Servizio prenotato</th>
                     <th scope="col">Posti prenotati</th>
                     <th scope="col">Data</th>
