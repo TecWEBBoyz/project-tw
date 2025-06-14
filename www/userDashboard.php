@@ -29,6 +29,9 @@ if (empty($bookings)) {
         if (!$booking instanceof \PTW\Models\Booking) {
             continue;
         }
+        if ($booking->getDate() < new DateTime()) {
+            continue;
+        }
 
         $service = $serviceRepo->GetElementById($booking->getServiceId());
 
@@ -41,21 +44,8 @@ if (empty($bookings)) {
             '[[numberOfPeople]]' => $booking->getNumberOfPeople(),
             '[[date]]' => "<time datetime='" . $booking->getDate()->format("Y-m-d") . "'>" . $booking->getDate()->format("d M Y") . "</time>",
             '[[notes]]' => $booking->getNotes() !== '' ? $booking->getNotes() : 'Nessuna',
+            '[[bookingId]]' => $booking->getId(),
         ];
-        if ($booking->getDate() >= new DateTime()) {
-            $single_replacement["[[actions]]"] = "<div class='booking-actions'>
-                        <form action='editBooking.php' method='GET'>
-                            <input type='hidden' name='id' value='" . $booking->getId() ."'>
-                            <button class='booking-button' type='submit' aria-label='Modifica prenotazione'>Modifica</button>
-                        </form>
-                        <form action='bookingsDelete.php' method='POST'>
-                            <input type='hidden' name='booking_id' value='" . $booking->getId() ."'>
-                            <button class='booking-button' type='submit' aria-label='Elimina prenotazione'>Elimina</button>
-                        </form>
-                    </div>";
-        } else {
-            $single_replacement["[[actions]]"] = "Attività completata";
-        }
 
         $repeated_replacements[] = $single_replacement;
         $counter++;

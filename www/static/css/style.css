@@ -208,6 +208,7 @@ html,
 body {
     font-family: "Nunito Regular", sans-serif;
     font-size: var(--base-font-size);
+    color: var(--dark);
 }
 
 
@@ -216,8 +217,7 @@ h1 {
     font-size: clamp(calc(33 / 16 * 1rem), calc(100vw * 42 / var(--max-content-width)), calc(42 / 16 * 1rem));
     font-weight: 400;
     line-height: 1.67;
-
-    color: var(--accent-1);
+    color: var(--accent-2);
 }
 
 h2 {
@@ -226,7 +226,7 @@ h2 {
     font-weight: 400;
     line-height: 1.69;
 
-    color: var(--accent-1);
+    color: var(--accent-2);
 }
 
 h3 {
@@ -278,20 +278,20 @@ a {
     min-width: 44px;
     min-height: 44.1px;
     display: inline-block;
-    color: var(--light-link);
+    color: var(--accent-1);
     display: inline-block;
 }
 
 a:hover {
-    color: var(--light-link-hover)
+    color: var(--accent-2)
 }
 
 a:visited {
-    color: var(--light-link-visited)
+    color: var(--accent-2)
 }
 
 a.menu-link {
-    color: var(--menu-link);
+    color: var(--accent-1);
     text-decoration: none;
     text-transform: uppercase;
     letter-spacing: 0.05em;
@@ -299,15 +299,15 @@ a.menu-link {
 }
 
 a.menu-link:hover {
-    color: var(--menu-link-hover);
+    color: var(--accent-2);
 }
 
 a.menu-link:visited {
-    color: var(--menu-link-visited);
+    color: var(--accent-2);
 }
 
 a.light-link {
-    color: var(--light-link);
+    color: var(--accent-1);
     text-decoration: none;
     text-transform: uppercase;
     position: relative;
@@ -316,11 +316,11 @@ a.light-link {
 }
 
 a.light-link:hover {
-    color: var(--light-link-hover);
+    color: var(--accent-2);
 }
 
 a.light-link:visited {
-    color: var(--light-link-visited);
+    color: var(--accent-2);
 }
 
 a.light-link:after {
@@ -329,18 +329,18 @@ a.light-link:after {
     display: block;
     height: 1px;
     position: absolute;
-    background-color: var(--light-link);
+    background-color: var(--accent-1);
     transition: width 0.3s ease 0.1s, left 0.3s ease 0.1s, background-color 0.2s ease;
     width: 100%;
 }
 
 a.light-link:visited:after {
-    background-color: var(--light-link-visited);
+    background-color: var(--accent-2);
 }
 
 a.light-link:hover:after {
     width: 0%;
-    background-color: var(--light-link-hover);
+    background-color: var(--accent-2);/*HERE*/
 }
 
 
