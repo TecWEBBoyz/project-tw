@@ -119,10 +119,9 @@
     /* Base Colors */
     --dark: #050402;
     --light: #FFFFFA;
-    --darker-light: #F4E8C1;
-    --accent-1: #2F452C;
-    --accent-2: #76362B;
-    --lighter-accent-1: #68955F;
+    --darker-light: #FFFFA;
+    --accent-1: #007db8;
+    --accent-2: #2f452c;
 
     /* ToDo(Luca): Need to add this to color-contrast check */
     --muted: #43494E;
@@ -741,10 +740,6 @@ header .header-content {
     stroke-miterlimit: 10;
     stroke-dasharray: none;
     stroke-dashoffset: 0;
-    font-family: none;
-    font-weight: none;
-    font-size: none;
-    text-anchor: none;
     mix-blend-mode: normal;
 }
 
