@@ -65,7 +65,6 @@ CREATE TABLE review (
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 
     FOREIGN KEY (user_id) REFERENCES user(id),
-    FOREIGN KEY (animal_id) REFERENCES animal(id),
 
     PRIMARY KEY (id)
 );
@@ -97,8 +96,8 @@ INSERT INTO booking (user_id, service_id, date, num_people, notes) VALUES
 ('e2a26785-c0f3-4261-a2ad-be4f1574cca4', 'b2c3d4e5-f6g7-8901-h2i3-j4k5l6m7n8o9', '2025-10-02', 5, 'Nessun appunto'),
 ('e2a26785-c0f3-4261-a2ad-be4f1574cca4', 'b2c3d4e5-f6g7-8901-h2i3-j4k5l6m7n8o9', '2025-11-02', 10, 'Una nota particolare');
 
-INSERT INTO review (user_id, animal_id, rating, comment) VALUES
-('77d449dd-d5c4-4d77-a404-c61cc56744b6', 'c97a5ca5-2d29-4e45-b406-1169eca56e68', 5, 'Un’esperienza indimenticabile!'),
-('e2a26785-c0f3-4261-a2ad-be4f1574cca4', '9e22ab02-6f91-4c41-a391-88d7e3bbc504', 4, 'Bellissimo animale, ma un po’ timido.'),
-('77d449dd-d5c4-4d77-a404-c61cc56744b6', '126f98d9-1b64-4fbc-819d-ffb76be6b7e7', 3, 'Carino, ma non il mio preferito.'),
-('e2a26785-c0f3-4261-a2ad-be4f1574cca4', '33fb8b3d-e144-40b6-b934-7e6305614ca2', 5, 'Incredibile! Un vero gigante gentile.');
+INSERT INTO review (user_id, rating, comment) VALUES
+('77d449dd-d5c4-4d77-a404-c61cc56744b6', 5, 'Un’esperienza indimenticabile!'),
+('e2a26785-c0f3-4261-a2ad-be4f1574cca4', 4, 'Bellissimo animale, ma un po’ timido.'),
+('77d449dd-d5c4-4d77-a404-c61cc56744b6', 3, 'Carino, ma non il mio preferito.'),
+('e2a26785-c0f3-4261-a2ad-be4f1574cca4', 5, 'Incredibile! Un vero gigante gentile.');
