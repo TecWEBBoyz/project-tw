@@ -38,20 +38,68 @@
             </div>
         </div>
     </header>
-    <main id="contenuto">
-        <h1>Admin Dashboard</h1>
+    <main id="contenuto" class="max-width">
+        <h1>Benvenuto, [[userName]]</h1>
+        <p>
+            Da questa pagina potrai gestire tutte le prenotazioni effettuate dagli utenti e visualizzare le loro recensioni.
+        <p id="bookings-tab-desc" class="hidden">
+            La tabella contiene i dettagli delle prenotazioni e,
+            per ognuna di esse, un campo dedicato a dei pulsanti di modifica o cancellazione della
+            prenotazione stessa</p>
+        <table id="bookings-table" aria-describedby="bookings-tab-desc">
+            <caption>Le tue prenotazioni</caption>
+            <thead>
+            <tr>
+                <th scope="col"><abbr title="Numero">N.</abbr> prenotazione</th>
+                <th scope="col">Servizio prenotato</th>
+                <th scope="col">Utente Intestatario</th>
+                <th scope="col">Posti prenotati</th>
+                <th scope="col">Data</th>
+                <th scope="col">Azione</th>
+            </tr>
+            </thead>
+            <tbody>
+            [[bookingsBody]]{{
+            <tr>
+                <th scope="row">[[booking]]</th>
+                <td data-title="Servizio prenotato">[[service]]</td>
+                <td data-title="Utente Intestatario">[[bookingUserName]]</td>
+                <td data-title="Posti Prenotati">[[numberOfPeople]]</td>
+                <td data-title="Data">[[date]]</td>
+                <td data-title="Azioni">[[actions]]</td>
+            </tr>
+            }}
+            </tbody>
+        </table>
+
         <section>
-            <h2>Tabella Animali</h2>
-            <table>
+            <p id="animals-tab-desc" class="hidden">
+                La tabella contiene i dettagli delle prenotazioni e,
+                per ognuna di esse, un campo dedicato a dei pulsanti di modifica o cancellazione della
+                prenotazione stessa</p>
+            <table id="animals-table" aria-describedby="animals-tab-desc">
+                <caption>Le tue prenotazioni</caption>
                 <thead>
-                    <tr>
-                        <th>Nome</th>
-                        <th>Specie</th>
-                        <th>Descrizione</th>
-                    </tr>
+                <tr>
+                    <th scope="col"><abbr title="Identificativo">ID</abbr></th>
+                    <th scope="col">Nome</th>
+                    <th scope="col">Descrizione</th>
+                    <th scope="col">Specie</th>
+                    <th scope="col">Habitat</th>
+                    <th scope="col">Azione</th>
+                </tr>
                 </thead>
                 <tbody>
-                    [[animalTable]]
+                [[animalsBody]]{{
+                <tr>
+                    <th scope="row">[[animalId]]</th>
+                    <td data-title="Nome">[[animalName]]</td>
+                    <td data-title="Descrizione">[[animalDescription]]</td>
+                    <td data-title="Specie">[[animalSpecies]]</td>
+                    <td data-title="Habitat">[[animalHabitat]]</td>
+                    <td data-title="Azioni">[[actions]]</td>
+                </tr>
+                }}
                 </tbody>
             </table>
         </section>
