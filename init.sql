@@ -59,7 +59,6 @@ CREATE TABLE booking (
 CREATE TABLE review (
     id CHAR(36) DEFAULT UUID(),
     user_id CHAR(36) NOT NULL,
-    animal_id CHAR(36) NOT NULL,
     rating INT NOT NULL CHECK (rating >= 1 AND rating <= 5),
     comment TEXT DEFAULT '',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,

@@ -1280,6 +1280,7 @@ main>#about-section>.section-content .about-item:nth-child(2n) p {
 .login-wrapper h1 {
     margin-bottom: 2rem;
     text-align: center;
+    line-height: normal;
 }
 
 .login-wrapper button[type="submit"] {
@@ -1294,7 +1295,8 @@ main>#about-section>.section-content .about-item:nth-child(2n) p {
 }
 
 input,
-select{
+select,
+textarea{
     width: 100%;
     padding: 1rem 2rem;
     border: 1px solid var(--muted);
@@ -1304,6 +1306,7 @@ select{
     appearance: none; 
     cursor: pointer;
 }
+
 ::placeholder{
     color: var(--muted);
 }
