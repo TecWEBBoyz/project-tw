@@ -32,7 +32,6 @@
                         <li><a class="menu-link" href="about.php">Chi siamo</a></li>
                         <li><a class="menu-link" href="services.php">Servizi</a></li>
                         <li><a class="menu-link" href="animals.php">Animali</a></li>
-                        [[ifLoggedIn]]
                     </ul>
                 </nav>
             </div>
@@ -42,7 +41,7 @@
         <section class="hero-section">
             <div class="section-content">
                 <div>
-                    <h1>Scropri la natura da Animalia zoo</h1>
+                    <h1>Scopri la natura da Animalia zoo</h1>
                     <p>Sperimenta la magia della fauna selvatica vista da vicino. Incontra i nostri animali e crea ricordi indelebili.</p>
                     <div class="button-container">
                         <a class="btn btn-filled btn-important" href="userDashboard.php">Prenota un tour</a>
@@ -58,41 +57,7 @@
                 <h2>Incontra i nostri animali</h2>
                 <div class="animal-cards-container">
 
-                    <article class="tiger-card animal-card">
-                        <img class="card-img-top" src="static/images/tiger.jpg" alt="Tiger">
-                        <div class="card-body">
-                            <h3 class="card-title">Tigre del Bengala</h3>
-                            <p class="muted">Savana, padiglione 2</p>
-                            <p class="card-text">Incontra il più grande felino esistente sulla terra.</p>
-                        </div>
-                        <div class="card-link">
-                            <a class="light-link" href="#">Scopri di più</a>
-                        </div>
-                    </article>
-
-                    <article class="tiger-card animal-card">
-                        <img class="card-img-top" src="static/images/tiger.jpg" alt="Tiger">
-                        <div class="card-body">
-                            <h3 class="card-title">Tigre del Bengala</h3>
-                            <p class="muted">Savana, padiglione 2</p>
-                            <p class="card-text">Incontra il più grande felino esistente sulla terra.</p>
-                        </div>
-                        <div class="card-link">
-                            <a class="light-link" href="#">Scopri di più</a>
-                        </div>
-                    </article>
-
-                    <article class="tiger-card animal-card">
-                        <img class="card-img-top" src="static/images/tiger.jpg" alt="Tiger">
-                        <div class="card-body">
-                            <h3 class="card-title">Tigre del Bengala</h3>
-                            <p class="muted">Savana, padiglione 2</p>
-                            <p class="card-text">Incontra il più grande felino esistente sulla terra.</p>
-                        </div>
-                        <div class="card-link">
-                            <a class="light-link" href="#">Scopri di più</a>
-                        </div>
-                    </article>
+                    [[randomAnimals]]
 
                 </div>
             </div>
