@@ -12,7 +12,7 @@ foreach ($animalsList as $animal) {
         continue;
     }
 
-    $animalsDataForTemplate[] = [
+    $animalsDataForTemplate["animals"][] = [
         '[[id]]'          => htmlspecialchars($animal->getId()),
         '[[name]]'        => htmlspecialchars($animal->getName()),
         '[[species]]'     => htmlspecialchars($animal->getSpecies()),
