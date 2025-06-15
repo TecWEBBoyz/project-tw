@@ -48,6 +48,7 @@ $allAnimals = $animalRepo->All();
 
 $featuredAnimals = array_slice($allAnimals, 0, 3);
 
+#TODO: va fatto meglio
 $htmlFeaturedAnimals = '';
 if (!empty($featuredAnimals)) {
     foreach ($featuredAnimals as $animal) {
