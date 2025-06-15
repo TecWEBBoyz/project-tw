@@ -1190,13 +1190,13 @@ main>#about-section>.section-content .about-item:nth-child(2n) p {
     background-color: var(--light-background);
     padding: 2rem;
     border-radius: 12px;
-    border-left: 4px solid var(--accent-1);
+    border-left: 4px solid var(--accent-2);
     box-shadow: 0 20px 60px -20px rgba(5, 4, 2, 0.3);
 }
 
 .animal-description h3 {
     margin: 0 0 1.5rem 0;
-    color: var(--accent-1);
+    color: var(--accent-2);
     position: relative;
     padding-bottom: 0.5rem;
 }
