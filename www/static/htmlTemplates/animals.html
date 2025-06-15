@@ -47,13 +47,27 @@
         <section class="animals-section">
             <div class="section-content">
                 <h2>Animali</h2>
-
-                [[animalsList]]
+                
+                <ul class="animal-list">
+                    {{
+                    <li class='animal-item'>
+                        <a href="animal.php?id=[[id]]">
+                            <img class="animal-item-image" src="[[image]]" alt="[[alt_text]]">
+                            <div class="animal-item-content">
+                                <p class="animal-item-caption">[[species]], [[habitat]]</p>
+                                <h3 class="animal-item-title">[[name]]</h3>
+                                <p class="animal-item-description">[[description]]</p>
+                            </div>
+                        </a>
+                    </li>
+                    }}
+                </ul>
 
             </div>
         </section>
 
     </main>
+
     <footer id="footer">
         <div class="footer-content">
             <div class="footer-item">
