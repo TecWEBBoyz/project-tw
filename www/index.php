@@ -35,7 +35,7 @@ foreach ($reviews as $review) {
 
     $counter++;
 }
-$replacements["[[randomAnimals]]"] = $htmlFeaturedAnimals;
+
 // Riempi i segnaposto vuoti per evitare che rimangano non sostituiti
 for ($i = $counter; $i <= 3; $i++) {
     $replacements['[[reviewer' . $i . 'Name]]'] = '<abbr title="Non disponibile">N.d.</abbr>';
