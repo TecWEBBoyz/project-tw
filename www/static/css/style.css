@@ -119,27 +119,24 @@
     /* Base Colors */
     --dark: #050402;
     --light: #FFFFFA;
-    --darker-light: #FFFFA;
     --accent-1: #007db8;
     --accent-2: #2f452c;
-
-    /* ToDo(Luca): Need to add this to color-contrast check */
-    --muted: #43494E;
+    --muted: #737779;
 
     /* Basic Background Colors */
     --light-background: var(--light);
     --dark-background: var(--dark);
-    --light-accent-backgorund: var(--darker-light);
-    --dark-accent-background: var(--accent-1);
+    --light-accent-backgorund: var(--accent-1);
+    --dark-accent-background: var(--accent-2);
 
     /* Basic Text Colors */
-    --light-title-foreground: var(--accent-1);
+    --light-title-foreground: var(--accent-2);
     --light-text-foreground: var(--dark);
 
     --dark-title-foreground: var(--light);
     --dark-text-foreground: var(--light);
 
-    --light-accent-title-foreground: var(--accent-1);
+    --light-accent-title-foreground: var(--dark);
     --light-accent-text-foreground: var(--dark);
 
     --dark-accent-title-foreground: var(--light);
@@ -147,29 +144,17 @@
 
     /* Basic link Colors */
     --menu-link: var(--accent-1);
-    --menu-link-hover: var(--accent-2);
-    --menu-link-visited: var(--accent-2);
+    --menu-link-hover: var(--accent-1);
+    --menu-link-visited: var(--dark);
 
     --light-link: var(--accent-1);
-    --light-link-hover: var(--accent-2);
-    --light-link-visited: var(--accent-2);
-
-    --dark-link: var(--dark-text-foreground);
-    --dark-link-hover: var(--dark-title-foreground);
-    --dark-link-visited: var(--dark-title-foreground);
-
-    --light-accent-link: var(--light-accent-text-foreground);
-    --light-accent-link-hover: var(--light-accent-title-foreground);
-    --light-accent-link-visited: var(--light-accent-title-foreground);
-
-    --dark-accent-link: var(--dark-accent-text-foreground);
-    --dark-accent-link-hover: var(--dark-accent-title-foreground);
-    --dark-accent-link-visited: var(--dark-accent-title-foreground);
+    --light-link-hover: var(--accent-1);
+    --light-link-visited: var(--dark);
 
     /* Button Colors */
 
     --button-filled-important: var(--accent-2);
-    --button-filled-important-hover: var(--darker-light);
+    --button-filled-important-hover: var(--light);
     --button-filled-border-important: var(--accent-2);
     --button-filled-text-important: var(--light);
     --button-filled-text-important-hover: var(--accent-2);
@@ -178,10 +163,10 @@
     --button-outlined-info-hover: var(--accent-1);
     --button-outlined-border-info: var(--accent-1);
     --button-outlined-text-info: var(--accent-1);
-    --button-outlined-text-info-hover: var(--darker-light);
+    --button-outlined-text-info-hover: var(--light);
 
     /* Navigation Help */
-    --navigation-help-background: var(--darker-light);
+    --navigation-help-background: var(--light);
     --navigation-help-text: var(--dark);
     --navigation-help-border: var(--dark);
 
@@ -191,7 +176,7 @@
     --footer-text: var(--dark);
 
     /* Tables */
-    --table-th-background: var(--accent-1);
+    --table-th-background: var(--accent-2);
     --table-th-color: var(--light);
     --table-base-background: var(--light);
 
@@ -217,7 +202,7 @@ h1 {
     font-weight: 400;
     line-height: 1.67;
 
-    color: var(--accent-1);
+    color: var(--accent-2);
 }
 
 h2 {
@@ -226,7 +211,7 @@ h2 {
     font-weight: 400;
     line-height: 1.69;
 
-    color: var(--accent-1);
+    color: var(--accent-2);
 }
 
 h3 {
@@ -276,10 +261,8 @@ a {
     font-family: "Nunito Medium", sans-serif;
     font-size: clamp(calc(14 / 16 * 1rem), calc(100vw * 16 / var(--max-content-width)), calc(16 / 16 * 1rem));
     min-width: 44px;
-    min-height: 44.1px;
     display: inline-block;
     color: var(--light-link);
-    display: inline-block;
 }
 
 a:hover {
@@ -324,7 +307,7 @@ a.light-link:visited {
 }
 
 a.light-link:after {
-    bottom: 0;
+    bottom: 5px;
     content: "";
     display: block;
     height: 1px;
@@ -341,46 +324,6 @@ a.light-link:visited:after {
 a.light-link:hover:after {
     width: 0%;
     background-color: var(--light-link-hover);
-}
-
-
-a.dark-link {
-    color: var(--dark-link);
-    text-decoration: none;
-}
-
-a.dark-link:hover {
-    color: var(--dark-link-hover);
-}
-
-a.dark-link:visited {
-    color: var(--dark-link-visited);
-}
-
-a.light-accent-link {
-    color: var(--light-accent-link);
-    text-decoration: none;
-}
-
-a.light-accent-link:hover {
-    color: var(--light-accent-link-hover);
-}
-
-a.light-accent-link:visited {
-    color: var(--light-accent-link-visited);
-}
-
-a.dark-accent-link {
-    color: var(--dark-accent-link);
-    text-decoration: none;
-}
-
-a.dark-accent-link:hover {
-    color: var(--dark-accent-link-hover);
-}
-
-a.dark-accent-link:visited {
-    color: var(--dark-accent-link-visited);
 }
 
 /* -----------------------
@@ -656,6 +599,10 @@ header .header-content {
     line-height: 22px;
 }
 
+#footer #double-line-link::after{
+    bottom: -5px;
+}
+
 #footer .footer-content {
     width: 80%;
     max-width: calc(var(--max-content-width) * 1px);
@@ -679,12 +626,14 @@ header .header-content {
     font-size: clamp(calc(24 / 16 * 1rem), calc(100vw * 25 / var(--max-content-width)), calc(30 / 16 * 1rem));
 }
 
-#footer .footer-content hr {
-    width: 2em;
-    height: 3px;
+#footer .footer-content h2:after {
+    content: "";
+    display: block;
+    width: 2rem;
+    height: 2px;
     background-color: var(--accent-1);
     border: none;
-    margin: 4px 0;
+    margin: 0 0 1.5rem 0;
 }
 
 .footer-item {
@@ -698,7 +647,7 @@ header .header-content {
 
 #footer-contact-list li {
     position: relative;
-    padding-left: 35px; /* spazio per l'immagine */
+    padding-left: 3rem;
     margin-bottom: 0.5em;
 }
 
@@ -707,8 +656,8 @@ header .header-content {
     position: absolute;
     left: 0;
     top: clamp(5px, 1vw, 7px);
-    width: 30px;
-    height: 30px;
+    width: 2rem;
+    height: 2rem;
     background-size: contain;
     background-repeat: no-repeat;
     vertical-align: middle;
@@ -724,6 +673,16 @@ header .header-content {
 #bullet-3::before {
     background-image: url("styleImages/mail-icon.png");
 }
+
+.icon-link {
+    transform: translateY(0);
+    transition: transform 0.3s ease;
+}
+
+.icon-link:hover {
+    transform: translateY(-10px);
+}
+
 .icon-link svg {
     width: 50px;
     height: 50px;
@@ -768,18 +727,32 @@ main>section>.section-content {
     padding: 3rem 1rem;
 }
 
-main>section>.section-content h2 {
+main>section>.section-content h2{
+    text-align: center;
+}
+
+main>section>.section-content h2:not(+ .decoration) {
     text-align: center;
     margin-bottom: 2rem;
+}
+
+main>section>.section-content h2 + .decoration {
+    width: 20%;
+    min-width: 200px;
+    aspect-ratio: 245 / 13;
+    background-image: url("styleImages/title-decoration.svg");
+    background-size: 100% auto;
+    background-repeat: no-repeat;
+    margin: 1rem auto 2rem auto;
+}
+
+main>section>.section-content h2 + .decoration.light {
+    background-image: url("styleImages/title-decoration-light.svg");
 }
 
 /* -----------------------
          Home Section
    ----------------------- */
-
-.hero-section {
-    background-color: var(--light-accent-backgorund);
-}
 
 .hero-section .section-content {
     display: flex;
@@ -859,7 +832,7 @@ main>section>.section-content h2 {
     flex-direction: column;
     justify-content: space-between;
 
-    background-color: var(--light-accent-backgorund);
+    border: 2px solid var(--accent-2);
 }
 
 .animal-card .card-body {
@@ -1182,7 +1155,7 @@ main>#about-section>.section-content .about-item:nth-child(2n) p {
 
 .info-item dt {
     font-weight: 700;
-    color: var(--darker-light);
+    color: var(--light);
     flex: 0 0 auto;
     margin-right: 1rem;
 }
@@ -1238,7 +1211,7 @@ main>#about-section>.section-content .about-item:nth-child(2n) p {
 
     .info-item dt {
         margin-right: 0;
-        color: var(--darker-light);
+        color: var(--light);
     }
 
     .info-item dd {
