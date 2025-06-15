@@ -11,7 +11,6 @@ class Review implements DBItem
 {
     protected string $id;
     protected string $userId;
-    protected string $animalId;
     protected int $rating;
     protected string $comment;
     protected DateTime $createdAt;
@@ -42,7 +41,6 @@ class Review implements DBItem
 
         $this->id = $data['id'];
         $this->userId = $data['user_id'];
-        $this->animalId = $data['animal_id'];
         $this->rating = $data['rating'];
         $this->comment = $data['comment'] ?? "";
         $this->createdAt = new DateTime($data['created_at']);
@@ -51,9 +49,13 @@ class Review implements DBItem
 
     private function validateArray(array $data): bool
     {
-        if (!isset($data['id']) || !isset($data['user_id']) ||
-            !isset($data['animal_id']) || !isset($data['rating']) ||
-            !isset($data['created_at']) || !isset($data['updated_at'])) {
+        // Verifica solo i campi obbligatori
+        if (!isset($data['user_id']) || !isset($data['rating'])) {
+            return false;
+        }
+
+        // Controlla che il rating sia un numero valido
+        if (!is_int($data['rating']) || $data['rating'] < 1 || $data['rating'] > 5) {
             return false;
         }
 
@@ -62,15 +64,28 @@ class Review implements DBItem
 
     public function toArray(): array
     {
-        return [
-            'id' => $this->id,
-            'user_id' => $this->userId,
-            'animal_id' => $this->animalId,
-            'rating' => $this->rating,
-            'comment' => $this->comment,
-            'created_at' => $this->createdAt->format('Y-m-d H:i:s'),
-            'updated_at' => $this->updatedAt->format('Y-m-d H:i:s'),
-        ];
+        $result = [];
+
+        if (isset($this->id)) {
+            $result['id'] = $this->id;
+        }
+        if (isset($this->userId)) {
+            $result['user_id'] = $this->userId;
+        }
+        if (isset($this->rating)) {
+            $result['rating'] = $this->rating;
+        }
+        if (isset($this->comment)) {
+            $result['comment'] = $this->comment;
+        }
+        if (isset($this->createdAt)) {
+            $result['created_at'] = $this->createdAt->format('Y-m-d H:i:s');
+        }
+        if (isset($this->updatedAt)) {
+            $result['updated_at'] = $this->updatedAt->format('Y-m-d H:i:s');
+        }
+
+        return $result;
     }
 
     /**
@@ -81,7 +96,6 @@ class Review implements DBItem
         return [
             "id" => $data['id'],
             "user_id" => $data['user_id'],
-            "animal_id" => $data['animal_id'],
             "rating" => $data['rating'],
             "comment" => $data['comment'] ?? "",
             "created_at" => new DateTime($data['created_at']),
@@ -97,11 +111,6 @@ class Review implements DBItem
     public function getUserId(): string
     {
         return $this->userId;
-    }
-
-    public function getAnimalId(): string
-    {
-        return $this->animalId;
     }
 
     public function getRating(): int

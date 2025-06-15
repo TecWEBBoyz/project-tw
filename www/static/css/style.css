@@ -384,6 +384,72 @@ a.dark-accent-link:visited {
 }
 
 /* -----------------------
+         Tables
+   ----------------------- */
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 2rem 0;
+}
+
+table caption {
+    font-family: "Bree Serif", serif;
+    font-size: clamp(calc(26 / 16 * 1rem), calc(100vw * 33 / var(--max-content-width)), calc(33 / 16 * 1rem));
+    font-weight: 400;
+    color:var(--accent-1);
+    margin-bottom: 1rem;
+    text-align: left;
+}
+
+table thead th {
+    text-align: left;
+    padding: 0.75rem;
+    color: var(--table-th-color);
+    background-color: var(--table-th-background);
+}
+
+table tbody td,
+table tbody th {
+    padding: 0.75rem;
+    border-bottom: 1px solid var(--accent-1);
+    vertical-align: middle;
+    text-align: left;
+}
+
+@media screen and (max-width: 768px) {
+    table thead {
+        display: none;
+    }
+
+    table tr,
+    table th,
+    table td {
+        display: block;
+    }
+
+    table td {
+        border: 1px solid var(--accent-1);
+    }
+
+    table tr th {
+        margin-top: 2em;
+        background-color: var(--table-th-background);
+        color: var(--table-th-color)
+    }
+
+    th[data-title]:before,
+    td[data-title]:before {
+        content: attr(data-title) ":\00A0";
+        font-weight: bold;
+    }
+
+    table .booking-actions button{
+        width: 100%;
+    }
+}
+
+/* -----------------------
          Buttons
    ----------------------- */
 
@@ -904,6 +970,7 @@ main>section>.section-content h2 {
 
 .review-item .review-body {
     margin-top: 1rem;
+    min-width: 350px;
 }
 
 .rating-sub {
@@ -1429,36 +1496,6 @@ label:has(+ select:active) {
     left: -999rem;
 }
 
-#bookings-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 2rem 0;
-}
-
-#bookings-table caption {
-    font-family: "Bree Serif", serif;
-    font-size: clamp(calc(26 / 16 * 1rem), calc(100vw * 33 / var(--max-content-width)), calc(33 / 16 * 1rem));
-    font-weight: 400;
-    color:var(--accent-1);
-    margin-bottom: 1rem;
-    text-align: left;
-}
-
-#bookings-table thead th {
-    text-align: left;
-    padding: 0.75rem;
-    color: var(--table-th-color);
-    background-color: var(--table-th-background);
-}
-
-#bookings-table tbody td,
-#bookings-table tbody th {
-    padding: 0.75rem;
-    border-bottom: 1px solid var(--accent-1);
-    vertical-align: middle;
-    text-align: left;
-}
-
 button.booking-button{
     padding: 0.5rem 2rem;
     margin: 0.1rem;
@@ -1483,38 +1520,6 @@ button.booking-button:focus{
     transform: translateY(-5px);
     background-color: var(--accent-1);
     color: var(--light);
-}
-
-@media screen and (max-width: 768px) {
-    table thead {
-        display: none;
-    }
-
-    table tr,
-    table th,
-    table td {
-        display: block;
-    }
-
-    table td {
-        border: 1px solid var(--accent-1);
-    }
-
-    table tr th {
-        margin-top: 2em;
-        background-color: var(--table-th-background);
-        color: var(--table-th-color)
-    }
-
-    th[data-title]:before,
-    td[data-title]:before {
-        content: attr(data-title) ":\00A0";
-        font-weight: bold;
-    }
-
-    #bookings-table .booking-actions button{
-        width: 100%;
-    }
 }
 
 /* -----------------------
@@ -1584,6 +1589,35 @@ button.booking-button:focus{
 #services-container .service #visita-guidata-image {
     background: url('styleImages/visita-guidata-image.jpg') no-repeat center center;
 }
+
+/* -----------------------
+         Reviews
+   ----------------------- */
+
+.pagination {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.pagination form {
+    display: inline-block;
+    margin: 0 5px;
+}
+
+.pagination form button {
+    border-radius: 16px;
+    border: 2px solid var(--accent-1);
+    color: var(--accent-1);
+    font-weight: bold;
+    font-family: "Nunito Medium", sans-serif;
+    padding: 1em 1.2em;
+    line-height: normal;
+}
+
+.pagination form button:disabled {
+    opacity: 0.3; 
+}
+
 
 /* -----------------------
          Animations
