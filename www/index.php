@@ -55,7 +55,6 @@ if (!empty($featuredAnimals)) {
     }
 }
 
-// --- RENDERIZZAZIONE TEMPLATE ---
 $currentFile = basename(__FILE__);
 $htmlContent = TemplateService::renderHtml(
     $currentFile, 
