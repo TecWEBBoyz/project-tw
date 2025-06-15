@@ -818,7 +818,7 @@ main>section>.section-content h2 + .decoration.light {
     display: flex;
     gap: 2rem;
     justify-content: center;
-    align-items: center;
+    align-items: stretch;
     flex-wrap: wrap;
 }
 
@@ -833,6 +833,11 @@ main>section>.section-content h2 + .decoration.light {
     justify-content: space-between;
 
     border: 2px solid var(--accent-2);
+}
+
+.animal-card .card-img-top {
+    aspect-ratio: 16/10;
+    object-fit: cover;
 }
 
 .animal-card .card-body {
