@@ -193,6 +193,7 @@ html,
 body {
     font-family: "Nunito Regular", sans-serif;
     font-size: var(--base-font-size);
+    color: var(--dark);
 }
 
 
@@ -201,7 +202,6 @@ h1 {
     font-size: clamp(calc(33 / 16 * 1rem), calc(100vw * 42 / var(--max-content-width)), calc(42 / 16 * 1rem));
     font-weight: 400;
     line-height: 1.67;
-
     color: var(--accent-2);
 }
 
@@ -276,15 +276,15 @@ a {
 }
 
 a:hover {
-    color: var(--light-link-hover)
+    color: var(--accent-2)
 }
 
 a:visited {
-    color: var(--light-link-visited)
+    color: var(--accent-2)
 }
 
 a.menu-link {
-    color: var(--menu-link);
+    color: var(--accent-1);
     text-decoration: none;
     text-transform: uppercase;
     letter-spacing: 0.05em;
@@ -292,15 +292,15 @@ a.menu-link {
 }
 
 a.menu-link:hover {
-    color: var(--menu-link-hover);
+    color: var(--accent-2);
 }
 
 a.menu-link:visited {
-    color: var(--menu-link-visited);
+    color: var(--accent-2);
 }
 
 a.light-link {
-    color: var(--light-link);
+    color: var(--accent-1);
     text-decoration: none;
     text-transform: uppercase;
     position: relative;
@@ -309,11 +309,11 @@ a.light-link {
 }
 
 a.light-link:hover {
-    color: var(--light-link-hover);
+    color: var(--accent-2);
 }
 
 a.light-link:visited {
-    color: var(--light-link-visited);
+    color: var(--accent-2);
 }
 
 a.light-link:after {
@@ -322,18 +322,84 @@ a.light-link:after {
     display: block;
     height: 1px;
     position: absolute;
-    background-color: var(--light-link);
+    background-color: var(--accent-1);
     transition: width 0.3s ease 0.1s, left 0.3s ease 0.1s, background-color 0.2s ease;
     width: 100%;
 }
 
 a.light-link:visited:after {
-    background-color: var(--light-link-visited);
+    background-color: var(--accent-2);
 }
 
 a.light-link:hover:after {
     width: 0%;
-    background-color: var(--light-link-hover);
+    background-color: var(--accent-2);/*HERE*/
+}
+
+/* -----------------------
+         Tables
+   ----------------------- */
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 2rem 0;
+}
+
+table caption {
+    font-family: "Bree Serif", serif;
+    font-size: clamp(calc(26 / 16 * 1rem), calc(100vw * 33 / var(--max-content-width)), calc(33 / 16 * 1rem));
+    font-weight: 400;
+    color:var(--accent-1);
+    margin-bottom: 1rem;
+    text-align: left;
+}
+
+table thead th {
+    text-align: left;
+    padding: 0.75rem;
+    color: var(--table-th-color);
+    background-color: var(--table-th-background);
+}
+
+table tbody td,
+table tbody th {
+    padding: 0.75rem;
+    border-bottom: 1px solid var(--accent-1);
+    vertical-align: middle;
+    text-align: left;
+}
+
+@media screen and (max-width: 768px) {
+    table thead {
+        display: none;
+    }
+
+    table tr,
+    table th,
+    table td {
+        display: block;
+    }
+
+    table td {
+        border: 1px solid var(--accent-1);
+    }
+
+    table tr th {
+        margin-top: 2em;
+        background-color: var(--table-th-background);
+        color: var(--table-th-color)
+    }
+
+    th[data-title]:before,
+    td[data-title]:before {
+        content: attr(data-title) ":\00A0";
+        font-weight: bold;
+    }
+
+    table .booking-actions button{
+        width: 100%;
+    }
 }
 
 /* -----------------------
@@ -882,6 +948,7 @@ main>section>.section-content h2 + .decoration.light {
 
 .review-item .review-body {
     margin-top: 1rem;
+    min-width: 350px;
 }
 
 .rating-sub {
@@ -1123,13 +1190,13 @@ main>#about-section>.section-content .about-item:nth-child(2n) p {
     background-color: var(--light-background);
     padding: 2rem;
     border-radius: 12px;
-    border-left: 4px solid var(--accent-1);
+    border-left: 4px solid var(--accent-2);
     box-shadow: 0 20px 60px -20px rgba(5, 4, 2, 0.3);
 }
 
 .animal-description h3 {
     margin: 0 0 1.5rem 0;
-    color: var(--accent-1);
+    color: var(--accent-2);
     position: relative;
     padding-bottom: 0.5rem;
 }
@@ -1485,38 +1552,6 @@ a.button {
     color: var(--light);
 }
 
-@media screen and (max-width: 768px) {
-    table thead {
-        display: none;
-    }
-
-    table tr,
-    table th,
-    table td {
-        display: block;
-    }
-
-    table td {
-        border: 1px solid var(--accent-1);
-    }
-
-    table tr th {
-        margin-top: 2em;
-        background-color: var(--table-th-background);
-        color: var(--table-th-color)
-    }
-
-    th[data-title]:before,
-    td[data-title]:before {
-        content: attr(data-title) ":\00A0";
-        font-weight: bold;
-    }
-
-    #bookings-table .booking-actions button{
-        width: 100%;
-    }
-}
-
 /* -----------------------
          Services
    ----------------------- */
@@ -1585,6 +1620,135 @@ a.button {
 
 #services-container .service #visita-guidata-image {
     background: url('styleImages/visita-guidata-image.jpg') no-repeat center center;
+}
+
+/* -----------------------
+         Reviews
+   ----------------------- */
+
+.pagination {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.pagination form {
+    display: inline-block;
+    margin: 0 5px;
+}
+
+.pagination form button {
+    border-radius: 16px;
+    border: 2px solid var(--accent-1);
+    color: var(--accent-1);
+    font-weight: bold;
+    font-family: "Nunito Medium", sans-serif;
+    padding: 1em 1.2em;
+    line-height: normal;
+}
+
+.pagination form button:disabled {
+    opacity: 0.3;
+}
+
+/* -----------------------
+         404 Error Page
+   ----------------------- */
+
+.error-404-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    padding: 3rem 1rem;
+    text-align: center;
+    min-height: 70vh;
+}
+
+.error-404-image {
+    background-image: url('styleImages/404-image.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+
+    width: 700px;
+    max-width: 90%;
+    aspect-ratio: 4 / 3;
+}
+
+.error-404-content {
+    max-width: 550px;
+}
+
+.error-404-content p {
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
+    font-size: clamp(1rem, 1.1vw, 1.1rem);
+}
+
+.error-404-actions {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+@media screen and (max-width: 768px) {
+    .error-404-section {
+        flex-direction: column;
+        gap: 2rem;
+        padding: 2rem 1rem;
+    }
+}
+
+/* -----------------------
+         500 Error Page
+   ----------------------- */
+
+.error-500-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    padding: 3rem 1rem;
+    text-align: center;
+    min-height: 70vh;
+}
+
+.error-500-image {
+    background-image: url('styleImages/500-image.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+
+    width: 700px;
+    max-width: 90%;
+    aspect-ratio: 4 / 3;
+}
+
+.error-500-content {
+    max-width: 550px;
+}
+
+.error-500-content p {
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
+    font-size: clamp(1rem, 1.1vw, 1.1rem);
+}
+
+.error-500-actions {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+@media screen and (max-width: 768px) {
+    .error-500-section {
+        gap: 2rem;
+        padding: 2rem 1rem;
+    }
 }
 
 /* -----------------------

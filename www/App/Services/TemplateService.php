@@ -30,6 +30,7 @@ class TemplateService {
         } else {
             $html = str_replace("[[ifLoggedIn]]", '<li><a class="menu-link" href="login.php"><span lang="en">Login</span></a></li>', $html);
         }
+        
         // HANDLE REPETITION PLACEHOLDER
         if (preg_match('/\{\{(.*?)\}\}/s', $html, $matches)) {
             $to_repeat_content = $matches[1] ?? '';

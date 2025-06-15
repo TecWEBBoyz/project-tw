@@ -68,7 +68,18 @@
                     <td data-title="Posti Prenotati">[[numberOfPeople]]</td>
                     <td data-title="Data">[[date]]</td>
                     <td data-title="Note">[[notes]]</td>
-                    <td data-title="Azioni">[[actions]]</td>
+                    <td data-title="Azioni">
+                        <div class="booking-actions">
+                            <form action="editBooking.php" method="GET">
+                                <input type="hidden" name="id" value="[[bookingId]]">
+                                <button class="booking-button" type="submit" aria-label="Modifica prenotazione">Modifica</button>
+                            </form>
+                            <form action="bookingsDelete.php" method="POST">
+                                <input type="hidden" name="booking_id" value="[[bookingId]]">
+                                <button class="booking-button" type="submit" aria-label="Elimina prenotazione">Elimina</button>
+                            </form>
+                        </div>
+                    </td>
                 </tr>
                 }}
             </tbody>

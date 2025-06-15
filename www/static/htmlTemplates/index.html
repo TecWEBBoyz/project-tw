@@ -7,6 +7,7 @@
     <meta name="keywords" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="static/css/style.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="static/css/print.css" media="print">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&family=Mulish:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
@@ -32,6 +33,7 @@
                         <li><a class="menu-link" href="about.php">Chi siamo</a></li>
                         <li><a class="menu-link" href="services.php">Servizi</a></li>
                         <li><a class="menu-link" href="animals.php">Animali</a></li>
+                        [[ifLoggedIn]]
                     </ul>
                 </nav>
             </div>
@@ -58,7 +60,19 @@
                 <div class="decoration"></div>
                 <div class="animal-cards-container">
 
-                    [[randomAnimals]]
+                    {{
+                    <article class="animal-card">
+                        <img class="card-img-top" src="[[image]]" alt="[[alt_text]]">
+                        <div class="card-body">
+                            <h3 class="card-title">[[name]]</h3>
+                            <p class="muted">[[species]], [[habitat]]</p>
+                            <p class="card-text">[[description]]</p>
+                        </div>
+                        <div class="card-link">
+                            <a class="light-link" href="animal.php?id=[[id]]">Scopri di più</a>
+                        </div>
+                    </article>
+                    }}
 
                 </div>
             </div>
@@ -71,29 +85,29 @@
                 <ul class="review-list">
                     <li class="review-item">
                         <div class="review-header">
-                            <h3>Sara Johnson</h3>
-                            <p class="rating-sub stars-5">5 stelle</p>
+                            <h3>[[reviewer1Name]]</h3>
+                            <p class="rating-sub stars-5">[[review1Rating]] stelle</p>
                         </div>
                         <div class="review-body">
-                            <p>Un'esperienza indimenticabile! Gli animali sono ben curati e il personale è molto disponibile.</p>
+                            <p>[[review1Comment]]</p>
                         </div>
                     </li>
                     <li class="review-item">
                         <div class="review-header">
-                            <h3>Matteo Rossi</h3>
-                            <p class="rating-sub stars-4">4 stelle</p>
+                            <h3>[[reviewer2Name]]</h3>
+                            <p class="rating-sub stars-4">[[review2Rating]] stelle</p>
                         </div>
                         <div class="review-body">
-                            <p>Un bel posto per passare una giornata in famiglia. I bambini si sono divertiti molto!</p>
+                            <p>[[review2Comment]]</p>
                         </div>
                     </li>
                     <li class="review-item">
                         <div class="review-header">
-                            <h3>Giulia Bianchi</h3>
-                            <p class="rating-sub stars-5">5 stelle</p>
+                            <h3>[[reviewer3Name]]</h3>
+                            <p class="rating-sub stars-5">[[review3Rating]] stelle</p>
                         </div>
                     <div class="review-body">
-                            <p>Un'esperienza unica! Gli animali sono stupendi e il parco è molto ben tenuto.</p>
+                            <p>[[review3Comment]]</p>
                     </div>
                 </ul>
             </div>
