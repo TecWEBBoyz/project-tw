@@ -1609,6 +1609,106 @@ button.booking-button:focus{
     opacity: 0.3; 
 }
 
+/* -----------------------
+         404 Error Page
+   ----------------------- */
+
+.error-404-section {
+    display: flex;
+    flex-direction: column; 
+    align-items: center;
+    justify-content: center;
+    gap: 2rem; 
+    padding: 3rem 1rem;
+    text-align: center;
+    min-height: 70vh;
+}
+
+.error-404-image {
+    background-image: url('styleImages/404-image.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    
+    width: 700px; 
+    max-width: 90%;
+    aspect-ratio: 4 / 3; 
+}
+
+.error-404-content {
+    max-width: 550px;
+}
+
+.error-404-content p {
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
+    font-size: clamp(1rem, 1.1vw, 1.1rem);
+}
+
+.error-404-actions {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+@media screen and (max-width: 768px) {
+    .error-404-section {
+        flex-direction: column;
+        gap: 2rem;
+        padding: 2rem 1rem;
+    }
+}
+
+/* -----------------------
+         500 Error Page
+   ----------------------- */
+
+.error-500-section {
+    display: flex;
+    flex-direction: column; 
+    align-items: center;
+    justify-content: center;
+    gap: 2rem; 
+    padding: 3rem 1rem;
+    text-align: center;
+    min-height: 70vh;
+}
+
+.error-500-image {
+    background-image: url('styleImages/500-image.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    
+    width: 700px; 
+    max-width: 90%;
+    aspect-ratio: 4 / 3; 
+}
+
+.error-500-content {
+    max-width: 550px;
+}
+
+.error-500-content p {
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
+    font-size: clamp(1rem, 1.1vw, 1.1rem);
+}
+
+.error-500-actions {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+@media screen and (max-width: 768px) {
+    .error-500-section {
+        gap: 2rem;
+        padding: 2rem 1rem;
+    }
+}
 
 /* -----------------------
          Animations
