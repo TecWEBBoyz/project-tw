@@ -33,9 +33,7 @@ for ($i = $counter; $i <= 3; $i++) {
 }
 
 $animalRepo = new AnimalRepository();
-$allAnimals = $animalRepo->All();
-$featuredAnimals = array_slice($allAnimals, 0, 3);
-
+$featuredAnimals = $animalRepo->GetPage(1, 3);
 $featuredAnimalsData = [];
 if (!empty($featuredAnimals)) {
     foreach ($featuredAnimals as $animal) {
@@ -43,7 +41,7 @@ if (!empty($featuredAnimals)) {
             continue;
         }
 
-        $featuredAnimalsData[] = [
+        $featuredAnimalsData["animals"][] = [
             '[[id]]'          => htmlspecialchars($animal->getId()),
             '[[name]]'        => htmlspecialchars($animal->getName()),
             '[[species]]'     => htmlspecialchars($animal->getSpecies()),
