@@ -31,8 +31,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Check if all fields (except for user_id are present)
     if (!array_key_exists('service', $_POST) 
         || !array_key_exists('numberOfPeople', $_POST) 
-        || !array_key_exists('date', $_POST)) {
-    
+        || !array_key_exists('date', $_POST)
+        || !array_key_exists('notes', $_POST)) {
+        
         http_response_code(400);
         echo json_encode(["message" => "Missing data field."]);
         exit();
@@ -51,7 +52,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'user_id' => $currentUser->getId(),
         'service_id' => $service->getId(),
         'num_people' => $_POST['numberOfPeople'],
-        'date' => $_POST['date']
+        'date' => $_POST['date'],
+        'notes' => $_POST['notes']
     ]);
     $bookingRepo->Create($newBooking);
 

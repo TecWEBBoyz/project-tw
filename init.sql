@@ -59,21 +59,22 @@ CREATE TABLE booking (
 CREATE TABLE review (
     id CHAR(36) DEFAULT UUID(),
     user_id CHAR(36) NOT NULL,
-    animal_id CHAR(36) NOT NULL,
     rating INT NOT NULL CHECK (rating >= 1 AND rating <= 5),
     comment TEXT DEFAULT '',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 
     FOREIGN KEY (user_id) REFERENCES user(id),
-    FOREIGN KEY (animal_id) REFERENCES animal(id),
 
     PRIMARY KEY (id)
 );
 
 INSERT INTO user (id, username, email, telephone, password, role) VALUES
 ('77d449dd-d5c4-4d77-a404-c61cc56744b6', 'admin', 'admin@gmail.com', '1234567890', 'admin', 'Administrator'),
-('e2a26785-c0f3-4261-a2ad-be4f1574cca4','user', 'user@gmail.com', '0987654361', 'user', 'User');
+('e2a26785-c0f3-4261-a2ad-be4f1574cca4', 'user', 'user@gmail.com', '0987654361', 'user', 'User'),
+('a1b2c3d4-e5f6-7890-g1h2-i3j4k5l6m7n8', 'john_doe', 'john.doe@example.com', '1122334455', 'password123', 'User'),
+('b2c3d4e5-f6g7-8901-h2i3-j4k5l6m7n8o9', 'jane_smith', 'jane.smith@example.com', '2233445566', 'securepass', 'User'),
+('c3d4e5f6-g7h8-9012-i3j4-k5l6m7n8o9p0', 'alice_wonder', 'alice.wonder@example.com', '3344556677', 'wonderland', 'User');
 
 INSERT INTO service (id, name, description, price, duration, max_people) VALUES
 ("43591738-588f-4a58-a04f-f3826de22345", "Safari", "Un'esperienza unica per osservare gli animali nel loro habitat naturale.", 50.00, 120, 10),
@@ -96,10 +97,49 @@ INSERT INTO animal (id, species, name, age, habitat, dimensions, lifespan, diet,
 INSERT INTO booking (user_id, service_id, date, num_people, notes) VALUES
 ('77d449dd-d5c4-4d77-a404-c61cc56744b6', '43591738-588f-4a58-a04f-f3826de22345', '2025-10-01', 20, 'Nessun appunto'),
 ('e2a26785-c0f3-4261-a2ad-be4f1574cca4', 'b2c3d4e5-f6g7-8901-h2i3-j4k5l6m7n8o9', '2025-10-02', 5, 'Nessun appunto'),
+('e2a26785-c0f3-4261-a2ad-be4f1574cca4', 'b2c3d4e5-f6g7-8901-h2i3-j4k5l6m7n8o9', '2024-10-02', 5, 'Prenotazione che non dovrebbe essere vista'),
 ('e2a26785-c0f3-4261-a2ad-be4f1574cca4', 'b2c3d4e5-f6g7-8901-h2i3-j4k5l6m7n8o9', '2025-11-02', 10, 'Una nota particolare');
 
-INSERT INTO review (user_id, animal_id, rating, comment) VALUES
-('77d449dd-d5c4-4d77-a404-c61cc56744b6', 'c97a5ca5-2d29-4e45-b406-1169eca56e68', 5, 'Un’esperienza indimenticabile!'),
-('e2a26785-c0f3-4261-a2ad-be4f1574cca4', '9e22ab02-6f91-4c41-a391-88d7e3bbc504', 4, 'Bellissimo animale, ma un po’ timido.'),
-('77d449dd-d5c4-4d77-a404-c61cc56744b6', '126f98d9-1b64-4fbc-819d-ffb76be6b7e7', 3, 'Carino, ma non il mio preferito.'),
-('e2a26785-c0f3-4261-a2ad-be4f1574cca4', '33fb8b3d-e144-40b6-b934-7e6305614ca2', 5, 'Incredibile! Un vero gigante gentile.');
+-- INSERT INTO review (user_id, rating, comment) VALUES
+-- ('77d449dd-d5c4-4d77-a404-c61cc56744b6', 5, 'Un’esperienza indimenticabile!'),
+-- ('e2a26785-c0f3-4261-a2ad-be4f1574cca4', 4, 'Bellissimo animale, ma un po’ timido.'),
+-- ('77d449dd-d5c4-4d77-a404-c61cc56744b6', 3, 'Carino, ma non il mio preferito.'),
+-- ('e2a26785-c0f3-4261-a2ad-be4f1574cca4', 5, 'Incredibile! Un vero gigante gentile.');
+
+INSERT INTO review (user_id, rating, comment) VALUES
+('e2a26785-c0f3-4261-a2ad-be4f1574cca4', 5, 'Esperienza fantastica, il personale è stato molto gentile!'),
+('a1b2c3d4-e5f6-7890-g1h2-i3j4k5l6m7n8', 4, 'Gli animali sembrano ben curati, ma il cibo era un po caro.'),
+('b2c3d4e5-f6g7-8901-h2i3-j4k5l6m7n8o9', 3, 'Il parco è bello, ma alcune aree erano chiuse.'),
+('c3d4e5f6-g7h8-9012-i3j4-k5l6m7n8o9p0', 5, 'Adoro questo posto, ci tornerò sicuramente!'),
+('e2a26785-c0f3-4261-a2ad-be4f1574cca4', 2, 'Troppo affollato, difficile godersi la visita.'),
+('a1b2c3d4-e5f6-7890-g1h2-i3j4k5l6m7n8', 4, 'Ottima esperienza, i bambini si sono divertiti molto.'),
+('b2c3d4e5-f6g7-8901-h2i3-j4k5l6m7n8o9', 5, 'Gli spettacoli con gli animali sono stati incredibili!'),
+('c3d4e5f6-g7h8-9012-i3j4-k5l6m7n8o9p0', 3, 'Il parcheggio era un po lontano dallingresso.'),
+('e2a26785-c0f3-4261-a2ad-be4f1574cca4', 4, 'Un bel posto per passare una giornata in famiglia.'),
+('a1b2c3d4-e5f6-7890-g1h2-i3j4k5l6m7n8', 5, 'Gli animali sembrano felici e ben curati.'),
+('b2c3d4e5-f6g7-8901-h2i3-j4k5l6m7n8o9', 2, 'Non c era molta ombra, faceva troppo caldo.'),
+('c3d4e5f6-g7h8-9012-i3j4-k5l6m7n8o9p0', 5, 'Il safari è stato unesperienza unica!'),
+('e2a26785-c0f3-4261-a2ad-be4f1574cca4', 3, 'Prezzi un po alti, ma il parco è ben tenuto.'),
+('a1b2c3d4-e5f6-7890-g1h2-i3j4k5l6m7n8', 4, 'I bambini hanno adorato la zona dei rettili.'),
+('b2c3d4e5-f6g7-8901-h2i3-j4k5l6m7n8o9', 5, 'unesperienza indimenticabile, lo consiglio a tutti!'),
+('c3d4e5f6-g7h8-9012-i3j4-k5l6m7n8o9p0', 4, 'Il personale è stato molto disponibile e gentile.'),
+('e2a26785-c0f3-4261-a2ad-be4f1574cca4', 1, 'Non mi è piaciuto, troppa confusione e poca organizzazione.'),
+('a1b2c3d4-e5f6-7890-g1h2-i3j4k5l6m7n8', 5, 'Gli spettacoli con i delfini sono stati fantastici!'),
+('b2c3d4e5-f6g7-8901-h2i3-j4k5l6m7n8o9', 3, 'Alcune aree sembravano un po trascurate.'),
+('c3d4e5f6-g7h8-9012-i3j4-k5l6m7n8o9p0', 4, 'Un bel posto per passare una giornata diversa.'),
+('e2a26785-c0f3-4261-a2ad-be4f1574cca4', 5, 'Gli animali sono meravigliosi, soprattutto le tigri!'),
+('a1b2c3d4-e5f6-7890-g1h2-i3j4k5l6m7n8', 2, 'Non c era molta varietà di animali.'),
+('b2c3d4e5-f6g7-8901-h2i3-j4k5l6m7n8o9', 4, 'Il cibo era buono, ma un po caro.'),
+('c3d4e5f6-g7h8-9012-i3j4-k5l6m7n8o9p0', 5, 'unesperienza che consiglio a tutti gli amanti degli animali.'),
+('e2a26785-c0f3-4261-a2ad-be4f1574cca4', 3, 'Il parco è grande, ma alcune zone erano chiuse.'),
+('a1b2c3d4-e5f6-7890-g1h2-i3j4k5l6m7n8', 4, 'I bambini si sono divertiti tantissimo!'),
+('b2c3d4e5-f6g7-8901-h2i3-j4k5l6m7n8o9', 5, 'Il personale è stato molto gentile e disponibile.'),
+('c3d4e5f6-g7h8-9012-i3j4-k5l6m7n8o9p0', 2, 'Troppo affollato, difficile vedere gli animali.'),
+('e2a26785-c0f3-4261-a2ad-be4f1574cca4', 4, 'Un bel posto per una gita in famiglia.'),
+('a1b2c3d4-e5f6-7890-g1h2-i3j4k5l6m7n8', 5, 'Gli spettacoli sono stati incredibili!'),
+('b2c3d4e5-f6g7-8901-h2i3-j4k5l6m7n8o9', 3, 'Prezzi un po alti, ma ne vale la pena.'),
+('c3d4e5f6-g7h8-9012-i3j4-k5l6m7n8o9p0', 5, 'unesperienza unica, ci tornerò sicuramente!'),
+('e2a26785-c0f3-4261-a2ad-be4f1574cca4', 4, 'Gli animali sembrano ben curati e felici.'),
+('a1b2c3d4-e5f6-7890-g1h2-i3j4k5l6m7n8', 5, 'Un posto fantastico, lo consiglio a tutti!'),
+('b2c3d4e5-f6g7-8901-h2i3-j4k5l6m7n8o9', 2, 'Non mi è piaciuto, troppa confusione.'),
+('c3d4e5f6-g7h8-9012-i3j4-k5l6m7n8o9p0', 5, 'Il safari è stato spettacolare!');

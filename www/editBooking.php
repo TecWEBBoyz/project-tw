@@ -28,7 +28,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
     if (!array_key_exists('id', $_POST) 
         || !array_key_exists('numberOfPeople', $_POST) 
-        || !array_key_exists('date', $_POST)) {
+        || !array_key_exists('date', $_POST)
+        || !array_key_exists('notes', $_POST)) {
     
         http_response_code(400);
         echo json_encode(["message" => "Missing data field."]);
@@ -45,6 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $bookingRepo->Update($_POST['id'], new Booking(array_merge($booking->toArray(), [
         "num_people" => $_POST["numberOfPeople"],
         "date" => $_POST["date"],
+        "notes" => $_POST["notes"]
     ])));
 
     http_response_code(200);
@@ -79,6 +81,7 @@ $htmlContent = TemplateService::renderHtml($currentFile, [
     "[[bookingService]]" => $service->getName(),
     "[[bookingDate]]" => $booking->getDate()->format("Y-m-d"),
     "[[minDate]]" => (new DateTime("now"))->format("Y-m-d"),
+    "[[notes]]" => $booking->getNotes()
 ]);
 echo $htmlContent;
 

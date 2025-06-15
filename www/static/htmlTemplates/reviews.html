@@ -2,7 +2,7 @@
 <html lang="it">
 <head>
     <meta charset="utf-8">
-    <title>Modifica Prenotazione</title>
+    <title>Zoo Animalia</title>
     <meta name="description" content="">
     <meta name="keywords" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -38,28 +38,62 @@
             </div>
         </div>
     </header>
-    <main id="contenuto" class="full-page">
-        <div class="login-wrapper">
-            <h1>Modifica</h1>
-            <form method="POST" action="editBooking.php">
-                <input type='hidden' name='id' id="id" value="[[bookingId]]">
-                <div class="input-wrapper">
-                    <label for="service">Servizio:</label>
-                    <input type="text" id="service" name="service" value="[[bookingService]]" disabled>
-                </div>
-                <div class="input-wrapper">
-                    <label for="numberOfPeople">Partecipanti:</label>
-                    <input type="number" id="numberOfPeople" name="numberOfPeople" required value="[[bookingPartecipants]]">
-                </div>
-                <div class="input-wrapper">
-                    <label for="date">Data:</label>
-                    <input type="date" id="date" name="date" required min="[[minDate]]" value="[[bookingDate]]">
-                </div>
-                <div class="input-wrapper">
-                    <label for="notes">Note:</label>
-                    <input type="text" id="notes" name="notes" value="[[notes]]" maxlength="75">
-                </div>
-                <button type="submit" class="submit-button">Modifica</button>
+    <main id="contenuto" class="max-width">
+        <h1>Guarda le nostre recensioni!</h1>
+        <p id="personal-reviews-table-descr">
+            La tabella contiene tutte le tue recensioni, con valutazione, commento e data, oltre che dei pulsanti di modifica 
+            e cacellazione della recensione.
+        </p>
+        <table aria-describedby="personal-reviews-table-descr">
+            <caption>Le tue recensioni</caption>
+            <thead>
+                <th scope="col"><abbr title="Numero">N.</abbr> recensione</th>
+                <th scope="col">Valuaztione</th>
+                <th scope="col">Commento</th>
+                <th scope="col">Data</th>
+                <th scope="col">Azioni</th>
+            </thead>
+            <tbody>
+                <th scope="row">[[reviewNumber]]</th>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tbody>
+        </table>
+        <p id="reviews-table-descr" class="hidden">
+            La tabella contiene alcune delle nostre recensioni, con valutazioni, commenti, date e utenti che le hanno lasciate;
+            ed è inoltre suddivisa in pagine accessibili mediante i pulsanti a fondo tabella.
+        </p>
+        <table aria-describedby="reviews-table-descr">
+            <caption>Tutte le recensioni</caption>
+            <thead>
+                <tr>
+                    <th scope="col">Utente</th>
+                    <th scope="col">Valutazione</th>
+                    <th scope="col">Commento</th>
+                    <th scope="col">Data</th>
+                </tr>
+            </thead>
+            {{
+            <tbody>
+                <tr>
+                    <th scope="row" data-title="Recensione di">[[username]]</th>
+                    <td data-title="Valutazione">[[rating]]</td>
+                    <td data-title="Commento">[[comment]]</td>
+                    <td data-title="Data">[[updateDate]]</td>
+                </tr>
+            </tbody>
+            }}
+        </table>
+        <div class="pagination">
+            <form method="GET" action="reviews.php" style="display: inline;">
+                <input type="hidden" name="page" value="[[previousPage]]">
+                <button type="submit" class="btn" aria-label="Vai alla pagina precedente" [[previousPageDisabled]]>&lt;</button>
+            </form>
+            <form method="GET" action="reviews.php" style="display: inline;">
+                <input type="hidden" name="page" value="[[nextPage]]">
+                <button type="submit" class="btn" aria-label="Vai alla pagina successiva" [[nextPageDisabled]]>&gt;</button>
             </form>
         </div>
     </main>

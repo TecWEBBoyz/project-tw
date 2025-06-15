@@ -2,7 +2,7 @@
 <html lang="it">
 <head>
     <meta charset="utf-8">
-    <title>Modifica Prenotazione</title>
+    <title>Modifica la recensione</title>
     <meta name="description" content="">
     <meta name="keywords" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -40,26 +40,18 @@
     </header>
     <main id="contenuto" class="full-page">
         <div class="login-wrapper">
-            <h1>Modifica</h1>
-            <form method="POST" action="editBooking.php">
-                <input type='hidden' name='id' id="id" value="[[bookingId]]">
+            <h1>Aggiorna la tua recensione!</h1>
+            <form method="POST" action="createReview.php">
+                <input type='hidden' name='id' id="id" value="[[reviewId]]">
                 <div class="input-wrapper">
-                    <label for="service">Servizio:</label>
-                    <input type="text" id="service" name="service" value="[[bookingService]]" disabled>
+                    <label for="rating">Valutazione:</label>
+                    <input type="number" id="rating" name="rating" min="1" max="5" step="1" value="[[rating]]" required>
                 </div>
                 <div class="input-wrapper">
-                    <label for="numberOfPeople">Partecipanti:</label>
-                    <input type="number" id="numberOfPeople" name="numberOfPeople" required value="[[bookingPartecipants]]">
+                    <label for="comment">Recensione:</label>
+                    <textarea id="comment" name="comment" rows="6" cols="50" maxlength="250">[[comment]]</textarea>
                 </div>
-                <div class="input-wrapper">
-                    <label for="date">Data:</label>
-                    <input type="date" id="date" name="date" required min="[[minDate]]" value="[[bookingDate]]">
-                </div>
-                <div class="input-wrapper">
-                    <label for="notes">Note:</label>
-                    <input type="text" id="notes" name="notes" value="[[notes]]" maxlength="75">
-                </div>
-                <button type="submit" class="submit-button">Modifica</button>
+                <button type="submit" class="submit-button">Salva modifiche</button>
             </form>
         </div>
     </main>
