@@ -14,20 +14,21 @@ foreach ($animalsList as $animal) {
     if (!$animal instanceof \PTW\Models\Animal) {
         continue;
     }
-    $htmlAnimalsList .= "<li class='animal-item' data-image-url=\"".htmlspecialchars($animal->getImage()) . "\">" . PHP_EOL;
+    $htmlAnimalsList .= "<li class='animal-item'>" . PHP_EOL;
 
     $htmlAnimalsList .= "<a href=\"animal.php?id=" . htmlspecialchars($animal->getId()) . "\">" . PHP_EOL;
 
+    $htmlAnimalsList .= "<img class=\"animal-item-image\" src=\"" . htmlspecialchars($animal->getImage()) . "\" alt=\"Foto di " . htmlspecialchars($animal->getName()) . ", " . htmlspecialchars($animal->getSpecies()) . "\">" . PHP_EOL;
 
     $htmlAnimalsList .= "<div class=\"animal-item-content\">" . PHP_EOL;
     $htmlAnimalsList .= "<p class=\"animal-item-caption\">" . htmlspecialchars($animal->getSpecies()) . ", " . htmlspecialchars($animal->getHabitat()) .  "</p>" . PHP_EOL;
     $htmlAnimalsList .= "<h3 class=\"animal-item-title\">" . htmlspecialchars($animal->getName()) .", " . htmlspecialchars($animal->getSpecies()) .  "</h3>" . PHP_EOL;
     $htmlAnimalsList .= "<p class=\"animal-item-description\">" . htmlspecialchars(trim(preg_split("/\./", $animal->getDescription())[0]) . ".") . "</p>" . PHP_EOL;
 
-    // ToDo(Luca): Capire come mostrare il link per scoprire di più
-    // $htmlAnimalsList .= "<p class='learn-more'>Clicca per scoprire di più</p>" . PHP_EOL;
 
-    $htmlAnimalsList .= "</div></li></a>" . PHP_EOL;
+    $htmlAnimalsList .= "</div>" . PHP_EOL;
+    
+    $htmlAnimalsList .= "</a></li>" . PHP_EOL;
 }
 $htmlAnimalsList .= "</ul>";
 
@@ -37,7 +38,6 @@ $errorMessages = [
     'not_found' => 'L\'animale che cerchi sembra essere scappato. Scegline un\'altro dalla lista.',
 ];
 
-// Checks if there are errors in the URL parameters
 $htmlError = '';
 if (!empty($_GET['error'])) {
     $errorMsg = $errorMessages[$_GET['error']] ?? 'Errore sconosciuto.';
@@ -47,6 +47,7 @@ if (!empty($_GET['error'])) {
     $htmlError .= '</div>' . PHP_EOL;
     $htmlError .= '<script>document.getElementById("error-notification").focus();</script>' . PHP_EOL; // TODO: trova soluzione migliore per il focus
 }
+
 
 // Render base html
 $currentFile = basename(__FILE__);
