@@ -83,4 +83,12 @@ function updateMaxPeople(serviceSelect, numberOfPeopleInput, maxPeopleMap) {
 		numberOfPeopleInput.value = Math.min(numberOfPeopleInput.value, maxPeople); // Adatta il valore corrente
 	}
 
-
+//----------------------------------------------------
+//					Error focus
+//----------------------------------------------------	
+document.addEventListener('DOMContentLoaded', function() {
+        const errorSummary = document.getElementById('error-summary-container');
+    if (errorSummary && errorSummary.innerHTML.trim() !== '') {
+        errorSummary.focus();
+    }
+});

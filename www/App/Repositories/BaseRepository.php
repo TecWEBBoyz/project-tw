@@ -52,8 +52,7 @@ class BaseRepository
     public function Create(DBItem $element): bool
     {
         $data = $element->toArray();
-        return $this->database->Create($this->table, array_keys($data),
-            array_map(fn($col) => "\"" . $col . "\"", array_values($data)));
+        return $this->database->Create($this->table, $data);
     }
 
     public function Update(string $id, DBItem $element): bool

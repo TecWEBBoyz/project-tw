@@ -1668,6 +1668,93 @@ a.button {
 }
 
 /* -----------------------
+         Create Animal
+   ----------------------- */
+
+.form-wrapper {
+    margin: 3rem auto;
+    padding: 2rem;
+    width: 600px;
+    max-width: 100%;
+    border-radius: 16px;
+    box-shadow: 0 20px 60px -20px rgba(5, 4, 2, 0.3);
+}
+
+.form-wrapper h1 {
+    margin-bottom: 2rem;
+    text-align: center;
+    line-height: normal;
+}
+
+.form-wrapper form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.error-summary {
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+    border: 2px solid #c0392b;
+    background-color: #fbeae5;
+    border-radius: 8px;
+    color: #c0392b;
+}
+
+.error-summary:empty {
+    display: none;
+}
+
+.error-summary h2 {
+    color: #c0392b;
+    font-size: 1.2rem;
+    margin: 0 0 0.5rem 0;
+}
+
+.error-summary ul {
+    margin: 0;
+    padding-left: 20px;
+}
+
+.error-summary li a {
+    color: #c0392b;
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+.error-message {
+    color: #c0392b;
+    font-weight: bold;
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
+    min-height: 1.2em;
+}
+
+.error-message:empty {
+    display: none;
+}
+
+input[aria-invalid="true"],
+textarea[aria-invalid="true"] {
+    border: 2px solid #c0392b;
+    outline: 1px solid #c0392b;
+}
+
+.add-new-section {
+    text-align: right;
+    margin-top: 1rem;
+}
+
+.error-summary:empty {
+    display: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+}
+
+
+
+/* -----------------------
          404 Error Page
    ----------------------- */
 
