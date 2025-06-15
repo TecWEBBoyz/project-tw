@@ -59,7 +59,19 @@
                 <div class="decoration"></div>
                 <div class="animal-cards-container">
 
-                    [[randomAnimals]]
+                    {{
+                    <article class="animal-card">
+                        <img class="card-img-top" src="[[image]]" alt="[[alt_text]]">
+                        <div class="card-body">
+                            <h3 class="card-title">[[name]]</h3>
+                            <p class="muted">[[species]], [[habitat]]</p>
+                            <p class="card-text">[[description]]</p>
+                        </div>
+                        <div class="card-link">
+                            <a class="light-link" href="animal.php?id=[[id]]">Scopri di più</a>
+                        </div>
+                    </article>
+                    }}
 
                 </div>
             </div>
