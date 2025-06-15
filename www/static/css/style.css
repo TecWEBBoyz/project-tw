@@ -989,7 +989,7 @@ main>section>.section-content h2 + .decoration.light {
     max-height: 400px;
     display: flex;
     gap: 2rem;
-    align-items: flex-start;
+    align-items: center;
     margin: 3rem 0;
 }
 
@@ -1563,21 +1563,40 @@ a.button {
     padding: 3rem 1rem;
 }
 
-#services-container .service {
+#services-container .service  {
+    max-height: 400px;
     display: flex;
+    gap: 2rem;
     align-items: center;
-    justify-content: space-between; 
-    height: 300px; 
-    margin: 3rem 0; 
-    overflow: hidden; 
-    gap: 3em;
+    margin: 3rem 0;
 }
 
-#services-container .service hr {
-    width: 2em;
-    height: 3px;
-    background-color: var(--accent-1);
-    border: none;
+#services-container .service:nth-child(2n+1) {
+    flex-direction: row-reverse;
+}
+
+.service-image {
+    width: 48%;
+    object-fit: contain;
+    border-radius: 8px;
+}
+
+#services-container .service:nth-child(2n+1) h2,
+#services-container .service:nth-child(2n+1) p {
+    text-align: right;
+}
+
+#services-container .service:nth-child(2n+1) .button {
+    float: right;
+}
+
+#services-container .service:nth-child(2n) h2,
+#services-container .service:nth-child(2n) p {
+    text-align: left;
+}
+
+#services-container .service .service-content p {
+    margin-bottom: 0.5rem;
 }
 
 #services-container .service:nth-child(2n+1) h2.underlined:after {
@@ -1586,40 +1605,33 @@ a.button {
     transform: translateX(-100%);
 }
 
-#services-container .service p {
-    margin: 0.5em 0;
-}
+@media screen and (max-width: 880px) {
+    #services-container .service {
+        flex-direction: column;
+        max-height: none;
+    }
 
-#services-container .service:nth-child(2n) {
-    flex-direction: row-reverse;
-}
+    .service-image {
+        width: 100%;
+    }
 
-#services-container .service .service-content {
-    flex: 1;
-}
+    #services-container .service:nth-child(2n+1) {
+        flex-direction: column;
+    }
 
-#services-container .service:nth-child(2n+1) .service-content {
-    text-align: right;
-}
+    #services-container .service:nth-child(2n+1) h2,
+    #services-container .service:nth-child(2n+1) p {
+        text-align: left;
+    }
 
-#services-container .service .service-image {
-    flex: 1;  
-    background-position: center;
-    background-repeat: no-repeat;
-    height: 100%;
-    border-radius: 12px;
-}
+    #services-container .service:nth-child(2n+1) .button {
+        float: none;
+    }
 
-#services-container .service #safari-image {
-    background: url('styleImages/safari-image.jpg') no-repeat center center;
-}
-
-#services-container .service #ingresso-image {
-    background: url('styleImages/ingresso-image.jpg') no-repeat center center;
-}
-
-#services-container .service #visita-guidata-image {
-    background: url('styleImages/visita-guidata-image.jpg') no-repeat center center;
+    #services-container .service:nth-child(2n+1) h2.underlined:after {
+        position: unset;
+        transform: none;
+    }
 }
 
 /* -----------------------
