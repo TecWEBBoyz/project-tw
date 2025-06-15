@@ -1,11 +1,12 @@
 <?php
 require_once 'init.php';
 
+use PTW\Repositories\AnimalRepository;
 use PTW\Services\TemplateService;
+use function PTW\abort;
 
 if (!isset($_GET['id']) || !preg_match('/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i', $_GET['id'])) {
-    header("Location: animals.php?error=invalid_id");
-    exit();
+    abort(404);
 }
 
 $animalRepo = new \PTW\Repositories\AnimalRepository();
@@ -14,8 +15,7 @@ $animalRepo = new \PTW\Repositories\AnimalRepository();
 $animal = $animalRepo->GetElementByID($_GET['id']);
 
 if (empty($animal)) {
-    header("Location: animals.php?error=not_found");
-    exit();
+    abort(404);
 }
 
 $currentFile = basename(__FILE__);
