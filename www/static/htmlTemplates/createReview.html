@@ -2,7 +2,7 @@
 <html lang="it">
 <head>
     <meta charset="utf-8">
-    <title>Interfaccia utente</title>
+    <title>Modifica Prenotazione</title>
     <meta name="description" content="">
     <meta name="keywords" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -38,42 +38,21 @@
             </div>
         </div>
     </header>
-    <main id="contenuto" class="max-width">
-        <h1>Benvenuto, [[userName]]</h1>
-        <p>
-            Da questa pagina potrei gestire tutte le tue prenotazioni, e visualizzare i serivizi di cui hai già usufruito in passato. 
-            Se vuoi prontare altri servizi dai un'occhiata alla <a href="services.php">pagina dei 
-            servizi</a>.</p>
-        <p id="bookings-tab-desc" class="hidden">
-            La tabella contiene i dettagli delle prenotazioni e, 
-            per ognuna di esse, un campo dedicato a dei pulsanti di modifica o cancellazione della 
-            prenotazione stessa</p>
-        <table id="bookings-table" aria-describedby="bookings-tab-desc">
-            <caption>Le tue prenotazioni</caption>
-            <thead>
-                <tr>
-                    <th scope="col"><abbr title="Numero">N.</abbr> prenotazione</th>
-                    <th scope="col">Servizio prenotato</th>
-                    <th scope="col">Posti prenotati</th>
-                    <th scope="col">Data</th>
-                    <th scope="col">Note</th>
-                    <th scope="col">Azione</th>
-                </tr>
-            </thead>
-            <tbody>
-                {{
-                <tr>
-                    <th data-title="Prenotazione" scope="row">[[booking]]</th>
-                    <td data-title="Servizio prenotato">[[service]]</td>
-                    <td data-title="Posti Prenotati">[[numberOfPeople]]</td>
-                    <td data-title="Data">[[date]]</td>
-                    <td data-title="Note">[[notes]]</td>
-                    <td data-title="Azioni">[[actions]]</td>
-                </tr>
-                }}
-            </tbody>
-        </table>
-        [[userBookings]]     
+    <main id="contenuto" class="full-page">
+        <div class="login-wrapper">
+            <h1>Lascia una recensione!</h1>
+            <form method="POST" action="createReview.php">
+                <div class="input-wrapper">
+                    <label for="rating">Valutazione:</label>
+                    <input type="number" id="rating" name="rating" min="1" max="5" step="1" required>
+                </div>
+                <div class="input-wrapper">
+                    <label for="comment">Recensione:</label>
+                    <textarea id="comment" name="comment" rows="6" cols="50" placeholder="Lascia la tua recensione qui..."maxlength="250"></textarea>
+                </div>
+                <button type="submit" class="submit-button">Prenota ora</button>
+            </form>
+        </div>
     </main>
     <footer id="footer">
         <div class="footer-content">

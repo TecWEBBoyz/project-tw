@@ -38,8 +38,10 @@ document.addEventListener("DOMContentLoaded", function () {
 	const serviceSelect = document.getElementById('service');
 	const numberOfPeopleInput = document.getElementById('numberOfPeople');
 
-	// Evento per aggiornare il numero massimo di persone
-	serviceSelect.addEventListener('change', () => updateMaxPeople(serviceSelect, numberOfPeopleInput, maxPeopleMap));
+	// Verifica che gli elementi esistano prima di aggiungere l'evento
+	if (serviceSelect && numberOfPeopleInput) {
+	  serviceSelect.addEventListener('change', () => updateMaxPeople(serviceSelect, numberOfPeopleInput, maxPeopleMap));
+	}
 
 
 	// Existing click handler
