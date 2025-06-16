@@ -61,7 +61,7 @@
                 </tr>
             </thead>
             <tbody>
-                [[bookingsBody]]{{
+                [[bookingsTable]]{{
                 <tr>
                     <th data-title="Prenotazione" scope="row">[[booking]]</th>
                     <td data-title="Servizio prenotato">[[service]]</td>
@@ -72,11 +72,11 @@
                         <div class="booking-actions">
                             <form action="editBooking.php" method="GET">
                                 <input type="hidden" name="id" value="[[bookingId]]">
-                                <button class="booking-button" type="submit" aria-label="Modifica prenotazione">Modifica</button>
+                                <button class="button" type="submit" aria-label="Modifica prenotazione">Modifica</button>
                             </form>
                             <form action="bookingsDelete.php" method="POST">
                                 <input type="hidden" name="booking_id" value="[[bookingId]]">
-                                <button class="booking-button" type="submit" aria-label="Elimina prenotazione">Elimina</button>
+                                <button class="button" type="submit" aria-label="Elimina prenotazione">Elimina</button>
                             </form>
                         </div>
                     </td>

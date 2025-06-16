@@ -17,45 +17,51 @@ $bookingRepo = new BookingRepository();
 $serviceRepo = new ServiceRepository();
 
 $bookings = $bookingRepo->GetByUser($currentUser->getId());
-$bookingsList = "";
 $repeated_replacements = [];
+
 if (empty($bookings)) {
-    $bookingsList .= "<p>Non hai ancora prenotato nessuna delle nostre attività!</p>";
-    $bookingsList .= "<a>Scopri le nostre attività</a>";
+    // Nessuna prenotazione trovata
+    $repeated_replacements['bookingsTable'] = [
+        [
+            '[[booking]]' => 'N/A',
+            '[[service]]' => 'Nessuna attività prenotata',
+            '[[numberOfPeople]]' => 'N/A',
+            '[[date]]' => 'N/A',
+            '[[notes]]' => 'N/A',
+            '[[bookingId]]' => 'N/A',
+        ]
+    ];
 } else {
-    $bookingsList = "";
     $counter = 1;
     foreach ($bookings as $booking) {
         if (!$booking instanceof \PTW\Models\Booking) {
             continue;
         }
         if ($booking->getDate() < new DateTime()) {
-            continue;
+            continue; // Salta le prenotazioni passate
         }
 
         $service = $serviceRepo->GetElementById($booking->getServiceId());
-
         if (!$service instanceof \PTW\Models\Service) {
             continue;
         }
-        $single_replacement = [
-            '[[booking]]' => $counter,
-            '[[service]]' => $service->getName(),
-            '[[numberOfPeople]]' => $booking->getNumberOfPeople(),
-            '[[date]]' => "<time datetime='" . $booking->getDate()->format("Y-m-d") . "'>" . $booking->getDate()->format("d M Y") . "</time>",
-            '[[notes]]' => $booking->getNotes() !== '' ? $booking->getNotes() : 'Nessuna',
-            '[[bookingId]]' => $booking->getId(),
-        ];
 
-        $repeated_replacements["bookingsTable"][] = $single_replacement;
+        // Aggiungi i dati della prenotazione ai segnaposto
+        $repeated_replacements['bookingsTable'][] = [
+            '[[booking]]' => $counter,
+            '[[service]]' => htmlspecialchars($service->getName()),
+            '[[numberOfPeople]]' => htmlspecialchars($booking->getNumberOfPeople()),
+            '[[date]]' => "<time datetime='" . $booking->getDate()->format("Y-m-d") . "'>" . $booking->getDate()->format("d M Y") . "</time>",
+            '[[notes]]' => htmlspecialchars($booking->getNotes() !== '' ? $booking->getNotes() : 'Nessuna'),
+            '[[bookingId]]' => htmlspecialchars($booking->getId()),
+        ];
         $counter++;
     }
 }
 
-
 $currentFile = basename(__FILE__);
 $htmlContent = TemplateService::renderHtml($currentFile, [
-    "[[userName]]" => $currentUser->getName(),
+    '[[userName]]' => htmlspecialchars($currentUser->getName()),
 ], $repeated_replacements);
 
 echo $htmlContent;

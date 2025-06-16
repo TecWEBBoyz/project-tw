@@ -382,7 +382,7 @@ table tbody th {
     }
 
     table td {
-        border: 1px solid var(--accent-1);
+        border: 1px solid var(--accent-2);
     }
 
     table tr th {
@@ -1485,41 +1485,6 @@ label:has(+ select:active) {
 .hidden {
     position: absolute;
     left: -999rem;
-}
-
-#bookings-table,
-#animals-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 2rem 0;
-}
-
-#bookings-table caption,
-#animals-table caption {
-    font-family: "Bree Serif", serif;
-    font-size: clamp(calc(26 / 16 * 1rem), calc(100vw * 33 / var(--max-content-width)), calc(33 / 16 * 1rem));
-    font-weight: 400;
-    color:var(--accent-2);
-    margin-bottom: 1rem;
-    text-align: left;
-}
-
-#bookings-table thead th,
-#animals-table thead th {
-    text-align: left;
-    padding: 0.75rem;
-    color: var(--table-th-color);
-    background-color: var(--table-th-background);
-}
-
-#bookings-table tbody td,
-#bookings-table tbody th,
-#animals-table tbody td,
-#animals-table tbody th {
-    padding: 0.75rem;
-    border-bottom: 1px solid var(--accent-1);
-    vertical-align: middle;
-    text-align: left;
 }
 
 .button {
