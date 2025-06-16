@@ -1679,10 +1679,6 @@ a.button {
     color: #c0392b;
 }
 
-.error-summary:empty {
-    display: none;
-}
-
 .error-summary h2 {
     color: #c0392b;
     font-size: 1.2rem;
@@ -1708,10 +1704,6 @@ a.button {
     min-height: 1.2em;
 }
 
-.error-message:empty {
-    display: none;
-}
-
 input[aria-invalid="true"],
 textarea[aria-invalid="true"] {
     border: 2px solid #c0392b;
@@ -1730,7 +1722,9 @@ textarea[aria-invalid="true"] {
     margin: 0;
 }
 
-
+[hidden] {
+    display: none !important;
+}
 
 /* -----------------------
          404 Error Page

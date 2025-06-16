@@ -55,6 +55,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['animal_id'])) {
         'lifespan' => trim($_POST['lifespan'] ?? ''),
         'diet' => trim($_POST['diet'] ?? ''),
         'description' => trim($_POST['description'] ?? ''),
+        'image' => $animal->getImage(),
+        'imageAlt' => "Attuale foto di " . htmlspecialchars($animal->getName()) . ", un esemplare di " . htmlspecialchars($animal->getSpecies()),
     ];
 
     // Validazione dei dati
