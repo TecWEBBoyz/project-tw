@@ -40,8 +40,14 @@
     </header>
     <main id="contenuto" class="full-page">
         <div class="login-wrapper">
-            <h1>Modifica</h1>
-            <form method="POST" action="editBooking.php">
+            <h1>Modifica Prenotazione</h1>
+
+            <div id="error-summary-container" class="error-summary" role="alert" tabindex="-1" hidden>
+                <h2>Attenzione, sono presenti errori nel modulo:</h2>
+                <ul id="error-summary-list"></ul>
+            </div>
+
+            <form method="POST" action="editBooking.php" novalidate>
                 <input type='hidden' name='id' id="id" value="[[bookingId]]">
                 <div class="input-wrapper">
                     <label for="service">Servizio:</label>
@@ -49,11 +55,13 @@
                 </div>
                 <div class="input-wrapper">
                     <label for="numberOfPeople">Partecipanti:</label>
-                    <input type="number" id="numberOfPeople" name="numberOfPeople" required value="[[bookingPartecipants]]">
+                    <input type="number" id="numberOfPeople" name="numberOfPeople" required value="[[bookingPartecipants]]" min="1" max="[[serviceMaxPeople]]" aria-describedby="numberOfPeople-error">
+                    <p id="numberOfPeople-error" class="error-message" role="alert" hidden></p>
                 </div>
                 <div class="input-wrapper">
                     <label for="date">Data:</label>
-                    <input type="date" id="date" name="date" required min="[[minDate]]" value="[[bookingDate]]">
+                    <input type="date" id="date" name="date" required min="[[minDate]]" value="[[bookingDate]]" aria-describedby="date-error">
+                    <p id="date-error" class="error-message" role="alert" hidden></p>
                 </div>
                 <div class="input-wrapper">
                     <label for="notes">Note:</label>

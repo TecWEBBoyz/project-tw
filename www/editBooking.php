@@ -81,7 +81,8 @@ $htmlContent = TemplateService::renderHtml($currentFile, [
     "[[bookingService]]" => $service->getName(),
     "[[bookingDate]]" => $booking->getDate()->format("Y-m-d"),
     "[[minDate]]" => (new DateTime("now"))->format("Y-m-d"),
-    "[[notes]]" => $booking->getNotes()
+    "[[notes]]" => $booking->getNotes(),
+    "[[serviceMaxPeople]]" => $service->getMaxPeople()
 ]);
 echo $htmlContent;
 
