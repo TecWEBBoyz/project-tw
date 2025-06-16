@@ -42,7 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
     if (empty($old_data['habitat'])) $errors['habitat'] = 'L\'habitat è obbligatorio.';
     if (empty($old_data['dimensions'])) $errors['dimensions'] = 'Le dimensioni sono obbligatorie.';
-    if (empty($old_data['lifespan'])) $errors['lifespan'] = 'La speranza di vita è obbligatoria.';
+    if (empty($old_data['lifespan'])) $errors['lifespan'] = 'L\'aspettativa di vita è obbligatoria.';
     if (empty($old_data['diet'])) $errors['diet'] = 'La dieta è obbligatoria.';
     if (empty($old_data['description'])) $errors['description'] = 'La descrizione è obbligatoria.';
 

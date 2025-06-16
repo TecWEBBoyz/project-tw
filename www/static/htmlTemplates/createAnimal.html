@@ -47,7 +47,7 @@
             <form action="createAnimal.php" method="POST" enctype="multipart/form-data" novalidate>
                 
                 <div class="input-wrapper">
-                    <label for="name">Nome Animale</label>
+                    <label for="name">Nome</label>
                     <input type="text" id="name" name="name" value="[[oldName]]" required [[nameInvalid]] aria-describedby="name-error">
                     <p id="name-error" class="error-message">[[nameError]]</p>
                 </div>
@@ -71,13 +71,13 @@
                 </div>
 
                 <div class="input-wrapper">
-                    <label for="dimensions">Dimensioni (es. 2m x 3m)</label>
+                    <label for="dimensions">Dimensioni (es. 1,5 metri, 100kg)</label>
                     <input type="text" id="dimensions" name="dimensions" value="[[oldDimensions]]" required [[dimensionsInvalid]] aria-describedby="dimensions-error">
                     <p id="dimensions-error" class="error-message">[[dimensionsError]]</p>
                 </div>
 
                 <div class="input-wrapper">
-                    <label for="lifespan">Speranza di vita (es. 10-15 anni)</label>
+                    <label for="lifespan">Aspettativa di vita (es. 10-15 anni)</label>
                     <input type="text" id="lifespan" name="lifespan" value="[[oldLifespan]]" required [[lifespanInvalid]] aria-describedby="lifespan-error">
                     <p id="lifespan-error" class="error-message">[[lifespanError]]</p>
                 </div>
