@@ -1,11 +1,14 @@
 <?php
 require_once 'init.php';
 
+session_start();
+
 use PTW\Repositories\BookingRepository;
 use PTW\Services\AuthService;
 
 // Check authentication before allowing access
 if (!AuthService::isAdminLoggedIn()) {
+    $_SESSION['redirect_after_login'] = $_SERVER['REQUEST_URI'];
     header('Location: login.php?error=unauthorized');
     exit;
 }

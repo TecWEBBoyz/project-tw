@@ -88,7 +88,7 @@ if (empty($animals)) {
             "[[animalHabitat]]" => $animal->getHabitat(),
             "[[actions]]" => "
                 <div class='booking-actions'>
-                    <form action='deleteAnimal.php' method='GET'>
+                    <form action='deleteAnimal.php' method='POST'>
                         <input type='hidden' name='animal_id' value='" . $animal->getId() ."'>
                         <button class='button' type='submit' aria-label='Elimina animale'>Elimina</button>
                     </form>
