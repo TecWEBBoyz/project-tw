@@ -53,7 +53,7 @@ if (empty($bookings)) {
         ];
         if ($booking->getDate() >= new DateTime("tomorrow")) {
             $single_replacement["[[actions]]"] = "<div class='booking-actions'>
-                        <form action='bookingsDelete.php' method='POST'>
+                        <form action='bookingDelete.php' method='POST'>
                             <input type='hidden' name='booking_id' value='" . $booking->getId() ."'>
                             <button class='button' type='submit' aria-label='Elimina prenotazione'>Elimina</button>
                         </form>
@@ -88,9 +88,15 @@ if (empty($animals)) {
             "[[animalHabitat]]" => $animal->getHabitat(),
             "[[actions]]" => "
                 <div class='booking-actions'>
-                    <form action='animalsDelete.php' method='POST'>
+                    <form action='deleteAnimal.php' method='GET'>
                         <input type='hidden' name='animal_id' value='" . $animal->getId() ."'>
                         <button class='button' type='submit' aria-label='Elimina animale'>Elimina</button>
+                    </form>
+                </div>
+                <div class='booking-actions'>
+                    <form action='editAnimal.php' method='GET'>
+                        <input type='hidden' name='animal_id' value='" . $animal->getId() ."'>
+                        <button class='button' type='submit' aria-label='Modifica animale'>Modifica</button>
                     </form>
                 </div>
             "

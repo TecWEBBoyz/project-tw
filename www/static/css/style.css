@@ -350,7 +350,7 @@ table caption {
     font-family: "Bree Serif", serif;
     font-size: clamp(calc(26 / 16 * 1rem), calc(100vw * 33 / var(--max-content-width)), calc(33 / 16 * 1rem));
     font-weight: 400;
-    color:var(--accent-1);
+    color:var(--accent-2);
     margin-bottom: 1rem;
     text-align: left;
 }
@@ -1352,7 +1352,7 @@ select,
 textarea{
     width: 100%;
     padding: 1rem 2rem;
-    border: 1px solid var(--muted);
+    border: 1px solid var(--accent-2);
     border-radius: 8px;
     transition: 0.3s ease-out;
     background-color: var(--light);
@@ -1369,13 +1369,14 @@ textarea{
 
 /* ToDo(Luca) Add variation for valid and invalid inputs */
 input:hover, input:focus
-select:hover, select:focus{
+select:hover, select:focus
+textarea:hover, textarea:focus{
     border: 1px solid var(--accent-1);
     outline: 1px solid var(--accent-1);
 }
 
 label {
-    color: var(--muted);
+    color: var(--accent-2);
     position: absolute;
     padding: 0 0.4rem;
     background-color: var(--light);
@@ -1393,10 +1394,22 @@ label:has(+ input:active),
 label:has(+ select:focus),
 label:has(+ select:hover),
 label:has(+ select:valid),
-label:has(+ select:active) {
+label:has(+ select:active),
+label:has(+ textarea:hover),
+label:has(+ textarea:valid),
+label:has(+ textarea:active) {
     top: 0;
     font-weight: 600;
     color: var(--accent-1);
+}
+
+.input-wrapper div img {
+    width: 300px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 1em;
+    border-radius: 12px;
 }
 
 .submit-button{

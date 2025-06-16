@@ -148,7 +148,7 @@ class DBService
         $set = str_replace("= \"NULL\"", "= NULL", $set);
         $query = "UPDATE {$table} SET {$set} WHERE id = \"{$id}\"";
         echo $query;
-        return !!$this->Query($query);
+        return $this->Execute($query);
     }
 
     public function Delete(string $table, string $id): bool
