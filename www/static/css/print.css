@@ -72,6 +72,11 @@ a[href^="javascript:"]:after {
     content: "";
 }
 
+.animal-item a {
+    text-decoration: none;
+    color: inherit;
+}
+
 img,
 .animal-item-image,
 .animal-image,
