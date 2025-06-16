@@ -64,22 +64,6 @@ class Animal implements DBItem
         return true;
     }
 
-    public function toArray(): array
-    {
-        return [
-            'id' => $this->id,
-            'species' => $this->species,
-            'name' => $this->name,
-            'age' => $this->age,
-            'habitat' => $this->habitat,
-            'dimensions' => $this->dimensions,
-            'lifespan' => $this->lifespan,
-            'diet' => $this->diet,
-            'description' => $this->description,
-            'image' => $this->image
-        ];
-    }
-
     public function filterData(array $data): array
     {
         return [
@@ -95,6 +79,48 @@ class Animal implements DBItem
             "image" => $data['image'],
         ];
     }
+
+    public function setDataFromForm(array $data): void
+    {
+        $required_keys = ['species', 'name', 'age', 'habitat', 'dimensions', 'lifespan', 'diet', 'description', 'image'];
+        foreach ($required_keys as $key) {
+            if (!isset($data[$key])) {
+                throw new Exception("Dato mancante nel form: " . $key);
+            }
+        }
+        
+        $this->species = $data['species'];
+        $this->name = $data['name'];
+        $this->age = $data['age'];
+        $this->habitat = $data['habitat'];
+        $this->dimensions = $data['dimensions'];
+        $this->lifespan = $data['lifespan'];
+        $this->diet = $data['diet'];
+        $this->description = $data['description'];
+        $this->image = $data['image'];
+    }
+
+    public function toArray(): array
+    {
+        $arrayData = [
+            'name' => $this->name,
+            'species' => $this->species,
+            'age' => $this->age,
+            'habitat' => $this->habitat,
+            'dimensions' => $this->dimensions,
+            'lifespan' => $this->lifespan,
+            'diet' => $this->diet,
+            'description' => $this->description,
+            'image' => $this->image
+        ];
+        
+        if (isset($this->id)) {
+            $arrayData['id'] = $this->id;
+        }
+
+        return $arrayData;
+    }
+
 
     public function getId(): string
     {

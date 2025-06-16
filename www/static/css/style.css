@@ -214,6 +214,16 @@ h2 {
     color: var(--accent-2);
 }
 
+h2.underlined:after {
+    content: "";
+    display: block;
+    width: 2rem;
+    height: 2px;
+    background-color: var(--accent-1);
+    border: none;
+    margin: 0 0 1.5rem 0;
+}
+
 h3 {
     font-family: "Bree Serif", serif;
     font-size: clamp(calc(20 / 16 * 1rem), calc(100vw * 26 / var(--max-content-width)), calc(26 / 16 * 1rem));
@@ -692,16 +702,6 @@ header .header-content {
     font-size: clamp(calc(24 / 16 * 1rem), calc(100vw * 25 / var(--max-content-width)), calc(30 / 16 * 1rem));
 }
 
-#footer .footer-content h2:after {
-    content: "";
-    display: block;
-    width: 2rem;
-    height: 2px;
-    background-color: var(--accent-1);
-    border: none;
-    margin: 0 0 1.5rem 0;
-}
-
 .footer-item {
     max-width: 350px;
 }
@@ -989,7 +989,7 @@ main>section>.section-content h2 + .decoration.light {
     max-height: 400px;
     display: flex;
     gap: 2rem;
-    align-items: flex-start;
+    align-items: center;
     margin: 3rem 0;
 }
 
@@ -1487,16 +1487,49 @@ label:has(+ select:active) {
     left: -999rem;
 }
 
-button.booking-button{
+#bookings-table,
+#animals-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 2rem 0;
+}
+
+#bookings-table caption,
+#animals-table caption {
+    font-family: "Bree Serif", serif;
+    font-size: clamp(calc(26 / 16 * 1rem), calc(100vw * 33 / var(--max-content-width)), calc(33 / 16 * 1rem));
+    font-weight: 400;
+    color:var(--accent-2);
+    margin-bottom: 1rem;
+    text-align: left;
+}
+
+#bookings-table thead th,
+#animals-table thead th {
+    text-align: left;
+    padding: 0.75rem;
+    color: var(--table-th-color);
+    background-color: var(--table-th-background);
+}
+
+#bookings-table tbody td,
+#bookings-table tbody th,
+#animals-table tbody td,
+#animals-table tbody th {
+    padding: 0.75rem;
+    border-bottom: 1px solid var(--accent-1);
+    vertical-align: middle;
+    text-align: left;
+}
+
+.button {
     padding: 0.5rem 2rem;
     margin: 0.1rem;
     width: 15em;
     min-width: 44px;
     min-height: 44px;
-    padding: 12px 16px; 
     font-size: 16px;
     border-radius: 8px;
-    border: none;
     cursor: pointer;
     font-weight: bold;
     background-color: var(--light);
@@ -1504,11 +1537,22 @@ button.booking-button{
     border: 2px solid var(--accent-1);
     letter-spacing: 0.05em;
     transition: transform 0.4s ease;
+    text-align: center;
 }
 
-button.booking-button:hover, 
-button.booking-button:focus{
-    transform: translateY(-5px);
+a.button {
+    color: var(--accent-1);
+    text-decoration: none;
+}
+
+.button.filled {
+    background-color: var(--accent-1);
+    color: var(--light);
+}
+
+.button:hover,
+.button:focus{
+    transform: translateY(-8px);
     background-color: var(--accent-1);
     color: var(--light);
 }
@@ -1524,61 +1568,75 @@ button.booking-button:focus{
     padding: 3rem 1rem;
 }
 
-#services-container .service {
+#services-container .service  {
+    max-height: 400px;
     display: flex;
+    gap: 2rem;
     align-items: center;
-    justify-content: space-between; 
-    height: 300px; 
-    margin: 3rem 0; 
-    overflow: hidden; 
-    gap: 3em;
+    margin: 3rem 0;
 }
 
-#services-container .service hr {
-    width: 2em;
-    height: 3px;
-    background-color: var(--accent-1);
-    border: none;
-}
-
-#services-container .service:nth-child(2n+1) hr {
-    margin-left: auto;
-}
-
-#services-container .service p {
-    margin: 0.5em 0;
-}
-
-#services-container .service:nth-child(2n) {
+#services-container .service:nth-child(2n+1) {
     flex-direction: row-reverse;
 }
 
-#services-container .service .service-content {
-    flex: 1;
+.service-image {
+    width: 48%;
+    object-fit: contain;
+    border-radius: 8px;
 }
 
-#services-container .service:nth-child(2n+1) .service-content {
+#services-container .service:nth-child(2n+1) h2,
+#services-container .service:nth-child(2n+1) p {
     text-align: right;
 }
 
-#services-container .service .service-image {
-    flex: 1;  
-    background-position: center;
-    background-repeat: no-repeat;
-    height: 100%;
-    border-radius: 12px;
+#services-container .service:nth-child(2n+1) .button {
+    float: right;
 }
 
-#services-container .service #safari-image {
-    background: url('styleImages/safari-image.jpg') no-repeat center center;
+#services-container .service:nth-child(2n) h2,
+#services-container .service:nth-child(2n) p {
+    text-align: left;
 }
 
-#services-container .service #ingresso-image {
-    background: url('styleImages/ingresso-image.jpg') no-repeat center center;
+#services-container .service .service-content p {
+    margin-bottom: 0.5rem;
 }
 
-#services-container .service #visita-guidata-image {
-    background: url('styleImages/visita-guidata-image.jpg') no-repeat center center;
+#services-container .service:nth-child(2n+1) h2.underlined:after {
+    position: relative;
+    right: -100%;
+    transform: translateX(-100%);
+}
+
+@media screen and (max-width: 880px) {
+    #services-container .service {
+        flex-direction: column;
+        max-height: none;
+    }
+
+    .service-image {
+        width: 100%;
+    }
+
+    #services-container .service:nth-child(2n+1) {
+        flex-direction: column;
+    }
+
+    #services-container .service:nth-child(2n+1) h2,
+    #services-container .service:nth-child(2n+1) p {
+        text-align: left;
+    }
+
+    #services-container .service:nth-child(2n+1) .button {
+        float: none;
+    }
+
+    #services-container .service:nth-child(2n+1) h2.underlined:after {
+        position: unset;
+        transform: none;
+    }
 }
 
 /* -----------------------
@@ -1606,9 +1664,196 @@ button.booking-button:focus{
 }
 
 .pagination form button:disabled {
-    opacity: 0.3; 
+    opacity: 0.3;
 }
 
+/* -----------------------
+         Create Animal
+   ----------------------- */
+
+.form-wrapper {
+    margin: 3rem auto;
+    padding: 2rem;
+    width: 600px;
+    max-width: 100%;
+    border-radius: 16px;
+    box-shadow: 0 20px 60px -20px rgba(5, 4, 2, 0.3);
+}
+
+.form-wrapper h1 {
+    margin-bottom: 2rem;
+    text-align: center;
+    line-height: normal;
+}
+
+.form-wrapper form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.error-summary {
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+    border: 2px solid #c0392b;
+    background-color: #fbeae5;
+    border-radius: 8px;
+    color: #c0392b;
+}
+
+.error-summary:empty {
+    display: none;
+}
+
+.error-summary h2 {
+    color: #c0392b;
+    font-size: 1.2rem;
+    margin: 0 0 0.5rem 0;
+}
+
+.error-summary ul {
+    margin: 0;
+    padding-left: 20px;
+}
+
+.error-summary li a {
+    color: #c0392b;
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+.error-message {
+    color: #c0392b;
+    font-weight: bold;
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
+    min-height: 1.2em;
+}
+
+.error-message:empty {
+    display: none;
+}
+
+input[aria-invalid="true"],
+textarea[aria-invalid="true"] {
+    border: 2px solid #c0392b;
+    outline: 1px solid #c0392b;
+}
+
+.add-new-section {
+    text-align: right;
+    margin-top: 1rem;
+}
+
+.error-summary:empty {
+    display: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+}
+
+
+
+/* -----------------------
+         404 Error Page
+   ----------------------- */
+
+.error-404-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    padding: 3rem 1rem;
+    text-align: center;
+    min-height: 70vh;
+}
+
+.error-404-image {
+    background-image: url('styleImages/404-image.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+
+    width: 700px;
+    max-width: 90%;
+    aspect-ratio: 4 / 3;
+}
+
+.error-404-content {
+    max-width: 550px;
+}
+
+.error-404-content p {
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
+    font-size: clamp(1rem, 1.1vw, 1.1rem);
+}
+
+.error-404-actions {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+@media screen and (max-width: 768px) {
+    .error-404-section {
+        flex-direction: column;
+        gap: 2rem;
+        padding: 2rem 1rem;
+    }
+}
+
+/* -----------------------
+         500 Error Page
+   ----------------------- */
+
+.error-500-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    padding: 3rem 1rem;
+    text-align: center;
+    min-height: 70vh;
+}
+
+.error-500-image {
+    background-image: url('styleImages/500-image.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+
+    width: 700px;
+    max-width: 90%;
+    aspect-ratio: 4 / 3;
+}
+
+.error-500-content {
+    max-width: 550px;
+}
+
+.error-500-content p {
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
+    font-size: clamp(1rem, 1.1vw, 1.1rem);
+}
+
+.error-500-actions {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+@media screen and (max-width: 768px) {
+    .error-500-section {
+        gap: 2rem;
+        padding: 2rem 1rem;
+    }
+}
 
 /* -----------------------
          Animations

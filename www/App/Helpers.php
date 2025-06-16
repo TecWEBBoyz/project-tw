@@ -41,3 +41,24 @@ if (!function_exists("config")) {
     }
 
 }
+
+if (!function_exists('PTW\abort')) {
+    function abort(int $code): void
+    {
+        if (ob_get_level() > 0) {
+            ob_clean();
+        }
+        
+        http_response_code($code);
+
+        $errorPagePath = __DIR__ . "/../{$code}.php";
+
+        if (file_exists($errorPagePath)) {
+            require $errorPagePath;
+        } else {
+            echo "<h1>Error {$code}</h1>";
+        }
+
+        exit();
+    }
+}

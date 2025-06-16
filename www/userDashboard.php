@@ -47,7 +47,7 @@ if (empty($bookings)) {
             '[[bookingId]]' => $booking->getId(),
         ];
 
-        $repeated_replacements[] = $single_replacement;
+        $repeated_replacements["bookingsTable"][] = $single_replacement;
         $counter++;
     }
 }
@@ -56,7 +56,6 @@ if (empty($bookings)) {
 $currentFile = basename(__FILE__);
 $htmlContent = TemplateService::renderHtml($currentFile, [
     "[[userName]]" => $currentUser->getName(),
-    "[[userBookings]]" => $bookingsList,
 ], $repeated_replacements);
 
 echo $htmlContent;

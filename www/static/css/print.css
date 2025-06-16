@@ -1,0 +1,133 @@
+@page {
+    margin: 1.5cm;
+}
+
+body {
+    font-family: "Times New Roman", Times, serif;
+    font-size: 12pt;
+    color: #000 !important;
+    background: #fff !important;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: #000 !important;
+    page-break-after: avoid;
+}
+
+p {
+    line-height: 1.5;
+    orphans: 3;
+    widows: 3;
+}
+
+header,
+#hamburger-button,
+#menu-navigation,
+.navigation-help,
+footer,
+.btn,
+.button-container,
+.animal-card .card-link,
+.review-section,
+.animals-section .animal-list .animal-item .learn-more,
+.login-wrapper,
+.booking-item-actions,
+.pagination,
+.error-404-actions,
+.error-500-actions {
+    display: none !important;
+}
+
+main,
+main > section > .section-content,
+.hero-section .section-content,
+#about-section .about-item,
+#services-container .service,
+.animal-detail-container {
+    display: block !important;
+    width: auto !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    float: none !important;
+}
+
+a[href]:after {
+    content: " [" attr(href) "]";
+    font-size: 10pt;
+    font-weight: normal;
+    color: #555;
+}
+
+a[href^="#"]:after,
+a[href^="javascript:"]:after {
+    content: "";
+}
+
+.animal-item a:after,
+.icon-link a:after {
+    content: "";
+}
+
+img,
+.animal-item-image,
+.animal-image,
+.about-item-image,
+.error-404-image,
+.error-500-image {
+    max-width: 100% !important;
+    height: auto !important;
+    page-break-inside: avoid;
+    display: block;
+    margin: 1rem auto;
+}
+
+.hero-section,
+.animal-identikit,
+.animal-card,
+.animal-description {
+    background: none !important;
+    box-shadow: none !important;
+    border: 1px solid #ccc;
+    padding: 1em;
+    margin-bottom: 1em;
+}
+
+.animal-cards-container {
+    display: block;
+}
+
+.animal-card {
+    page-break-inside: avoid;
+    margin-bottom: 2rem;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    page-break-inside: auto;
+}
+
+table thead {
+    display: table-header-group;
+}
+
+table tr, table th, table td {
+    display: table-cell;
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+#logo h1 {
+    font-size: 24pt;
+    text-indent: 0;
+    white-space: normal;
+    background-image: none;
+    text-align: center;
+    border-bottom: 2px solid #000;
+    margin-bottom: 1em;
+}

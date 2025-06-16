@@ -39,51 +39,70 @@
         </div>
     </header>
     <main id="contenuto" class="max-width">
-        <h1>Benvenuto, [[userName]]</h1>
-        <p>
-            Da questa pagina potrei gestire tutte le tue prenotazioni, e visualizzare i serivizi di cui hai già usufruito in passato. 
-            Se vuoi prontare altri servizi dai un'occhiata alla <a href="services.php">pagina dei 
-            servizi</a>.</p>
-        <p id="bookings-tab-desc" class="hidden">
-            La tabella contiene i dettagli delle prenotazioni e, 
-            per ognuna di esse, un campo dedicato a dei pulsanti di modifica o cancellazione della 
-            prenotazione stessa</p>
-        <table id="bookings-table" aria-describedby="bookings-tab-desc">
-            <caption>Gestisci le prenotazioni</caption>
-            <thead>
-                <tr>
-                    <th scope="col"><abbr title="Numero">N.</abbr> prenotazione</th>
-                    <th scope="col">Servizio prenotato</th>
-                    <th scope="col">Posti prenotati</th>
-                    <th scope="col">Data</th>
-                    <th scope="col">Note</th>
-                    <th scope="col">Azione</th>
-                </tr>
-            </thead>
-            <tbody>
-                [[bookingsBody]]{{
-                <tr>
-                    <th data-title="Prenotazione" scope="row">[[booking]]</th>
-                    <td data-title="Servizio prenotato">[[service]]</td>
-                    <td data-title="Posti Prenotati">[[numberOfPeople]]</td>
-                    <td data-title="Data">[[date]]</td>
-                    <td data-title="Note">[[notes]]</td>
-                    <td data-title="Azioni">
-                        <div class="booking-actions">
-                            <form action="editBooking.php" method="GET">
-                                <input type="hidden" name="id" value="[[bookingId]]">
-                                <button class="booking-button" type="submit" aria-label="Modifica prenotazione">Modifica</button>
-                            </form>
-                            <form action="bookingsDelete.php" method="POST">
-                                <input type="hidden" name="booking_id" value="[[bookingId]]">
-                                <button class="booking-button" type="submit" aria-label="Elimina prenotazione">Elimina</button>
-                            </form>
-                        </div>
-                    </td>
-                </tr>
-                }}
-            </tbody>
-        </table>
+        <div class="form-wrapper">
+            <h1>Aggiungi un Nuovo Animale</h1>
+
+            [[errorSummaryContainer]]
+
+            <form action="createAnimal.php" method="POST" enctype="multipart/form-data" novalidate>
+                
+                <div class="input-wrapper">
+                    <label for="name">Nome Animale</label>
+                    <input type="text" id="name" name="name" value="[[oldName]]" required [[nameInvalid]] aria-describedby="name-error">
+                    <p id="name-error" class="error-message">[[nameError]]</p>
+                </div>
+                
+                <div class="input-wrapper">
+                    <label for="species">Specie</label>
+                    <input type="text" id="species" name="species" value="[[oldSpecies]]" required [[speciesInvalid]] aria-describedby="species-error">
+                    <p id="species-error" class="error-message">[[speciesError]]</p>
+                </div>
+
+                <div class="input-wrapper">
+                    <label for="age">Età (anni)</label>
+                    <input type="number" id="age" name="age" value="[[oldAge]]" required min="0" step="1" [[ageInvalid]] aria-describedby="age-error">
+                    <p id="age-error" class="error-message">[[ageError]]</p>
+                </div>
+                
+                <div class="input-wrapper">
+                    <label for="habitat">Habitat</label>
+                    <input type="text" id="habitat" name="habitat" value="[[oldHabitat]]" required [[habitatInvalid]] aria-describedby="habitat-error">
+                    <p id="habitat-error" class="error-message">[[habitatError]]</p>
+                </div>
+
+                <div class="input-wrapper">
+                    <label for="dimensions">Dimensioni (es. 2m x 3m)</label>
+                    <input type="text" id="dimensions" name="dimensions" value="[[oldDimensions]]" required [[dimensionsInvalid]] aria-describedby="dimensions-error">
+                    <p id="dimensions-error" class="error-message">[[dimensionsError]]</p>
+                </div>
+
+                <div class="input-wrapper">
+                    <label for="lifespan">Speranza di vita (es. 10-15 anni)</label>
+                    <input type="text" id="lifespan" name="lifespan" value="[[oldLifespan]]" required [[lifespanInvalid]] aria-describedby="lifespan-error">
+                    <p id="lifespan-error" class="error-message">[[lifespanError]]</p>
+                </div>
+
+                <div class="input-wrapper">
+                    <label for="diet">Dieta</label>
+                    <input type="text" id="diet" name="diet" value="[[oldDiet]]" required [[dietInvalid]] aria-describedby="diet-error">
+                    <p id="diet-error" class="error-message">[[dietError]]</p>
+                </div>
+
+                <div class="input-wrapper">
+                    <label for="description">Descrizione</label>
+                    <textarea id="description" name="description" rows="5" required [[descriptionInvalid]] aria-describedby="description-error">[[oldDescription]]</textarea>
+                    <p id="description-error" class="error-message">[[descriptionError]]</p>
+                </div>
+
+                <div class="input-wrapper">
+                    <label for="image">Immagine</label>
+                    <input type="file" id="image" name="image" required [[imageInvalid]] aria-describedby="image-error" accept="image/jpeg, image/png, image/webp">
+                    <p id="image-error" class="error-message">[[imageError]]</p>
+                </div>
+
+                <button type="submit" class="button filled submit-button">Aggiungi Animale</button>
+            </form>
+        </div>
     </main>
     <footer id="footer">
         <div class="footer-content">

@@ -41,15 +41,15 @@ class DBService
     }
 
     public function Query(string $query, array $parameters = []) : array
-    {
-        $this->Connect();
-        $preparedQuery = $this->pdo->prepare($query);
-        $preparedQuery->execute($parameters);
+{
+    $this->Connect();
+    $preparedQuery = $this->pdo->prepare($query);
+    $preparedQuery->execute($parameters);
+    $result = $preparedQuery->fetchAll();
+    $this->Disconnect();
 
-        $this->Disconnect();
-
-        return $preparedQuery->fetchAll();
-    }
+    return $result;
+}
 
     public function Count(string $table, array|null $filter) : int
     {
@@ -124,14 +124,21 @@ class DBService
         return $this->pdo->lastInsertId();
     }
 
-    public function Create(string $table, array|string $columns, array|string $values): bool
+    public function Create(string $table, array $data): bool
     {
-        $columns = $this->ColumnToString($columns);
-        $values = is_array($values) ? implode(',', $values) : $values;
+        if (isset($data['id'])) {
+            unset($data['id']);
+        }
 
-        $query = "INSERT INTO {$table} ({$columns}) VALUES ({$values})";
+        $columns = array_keys($data);
+        $placeholders = array_map(fn($c) => '?', $columns);
 
-        return !!$this->Query($query);
+        $columnsStr = implode(', ', $columns);
+        $placeholdersStr = implode(', ', $placeholders);
+
+        $query = "INSERT INTO {$table} ({$columnsStr}) VALUES ({$placeholdersStr})";
+
+        return $this->Execute($query, array_values($data));
     }
 
     public function Update(string $table, string $id, array|string $columns, array|string $values): bool
@@ -150,11 +157,24 @@ class DBService
         return !!$this->Query($query);
     }
 
+    public function Execute(string $query, array $parameters = []): bool
+    {
+        $this->Connect();
+        try {
+            $preparedQuery = $this->pdo->prepare($query);
+            $result = $preparedQuery->execute($parameters);
+        } catch (PDOException $e) {
+            $result = false;
+        }
+        $this->Disconnect();
+        return $result;
+    }
+
+
     private function ColumnToString(array|string $columns) : string
     {
         if (is_array($columns)) {
             foreach ($columns as $column)
-                // Remove all the non alphabet characters.
                 $column = $this->RemoveNonAlphaCharacter($column);
             $column = "\"" . $column . "\"";
 

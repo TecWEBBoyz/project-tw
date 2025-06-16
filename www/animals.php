@@ -3,39 +3,30 @@ require_once 'init.php';
 
 use PTW\Services\TemplateService;
 
-// Render animals list
 $animalRepo = new \PTW\Repositories\AnimalRepository();
-
 $animalsList = $animalRepo->All();
 
-$htmlAnimalsList = "<ul class=\"animal-list\">" . PHP_EOL;
-
+$animalsDataForTemplate = [];
 foreach ($animalsList as $animal) {
     if (!$animal instanceof \PTW\Models\Animal) {
         continue;
     }
-    $htmlAnimalsList .= "<li class='animal-item'>" . PHP_EOL;
 
-    $htmlAnimalsList .= "<a href=\"animal.php?id=" . htmlspecialchars($animal->getId()) . "\">" . PHP_EOL;
-
-    $htmlAnimalsList .= "<img class=\"animal-item-image\" src=\"" . htmlspecialchars($animal->getImage()) . "\" alt=\"Foto di " . htmlspecialchars($animal->getName()) . ", " . htmlspecialchars($animal->getSpecies()) . "\">" . PHP_EOL;
-
-    $htmlAnimalsList .= "<div class=\"animal-item-content\">" . PHP_EOL;
-    $htmlAnimalsList .= "<p class=\"animal-item-caption\">" . htmlspecialchars($animal->getSpecies()) . ", " . htmlspecialchars($animal->getHabitat()) .  "</p>" . PHP_EOL;
-    $htmlAnimalsList .= "<h3 class=\"animal-item-title\">" . htmlspecialchars($animal->getName()) .", " . htmlspecialchars($animal->getSpecies()) .  "</h3>" . PHP_EOL;
-    $htmlAnimalsList .= "<p class=\"animal-item-description\">" . htmlspecialchars(trim(preg_split("/\./", $animal->getDescription())[0]) . ".") . "</p>" . PHP_EOL;
-
-
-    $htmlAnimalsList .= "</div>" . PHP_EOL;
-    
-    $htmlAnimalsList .= "</a></li>" . PHP_EOL;
+    $animalsDataForTemplate["animals"][] = [
+        '[[id]]'          => htmlspecialchars($animal->getId()),
+        '[[name]]'        => htmlspecialchars($animal->getName()),
+        '[[species]]'     => htmlspecialchars($animal->getSpecies()),
+        '[[habitat]]'     => htmlspecialchars($animal->getHabitat()),
+        '[[image]]'       => htmlspecialchars($animal->getImage()),
+        '[[description]]' => htmlspecialchars(trim(preg_split("/\./", $animal->getDescription())[0]) . "."),
+        '[[alt_text]]'    => "Foto di " . htmlspecialchars($animal->getName()) . ", un esemplare di " . htmlspecialchars($animal->getSpecies()),
+    ];
 }
-$htmlAnimalsList .= "</ul>";
 
 // Render error messages
 $errorMessages = [
     'invalid_id' => 'Non ci è chiaro dove vuoi andare, prova una delle pagine di questa lista.',
-    'not_found' => 'L\'animale che cerchi sembra essere scappato. Scegline un\'altro dalla lista.',
+    'not_found'  => 'L\'animale che cerchi sembra essere scappato. Scegline un\'altro dalla lista.',
 ];
 
 $htmlError = '';
@@ -49,12 +40,15 @@ if (!empty($_GET['error'])) {
 }
 
 
-// Render base html
+// Render base html using TemplateService with repeated blocks
 $currentFile = basename(__FILE__);
-$htmlContent = TemplateService::renderHtml($currentFile, [
-    "[[animalsList]]" => $htmlAnimalsList,
-    "[[errorMessage]]" => $htmlError,
-]);
+$htmlContent = TemplateService::renderHtml(
+    $currentFile,
+    [
+        "[[errorMessage]]" => $htmlError, // Base replacements
+    ],
+    $animalsDataForTemplate // Repeated replacements
+);
 echo $htmlContent;
 
 ?>

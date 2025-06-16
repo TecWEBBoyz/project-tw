@@ -30,20 +30,23 @@ class TemplateService {
         } else {
             $html = str_replace("[[ifLoggedIn]]", '<li><a class="menu-link" href="login.php"><span lang="en">Login</span></a></li>', $html);
         }
-        
-        // HANDLE REPETITION PLACEHOLDER
-        if (preg_match('/\{\{(.*?)\}\}/s', $html, $matches)) {
-            $to_repeat_content = $matches[1] ?? '';
-            $full_repeated_content = '';
-            
-            foreach ($repeated_replacements as $single_replacement) {
-                if (is_array($single_replacement)) {
-                    $full_repeated_content .= strtr($to_repeat_content, $single_replacement);
+
+        foreach ($repeated_replacements as $key => $value) {
+            // HANDLE REPETITION PLACEHOLDER
+            if (preg_match('/\[\[' . $key .  '\]\]\{\{(.*?)\}\}/s', $html, $matches)) {
+                $to_repeat_content = $matches[1] ?? '';
+                $full_repeated_content = '';
+
+                foreach ($value as $single_replacement) {
+                    if (is_array($single_replacement)) {
+                        $full_repeated_content .= strtr($to_repeat_content, $single_replacement);
+                    }
                 }
+
+                $html = str_replace($matches[0], $full_repeated_content, $html);
             }
-            
-            $html = str_replace($matches[0], $full_repeated_content, $html);
         }
+
 
         return $html;
     }
