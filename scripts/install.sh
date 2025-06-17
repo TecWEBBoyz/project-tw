@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Configurazioni
-USERHOME="$USER"
+USERHOME="{{USER}}" # Automatically fetch the username of the user
 SCRIPT_DIR="/home/$USERHOME/scripts"
 SCRIPT_URL="https://raw.githubusercontent.com/TecWEBBoyz/project-tw/main/scripts/update_release.sh"
 SCRIPT_PATH="$SCRIPT_DIR/update_release.sh"
