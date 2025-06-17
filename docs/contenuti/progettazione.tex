@@ -1,68 +1,71 @@
------------------------------------------------------------------------------------------\\
-------------------------------↓↓↓TO BE DONE↓↓↓------------------------------\\
------------------------------------------------------------------------------------------
 \section{Progettazione}
 \subsection{Struttura Generale}
-La navigazione all'interno del sito è possibile attrverso l'uso di un menu posto nella parte superiore destra della pagina. Questo menù ha degli elementi comuni a tutti gli utenti e altri elementi specifici per l'utente attualmente autenticato.
+La navigazione all'interno del sito è organizzata attorno a un menù principale, posizionato nella parte superiore di ogni pagina. Questo menù presenta link alle sezioni pubbliche del sito ed è arricchito da opzioni contestuali che variano a seconda del ruolo dell'utente (visitatore, utente registrato o amministratore).
+La struttura del sito è stata pensata per essere intuitiva, con una profondità di navigazione massima di 3 livelli, per garantire che l'utente possa raggiungere qualsiasi contenuto con pochi click.
+
 \subsubsection{Pagine Pubbliche}
 \begin{itemize}
-    \item \textbf{Home}: la prima pagina visualizzata accedendo al sito.\\
-    Nell'area sicura, visualizzata senza necessità di scroll appena l'utente entra nel sito, sono presenti: 
+    \item \textbf{Home}: è la pagina di destinazione principale del sito. Nella parte superiore, visibile senza scorrimento (l'area "above the fold"), sono presenti:
     \begin{itemize}
-        \item una call to action, che invita l'utente a approfondire la sua interazione con il sito; 
-        \item un pulsasante che invita l'utente a prenotare un servizio dello zoo, e che conduce alla pagina dedicata ai servizi offerti dallo zoo; 
-        \item un pulsante che invita l'utente a esplorare la pagina dedicata agli animali dello zoo.
+        \item Una \textit{call to action} che invita l'utente a scoprire il mondo di Animalia.
+        \item Un pulsante per prenotare una visita, che indirizza alla pagina dei servizi.
+        \item Un pulsante per esplorare la galleria degli animali.
     \end{itemize}
-    Inizialmente, il gruppo non aveva previsto l'implementazione di un'area sicura. Tuttavia, in una fase successiva, si è deciso di arricchire questa sezione con una call to action e due pulsanti. Questi pulsanti guidano l'utente verso due elementi chiave del sito: la pagina dedicata ai servizi offerti e quella dedicata agli animali dello zoo.\\
-    La pagina \textbf{Home} prosegue quindi con una sezione contenente delle carte che presentano brevemente alcuni degli animali dello zoo, invitando l'utnete a esplorare le pagine ad essi dedicate.\\
-    La \textbf{Home} si conclude quindi con il footer comune a tutte le pagine e contente informazioni circa i contatti dello zoo, i suoi orari di apertura e i link alle pagine social dello stesso.
-    \item \textbf{Chi siamo}: pagina raggiungibile dal menu principale del sito.\\
-    La pagina presenta un desing semplice che accompagna s dei brevi paragrafi dedicati alla storia, ai dipendenti e ai principi etici di rispetto degli animali, delle immagini di contenuto che rappresentano graficamente i contenuti testuali di tali paragrafi.\\
-    \item \textbf{Servizi}: pagina dove sono presentati i servizi messi a disposizione dallo zoo.\\
-    Con un design simile a quello della pagina \textbf{Chi siamo}, questa scheda presenta i servizi offerti dallo zoo. Tali servizi includono:
+    Questa impostazione è stata scelta per guidare immediatamente l'utente verso le funzionalità chiave del sito.
+    Scorrendo, la pagina presenta una selezione di animali in primo piano, mostrati attraverso delle "card" informative che invogliano l'utente a visitarne la pagina di dettaglio. La pagina si conclude con un \textit{footer} comune a tutto il sito, contenente contatti, orari di apertura e link ai social media.
+
+    \item \textbf{Chi Siamo}: pagina istituzionale che narra la storia, la missione e i valori etici dello zoo. Il layout alterna paragrafi descrittivi a immagini di contenuto che ne rafforzano il messaggio.
+
+    \item \textbf{Servizi}: vetrina delle esperienze offerte dallo zoo. Per ciascun servizio (Safari, Ingresso libero, Visita guidata) viene fornita una descrizione e un pulsante "Prenota ora".
     \begin{itemize}
-        \item Safari - un giro nel parco con navetta o con la propria macchina;
-        \item Ingresso - un ingresso libero, a piedi, nelle zone recintate del parco;
-        \item Visita guidata - un ingresso a piedi nel parco, accompagnato da una guida dedicata al gruppo dell'utente;
+        \item Se l'utente non è autenticato, il pulsante lo reindirizza alla pagina di \textbf{Login}, per poi riportarlo alla pagina di prenotazione una volta effettuato l'accesso.
+        \item Se l'utente è già autenticato, viene portato direttamente al modulo di prenotazione.
     \end{itemize}
-    Tutti i servizi sono corredati da un pulsante che conduce l'utente autenticato nella pagina di prenotazione, e l'utente non autenticato nella pagina di login (a seguito del quale l'utnete verrà poi reindirizzato nella pagina di prenotazione).\\
-    Le immagini che affiancano ciascun servizio sono in questo caso immagini non di contenuto, e sono pertanto state inserite come immagini di sfondo, non esplorabili mediante screen reader.
-    %TODO
-    \item \textbf{Animali}: la pagina dedicata alla presentazione di tutti gli animali.\\
-    Contiene un elenco con tutti gli animali, le loro immagini, il nome della specie e quello dell'animale stesso. Cliccando una qualunque delle immagini si verrà reindirizzati alla
-    pagina \textbf{Accedi}
+    Le immagini in questa sezione sono puramente decorative e sono state implementate come sfondi CSS per non essere indicizzate dagli screen reader, migliorando l'accessibilità.
+    
+    \item \textbf{Animali}: pagina che raccoglie l'elenco completo degli animali dello zoo. Si presenta come una griglia di schede interattive. Ogni scheda contiene l'immagine, il nome, la specie e l'habitat dell'animale. Al passaggio del mouse, una breve descrizione appare in sovraimpressione. Cliccando su una scheda, l'utente viene reindirizzato alla pagina di dettaglio del singolo animale.
+    
+    \item \textbf{Dettaglio Animale}: pagina dedicata a un singolo animale. Il layout è a due colonne: a sinistra, una grande immagine e una descrizione testuale completa; a destra, un "identikit" riassuntivo con informazioni chiave come età, dimensioni, dieta e aspettativa di vita, per una consultazione rapida.
+    
+    \item \textbf{Login}: modulo di accesso per utenti registrati e amministratori. La logica di autenticazione gestisce anche il reindirizzamento: se un utente non autenticato tenta di accedere a una pagina protetta (es. prenotazione), viene prima portato al login e poi, a successo, alla pagina originariamente richiesta.
 \end{itemize}
-%TODO
 \subsubsection{Pagine Utenti autenticati}
 \begin{itemize}
-\item \textbf{Prenota Sevizio}: pagina dedicata agli utenti autenticati, dove \`e possibile prenotare un servizio in una certa data.
-\item \textbf{Profilo}: pagina in cui l'utente può visualizzare e gestire i servizi prenotati
+    \item \textbf{Area Personale}: il pannello di controllo dell'utente, dove può visualizzare una tabella con tutte le sue prenotazioni future. Per ogni prenotazione, sono disponibili pulsanti per modificarla o cancellarla. Se non ci sono prenotazioni, un messaggio guida l'utente a esplorare i servizi.
+
+    \item \textbf{Prenotazione Servizio}: modulo per effettuare una nuova prenotazione. L'utente può selezionare il servizio, la data e il numero di partecipanti (con un limite massimo basato sul servizio scelto). È presente anche un campo opzionale per le note.
+    
+    \item \textbf{Modifica Prenotazione}: modulo, pre-compilato con i dati esistenti, che permette all'utente di aggiornare una prenotazione già effettuata (es. cambiare la data o il numero di persone).
 \end{itemize}
-%TODO
+
 \subsubsection{Pagine Amministratore}
 \begin{itemize}
-\item \textbf{Admin}: pagina dedicata dedicata alle opzioni di gestione che ha a disposizione l'admin.
-\item \textbf{Gestisci Immagini}: pagina dedicata alla gestione delle fotografie presenti nella Homepage. \`E possibile eliminarle,
- ``nasconderle" o accedere alla pagina di modifica delle informazioni testuali quali titolo, descrizione, data e luogo dello scatto.
-\item \textbf{Carica immagine}: pagina per il caricamento delle nuove immagini in Homepage. Subito dopo l'inserimento 
-si accede alla pagina di modica delle immagini appena caricate.
-\item \textbf{Modifica Immagine}: pagina per modificare i dati di un'immagine caricata nel sito.
-\item \textbf{Gestione Prenotazioni}: Pagina per visualizzare, confermare o annullare le prenotazioni ricevute dagli utenti registrati.
+    \item \textbf{Dashboard Amministratore}: pagina principale dell'area di gestione. Presenta due tabelle:
+    \begin{itemize}
+        \item \textbf{Gestione Prenotazioni}: mostra tutte le prenotazioni di tutti gli utenti, con la possibilità di cancellarle.
+        \item \textbf{Gestione Animali}: elenca tutti gli animali presenti nel database, con pulsanti per modificarne i dettagli o eliminarli. È inoltre presente un pulsante per aggiungere un nuovo animale.
+    \end{itemize}
+
+    \item \textbf{Aggiungi Animale}: modulo completo che permette all'amministratore di inserire un nuovo animale. I campi includono nome, specie, età, habitat, dimensioni, dieta, aspettativa di vita, una descrizione testuale e il caricamento di un'immagine.
+    
+    \item \textbf{Modifica Animale}: modulo pre-compilato con i dati di un animale esistente. L'amministratore può aggiornare qualsiasi informazione, inclusa la sostituzione dell'immagine.
 \end{itemize}
-%TODO
 \subsubsection{Pagine di Errore}
 \begin{itemize}
-    \item \textbf{Errore 404:} L'utente ha richiesto una pagina inesistente.
-    \item \textbf{Errore 500:} C'\`e stato un errore lato server nella gestione della richiesta.
+    \item \textbf{Errore 404 (Pagina non trovata)}: pagina mostrata quando viene richiesta una URL non valida. Invece di un semplice messaggio di errore, la pagina adotta un tono amichevole e contestualizzato al tema dello zoo (``L'animale che cercavi è scappato!"), fornendo link per tornare alla Home o alla pagina degli animali, migliorando l'esperienza utente.
+    \item \textbf{Errore 500 (Errore Interno del Server)}: pagina visualizzata in caso di un errore critico lato server. Anche in questo caso, la grafica è a tema e il messaggio informa l'utente del problema tecnico, suggerendo di riprovare più tardi.
 \end{itemize}
-\subsection{Header con barra di navigazione}
-L'Header, che fa parte dei Template \textit{Core}, contiene il logo (la firma del fotografo) oltre alla barra di navigazione. Quest'ultima in modalit\`a mobile \`e accessibile tramite \textit{Hamburger Button}.\\
-Inoltre, in ogni pagina, viene disattivato il link alla stessa per evitare la creazione di collegamenti circolari. Lo stesso principio è applicato al logo: normalmente, cliccandoci sopra, si viene reindirizzati alla Home, ma quando ci si trova già in Home, il link viene disattivato.
-%TODO
+\subsection{Header con Barra di Navigazione}
+L'header, presente in tutte le pagine, contiene il logo dello zoo e la barra di navigazione principale. Per migliorare l'usabilità e prevenire loop di navigazione, il link alla pagina corrente viene disabilitato. Ad esempio, quando l'utente si trova sulla pagina "Chi Siamo", il relativo link nel menù non è cliccabile. Lo stesso principio si applica al logo: normalmente reindirizza alla Home, ma è disattivato quando ci si trova già in Home.
+Su dispositivi mobili, il menù viene compresso in un'icona ``hamburger" che, al click, rivela le voci di navigazione in un pannello a comparsa.
+
 \subsection{Breadcrumb}
-Il sito integra una breadcrumb in ogni pagina, progettata per aiutare l'utente a rispondere alle domande  \textit{``Dove Sono?"} e \textit{``Come ci sono arrivato?"}. Questo strumento migliora l'esperienza di navigazione, riducendo il possibile disorientamento dell'utente.\\
-Il livello di profondità viene mantenuto, mostrando le pagine che precedono quella attuale. La pagina attuale non è cliccabile, evitando così la creazione di link circolari.
-%TODO
+Per aiutare l'utente a orientarsi, ogni pagina interna del sito (ad eccezione della Home) include una \textit{breadcrumb} (o ``briciole di pane") nella parte superiore del contenuto. Questo strumento mostra il percorso di navigazione seguito per arrivare alla pagina corrente (es. Home $>$ Animali $>$ Panda). La pagina attuale nel percorso è mostrata come testo semplice non cliccabile per evitare link circolari.
+
 \subsection{Footer}
-Il sito dispone di un footer con i link ai social del fotografo, le informazioni relative ai diritti della pagina, 
-e nel quale vengono visualizzati i messaggi toast di conferma/errore.
+Il footer è una componente comune a tutte le pagine e funge da punto di riferimento finale per l'utente. Contiene tre sezioni principali:
+\begin{itemize}
+    \item \textbf{Contatti}: indirizzo, numero di telefono ed email dello zoo, con link diretti (es. ``tel:", ``mailto:").
+    \item \textbf{Orari di apertura}: indicazione degli orari di visita.
+    \item \textbf{Social Media}: icone che collegano ai profili social dello zoo.
+\end{itemize}

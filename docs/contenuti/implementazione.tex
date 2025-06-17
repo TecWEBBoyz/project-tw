@@ -1,105 +1,83 @@
 \section{Implementazione}
+L'implementazione del sito ``Animalia" si è basata su un'architettura moderna e modulare, con una netta separazione tra la logica applicativa (PHP), la struttura (HTML), la presentazione (CSS) e l'interattività (JavaScript). Di seguito vengono descritte le principali tecnologie e le scelte implementative adottate.
+
+\subsection{Ambiente di Sviluppo e Produzione con Docker}
+Per garantire coerenza tra l'ambiente di sviluppo locale e quello di produzione, oltre a semplificare il processo di deployment, è stato utilizzato Docker. Sono stati creati due file di configurazione \texttt{docker-compose.yml}:
+\begin{itemize}
+    \item \textbf{\texttt{docker-compose.yml}}: Definisce l'ambiente di sviluppo locale. Avvia un container con un server web Apache e un server database MySQL. I sorgenti del progetto vengono montati come volume per permettere lo sviluppo live senza dover ricompilare l'immagine a ogni modifica.
+    \item \textbf{\texttt{docker-compose-prod.yml}}: Simula l'ambiente di produzione. Questo file è configurato per gestire anche un certificato SSL con Let's Encrypt (attraverso un volume \texttt{certs}) e utilizza uno script di setup (\texttt{setup\_apache\_prod.sh}) per configurare l'ambiente in modo ottimale per la produzione.
+\end{itemize}
+Entrambe le configurazioni includono un servizio \texttt{phpmyadmin} per facilitare la gestione del database. Questo approccio garantisce che il software si comporti in modo prevedibile e riduce drasticamente i problemi di compatibilità.
+
 \subsection{HTML}
-Le componenti delle pagine del sito sono state scritte in HTML5 in quanto nell'imminente futuro, diventer\`a il linguaggio predefinito per la realizzazione di pagine web.
+Le componenti strutturali delle pagine del sito sono state scritte in \texttt{HTML5}. La scelta di questo standard garantisce la massima compatibilità con i browser moderni e consente l'utilizzo di elementi semantici che migliorano l'accessibilità e l'indicizzazione (SEO) del sito. L'intera struttura delle pagine viene gestita dinamicamente tramite un sistema di templating in PHP.
 
 \subsection{CSS}
-Per lo sviluppo del sito \`e stato utilizzato CSS3, che consente di creare layout moderni, responsivi e accessibili.
+Per lo sviluppo dell'interfaccia è stato utilizzato \texttt{CSS3}, che ha permesso di creare layout moderni, responsivi e accessibili.
 \subsubsection{Fogli di Stile}
-Sono stati adottati diversi fogli di stile per garantire un’esperienza ottimale su vari dispositivi e modalità di visualizzazione:
+Sono stati adottati due fogli di stile principali per garantire un'esperienza ottimale su vari dispositivi e modalità di visualizzazione:
 \begin{itemize}
-\item Stile per gli schermi: Progettato per schermi di tutte le dimensioni attraverso l'uso di breakpoint.
-\item Stile Stampa: Definito per ottimizzare la visualizzazione e la formattazione dei contenuti quando la pagina viene stampata, dando spazio al contenuto rispetto che ai componenti interattivi. Resta comunque necessario abilitare la visualizzazione della "grafica di background" per visualizzare anche le immagini. Poiché il sito ha un background scuro con testo bianco, nello stile di stampa questa configurazione viene invertita.
-\end{itemize}
-
-\subsubsection{Gestione Dinamica dei File CSS}
-La gestione dei file CSS \`e stata ottimizzata tramite la classe \texttt{StyleController}, che offre funzionalit\`a per il caricamento e l'unificazione dinamica dei file di stile. Questo approccio permette di:
-\begin{itemize}
-\item Ridurre il numero di richieste HTTP unendo tutti i file CSS in un unico file;
-\item Implementare la priorit\`a di caricamento per file CSS fondamentali come \texttt{main.css}, \texttt{menu.css}, e altri;
+    \item \textbf{Stile per gli schermi (\texttt{style.css})}: progettato per adattarsi a schermi di diverse dimensioni attraverso l'uso di \textit{breakpoint} e tecniche di responsive design come Flexbox e Grid Layout.
+    \item \textbf{Stile di Stampa (\texttt{print.css})}: definito per ottimizzare la visualizzazione dei contenuti quando la pagina viene stampata. Questo foglio di stile nasconde gli elementi di navigazione e interattivi (come pulsanti e menu), dando priorità al contenuto testuale e alle immagini rilevanti per una versione cartacea pulita e leggibile.
 \end{itemize}
 
 \subsection{PHP}
-\subsubsection{Templating}
-Al fine di ottimizzare l'efficienza e la manutenibilit\`a del sito, \`e stata implementata un'architettura basata sull'uso di \textit{template} e \textit{componenti}. Questo approccio consente una netta separazione tra la logica di business e la presentazione, facilitando la riutilizzazione del codice e semplificando le future modifiche e aggiornamenti.
-La classe \texttt{TemplateUtility} rappresenta il cuore del sistema di gestione dei template. Essa fornisce un metodo statico \texttt{getTemplate}, che si occupa di:
+Il linguaggio PHP è stato utilizzato come motore principale del backend, gestendo la logica di business, l'interazione con il database e il rendering dinamico delle pagine.
+
+\subsubsection{Templating con TemplateService}
+Per ottimizzare la manutenibilità e promuovere il riutilizzo del codice, è stata implementata un'architettura basata su template e componenti. La classe \texttt{PTW/Services/TemplateService} è il cuore di questo sistema e si occupa di:
 \begin{itemize}
-\item Preparare i dati necessari per il rendering del template, inclusi il nome e il titolo del template;
-\item Generare dinamicamente un elemento \textit{breadcrumb} per migliorare l'accessibilit\`a e l'orientamento dell'utente;
-\item Caricare il file template appropriato dalla directory \texttt{Templates}.
+    \item \textbf{Caricare il template HTML} corrispondente alla pagina richiesta dalla directory \texttt{/static/htmlTemplates/}.
+    \item \textbf{Gestire segnaposto (placeholder)}: Sostituisce dinamicamente dei segnaposto (es. \texttt{[[userName]]}) con dati provenienti dal database o elaborati dalla logica PHP.
+    \item \textbf{Gestire blocchi ripetuti}: Permette di generare sezioni di HTML ripetute (come liste di animali o prenotazioni) iterando su un array di dati e applicando un sotto-template.
+    \item \textbf{Rendering condizionale}: Mostra o nasconde parti dell'HTML in base allo stato dell'utente (es. mostrando il link di "Login" o di "Logout" a seconda che l'utente sia autenticato o meno).
+\end{itemize}
+Questo approccio garantisce una netta separazione tra logica e presentazione, semplificando gli aggiornamenti futuri e la gestione del codice.
+
+\subsubsection{Autenticazione e Gestione Sessioni (JWT)}
+Il sistema di autenticazione si basa su JSON Web Tokens (JWT), un approccio moderno e stateless. La logica è gestita dalla classe \texttt{PTW/Services/AuthService}.
+\begin{itemize}
+    \item \textbf{Login}: al momento del login, se le credenziali sono valide, viene generato un token JWT contenente l'ID utente, il nome e il ruolo. La libreria utilizzata è \texttt{firebase/php-jwt}.
+    \item \textbf{Memorizzazione sicura}: il token viene memorizzato in un cookie \texttt{HttpOnly}, rendendolo inaccessibile da script JavaScript lato client e mitigando così attacchi di tipo XSS.
+    \item \textbf{Validazione delle richieste}: per ogni richiesta a pagine protette, il sistema verifica la validità e la scadenza del token presente nel cookie, garantendo l'accesso solo agli utenti autorizzati e con il ruolo corretto (Utente o Amministratore).
 \end{itemize}
 
-Questa implementazione non solo migliora la modularit\`a del codice, ma consente anche una gestione pi\`u efficiente delle risorse del server e una maggiore flessibilit\`a nella progettazione di nuove funzionalit\`a. Inoltre, l'uso di una struttura basata su namespace (es. \texttt{PTW/Utility}) garantisce una chiara organizzazione e una facile estendibilit\`a del progetto.
-
-\subsubsection{Image Resizer}
-Per ottimizzare la gestione delle immagini caricate e migliorare le performance del sito, \`e stato implementato un sistema di resizing delle immagini. Questo consente di generare versioni ridotte delle immagini caricate, da utilizzare nelle anteprime o laddove non sia necessaria la massima risoluzione.
-Una volta caricata un'immagine:
+\subsubsection{Interazione con il Database (Repository Pattern)}
+Per l'interazione con il database MySQL è stato adottato il \textit{Repository Pattern}, che astrae la logica di accesso ai dati e la separa dal resto dell'applicazione.
 \begin{itemize}
-    \item Viene identificato il tipo MIME (i.e. JPEG o PNG) per determinare come gestire il file;
-    \item Sono generate quattro versioni ridimensionate dell'immagine originale: 5\%, 25\%, 50\% e 75\%;
-    \item I file ridimensionati vengono salvati in una directory dedicata, mantenendo un suffisso identificativo (es. \texttt{\_5percent}).
+    \item \textbf{\texttt{DBService}}: una classe a basso livello che gestisce la connessione al database tramite PDO e l'esecuzione di query SQL.
+    \item \textbf{\texttt{BaseRepository}}: una classe base che implementa le operazioni CRUD (Create, Read, Update, Delete) generiche, riutilizzabili da tutti i repository specifici.
+    \item \textbf{Repository Specifici}: per ogni entità del database (es. \texttt{AnimalRepository}, \texttt{BookingRepository}, \texttt{UserRepository}) è stato creato un repository che estende quello base, fornendo metodi specifici per recuperare i dati (es. \texttt{GetElementByUsername}). Questo rende il codice più pulito, organizzato e facile da testare.
 \end{itemize}
-
-\subsubsection{Translation Manager}
-\texttt{TranslationManager} \`e una classe PHP che gestisce il caricamento e la traduzione di stringhe in diverse lingue. Implementa un sistema di gestione centralizzata delle traduzioni, utilizzando un'architettura singleton per garantire efficienza e coerenza.
-\\\\
-Il sistema di traduzione \`e stato progettato per garantire un’esperienza multilingue agli utenti, consentendo una gestione centralizzata e flessibile delle traduzioni. La classe \texttt{TranslationManager}, organizzata tramite il namespace \texttt{PTW/Utility}, implementa una sola istanza condivisa nell’intera applicazione tramite:
-
-\begin{itemize}
-    \item \textbf{Rilevamento della lingua}: La lingua predefinita viene rilevata automaticamente in base alle impostazioni del browser dell’utente, con un fallback a una lingua di default definita dallo sviluppatore.
-    \item \textbf{Caricamento delle traduzioni}: I file JSON contenenti le traduzioni possono essere caricati dinamicamente. Ogni lingua ha il proprio set di chiavi e valori, facilmente estensibile.
-    \item \textbf{Gestione delle preferenze}: La lingua selezionata dall’utente viene salvata in un cookie, garantendo un’esperienza persistente.
-\end{itemize}
-
-La struttura è stata implementata in modo da permettere la successiva implementazione di diverse lingue. Per lo scopo di questo progetto si è mantenuta la sola lingua italiana.
-
-\subsubsection{DB}
-\texttt{DB} \`e una classe PHP che gestisce la connessione al database e l'esecuzione di query in modo centralizzato. Implementa una serie di funzionalit\`a per semplificare l'interazione con il database, come connessione, interrogazione e manipolazione dei dati.
-
-\subsubsection{StyleController: Gestione dei CSS}
-\paragraph{Ottimizzazioni Implementate}
-\begin{itemize}
-    \item \textbf{Concatenazione dei file CSS}: i file CSS nella directory \texttt{/static/css} vengono scansionati e concatenati in un'unica risposta HTTP, riducendo il numero di richieste al server.
-    \item \textbf{Priorit\`a dei file CSS}: alcuni file essenziali (es. \texttt{icons.css}, \texttt{main.css}, \texttt{menu.css}) vengono caricati per primi, garantendo un corretto rendering della pagina.
-    \item \textbf{Caching avanzato con ETag}: viene generato un ETag basato sul contenuto CSS. Se il client ha gi\`a il file in cache e l'ETag non \`e cambiato, viene restituito un codice 304 (Not Modified), evitando il download del file.
-    \item \textbf{Cache-Control per massimizzare le performance}: le risorse CSS sono servite con un header che imposta una cache di 1 anno, riducendo il numero di richieste ripetute al server.
-\end{itemize}
-
-\subsubsection{ScriptController: Gestione dei JavaScript}
-\paragraph{Ottimizzazioni Implementate}
-\begin{itemize}
-    \item \textbf{Concatenazione dei file JavaScript}: il controller scansiona la directory \texttt{/static/js} e unisce tutti i file in un'unica risposta HTTP.
-    \item \textbf{Priorit\`a di caricamento}: file essenziali come \texttt{main.js} e \texttt{menu.js} vengono inclusi per primi per garantire il corretto funzionamento dell’interfaccia.
-    \item \textbf{Caching con ETag}: come per i CSS, viene generato un ETag per evitare download non necessari se il contenuto non \`e cambiato.
-    \item \textbf{Cache-Control per migliorare la velocit\`a}: viene impostata una cache di 1 anno per minimizzare le richieste ripetute.
-\end{itemize}
-
-\subsubsection{Benefici dell'Ottimizzazione}
-Grazie a queste strategie, l’applicazione ottiene i seguenti vantaggi:
-\begin{itemize}
-    \item Riduzione del numero di richieste HTTP.
-    \item Minore latenza nel caricamento delle risorse front-end.
-    \item Ottimizzazione dell’uso della cache del browser, migliorando l’esperienza utente.
-    \item Maggiore efficienza nella gestione delle risorse statiche, con riduzione del carico sul server.
-\end{itemize}
-
 
 \subsection{JavaScript}
-\subsubsection{Gestione Modale delle Immagini}
-Un componente fondamentale del sito \`e il sistema per la visualizzazione delle immagini all'interno di un modale:
-Gli utenti possono cliccare su un'immagine nella galleria per visualizzarla in un modale leggendo la descrizione fornita dal fotografo.
-\subsubsection{Loader dinamico}
-Per migliorare l'efficienza e la velocit\`a di caricamento del sito, le immagini nella Home vengono caricate mano a mano che la pagina viene ``percorsa".
-\subsubsection{Scroll Top Button}
-Un pulsante \texttt{scrollTopButton} permette di tornare velocemente all'inizio della pagina, con un'animazione fluida.
+Il JavaScript è stato utilizzato per migliorare l'interattività e l'esperienza utente.
+\subsubsection{Validazione dei Moduli (Form) lato Client}
+Nei moduli di inserimento e modifica (es. creazione animale), è stata implementata una validazione lato client per fornire un feedback immediato all'utente. Lo script:
+\begin{itemize}
+    \item Impedisce l'invio del modulo se i dati non sono validi.
+    \item Mostra messaggi di errore specifici accanto ai campi non corretti.
+    \item Aggiorna un riepilogo degli errori all'inizio del form, con link interni ai campi errati.
+    \item Sposta il focus sul riepilogo degli errori, rendendo più semplice per gli utenti, specialmente quelli che utilizzano screen reader, individuare e correggere i problemi.
+\end{itemize}
+
+\subsubsection{Menu Hamburger}
+Per i dispositivi mobili, il menu di navigazione principale è accessibile tramite un pulsante ``hamburger". Uno script gestisce l'apertura e la chiusura del menu, modificando le classi CSS per mostrare o nascondere la lista dei link con un'animazione fluida.
 
 \subsection{SQL}
+Il database è stato strutturato per rappresentare le entità principali del sistema: utenti, animali, servizi, prenotazioni e recensioni. Le tabelle principali definite nel file \texttt{init.sql} sono:
 \begin{itemize}
-    \item \textbf{user} (\underline{id}, name, email, telephone, password, role, created\_at, updated\_at);
-    \item \textbf{image} (\underline{id}, path, alt, description, title, place, date, visible, created\_at, updated\_at, category);
-    \item \textbf{booking} (\underline{id}, user, status, service, date, created\_at, updated\_at, notes);
-    \item \textbf{image\_order\_counter} (\underline{category}, last\_order)
+    \item \textbf{user} (\underline{id}, username, email, telephone, password, role);
+    \item \textbf{animal} (\underline{id}, name, species, age, habitat, dimensions, lifespan, diet, description, image);
+    \item \textbf{service} (\underline{id}, name, description, price, duration, max\_people);
+    \item \textbf{booking} (\underline{id}, user\_id, service\_id, date, num\_people, notes);
+    \item \textbf{review} (\underline{id}, user\_id, rating, comment, created\_at, updated\_at);  \textbf{$\leftarrow$ DA TOGLIERE POTENZIALMENTE}
 \end{itemize}
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.8\textwidth]{immagini/database.png}
-\end{figure}
+
+% \begin{figure}[H]
+%     \centering
+%     % Inserire qui l'immagine del nuovo diagramma ER, se disponibile
+%     \includegraphics[width=0.9\textwidth]{immagini/database.png} 
+%     \caption{Schema Entità-Relazione del database.}
+%     \label{fig:db_schema}
+% \end{figure}

@@ -1,20 +1,45 @@
-\section{Accessibilit\`a}
-\subsection{Panoramica}
-Per offrire un'esperienza utente inclusiva e intuitiva, sono state adottate specifiche soluzioni per migliorare l'usabilità e l’accessibilità del sito:
+\section{Accessibilit\`a  [DA COMPLETARE]} 
+Per garantire che il sito ``Animalia'' fosse fruibile dal maggior numero possibile di persone, indipendentemente da eventuali disabilità fisiche o cognitive, è stata posta particolare attenzione all'accessibilità sin dalle prime fasi di progettazione e sviluppo. Sono state implementate diverse soluzioni tecniche e stilistiche in conformità con le linee guida WCAG [inserire il numero che non ricordo] (Web Content Accessibility Guidelines).
+
+\subsection{Panoramica delle Misure Adottate}
+Per offrire un'esperienza utente inclusiva e intuitiva, sono state adottate le seguenti soluzioni:
 \begin{itemize}
-    \item La navigazione è completamente accessibile tramite tastiera.
-    \item Sono stati scelti font leggibili, con contrasto adeguato, per garantire una fruizione confortevole a un’ampia varietà di utenti;
-    \item In tutte le pagine del sito sono presenti strumenti di supporto alla navigazione, inclusi breadcrumb e jump button, per agevolare l’esperienza dell’utente;
-    \item Le immagini non diversamente descritte sono corredate da testi alternativi, facilitando la comprensione per utenti non vedenti o con disabilità visive. Ogni immagine presente nella galleria viene descritta sia da un alt che ne illustra il contenuto, sia da una descrizione inserita dal fotografo per spiegarne il significato.
-    \item La struttura del sito è minimale e intuitiva, con una gerarchia poco profonda;
-    \item La palette di colori è stata selezionata con particolare attenzione all’accessibilità, garantendo un contrasto elevato tra gli elementi per migliorare la leggibilità e l’usabilità da parte di utenti con disabilità visive.
+    \item \textbf{Navigazione da tastiera:} l'intero sito è navigabile e utilizzabile tramite la sola tastiera. Tutti gli elementi interattivi, come link, pulsanti e campi di form, ricevono il focus in un ordine logico e presentano uno stile visivo chiaro quando selezionati.
+    
+    \item \textbf{Semantica e Struttura HTML5:} è stata utilizzata una struttura HTML5 semantica, impiegando tag appropriati come \texttt{<header>}, \texttt{<nav>}, \texttt{<main>}, \texttt{<section>}, \texttt{<article>}, \texttt{<aside>} e \texttt{<footer>}. Questo migliora la comprensione della struttura della pagina da parte degli screen reader e di altre tecnologie assistive. I titoli sono organizzati gerarchicamente (da \texttt{<h1>} a \texttt{<h3>}) per definire un chiaro schema del documento.
+    
+    \item \textbf{Testi Alternativi per le Immagini:} tutte le immagini portatrici di contenuto sono dotate di un attributo \texttt{alt} descrittivo, che ne comunica il significato a utenti che non possono visualizzarle. Le immagini puramente decorative sono implementate tramite CSS, in modo da essere ignorate dalle tecnologie assistive.
+    
+    \item \textbf{Contrasto Cromatico:} la palette di colori è stata scelta per garantire un rapporto di contrasto sufficiente tra testo e sfondo, migliorando la leggibilità per utenti con ipovisione o daltonismo.
+        
+    \item \textbf{Design Responsivo:} il layout si adatta a diverse dimensioni di schermo, garantendo la fruibilità sia su dispositivi desktop che mobili, senza perdita di informazioni o funzionalità.
+
+    \item \textbf{Stile di Stampa:} è stato fornito un foglio di stile specifico per la stampa (\texttt{print.css}) che ottimizza le pagine nascondendo elementi non essenziali come la navigazione e i piè di pagina, e garantendo che il testo sia leggibile su carta.
 \end{itemize}
 
-\subsection{Jump Button}
-I Jump Button sono stati realizzati come link che diventano visibili quando ricevono il focus tramite la navigazione con il tasto Tab.\\
-Questa soluzione è stata adottata per facilitare l’esperienza di utenti che navigano tramite tastiera e di chi utilizza screen reader.
-Esempi di Jump Button si hanno nel menu come aiuti alla navigazione, e a fondo pagina come pulsante per tornare in cima.
+\subsection{Ausili alla Navigazione}
+Per facilitare la navigazione, specialmente per utenti che si affidano alla tastiera o a screen reader, sono stati implementati i seguenti ausili.
 
+\subsubsection{Link di Salto al Contenuto}
+In cima a ogni pagina sono presenti dei link "Vai al contenuto" e "Vai al footer" (comunemente noti come *skip links*). Questi link, invisibili di default, diventano visibili quando ricevono il focus tramite il tasto \texttt{Tab}. Permettono agli utenti di saltare direttamente alle sezioni principali della pagina, evitando di dover navigare attraverso tutti gli elementi dell'header a ogni caricamento.
+
+\subsubsection{Etichette e Descrizioni Chiare}
+I link che contengono solo icone, come quelli per i social media nel footer, sono dotati di un attributo \texttt{aria-label} che ne descrive la funzione (es. ``Visita la pagina TikTok''). Le tabelle di dati, come quelle presenti nei pannelli di amministrazione e utente, sono associate a una descrizione testuale tramite l'attributo \texttt{aria-describedby} per fornire un contesto aggiuntivo agli utenti di screen reader.
+
+\subsection{Gestione dei Moduli e Feedback}
+I moduli di interazione, come quelli per l'aggiunta di un animale o la prenotazione di un servizio, sono stati progettati per essere accessibili:
+\begin{itemize}
+    \item Ogni campo di input è associato a una \texttt{<label>} esplicita tramite l'attributo \texttt{for}, garantendo che gli utenti di screen reader comprendano quale informazione è richiesta.
+    \item La validazione dei dati avviene sia lato client, per un feedback immediato, sia lato server per garantire l'integrità dei dati.
+    \item \textbf{Gestione del Focus sugli Errori:} a seguito di un invio fallito, il focus viene spostato programmaticamente sul contenitore del riepilogo degli errori. Questo assicura che l'utente, in particolare chi utilizza uno screen reader, sia immediatamente informato della presenza di problemi senza dover cercare visivamente nella pagina.
+    \item \textbf{Riepilogo degli Errori Navigabile:} il riepilogo elenca tutti gli errori presenti nel modulo. Ciascun errore è un link che permette all'utente di spostare il focus direttamente sul campo di input corrispondente per una correzione rapida.
+    \item I campi con errori vengono contrassegnati con \texttt{aria-invalid="true"} e i messaggi di errore specifici sono collegati ai rispettivi input tramite \texttt{aria-describedby}, permettendo agli screen reader di annunciare l'errore specifico quando l'utente raggiunge il campo.
+\end{itemize}
+=============================================\\
+=============================================\\
+====================TO DO====================\\
+=============================================\\
+=============================================\\
 \subsection{Palette Colori}
 La scelta della palette di colori è stata effettuata con attenzione per garantire la conformità agli standard AA delle WCAG. Per verificare i contrasti, è stato utilizzato lo strumento \href{https://coolors.co/contrast-checker}{Color Contrast Checker di Coolors}, con l’obiettivo di mantenere un rapporto di contrasto minimo di 4.5:1 dei colori con lo sfondo.
 Lo stesso rapporto non viene raggiunto tra tutte le combianzioni possibili.\\
