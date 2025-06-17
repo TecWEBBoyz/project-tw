@@ -49,8 +49,8 @@
 
             <form method="POST" action="editBooking.php" novalidate>
                 <input type='hidden' name='id' id="id" value="[[bookingId]]">
-                <div class="input-wrapper">
-                    <label for="service">Servizio:</label>
+                <div class="input-wrapper no-change">
+                    <label for="service">Servizio: (Non modificabile)</label>
                     <input type="text" id="service" name="service" value="[[bookingService]]" disabled>
                 </div>
                 <div class="input-wrapper">
@@ -67,7 +67,7 @@
                     <label for="notes">Note:</label>
                     <input type="text" id="notes" name="notes" value="[[notes]]" maxlength="75">
                 </div>
-                <button type="submit" class="submit-button">Modifica</button>
+                <button type="submit" class="submit-button">Salva</button>
             </form>
         </div>
     </main>

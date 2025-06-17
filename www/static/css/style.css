@@ -549,7 +549,7 @@ header .header-content {
     width: 0;
     height: 1px;
     border-radius: 5px;
-    background-color: var(--menu-link-hover);
+    background-color: var(--accent-2);
     transition: width 0.4s ease;
 }
 
@@ -1360,6 +1360,10 @@ textarea{
     cursor: pointer;
 }
 
+.no-change input {
+    border: 1px solid var(--muted);
+}
+
 ::placeholder{
     color: var(--muted);
 }
@@ -1375,6 +1379,11 @@ textarea:hover, textarea:focus{
     outline: 1px solid var(--accent-1);
 }
 
+.no-change input:hover, input:focus{
+    border: 1px solid var(--muted);
+    outline: none;
+}
+
 label {
     color: var(--accent-2);
     position: absolute;
@@ -1385,6 +1394,10 @@ label {
     left: 2rem;
     transform: translateY(-50%);
     /* transition: top 0.4s ease; */
+}
+
+.no-change label {
+    color: var(--muted);
 }
 
 label:has(+ input:focus),
@@ -1401,6 +1414,12 @@ label:has(+ textarea:active) {
     top: 0;
     font-weight: 600;
     color: var(--accent-1);
+}
+
+.no-change label:has(+ input:focus),
+.no-change label:has(+ input:hover),
+.no-change label:has(+ input:valid) {
+    color: var(--muted);
 }
 
 .input-wrapper div img {
