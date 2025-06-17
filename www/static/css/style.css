@@ -1667,6 +1667,23 @@ a.button {
 /* -----------------------
          Create Animal
    ----------------------- */
+.admin-section form {
+    margin: 0 auto;
+    text-align: center;
+    margin: 0.5rem;
+}
+
+.admin-section table {
+    margin-top: 1rem;
+}
+
+.admin-section table caption {
+    font-size: clamp(calc(20 / 16 * 1rem), calc(100vw * 26 / var(--max-content-width)), calc(26 / 16 * 1rem));
+}
+
+/* -----------------------
+         Create Animal
+   ----------------------- */
 
 .form-wrapper {
     margin: 3rem auto;
