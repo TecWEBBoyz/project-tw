@@ -1879,3 +1879,38 @@ body {
 body > main {
     flex: 1;
 }
+
+
+.breadcrumb {
+    font-family: 'Mulish', sans-serif;
+    font-size: 0.95rem;
+    margin: 1rem 2rem;
+}
+
+.breadcrumb ol {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    padding: 0;
+    margin: 0;
+}
+
+.breadcrumb li::after {
+    content: "›";
+    margin: 0 0.5rem;
+    color: #999;
+}
+
+.breadcrumb li:last-child::after {
+    content: "";
+}
+
+.breadcrumb a {
+    text-decoration: none;
+    color: #0077cc;
+}
+
+.breadcrumb a:hover {
+    text-decoration: underline;
+}
