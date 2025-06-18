@@ -273,6 +273,7 @@ a {
     min-width: 44px;
     display: inline-block;
     color: var(--light-link);
+    text-decoration: underline;
 }
 
 a:hover {
@@ -365,7 +366,7 @@ table thead th {
 table tbody td,
 table tbody th {
     padding: 0.75rem;
-    border-bottom: 1px solid var(--accent-1);
+    border-bottom: 1px solid var(--accent-2);
     vertical-align: middle;
     text-align: left;
 }
@@ -1955,10 +1956,13 @@ body > main {
 }
 
 .breadcrumb a {
-    text-decoration: none;
-    color: #0077cc;
+    color: var(--accent-1);
 }
 
 .breadcrumb a:hover {
-    text-decoration: underline;
+    color: var(--accent-2)
+}
+
+.breadcrumb a:visited {
+    color: var(--accent-2)
 }
