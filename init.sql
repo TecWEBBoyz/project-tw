@@ -84,5 +84,5 @@ INSERT INTO animal (id, species, name, age, habitat, dimensions, lifespan, diet,
 INSERT INTO booking (user_id, service_id, date, num_people, notes) VALUES
 ('a1b2c3d4-e5f6-7890-g1h2-i3j4k5l6m7n8', '43591738-588f-4a58-a04f-f3826de22345', '2025-10-01', 20, 'Nessun appunto'),
 ('e2a26785-c0f3-4261-a2ad-be4f1574cca4', 'b2c3d4e5-f6g7-8901-h2i3-j4k5l6m7n8o9', '2025-10-02', 5, 'Nessun appunto'),
-('e2a26785-c0f3-4261-a2ad-be4f1574cca4', 'b2c3d4e5-f6g7-8901-h2i3-j4k5l6m7n8o9', '2025-10-02', 5, 'Prenotazione che non dovrebbe essere vista'),
+('e2a26785-c0f3-4261-a2ad-be4f1574cca4', 'b2c3d4e5-f6g7-8901-h2i3-j4k5l6m7n8o9', '2025-10-02', 5, 'Nessun appunto'),
 ('e2a26785-c0f3-4261-a2ad-be4f1574cca4', 'b2c3d4e5-f6g7-8901-h2i3-j4k5l6m7n8o9', '2025-11-02', 10, 'Una nota particolare');
