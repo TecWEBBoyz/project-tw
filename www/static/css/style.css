@@ -1101,11 +1101,13 @@ main>#about-section>.section-content .about-item:nth-child(2n) p {
     text-decoration: none;
     width: 100%;
     height: 100%;
+    border-radius: 8px; 
+    outline: none;
 }
 
-.animals-section .animal-list .animal-item a:focus-visible {
-    outline: 4px solid var(--accent-1);
-    outline-offset: -4px;
+.animals-section .animal-list .animal-item:focus-within {
+    outline: 3px solid var(--accent-1);
+    outline-offset: 4px;
     border-radius: 8px;
 }
 
@@ -1244,9 +1246,9 @@ main>#about-section>.section-content .about-item:nth-child(2n) p {
     top: 9rem;
 }
 
-.animal-identikit h3 {
+.animal-identikit h2 {
     margin: 0 0 2rem 0;
-    color: var(--dark-accent-title-foreground);
+    color: var(--light);
     text-align: center;
     font-size: clamp(calc(22 / 16 * 1rem), calc(100vw * 28 / var(--max-content-width)), calc(28 / 16 * 1rem));
     position: relative;

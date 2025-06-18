@@ -44,7 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 if (!empty($errors)) {
     $errorSummaryHtml = '<div id="error-summary-container" class="error-summary" role="alert" tabindex="-1">';
     $errorSummaryHtml .= '<h2>Attenzione, sono presenti errori nel modulo:</h2>';
-    $errorSummaryHtml .= '<ul id="error-summary-list">';
+    $errorSummaryHtml .= '<ul id="error-summary-list-server">';
     $errorSummaryHtml .= '<li>' . htmlspecialchars($errors['form']) . '</li>';
     $errorSummaryHtml .= '</ul></div>';
 }
