@@ -52,31 +52,46 @@
         </ol>
     </nav>
     <main id="contenuto" class="full-page">
-        <div class="login-wrapper">
-            <h1>Login</h1>
-            <form method="POST" action="login.php">
-                <div class="input-wrapper">
-                    <label for="username">Username:</label>
-                    <input 
-                        type="text" 
-                        id="username" 
-                        name="username" 
-                        autocomplete="username" 
-                        required>
-                </div>
-                <div class="input-wrapper">
-                    <label for="password">Password:</label>
-                    <input 
-                        type="password" 
-                        id="password" 
-                        name="password" 
-                        autocomplete="current-password" 
-                        required>
-                </div>
-                <button type="submit" class="submit-button">Login</button>
-            </form>
+    <div class="login-wrapper">
+        <h1>Login</h1>
+
+        <!-- errori lato server -->
+        [[errorSummary]]
+
+        <!-- errori lato client -->
+        <div id="error-summary-container-client" class="error-summary" role="alert" tabindex="-1" hidden>
+            <h2>Attenzione, sono presenti errori nel modulo:</h2>
+            <ul id="error-summary-list"></ul>
         </div>
-    </main>
+
+        <form method="POST" action="login.php" novalidate>
+            <div class="input-wrapper">
+                <label for="username">Username:</label>
+                <input 
+                    type="text" 
+                    id="username" 
+                    name="username" 
+                    autocomplete="username" 
+                    required
+                    aria-describedby="username-error"
+                    value="[[usernameValue]]">
+                <p id="username-error" class="error-message" role="alert" hidden></p>
+            </div>
+            <div class="input-wrapper">
+                <label for="password">Password:</label>
+                <input 
+                    type="password" 
+                    id="password" 
+                    name="password" 
+                    autocomplete="current-password" 
+                    required
+                    aria-describedby="password-error">
+                <p id="password-error" class="error-message" role="alert" hidden></p>
+            </div>
+            <button type="submit" class="submit-button">Login</button>
+        </form>
+    </div>
+</main>
     <footer id="footer">
         <div class="footer-content">
             <div class="footer-item">
