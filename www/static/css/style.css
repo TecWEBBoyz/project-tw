@@ -417,8 +417,8 @@ table tbody th {
 
 .btn.btn-filled.btn-important {
     border-radius: 24px;
-    background-color: var(--button-filled-important);
-    border: 2px solid var(--button-filled-border-important);
+    background-color: var(--accent-1);
+    border: 2px solid var(--accent-1);
 
     color: var(--button-filled-text-important);
     transform: translateY(0);
@@ -1574,6 +1574,9 @@ a.button {
 .button.filled {
     background-color: var(--accent-1);
     color: var(--light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .button:hover,
