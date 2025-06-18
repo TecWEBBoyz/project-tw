@@ -82,7 +82,7 @@ INSERT INTO animal (id, species, name, age, habitat, dimensions, lifespan, diet,
 ('91c5219c-4c0f-4388-84c4-a41a707bd5da', 'Struzzo', 'Corridò', '7', 'Savane e deserti africani', 'Fino a 2,7 metri, 150 kg', '40-45 anni', 'Semi, frutta, insetti', 'Lo struzzo è l’uccello più grande al mondo e, anche se non può volare, è uno dei più veloci corridori tra gli animali terrestri, capace di raggiungere i 70 km/h. Vive nelle savane e nei deserti, spesso in piccoli gruppi o associato a branchi di altri erbivori. Le sue potenti zampe non servono solo per correre, ma anche come arma difensiva contro i predatori. Ha un carattere curioso ma diffidente e usa l’altezza per sorvegliare l’ambiente circostante. Durante la stagione degli amori, i maschi eseguono spettacolari danze per attirare le femmine. Lo struzzo è un animale vigile e sorprendente, che unisce forza, eleganza e spirito libero.', './static/images/ostrich.jpg');
 
 INSERT INTO booking (user_id, service_id, date, num_people, notes) VALUES
-('77d449dd-d5c4-4d77-a404-c61cc56744b6', '43591738-588f-4a58-a04f-f3826de22345', '2025-10-01', 20, 'Nessun appunto'),
+('a1b2c3d4-e5f6-7890-g1h2-i3j4k5l6m7n8', '43591738-588f-4a58-a04f-f3826de22345', '2025-10-01', 20, 'Nessun appunto'),
 ('e2a26785-c0f3-4261-a2ad-be4f1574cca4', 'b2c3d4e5-f6g7-8901-h2i3-j4k5l6m7n8o9', '2025-10-02', 5, 'Nessun appunto'),
-('e2a26785-c0f3-4261-a2ad-be4f1574cca4', 'b2c3d4e5-f6g7-8901-h2i3-j4k5l6m7n8o9', '2024-10-02', 5, 'Prenotazione che non dovrebbe essere vista'),
+('e2a26785-c0f3-4261-a2ad-be4f1574cca4', 'b2c3d4e5-f6g7-8901-h2i3-j4k5l6m7n8o9', '2025-10-02', 5, 'Prenotazione che non dovrebbe essere vista'),
 ('e2a26785-c0f3-4261-a2ad-be4f1574cca4', 'b2c3d4e5-f6g7-8901-h2i3-j4k5l6m7n8o9', '2025-11-02', 10, 'Una nota particolare');
