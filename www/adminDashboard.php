@@ -67,7 +67,7 @@ if (empty($bookings)) {
         ];
         if ($booking->getDate() >= new DateTime("tomorrow")) {
             $single_replacement["[[actions]]"] = "<div class='booking-actions'>
-                        <form action='bookingDelete.php' method='POST'>
+                        <form action='deleteBooking.php' method='POST'>
                             <input type='hidden' name='booking_id' value='" . $booking->getId() ."'>
                             <button class='button' type='submit' aria-label='Elimina prenotazione'>Elimina</button>
                         </form>
