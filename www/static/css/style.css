@@ -1101,11 +1101,13 @@ main>#about-section>.section-content .about-item:nth-child(2n) p {
     text-decoration: none;
     width: 100%;
     height: 100%;
+    border-radius: 8px; 
+    outline: none;
 }
 
-.animals-section .animal-list .animal-item a:focus-visible {
-    outline: 4px solid var(--accent-1);
-    outline-offset: -4px;
+.animals-section .animal-list .animal-item:focus-within {
+    outline: 3px solid var(--accent-1);
+    outline-offset: 4px;
     border-radius: 8px;
 }
 
