@@ -971,7 +971,11 @@ main>section>.section-content h2 + .decoration.light {
 
 .review-item .review-body {
     margin-top: 1rem;
-    min-width: 350px;
+}
+
+.review-item .review-body p {
+    overflow-wrap: break-word;
+    word-wrap: break-word;
 }
 
 .rating-sub {
