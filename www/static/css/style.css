@@ -557,7 +557,30 @@ header .header-content {
     width: 100%;
 }
 
+#menu ul li.current-page > span {
+    font-family: "Nunito Medium", sans-serif;
+    font-size: clamp(calc(14 / 16 * 1rem), calc(100vw * 16 / var(--max-content-width)), calc(16 / 16 * 1rem));
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    line-height: 44px;
+    display: inline-block;
+    padding: 0 0.5rem;
+    background-color: rgba(0, 125, 184, 0.15); /* --accent-1 con trasparenza */
+    color: var(--dark);
+    cursor: default;
+    border-radius: 6px;
+}
 
+#menu ul li.current-page > span > span {
+    padding: 0;
+    background-color: transparent;
+}
+
+#menu-navigation nav ul li.current-page::after,
+#menu ul li.current-page::after {
+    width: 0 !important; /* toglie la linea sotto */
+}
 
 #hamburger-button {
     width: 40px;
