@@ -27,7 +27,7 @@ $htmlContent = TemplateService::renderHtml($currentFile, [
     "[[dimensions]]" => htmlspecialchars($animal->getDimensions()),
     "[[lifespan]]" => htmlspecialchars($animal->getLifespan()),
     "[[diet]]" => htmlspecialchars($animal->getDiet()),
-    "[[description]]" => htmlspecialchars($animal->getDescription()),
+    "[[description]]" => strip_tags($animal->getDescription(), '<strong><em>'),
     "[[image]]" => htmlspecialchars($animal->getImage())
 ]);
 

@@ -45,7 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         http_response_code(404);
         exit();
     }
-
+    $sanitized_notes = strip_tags($_POST['notes'], '<strong><em>');
     // Create new booking
     $newBooking = new Booking([
         'id' => uniqid(),
@@ -53,7 +53,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'service_id' => $service->getId(),
         'num_people' => $_POST['numberOfPeople'],
         'date' => $_POST['date'],
-        'notes' => $_POST['notes']
+        'notes' => $sanitized_notes
     ]);
     $bookingRepo->Create($newBooking);
 

@@ -122,6 +122,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['animal_id'])) {
         exit;
     }
 
+    $sanitized_description = strip_tags($old_data['description'], '<strong><em>');
+
     // Aggiorna i dati dell'animale
     $animalData = [
         'name'        => $old_data['name'],
@@ -131,7 +133,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['animal_id'])) {
         'dimensions'  => $old_data['dimensions'],
         'lifespan'    => $old_data['lifespan'],
         'diet'        => $old_data['diet'],
-        'description' => $old_data['description'],
+        'description' => $sanitized_description,
         'image'       => $image_path,
     ];
 

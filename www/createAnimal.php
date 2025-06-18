@@ -99,6 +99,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     }
 
+$sanitized_description = strip_tags($old_data['description'], '<strong><em>');
+
 $animalData = [
     'name'        => $old_data['name'],
     'species'     => $old_data['species'],
@@ -107,7 +109,7 @@ $animalData = [
     'dimensions'  => $old_data['dimensions'],
     'lifespan'    => $old_data['lifespan'],
     'diet'        => $old_data['diet'],
-    'description' => $old_data['description'],
+    'description' => $sanitized_description,
     'image'       => $image_path
 ];
 

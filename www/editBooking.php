@@ -42,11 +42,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         http_response_code(404);
         exit();
     }
-
+    $sanitized_notes = strip_tags($_POST['notes'], '<strong><em>');
     $bookingRepo->Update($_POST['id'], new Booking(array_merge($booking->toArray(), [
         "num_people" => $_POST["numberOfPeople"],
         "date" => $_POST["date"],
-        "notes" => $_POST["notes"]
+        "notes" => $sanitized_notes
     ])));
 
     http_response_code(200);
