@@ -18,7 +18,7 @@ foreach ($animalsList as $animal) {
         '[[species]]'     => htmlspecialchars($animal->getSpecies()),
         '[[habitat]]'     => htmlspecialchars($animal->getHabitat()),
         '[[image]]'       => htmlspecialchars($animal->getImage()),
-        '[[description]]' => htmlspecialchars(trim(preg_split("/\./", $animal->getDescription())[0]) . "."),
+        '[[description]]' => strip_tags(trim(preg_split("/\./", $animal->getDescription())[0]) . ".", '<strong><em>'),
         '[[alt_text]]'    => "Foto di " . htmlspecialchars($animal->getName()) . ", un esemplare di " . htmlspecialchars($animal->getSpecies()),
     ];
 }
