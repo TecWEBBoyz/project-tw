@@ -55,68 +55,59 @@
     <main id="contenuto" class="max-width">
         <div class="form-wrapper">
             <h1>Aggiungi un Nuovo Animale</h1>
-            <!-- Il riepilogo degli errori verrà popolato da JS. È nascosto finché non serve. -->
-            <div id="error-summary-container" class="error-summary" role="alert" tabindex="-1" hidden>
+                <div id="error-summary-container" class="error-summary" role="alert" tabindex="-1" [[errorSummaryHidden]]>
                 <h2>Attenzione, sono presenti errori nel modulo:</h2>
-                <ul id="error-summary-list"></ul>
+                <ul id="error-summary-list">
+                    [[errorSummaryListItems]]
+                </ul>
             </div>
 
             <form action="createAnimal.php" method="POST" enctype="multipart/form-data" novalidate>
-                
                 <div class="input-wrapper">
                     <label for="name">Nome</label>
-                    <input type="text" id="name" name="name" required aria-describedby="name-error">
-                    <p id="name-error" class="error-message" role="alert" hidden></p>
+                    <input type="text" id="name" name="name" value="[[oldName]]" required aria-describedby="name-error" [[nameInvalid]]>
+                    <p id="name-error" class="error-message" role="alert" [[nameErrorHidden]]>[[nameError]]</p>
                 </div>
-                
                 <div class="input-wrapper">
                     <label for="species">Specie</label>
-                    <input type="text" id="species" name="species" required aria-describedby="species-error">
-                    <p id="species-error" class="error-message" role="alert" hidden></p>
+                    <input type="text" id="species" name="species" value="[[oldSpecies]]" required aria-describedby="species-error" [[speciesInvalid]]>
+                    <p id="species-error" class="error-message" role="alert" [[speciesErrorHidden]]>[[speciesError]]</p>
                 </div>
-
                 <div class="input-wrapper">
                     <label for="age">Età (anni)</label>
-                    <input type="number" id="age" name="age" required min="0" step="1" aria-describedby="age-error">
-                    <p id="age-error" class="error-message" role="alert" hidden></p>
+                    <input type="number" id="age" name="age" value="[[oldAge]]" required min="0" step="1" aria-describedby="age-error" [[ageInvalid]]>
+                    <p id="age-error" class="error-message" role="alert" [[ageErrorHidden]]>[[ageError]]</p>
                 </div>
-                
                 <div class="input-wrapper">
                     <label for="habitat">Habitat</label>
-                    <input type="text" id="habitat" name="habitat" required aria-describedby="habitat-error">
-                    <p id="habitat-error" class="error-message" role="alert" hidden></p>
+                    <input type="text" id="habitat" name="habitat" value="[[oldHabitat]]" required aria-describedby="habitat-error" [[habitatInvalid]]>
+                    <p id="habitat-error" class="error-message" role="alert" [[habitatErrorHidden]]>[[habitatError]]</p>
                 </div>
-
                 <div class="input-wrapper">
                     <label for="dimensions">Dimensioni (es. 1,5 metri, 100kg)</label>
-                    <input type="text" id="dimensions" name="dimensions" required aria-describedby="dimensions-error">
-                    <p id="dimensions-error" class="error-message" role="alert" hidden></p>
+                    <input type="text" id="dimensions" name="dimensions" value="[[oldDimensions]]" required aria-describedby="dimensions-error" [[dimensionsInvalid]]>
+                    <p id="dimensions-error" class="error-message" role="alert" [[dimensionsErrorHidden]]>[[dimensionsError]]</p>
                 </div>
-
                 <div class="input-wrapper">
                     <label for="lifespan">Aspettativa di vita (es. 10-15 anni)</label>
-                    <input type="text" id="lifespan" name="lifespan" required aria-describedby="lifespan-error">
-                    <p id="lifespan-error" class="error-message" role="alert" hidden></p>
+                    <input type="text" id="lifespan" name="lifespan" value="[[oldLifespan]]" required aria-describedby="lifespan-error" [[lifespanInvalid]]>
+                    <p id="lifespan-error" class="error-message" role="alert" [[lifespanErrorHidden]]>[[lifespanError]]</p>
                 </div>
-
                 <div class="input-wrapper">
                     <label for="diet">Dieta</label>
-                    <input type="text" id="diet" name="diet" required aria-describedby="diet-error">
-                    <p id="diet-error" class="error-message" role="alert" hidden></p>
+                    <input type="text" id="diet" name="diet" value="[[oldDiet]]" required aria-describedby="diet-error" [[dietInvalid]]>
+                    <p id="diet-error" class="error-message" role="alert" [[dietErrorHidden]]>[[dietError]]</p>
                 </div>
-
                 <div class="input-wrapper">
                     <label for="description">Descrizione</label>
-                    <textarea id="description" name="description" rows="5" required aria-describedby="description-error"></textarea>
-                    <p id="description-error" class="error-message" role="alert" hidden></p>
+                    <textarea id="description" name="description" rows="5" required aria-describedby="description-error" [[descriptionInvalid]]>[[oldDescription]]</textarea>
+                    <p id="description-error" class="error-message" role="alert" [[descriptionErrorHidden]]>[[descriptionError]]</p>
                 </div>
-
                 <div class="input-wrapper">
                     <label for="image">Immagine</label>
-                    <input type="file" id="image" name="image" required aria-describedby="image-error" accept="image/jpeg, image/png, image/webp">
-                    <p id="image-error" class="error-message" role="alert" hidden></p>
+                    <input type="file" id="image" name="image" required aria-describedby="image-error" accept="image/jpeg, image/png, image/webp" [[imageInvalid]]>
+                    <p id="image-error" class="error-message" role="alert" [[imageErrorHidden]]>[[imageError]]</p>
                 </div>
-
                 <button type="submit" class="button filled submit-button">Aggiungi Animale</button>
             </form>
         </div>

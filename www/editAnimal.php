@@ -173,19 +173,23 @@ if ($animal instanceof Animal) {
     ];
 }
 
-$errorSummaryHtml = '';
+$errorSummaryListItems = '';
+$errorSummaryHidden = 'hidden';
+
 if (!empty($errors)) {
-    $errorSummaryHtml = '<div id="error-summary-container" class="error-summary" role="alert" tabindex="-1">';
-    $errorSummaryHtml .= '<h2>Attenzione, sono presenti errori nel modulo:</h2><ul>';
+    $errorSummaryHidden = '';
     foreach ($errors as $key => $message) {
-        $errorSummaryHtml .= '<li><a href="#' . htmlspecialchars($key) . '">' . htmlspecialchars($message) . '</a></li>';
+        if ($key === 'general') continue;
+        $errorSummaryListItems .= '<li><a href="#' . htmlspecialchars($key) . '">' . htmlspecialchars($message) . '</a></li>';
     }
-    $errorSummaryHtml .= '</ul></div>';
 }
 
 $base_replacements = [
-    '[[errorSummaryContainer]]' => $errorSummaryHtml,
-    '[[animalId]]' => $old_data['animalId'],
+    '[[errorSummaryListItems]]' => $errorSummaryListItems,
+    '[[errorSummaryHidden]]' => $errorSummaryHidden,
+    '[[animalId]]' => $old_data['animalId'] ?? '',
+    '[[oldImage]]' => $old_data['image'] ?? 'static/images/placeholder.png',
+    '[[oldImageAlt]]' => $old_data['imageAlt'] ?? 'Immagine non disponibile',
 ];
 
 $form_fields = ['name', 'species', 'age', 'habitat', 'dimensions', 'lifespan', 'diet', 'description', 'image'];
@@ -194,11 +198,11 @@ foreach ($form_fields as $field) {
     $uc_field = ucfirst($field);
     $base_replacements["[[old{$uc_field}]]"] = isset($old_data[$field]) ? htmlspecialchars($old_data[$field]) : '';
     $base_replacements["[[{$field}Error]]"] = isset($errors[$field]) ? htmlspecialchars($errors[$field]) : '';
+    $base_replacements["[[{$field}ErrorHidden]]"] = isset($errors[$field]) ? '' : 'hidden';
     $base_replacements["[[{$field}Invalid]]"] = isset($errors[$field]) ? 'aria-invalid="true"' : '';
 }
 
-
-$currentFile = basename(__FILE__);
+$currentFile = basename(__FILE__, '.php') . '.html';
 $htmlContent = TemplateService::renderHtml($currentFile, $base_replacements);
 
 echo $htmlContent;

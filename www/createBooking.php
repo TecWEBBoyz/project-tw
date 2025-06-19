@@ -109,7 +109,7 @@ if (!$service) {
 
 $errorSummaryHtml = '';
 if (!empty($errors)) {
-    $errorSummaryHtml = '<div id="error-summary-container" class="error-summary" role="alert" tabindex="-1">';
+    $errorSummaryHtml = '<div id="error-summary-container-server" class="error-summary" role="alert" tabindex="-1">';
     $errorSummaryHtml .= '<h2>Attenzione, sono presenti errori nel modulo:</h2><ul>';
     foreach ($errors as $key => $message) {
         if ($key === 'service_id') continue;
@@ -125,23 +125,21 @@ $replacements = [
     "[[minDate]]" => (new DateTime("now"))->format("Y-m-d"),
 
     '[[errorSummaryContainer]]' => $errorSummaryHtml,
-    '[[oldService]]' => isset($old_data['service']) ? htmlspecialchars($old_data['service']) : $service->getName(),
     '[[oldNumberOfPeople]]' => isset($old_data['numberOfPeople']) ? htmlspecialchars($old_data['numberOfPeople']) : '1',
     '[[oldDate]]' => isset($old_data['date']) ? htmlspecialchars($old_data['date']) : '',
     '[[oldNotes]]' => isset($old_data['notes']) ? htmlspecialchars($old_data['notes']) : '',
-    
-    '[[serviceError]]' => isset($errors['service']) ? '<p id="service-error" class="error-message" role="alert">' . htmlspecialchars($errors['service']) . '</p>' : '',
-    '[[numberOfPeopleError]]' => isset($errors['numberOfPeople']) ? '<p id="numberOfPeople-error" class="error-message" role="alert">' . htmlspecialchars($errors['numberOfPeople']) . '</p>' : '',
-    '[[dateError]]' => isset($errors['date']) ? '<p id="date-error" class="error-message" role="alert">' . htmlspecialchars($errors['date']) . '</p>' : '',
-    '[[notesError]]' => isset($errors['notes']) ? '<p id="notes-error" class="error-message" role="alert">' . htmlspecialchars($errors['notes']) . '</p>' : '',
-
-    '[[serviceInvalid]]' => isset($errors['service']) ? 'aria-invalid="true"' : '',
-    '[[numberOfPeopleInvalid]]' => isset($errors['numberOfPeople']) ? 'aria-invalid="true"' : '',
-    '[[dateInvalid]]' => isset($errors['date']) ? 'aria-invalid="true"' : '',
-    '[[notesInvalid]]' => isset($errors['notes']) ? 'aria-invalid="true"' : '',
 ];
 
-$selected_service = $replacements['[[oldService]]'];
+// Gestione dinamica per campi con errori
+$form_fields = ['service', 'numberOfPeople', 'date', 'notes'];
+foreach ($form_fields as $field) {
+    $replacements["[[{$field}Error]]"] = isset($errors[$field]) ? htmlspecialchars($errors[$field]) : '';
+    $replacements["[[{$field}ErrorHidden]]"] = isset($errors[$field]) ? '' : 'hidden';
+    $replacements["[[{$field}Invalid]]"] = isset($errors[$field]) ? 'aria-invalid="true"' : '';
+}
+
+// Gestione della select 'service' che è un caso particolare
+$selected_service = $old_data['service'] ?? $service->getName();
 $replacements['[[safariSelected]]'] = ($selected_service === 'Safari') ? 'selected' : '';
 $replacements['[[ingressoSelected]]'] = ($selected_service === 'Ingresso') ? 'selected' : '';
 $replacements['[[visitaGuidataSelected]]'] = ($selected_service === 'Visita guidata') ? 'selected' : '';

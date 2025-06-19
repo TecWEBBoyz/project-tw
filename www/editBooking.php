@@ -123,7 +123,7 @@ if (!$service) {
 
 $errorSummaryHtml = '';
 if (!empty($errors)) {
-    $errorSummaryHtml = '<div id="error-summary-container" class="error-summary" role="alert" tabindex="-1">';
+    $errorSummaryHtml = '<div id="error-summary-container-server" class="error-summary" role="alert" tabindex="-1">';
     $errorSummaryHtml .= '<h2>Attenzione, sono presenti errori nel modulo:</h2><ul>';
     foreach ($errors as $key => $message) {
         $errorSummaryHtml .= '<li><a href="#' . htmlspecialchars($key) . '">' . htmlspecialchars($message) . '</a></li>';
@@ -143,17 +143,16 @@ $replacements = [
     '[[oldNotes]]' => isset($old_data['notes']) ? htmlspecialchars($old_data['notes']) : $booking->getNotes(),
     
     '[[errorSummaryContainer]]' => $errorSummaryHtml,
-    '[[numberOfPeopleError]]' => isset($errors['numberOfPeople']) ? '<p id="numberOfPeople-error" class="error-message" role="alert">' . htmlspecialchars($errors['numberOfPeople']) . '</p>' : '',
-    '[[dateError]]' => isset($errors['date']) ? '<p id="date-error" class="error-message" role="alert">' . htmlspecialchars($errors['date']) . '</p>' : '',
-    '[[notesError]]' => isset($errors['notes']) ? '<p id="notes-error" class="error-message" role="alert">' . htmlspecialchars($errors['notes']) . '</p>' : '',
-
-    '[[numberOfPeopleInvalid]]' => isset($errors['numberOfPeople']) ? 'aria-invalid="true"' : '',
-    '[[dateInvalid]]' => isset($errors['date']) ? 'aria-invalid="true"' : '',
-    '[[notesInvalid]]' => isset($errors['notes']) ? 'aria-invalid="true"' : '',
 ];
+
+$form_fields = ['numberOfPeople', 'date', 'notes'];
+foreach ($form_fields as $field) {
+    $replacements["[[{$field}Error]]"] = isset($errors[$field]) ? htmlspecialchars($errors[$field]) : '';
+    $replacements["[[{$field}ErrorHidden]]"] = isset($errors[$field]) ? '' : 'hidden';
+    $replacements["[[{$field}Invalid]]"] = isset($errors[$field]) ? 'aria-invalid="true"' : '';
+}
 
 $currentFile = basename(__FILE__, '.php') . '.html';
 $htmlContent = TemplateService::renderHtml($currentFile, $replacements);
 echo $htmlContent;
-
 ?>
