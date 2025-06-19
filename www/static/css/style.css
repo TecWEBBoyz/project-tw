@@ -704,7 +704,6 @@ header .header-content {
 }
 
 #footer .footer-content {
-    width: 80%;
     max-width: calc(var(--max-content-width) * 1px);
     margin: 0 auto;
     padding: 3rem 1rem;
@@ -727,7 +726,7 @@ header .header-content {
 }
 
 .footer-item {
-    max-width: 350px;
+    max-width: 300px;
 }
 
 #footer-contact-list {

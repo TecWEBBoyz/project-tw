@@ -70,7 +70,7 @@ if (empty($bookings)) {
             $single_replacement["[[actions]]"] = "<div class='booking-actions'>
                         <form action='deleteBooking.php' method='POST'>
                             <input type='hidden' name='booking_id' value='" . $booking->getId() ."'>
-                            <button class='button' type='submit' aria-label='Elimina prenotazione'>Elimina</button>
+                            <button class='button' type='submit' aria-label='Elimina prenotazione " . $counter . "'>Elimina</button>
                         </form>
                     </div>";
         } else {
@@ -105,13 +105,13 @@ if (empty($animals)) {
                 <div class='booking-actions'>
                     <form action='deleteAnimal.php' method='POST'>
                         <input type='hidden' name='animal_id' value='" . $animal->getId() ."'>
-                        <button class='button' type='submit' aria-label='Elimina animale'>Elimina</button>
+                        <button class='button' type='submit' aria-label='Elimina animale " . $counter . "'>Elimina</button>
                     </form>
                 </div>
                 <div class='booking-actions'>
                     <form action='editAnimal.php' method='GET'>
                         <input type='hidden' name='animal_id' value='" . $animal->getId() ."'>
-                        <button class='button' type='submit' aria-label='Modifica animale'>Modifica</button>
+                        <button class='button' type='submit' aria-label='Modifica animale " . $counter . "'>Modifica</button>
                     </form>
                 </div>
             "
