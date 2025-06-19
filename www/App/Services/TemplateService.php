@@ -23,13 +23,46 @@ class TemplateService {
         $html = strtr($html, $base_replacements);
 
         // Replace logged user placeholders
+        $loginNav = ''; // Inizializziamo la stringa per la navigazione dinamica
+
         if (AuthService::isUserLoggedIn()) {
-            $html = str_replace("[[ifLoggedIn]]", '<li><a class="menu-link" href="userDashboard.php">Prenotazioni</a></li><li><a class="menu-link" href="logout.php"><span lang="en">Logout</span></a></li>', $html);
+            // Utente normale loggato
+            if (basename($callerFile) === 'userDashboard.php') {
+                // Se siamo nella dashboard utente, "Prenotazioni" non è un link
+                $loginNav .= '<li class="current-page"><span aria-current="page">Prenotazioni</span></li>';
+            } else if (basename($callerFile) === 'login.php') {
+                $loginNav .= '<li><a class="menu-link" href="userDashboard.php">Prenotazioni</a></li>';
+                $loginNav .= '<li class="current-page"><span aria-current="page"><span lang="en">Login</span></span></li>';
+            } else {
+                $loginNav .= '<li><a class="menu-link" href="userDashboard.php">Prenotazioni</a></li>';
+            }
+            $loginNav .= '<li><a class="menu-link" href="logout.php"><span lang="en">Logout</span></a></li>';
+
         } else if (AuthService::isAdminLoggedIn()) {
-            $html = str_replace("[[ifLoggedIn]]", '<li><a class="menu-link" href="adminDashboard.php">Gestione</a></li><li><a class="menu-link" href="logout.php"><span lang="en">Logout</span></a></li>', $html);
+            // Amministratore loggato
+            if (basename($callerFile) === 'adminDashboard.php') {
+                // Se siamo nella dashboard admin, "Gestione" non è un link
+                $loginNav .= '<li class="current-page"><span aria-current="page">Gestione</span></li>';
+            } else if (basename($callerFile) === 'login.php') {
+                $loginNav .= '<li><a class="menu-link" href="adminDashboard.php">Gestione</a></li>';
+                $loginNav .= '<li class="current-page"><span aria-current="page"><span lang="en">Login</span></span></li>';
+            } else {
+                $loginNav .= '<li><a class="menu-link" href="adminDashboard.php">Gestione</a></li>';
+            }
+            $loginNav .= '<li><a class="menu-link" href="logout.php"><span lang="en">Logout</span></a></li>';
+
         } else {
-            $html = str_replace("[[ifLoggedIn]]", '<li><a class="menu-link" href="login.php"><span lang="en">Login</span></a></li>', $html);
+            // Utente non loggato
+            if (basename($callerFile) === 'login.php') {
+                // Se siamo nella pagina di login, "Login" non è un link
+                $loginNav .= '<li class="current-page"><span aria-current="page"><span lang="en">Login</span></span></li>';
+            } else {
+                $loginNav .= '<li><a class="menu-link" href="login.php"><span lang="en">Login</span></a></li>';
+            }
         }
+
+// Ora sostituiamo il placeholder con la stringa HTML che abbiamo costruito
+$html = str_replace("[[ifLoggedIn]]", $loginNav, $html);
 
         foreach ($repeated_replacements as $key => $value) {
             // HANDLE REPETITION PLACEHOLDER

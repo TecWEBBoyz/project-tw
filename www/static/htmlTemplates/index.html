@@ -5,8 +5,8 @@
     <title>Zoo Animalia</title>
 
     <!-- SEO Meta Tags -->
-    <meta name="description" content="Vivi l'esperienza unica dello Zoo Animalia: scopri animali da tutto il mondo, prenota tour, leggi recensioni e impara divertendoti.">
-    <meta name="keywords" content="zoo, animali, fauna selvatica, tour zoo, Roma, visita zoo, animali esotici, zoo per famiglie, Zoo Animalia">
+    <meta name="description" content="Vivi l'esperienza unica dello Zoo Animalia: scopri animali da tutto il mondo, prenota un tour, leggi recensioni e impara divertendoti.">
+    <meta name="keywords" content="zoo, animali, fauna selvatica, Roma, visita zoo, animali esotici, zoo per famiglie, Zoo Animalia">
     <meta name="author" content="Zoo Animalia">
     <link rel="canonical" href="https://www.zooanimalia.it/">
     <meta name="robots" content="index, follow">
@@ -20,7 +20,7 @@
     <script src="static/javascript/script.js" defer></script>
 </head>
 <body>
-    <nav>
+    <nav aria-label="Aiuti alla navigazione">
         <a href="#contenuto" class="navigation-help">Vai al contenuto</a>
         <a href="#footer" class="navigation-help">Vai al <span lang="en">footer</span></a>
     </nav>
@@ -35,7 +35,7 @@
                 </button>
                 <nav id="menu" aria-label="menù di navigazione" class="drop-content">
                     <ul>
-                        <li><a class="menu-link" href="index.php"><span lang="en">Home</span></a></li>
+                        <li class="current-page"><span aria-current="page"><span lang="en">Home</span></span></li>
                         <li><a class="menu-link" href="about.php">Chi siamo</a></li>
                         <li><a class="menu-link" href="services.php">Servizi</a></li>
                         <li><a class="menu-link" href="animals.php">Animali</a></li>
@@ -47,7 +47,7 @@
     </header>
     <nav aria-label="Breadcrumb" class="breadcrumb">
         <ol>
-            <li>Home</li>
+            <li><span lang="en">Home</span></li>
         </ol>
     </nav>
     <main id="contenuto">
@@ -57,7 +57,7 @@
                     <h1>Scopri la natura da Animalia zoo</h1>
                     <p>Sperimenta la magia della fauna selvatica vista da vicino. Incontra i nostri animali e crea ricordi indelebili.</p>
                     <div class="button-container">
-                        <a class="button filled" href="userDashboard.php">Prenota un tour</a>
+                        <a class="button filled" href="userDashboard.php">Prenota un <span lang="fr">tour</span></a>
                         <a class="button" href="about.php">Scopri di più</a>
                     </div>
                 </div>
@@ -91,39 +91,46 @@
 
         <section class="review-section">
             <div class="section-content">
-                <h2>Le recensioni dei nostri visitatori</h2>
+                <h2>Cosa dicono i visitatori dello zoo</h2>
                 <div class="decoration light"></div>
                 <ul class="review-list">
+                    
+                    <!-- Recensione 1 -->
                     <li class="review-item">
                         <div class="review-header">
-                            <h3>[[reviewer1Name]]</h3>
-                            <p class="rating-sub stars-5">[[review1Rating]] stelle</p>
+                            <h3>Anna</h3>
+                            <p class="rating-sub stars-5">5 stelle</p>
                         </div>
                         <div class="review-body">
-                            <p>[[review1Comment]]</p>
+                            <p>Esperienza fantastica, il personale è stato molto gentile!</p>
                         </div>
                     </li>
+
+                    <!-- Recensione 2 -->
                     <li class="review-item">
                         <div class="review-header">
-                            <h3>[[reviewer2Name]]</h3>
-                            <p class="rating-sub stars-4">[[review2Rating]] stelle</p>
+                            <h3>Giacomo</h3>
+                            <p class="rating-sub stars-4">4 stelle</p>
                         </div>
                         <div class="review-body">
-                            <p>[[review2Comment]]</p>
+                            <p>Gli animali sembrano ben curati e l'esperienza complessiva è stata davvero piacevole!</p>
                         </div>
                     </li>
+
+                    <!-- Recensione 3 -->
                     <li class="review-item">
                         <div class="review-header">
-                            <h3>[[reviewer3Name]]</h3>
-                            <p class="rating-sub stars-5">[[review3Rating]] stelle</p>
+                            <h3>Alice</h3>
+                            <p class="rating-sub stars-4">4 stelle</p>
                         </div>
-                    <div class="review-body">
-                            <p>[[review3Comment]]</p>
-                    </div>
+                        <div class="review-body">
+                            <p>Il parco è bellissimo e ben organizzato, un luogo ideale per passare una giornata in famiglia.</p>
+                        </div>
+                    </li>
+
                 </ul>
             </div>
         </section>
-
     </main>
     <footer id="footer">
         <div class="footer-content">

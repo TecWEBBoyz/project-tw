@@ -66,7 +66,7 @@ if (empty($bookings)) {
             '[[service]]' => htmlspecialchars($service->getName()),
             '[[numberOfPeople]]' => htmlspecialchars($booking->getNumberOfPeople()),
             '[[date]]' => "<time datetime='" . $booking->getDate()->format("Y-m-d") . "'>" . formatDateItalian($booking->getDate()) . "</time>",
-            '[[notes]]' => htmlspecialchars($booking->getNotes() !== '' ? $booking->getNotes() : 'Nessuna'),
+            '[[notes]]' => $booking->getNotes() !== '' ? strip_tags($booking->getNotes(), '<strong><em>') : 'Nessuna',
             '[[bookingId]]' => htmlspecialchars($booking->getId()),
         ];
         $counter++;

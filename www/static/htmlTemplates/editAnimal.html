@@ -6,20 +6,21 @@
 
     <!-- SEO Meta Tags -->
     <meta name="description" content="Modifica le informazioni di un animale presente nel database di Zoo Animalia: nome, specie, habitat, dieta, immagine e descrizione.">
-    <meta name="keywords" content="modifica animale, pannello admin zoo, scheda animale, Zoo Animalia, aggiornamento dati animale, gestione zoo">
+    <meta name="keywords" content="modifica animale, salva modifiche, dashboard">
     <meta name="author" content="Zoo Animalia">
     <link rel="canonical" href="https://www.zooanimalia.it/editAnimal.php">
     <meta name="robots" content="noindex, nofollow">
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="static/css/style.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="static/css/print.css" media="print">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&family=Mulish:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
     <script src="static/javascript/script.js" defer></script>
 </head>
 <body>
-    <nav>
+    <nav aria-label="Aiuti alla navigazione">
         <a href="#contenuto" class="navigation-help">Vai al contenuto</a>
         <a href="#footer" class="navigation-help">Vai al <span lang="en">footer</span></a>
     </nav>
@@ -46,18 +47,19 @@
     </header>
     <nav aria-label="Breadcrumb" class="breadcrumb">
         <ol>
-            <li><a href="index.php">Home</a></li>
-            <li><a href="adminDashboard.php">Dashboard</a></li>
+            <li><a href="index.php"><span lang="en">Home</span></a></li>
+            <li><a href="adminDashboard.php"><span lang="en">Dashboard</span> amministratore</a></li>
             <li>Modifica Animale</li>
         </ol>
     </nav>
     <main id="contenuto" class="max-width">
         <div class="form-wrapper">
             <h1>Modifica Animale</h1>
-            <!-- Il riepilogo degli errori verrà popolato da JS. È nascosto finché non serve. -->
-            <div id="error-summary-container" class="error-summary" role="alert" tabindex="-1" hidden>
+            <div id="error-summary-container" class="error-summary" role="alert" tabindex="-1" [[errorSummaryHidden]]>
                 <h2>Attenzione, sono presenti errori nel modulo:</h2>
-                <ul id="error-summary-list"></ul>
+                <ul id="error-summary-list">
+                    [[errorSummaryListItems]]
+                </ul>
             </div>
 
             <form action="editAnimal.php" method="POST" enctype="multipart/form-data" novalidate>
@@ -66,56 +68,56 @@
 
                 <div class="input-wrapper">
                     <label for="name">Nome Animale</label>
-                    <input type="text" id="name" name="name" value="[[oldName]]" required aria-describedby="name-error">
-                    <p id="name-error" class="error-message" role="alert" hidden></p>
+                    <input type="text" id="name" name="name" value="[[oldName]]" required aria-describedby="name-error" [[nameInvalid]]>
+                    <p id="name-error" class="error-message" role="alert" [[nameErrorHidden]]>[[nameError]]</p>
                 </div>
                 
                 <div class="input-wrapper">
                     <label for="species">Specie</label>
-                    <input type="text" id="species" name="species" value="[[oldSpecies]]" required aria-describedby="species-error">
-                    <p id="species-error" class="error-message" role="alert" hidden></p>
+                    <input type="text" id="species" name="species" value="[[oldSpecies]]" required aria-describedby="species-error" [[speciesInvalid]]>
+                    <p id="species-error" class="error-message" role="alert" [[speciesErrorHidden]]>[[speciesError]]</p>
                 </div>
 
                 <div class="input-wrapper">
                     <label for="age">Età (anni)</label>
-                    <input type="number" id="age" name="age" value="[[oldAge]]" required min="0" step="1" aria-describedby="age-error">
-                    <p id="age-error" class="error-message" role="alert" hidden></p>
+                    <input type="number" id="age" name="age" value="[[oldAge]]" required min="0" step="1" aria-describedby="age-error" [[ageInvalid]]>
+                    <p id="age-error" class="error-message" role="alert" [[ageErrorHidden]]>[[ageError]]</p>
                 </div>
                 
                 <div class="input-wrapper">
                     <label for="habitat">Habitat</label>
-                    <input type="text" id="habitat" name="habitat" value="[[oldHabitat]]" required aria-describedby="habitat-error">
-                    <p id="habitat-error" class="error-message" role="alert" hidden></p>
+                    <input type="text" id="habitat" name="habitat" value="[[oldHabitat]]" required aria-describedby="habitat-error" [[habitatInvalid]]>
+                    <p id="habitat-error" class="error-message" role="alert" [[habitatErrorHidden]]>[[habitatError]]</p>
                 </div>
 
                 <div class="input-wrapper">
                     <label for="dimensions">Dimensioni (es. 2m x 3m)</label>
-                    <input type="text" id="dimensions" name="dimensions" value="[[oldDimensions]]" required aria-describedby="dimensions-error">
-                    <p id="dimensions-error" class="error-message" role="alert" hidden></p>
+                    <input type="text" id="dimensions" name="dimensions" value="[[oldDimensions]]" required aria-describedby="dimensions-error" [[dimensionsInvalid]]>
+                    <p id="dimensions-error" class="error-message" role="alert" [[dimensionsErrorHidden]]>[[dimensionsError]]</p>
                 </div>
 
                 <div class="input-wrapper">
                     <label for="lifespan">Speranza di vita (es. 10-15 anni)</label>
-                    <input type="text" id="lifespan" name="lifespan" value="[[oldLifespan]]" required aria-describedby="lifespan-error">
-                    <p id="lifespan-error" class="error-message" role="alert" hidden></p>
+                    <input type="text" id="lifespan" name="lifespan" value="[[oldLifespan]]" required aria-describedby="lifespan-error" [[lifespanInvalid]]>
+                    <p id="lifespan-error" class="error-message" role="alert" [[lifespanErrorHidden]]>[[lifespanError]]</p>
                 </div>
 
                 <div class="input-wrapper">
                     <label for="diet">Dieta</label>
-                    <input type="text" id="diet" name="diet" value="[[oldDiet]]" required aria-describedby="diet-error">
-                    <p id="diet-error" class="error-message" role="alert" hidden></p>
+                    <input type="text" id="diet" name="diet" value="[[oldDiet]]" required aria-describedby="diet-error" [[dietInvalid]]>
+                    <p id="diet-error" class="error-message" role="alert" [[dietErrorHidden]]>[[dietError]]</p>
                 </div>
 
                 <div class="input-wrapper">
                     <label for="description">Descrizione</label>
-                    <textarea id="description" name="description" rows="5" required aria-describedby="description-error">[[oldDescription]]</textarea>
-                    <p id="description-error" class="error-message" role="alert" hidden></p>
+                    <textarea id="description" name="description" rows="5" required aria-describedby="description-error" [[descriptionInvalid]]>[[oldDescription]]</textarea>
+                    <p id="description-error" class="error-message" role="alert" [[descriptionErrorHidden]]>[[descriptionError]]</p>
                 </div>
 
                 <div class="input-wrapper">
                     <label for="image">Carica una nuova immagine (opzionale)</label>
-                    <input type="file" id="image" name="image" aria-describedby="image-error" accept="image/jpeg, image/png, image/webp">
-                    <p id="image-error" class="error-message" role="alert" hidden></p>
+                    <input type="file" id="image" name="image" aria-describedby="image-error" accept="image/jpeg, image/png, image/webp" [[imageInvalid]]>
+                    <p id="image-error" class="error-message" role="alert" [[imageErrorHidden]]>[[imageError]]</p>
                     
                     <div class="image-preview">
                         <p>Immagine attuale:</p>
@@ -130,29 +132,26 @@
     <footer id="footer">
         <div class="footer-content">
             <div class="footer-item">
-                <h2>Come trovarci</h2>
-                <hr class="footer-divider">
+                <h2 class="underlined">Come trovarci</h2>
                 <ul id="footer-contact-list">
                     <li id="bullet-1">
-                        <a id="double-line-link" href="https://maps.app.goo.gl/NLS1NukNc8obQYUs6">Via Luigi Luzzatti <abbr title="Numero civico">n.</abbr> 8,<br>35121 Roma, Italia</a>
+                        <a id="double-line-link" class="light-link" href="https://maps.app.goo.gl/NLS1NukNc8obQYUs6">Via Luigi Luzzatti <abbr title="Numero civico">n.</abbr> 8,<br>35121 Roma, Italia</a>
                     </li>
                     <li id="bullet-2">
-                        <abbr title="telefono">Tel</abbr>: <a href="tel:+390612345678">06 123 45678</a>
+                        <abbr title="telefono">Tel</abbr>: <a class="light-link" href="tel:+390612345678">06 123 45678</a>
                     </li>
                     <li id="bullet-3">
-                        <span lang="en">Email</span>: <a href="mailto:info@zooanimalia.it">info@zooanimalia.it</a>
+                        <span lang="en">Email</span>: <a class="light-link" href="mailto:info@zooanimalia.it">info@zooanimalia.it</a>
                     </li>
                 </ul>
             </div>
             <div class="footer-item">
-                <h2>Orari di apertura</h2>
-                <hr class="footer-divider">
+                <h2 class="underlined">Orari di apertura</h2>
                 <p>Lunedì - Domenica</p>
                 <p><time datetime="9:00">9:00</time> - <time datetime="18:00">18:00</time></p>
             </div>
             <div class="footer-item">
-                <h2>Seguici</h2>
-                <hr class="footer-divider">
+                <h2 class="underlined">Seguici</h2>
                 <a href="https://zoo.com/tiktok" class="icon-link" aria-label="Visita la pagina TikTok">
                     <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="50" height="50" viewBox="0,0,256,256">
                         <g><g transform="scale(8.53333,8.53333)"><path d="M24,4h-18c-1.105,0 -2,0.895 -2,2v18c0,1.105 0.895,2 2,2h18c1.105,0 2,-0.895 2,-2v-18c0,-1.105 -0.896,-2 -2,-2zM22.689,13.474c-0.13,0.012 -0.261,0.02 -0.393,0.02c-1.495,0 -2.809,-0.768 -3.574,-1.931c0,3.049 0,6.519 0,6.577c0,2.685 -2.177,4.861 -4.861,4.861c-2.684,-0.001 -4.861,-2.178 -4.861,-4.862c0,-2.685 2.177,-4.861 4.861,-4.861c0.102,0 0.201,0.009 0.3,0.015v2.396c-0.1,-0.012 -0.197,-0.03 -0.3,-0.03c-1.37,0 -2.481,1.111 -2.481,2.481c0,1.37 1.11,2.481 2.481,2.481c1.371,0 2.581,-1.08 2.581,-2.45c0,-0.055 0.024,-11.17 0.024,-11.17h2.289c0.215,2.047 1.868,3.663 3.934,3.811z"></path></g></g>

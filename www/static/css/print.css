@@ -1,19 +1,80 @@
+/* -----------------------
+          General
+   ----------------------- */
+
 @page {
-    margin: 1.5cm;
+    margin: 1.5cm 1.5cm 2cm 1.5cm;
+    @top-center {
+        content: "Zoo Animalia";
+        font-family: "Times New Roman", serif;
+        font-size: 16pt;
+        font-weight: bold;
+        color: var(--accent-2);
+        border-bottom: 1pt solid var(--accent-2);
+        margin-bottom: 0.5em;
+    }
+    @bottom-left {
+        content: "Via Luigi Luzzatti n. 8, 35121 Roma\A Telefono: 06 123 45678\A Email: info@zooanimalia.it";
+        white-space: pre-line;
+        font-size: 9pt;
+        color: var(--accent-2);
+        font-family: "Times New Roman", serif;
+        border-top: 1pt solid var(--accent-2);
+        margin-top: 0.5em;
+    }
+    @bottom-center {
+        content: "Orari:\A Lun-Dom 9:00-18:00";
+        white-space: pre-line;
+        font-size: 9pt;
+        color: var(--accent-2);
+        font-family: "Times New Roman", serif;
+        border-top: 1pt solid var(--accent-2);
+        margin-top: 0.5em;
+    }
+    @bottom-right {
+        content: "Pagina " counter(page) " di " counter(pages);
+        font-size: 9pt;
+        color: var(--accent-2);
+        font-family: "Times New Roman", serif;
+        border-top: 1pt solid var(--accent-2);
+        margin-top: 0.5em;
+    }
+}
+
+:root{
+    --dark: #050402;
+    --light: #FFFFFA;
+    --accent-1: #007db8;
+    --accent-2: #2f452c;
+    --muted: #737779;
 }
 
 body {
     font-family: "Times New Roman", Times, serif;
     font-size: 12pt;
-    color: #000 ;
-    background: #fff ;
+    color: #000;
+    background: #fff;
     width: 100%;
     margin: 0;
     padding: 0;
 }
 
+h1{
+    text-align: center;
+    font-size: 30pt;
+}
+
+
+h2 {
+    font-size: 24pt;
+}
+
+h3 {
+    font-size: 18pt;
+}
+
 h1, h2, h3, h4, h5, h6 {
-    color: #000 ;
+    color: var(--accent-2);
     page-break-after: avoid;
 }
 
@@ -21,6 +82,10 @@ p {
     line-height: 1.5;
     orphans: 3;
     widows: 3;
+}
+
+a {
+    color:  var(--accent-1);
 }
 
 header,
@@ -33,13 +98,192 @@ footer,
 .animal-card .card-link,
 .review-section,
 .animals-section .animal-list .animal-item .learn-more,
-.login-wrapper,
 .booking-item-actions,
 .pagination,
 .error-404-actions,
-.error-500-actions {
-    display: none ;
+.error-500-actions,
+button {
+    display: none;
 }
+
+/* -----------------------
+           Tables
+   ----------------------- */
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 2pt solid #000;
+    margin: 1em 0;
+    page-break-inside: avoid;
+}
+
+table thead {
+    display: table-header-group;
+    border-bottom: 2pt solid #000;
+}
+
+table tbody {
+    display: table-row-group;
+}
+
+table tr {
+    display: table-row;
+    page-break-inside: avoid;
+    break-inside: avoid;
+    border-bottom: 1pt solid #000;
+}
+
+table th,
+table td {
+    display: table-cell;
+    border: 1pt solid #000;
+    padding: 6pt 4pt;
+    vertical-align: top;
+    word-wrap: break-word;
+    font-size: 10pt;
+}
+
+table th {
+    background-color: var(--accent-2);
+    color: var(--light);
+    font-weight: bold;
+    text-align: left;
+    border: 1.5pt solid #000;
+}
+
+table th:first-child,
+table td:first-child {
+    border-left: 2pt solid #000;
+}
+
+table th:last-child,
+table td:last-child {
+    border-right: 2pt solid #000;
+}
+
+table thead tr:first-child th {
+    border-top: 2pt solid #000;
+}
+
+table tbody tr:last-child td {
+    border-bottom: 2pt solid #000;
+}
+
+table tbody tr:nth-child(even) {
+    background-color: #f8f8f8;
+}
+
+table tbody tr:nth-child(odd) {
+    background-color: #ffffff;
+}
+
+
+table caption {
+    font-size: 14pt;
+    font-weight: bold;
+    text-align: left;
+    margin-bottom: 10pt;
+    page-break-after: avoid;
+    color: #000;
+}
+
+
+table td {
+    overflow-wrap: break-word;
+    word-break: break-word;
+    hyphens: auto;
+    max-width: 0;
+}
+
+table thead tr,
+table tbody tr {
+    page-break-inside: avoid;
+    break-inside: avoid;
+}
+
+table thead {
+    display: table-header-group;
+}
+
+table th.print-muted,
+table td.print-muted {
+    display: none;
+}
+
+table .booking-actions {
+    display: none;
+}
+
+table .booking-actions::after {
+    content: "[Azione non disponibile in stampa]";
+    font-style: italic;
+    color: #666;
+    font-size: 9pt;
+}
+
+#logo h1 {
+    font-size: 24pt;
+    text-indent: 0;
+    white-space: normal;
+    background-image: none;
+    text-align: center;
+    border-bottom: 2px solid #000;
+    margin-bottom: 1em;
+}
+
+/* -----------------------
+         Breadcrumb
+   ----------------------- */
+
+.breadcrumb {
+    display: flex;
+    justify-content: center;
+    font-family: serif;
+    font-size: 16pt;
+    margin: 1em 2em;
+    color: #000;
+}
+
+.breadcrumb ol {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.breadcrumb li {
+    margin-right: 0.5em;
+}
+
+.breadcrumb li::after {
+    content: "›";
+    margin: 0 0.5em;
+    color: #000;
+}
+
+.breadcrumb li:last-child::after {
+    content: "";
+}
+
+.breadcrumb a {
+    color:var(--muted)
+}
+
+.breadcrumb a::after {
+    content: none;
+}
+
+.breadcrumb a[href]:after,
+nav.breadcrumb a[href]:after {
+    content: "";
+}
+
+/* -----------------------
+          Index
+   ----------------------- */
 
 main,
 main > section > .section-content,
@@ -47,12 +291,12 @@ main > section > .section-content,
 #about-section .about-item,
 #services-container .service,
 .animal-detail-container {
-    display: block ;
-    width: auto ;
-    max-width: 100% ;
-    margin: 0 ;
-    padding: 0 ;
-    float: none ;
+    display: block;
+    width: auto;
+    max-width: 100%;
+    margin: 0;
+    padding: 0;
+    float: none;
 }
 
 a[href]:after {
@@ -83,20 +327,19 @@ img,
 .about-item-image,
 .error-404-image,
 .error-500-image {
-    max-width: 100% ;
-    height: auto ;
+    max-width: 100%;
+    height: auto;
     page-break-inside: avoid;
     display: block;
     margin: 1rem auto;
 }
 
-.hero-section,
 .animal-identikit,
 .animal-card,
 .animal-description {
-    background: none ;
-    box-shadow: none ;
-    border: 1px solid #ccc;
+    background: none;
+    box-shadow: none;
+    border: 1px solid var(--accent-2);
     padding: 1em;
     margin-bottom: 1em;
 }
@@ -110,171 +353,149 @@ img,
     margin-bottom: 2rem;
 }
 
-/* Stili tabelle ottimizzati per stampa */
-table {
-    width: 100% ;
-    border-collapse: collapse ;
-    border: 2pt solid #000 ;
-    margin: 1em 0 ;
+/* -----------------------
+          Animals
+   ----------------------- */
+
+.animal-list {
+    list-style: none;
+    padding-left: 0;
+}
+
+/* -----------------------
+            Animal
+   ----------------------- */
+
+.animal-detail-container {
+    display: block;
+    width: 100%;
+}
+
+.animal-main-content {
+    display: block;
+    width: 100%;
+    margin-bottom: 2em;
+}
+
+.animal-identikit {
+    background: none;
+    box-shadow: none;
+    padding: 0 1em;
+    margin: 2em 0;
     page-break-inside: avoid;
 }
 
-table thead {
-    display: table-header-group ;
-    border-bottom: 2pt solid #000 ;
+.animal-identikit h2 {
+    color: var(--accent-2);
+    margin-bottom: 1em;
+    text-align: center;
+    border-bottom: 1pt solid var(--accent-2);
+    padding-bottom: 0.5em;
 }
 
-table tbody {
-    display: table-row-group ;
+.identikit-info {
+    margin: 0;
+    padding: 0;
 }
 
-table tr {
-    display: table-row ;
-    page-break-inside: avoid ;
-    break-inside: avoid ;
-    border-bottom: 1pt solid #000 ;
+.info-item {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1pt solid #ccc;
+    padding: 8pt 0;
+    page-break-inside: avoid;
 }
 
-table th,
-table td {
-    display: table-cell ;
-    border: 1pt solid #000 ;
-    padding: 6pt 4pt ;
-    vertical-align: top ;
-    word-wrap: break-word ;
-    font-size: 10pt ;
+.info-item:last-child {
+    border-bottom: none;
 }
 
-table th {
-    background-color: #f0f0f0 ;
-    font-weight: bold ;
-    text-align: left ;
-    border: 1.5pt solid #000 ;
+.info-item dt {
+    font-weight: bold;
+    color: var(--accent-2);
+    flex: 0 0 40%;
+    margin: 0;
 }
 
-/* Bordi rinforzati per contorno tabella */
-table th:first-child,
-table td:first-child {
-    border-left: 2pt solid #000 ;
+.info-item dd {
+    flex: 1;
+    margin: 0;
+    text-align: right;
+    color: var(--dark);
 }
 
-table th:last-child,
-table td:last-child {
-    border-right: 2pt solid #000 ;
-}
+/* -----------------------
+            Forms
+   ----------------------- */
 
-table thead tr:first-child th {
-    border-top: 2pt solid #000 ;
-}
-
-table tbody tr:last-child td {
-    border-bottom: 2pt solid #000 ;
-}
-
-/* Righe alternate per migliore leggibilità */
-table tbody tr:nth-child(even) {
-    background-color: #f8f8f8 ;
-}
-
-table tbody tr:nth-child(odd) {
-    background-color: #ffffff ;
-}
-
-/* Caption tabella */
-table caption {
-    font-size: 14pt ;
-    font-weight: bold ;
-    text-align: left ;
-    margin-bottom: 10pt ;
-    page-break-after: avoid;
-    color: #000 ;
-}
-
-/* Gestione specifica per celle con contenuto lungo */
-table td {
-    overflow-wrap: break-word;
-    word-break: break-word;
-    hyphens: auto;
-    max-width: 0; /* Forza il wrap del testo */
-}
-
-/* Evita interruzioni inappropriate */
-table thead tr,
-table tbody tr {
+.login-wrapper{
+    margin: 5rem auto;
+    padding: 2rem;
+    width: 450px;
+    max-width: 100%;
+    border-radius: 16px;
+    box-shadow: 0 20px 60px -20px rgba(5, 4, 2, 0.3);
     page-break-inside: avoid;
     break-inside: avoid;
 }
 
-/* Assicura che l'header sia ripetuto su ogni pagina */
-table thead {
-    display: table-header-group;
-}
-
-/* Nascondi elementi con classe print-muted in stampa */
-table th.print-muted,
-table td.print-muted {
-    display: none;
-}
-
-/* Gestione pulsanti nelle tabelle */
-table .booking-actions {
-    display: none ; /* Nasconde i pulsanti di azione in stampa */
-}
-
-/* Sostituisce i pulsanti con testo descrittivo se necessario */
-table .booking-actions::after {
-    content: "[Azione non disponibile in stampa]";
-    font-style: italic;
-    color: #666;
-    font-size: 9pt;
-}
-
-#logo h1 {
-    font-size: 24pt;
-    text-indent: 0;
-    white-space: normal;
-    background-image: none;
+.login-wrapper h1 {
+    margin-bottom: 2rem;
     text-align: center;
-    border-bottom: 2px solid #000;
-    margin-bottom: 1em;
+    line-height: normal;
 }
 
-.breadcrumb {
-    display: block !important;
-    font-family: serif;
-    font-size: 12pt;
-    margin: 1em 2em;
-    color: #000;
-}
-
-.breadcrumb ol {
-    list-style: none;
-    padding: 0;
-    margin: 0;
+.login-wrapper form {
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column;
+    gap: 2rem;
+    justify-content: space-between;
 }
 
-.breadcrumb li {
-    margin-right: 0.5em;
+.image-preview {
+    page-break-inside: avoid;
+    break-inside: avoid;
 }
 
-.breadcrumb li::after {
-    content: "›";
-    margin: 0 0.5em;
-    color: #000;
+input,
+select,
+textarea{
+    padding: 1rem 2rem;
+    border: 1px solid var(--accent-2);
+    border-radius: 8px;
+    transition: 0.3s ease-out;
+    background-color: var(--light);
+    appearance: none; 
+    cursor: pointer;
 }
 
-.breadcrumb li:last-child::after {
-    content: "";
+input, 
+textarea {
+    width: 85%;
 }
 
-.breadcrumb a {
-    color: #000 !important;
-    text-decoration: underline;
+select {
+    width: 100%;
 }
 
-/* Non mostrare URL */
-.breadcrumb a::after {
-    content: none !important;
+textarea {
+    resize: vertical;
+    min-height: 4rem;
+    height: auto;
+    overflow-y: hidden;
+    font-family: inherit;
+    line-height: 1.5;
+}
+
+label {
+    display: block;
+    margin-bottom: 0.2rem;
+    font-weight: bold;
+    color: var(--accent-2);
+}
+
+/* Gruppo form per contenere label e input insieme */
+.form-group {
+    display: flex;
+    flex-direction: column;
 }

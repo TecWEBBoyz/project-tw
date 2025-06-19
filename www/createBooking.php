@@ -1,88 +1,149 @@
 <?php
 require_once 'init.php';
 
-session_start();
 
 use \PTW\Repositories\BookingRepository;
 use \PTW\Repositories\ServiceRepository;
 use \PTW\Services\AuthService;
 use \PTW\Services\TemplateService;
-
 use \PTW\Models\Booking;
-use \PTW\Models\Service;
 
-$bookingRepo = new BookingRepository();
-$serviceRepo = new ServiceRepository();
-
-// Check authentication before allowing access
 if (!AuthService::isUserLoggedIn()) {
-    // Salva l'URL corrente nella sessione
     $_SESSION['redirect_after_login'] = $_SERVER['REQUEST_URI'];
     header('Location: login.php?error=unauthorized');
     exit;
 }
-// Get current user
+
 $currentUser = AuthService::getCurrentUser();
+$bookingRepo = new BookingRepository();
+$serviceRepo = new ServiceRepository();
+
+$errors = $_SESSION['errors'] ?? [];
+$old_data = $_SESSION['old_data'] ?? [];
+unset($_SESSION['errors'], $_SESSION['old_data']);
+
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-    var_dump($_POST);
+    $old_data = [
+        'service' => trim($_POST['service'] ?? ''),
+        'numberOfPeople' => trim($_POST['numberOfPeople'] ?? ''),
+        'date' => trim($_POST['date'] ?? ''),
+        'notes' => trim($_POST['notes'] ?? ''),
+        'service_id' => $_POST['service_id'] ?? ''
+    ];
     
-    // Check if all fields (except for user_id are present)
-    if (!array_key_exists('service', $_POST) 
-        || !array_key_exists('numberOfPeople', $_POST) 
-        || !array_key_exists('date', $_POST)
-        || !array_key_exists('notes', $_POST)) {
-        
-        http_response_code(400);
-        echo json_encode(["message" => "Missing data field."]);
-        exit();
+    if (empty($old_data['service'])) {
+        $errors['service'] = 'Il servizio è obbligatorio.';
     }
 
-    // Get service by selected name to restrive its ID (used to create new booking)
-    $service = $serviceRepo->GetElementByUnique('name', $_POST['service']);
-    if (!$service) {
-        http_response_code(404);
-        exit();
+    $service = null;
+    if (!empty($old_data['service'])) {
+        $service = $serviceRepo->GetElementByUnique('name', $old_data['service']);
+        if (!$service) {
+            $errors['service'] = 'Il servizio selezionato non è valido.';
+        }
     }
 
-    // Create new booking
+    if (empty($old_data['numberOfPeople'])) {
+        $errors['numberOfPeople'] = 'Il numero di partecipanti è obbligatorio.';
+    } elseif (!filter_var($old_data['numberOfPeople'], FILTER_VALIDATE_INT) || $old_data['numberOfPeople'] < 1) {
+        $errors['numberOfPeople'] = 'Il numero di partecipanti deve essere almeno 1.';
+    } elseif ($service && $old_data['numberOfPeople'] > $service->getMaxPeople()) {
+        $errors['numberOfPeople'] = 'Il numero di partecipanti supera il massimo consentito (' . $service->getMaxPeople() . ') per questo servizio.';
+    }
+
+    if (empty($old_data['date'])) {
+        $errors['date'] = 'La data è obbligatoria.';
+    } else {
+        $selectedDate = DateTime::createFromFormat('Y-m-d', $old_data['date']);
+        $today = new DateTime('today');
+        if (!$selectedDate || $selectedDate->format('Y-m-d') !== $old_data['date']) {
+            $errors['date'] = 'Il formato della data non è valido.';
+        } elseif ($selectedDate < $today) {
+            $errors['date'] = 'La data non può essere nel passato.';
+        }
+    }
+
+    if (strlen($old_data['notes']) > 75) {
+        $errors['notes'] = 'Le note non possono superare i 75 caratteri.';
+    }
+
+    if (!empty($errors)) {
+        $_SESSION['errors'] = $errors;
+        $_SESSION['old_data'] = $old_data;
+        header('Location: createBooking.php?service_id=' . urlencode($old_data['service_id']));
+        exit;
+    }
+
+    $sanitized_notes = strip_tags($old_data['notes'], '<strong><em>');
+
     $newBooking = new Booking([
         'id' => uniqid(),
         'user_id' => $currentUser->getId(),
         'service_id' => $service->getId(),
-        'num_people' => $_POST['numberOfPeople'],
-        'date' => $_POST['date'],
-        'notes' => $_POST['notes']
+        'num_people' => (int)$old_data['numberOfPeople'],
+        'date' => $old_data['date'],
+        'notes' => $sanitized_notes
     ]);
+
     $bookingRepo->Create($newBooking);
 
-    header("Location: userDashboard.php");
+    header("Location: userDashboard.php?success=booking_created");
     exit();
 }
 
-// Check if service_id is provided through GET method
-if (!array_key_exists('service_id', $_GET)) {
-    http_response_code(400);
-    echo json_encode(["message" => "Missing data field."]);
+
+
+if (!isset($_GET['service_id'])) {
+    header('Location: services.php?error=missing_service'); 
     exit();
 }
 
-//
 $service = $serviceRepo->GetElementByID($_GET['service_id']);
 if (!$service) {
     http_response_code(404);
+    echo "Servizio non trovato.";
     exit();
 }
 
-$currentFile = basename(__FILE__);
-$htmlContent = TemplateService::renderHtml($currentFile, [
+$errorSummaryHtml = '';
+if (!empty($errors)) {
+    $errorSummaryHtml = '<div id="error-summary-container-server" class="error-summary" role="alert" tabindex="-1">';
+    $errorSummaryHtml .= '<h2>Attenzione, sono presenti errori nel modulo:</h2><ul>';
+    foreach ($errors as $key => $message) {
+        if ($key === 'service_id') continue;
+        $errorSummaryHtml .= '<li><a href="#' . htmlspecialchars($key) . '">' . htmlspecialchars($message) . '</a></li>';
+    }
+    $errorSummaryHtml .= '</ul></div>';
+}
+
+$replacements = [
     "[[serviceId]]" => $service->getId(),
     "[[serviceName]]" => $service->getName(),
     "[[serviceMaxPeople]]" => $service->getMaxPeople(),
     "[[minDate]]" => (new DateTime("now"))->format("Y-m-d"),
-    "<option value=\"" . $service->getName() ."\"" => "<option value=\"" . $service->getName() ."\" selected", 
-]);
-echo $htmlContent;
 
-?>
+    '[[errorSummaryContainer]]' => $errorSummaryHtml,
+    '[[oldNumberOfPeople]]' => isset($old_data['numberOfPeople']) ? htmlspecialchars($old_data['numberOfPeople']) : '1',
+    '[[oldDate]]' => isset($old_data['date']) ? htmlspecialchars($old_data['date']) : '',
+    '[[oldNotes]]' => isset($old_data['notes']) ? htmlspecialchars($old_data['notes']) : '',
+];
+
+// Gestione dinamica per campi con errori
+$form_fields = ['service', 'numberOfPeople', 'date', 'notes'];
+foreach ($form_fields as $field) {
+    $replacements["[[{$field}Error]]"] = isset($errors[$field]) ? htmlspecialchars($errors[$field]) : '';
+    $replacements["[[{$field}ErrorHidden]]"] = isset($errors[$field]) ? '' : 'hidden';
+    $replacements["[[{$field}Invalid]]"] = isset($errors[$field]) ? 'aria-invalid="true"' : '';
+}
+
+// Gestione della select 'service' che è un caso particolare
+$selected_service = $old_data['service'] ?? $service->getName();
+$replacements['[[safariSelected]]'] = ($selected_service === 'Safari') ? 'selected' : '';
+$replacements['[[ingressoSelected]]'] = ($selected_service === 'Ingresso') ? 'selected' : '';
+$replacements['[[visitaGuidataSelected]]'] = ($selected_service === 'Visita guidata') ? 'selected' : '';
+
+$currentFile = basename(__FILE__, '.php') . '.html';
+$htmlContent = TemplateService::renderHtml($currentFile, $replacements);
+echo $htmlContent;
