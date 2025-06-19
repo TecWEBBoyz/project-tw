@@ -59,7 +59,7 @@ if (empty($bookings)) {
         }
 
         $single_replacement = [
-            '[[booking]]' => 'Prenotazione ' . $counter,
+            '[[booking]]' => $counter,
             '[[service]]' => $service->getName(),
             '[[bookingUserName]]' => $bookingUser->getUsername(),
             '[[numberOfPeople]]' => $booking->getNumberOfPeople(),
