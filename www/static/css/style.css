@@ -1485,6 +1485,10 @@ label:has(+ textarea:active) {
     background-color:#36424e;
 }
 
+form button {
+    align-self: center;
+}
+
 /* -----------------------
          User Dashboard
    ----------------------- */
@@ -1589,6 +1593,12 @@ a.button {
     transform: translateY(-8px);
     background-color: var(--accent-1);
     color: var(--light);
+}
+
+@media screen and (max-width: 768px) {
+    .button {
+
+    }
 }
 
 /* -----------------------
