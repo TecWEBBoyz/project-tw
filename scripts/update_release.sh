@@ -200,6 +200,16 @@ if [[ "$LATEST_VERSION" != "$CURRENT_VERSION" ]]; then
         log_to_file "Warning: Config.php not found at $CONFIG_FILE"
     fi
 
+    # .htaccess file
+    HTACCESS_FILE="$DEST_DIR/.htaccess"
+    if [[ -f "$HTACCESS_FILE" ]]; then
+        log_to_file "Modifying .htaccess file..."
+        sed -i "s/{USERNAME}/$USERHOME/g" "$HTACCESS_FILE"
+    else
+        log_to_file "Warning: .htaccess file not found at $HTACCESS_FILE"
+    fi
+
+
     echo "$LATEST_VERSION" > "$VERSION_FILE"
 
     LAST_UPDATE=$(date +"%Y-%m-%d %H:%M:%S")
