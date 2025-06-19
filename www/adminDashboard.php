@@ -63,6 +63,7 @@ if (empty($bookings)) {
             '[[service]]' => $service->getName(),
             '[[bookingUserName]]' => $bookingUser->getUsername(),
             '[[numberOfPeople]]' => $booking->getNumberOfPeople(),
+            '[[notes]]' => $booking->getNotes() ?: 'Nessuna nota',
             '[[date]]' => "<time datetime='" . $booking->getDate()->format("Y-m-d") . "'>" . formatDateItalian($booking->getDate()) . "</time>",
         ];
         if ($booking->getDate() >= new DateTime("tomorrow")) {
