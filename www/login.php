@@ -7,7 +7,6 @@ use PTW\Services\TemplateService;
 
 $errors = [];
 $submitted_username = '';
-$errorSummaryHtml = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = $_POST['username'] ?? '';
@@ -15,9 +14,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $submitted_username = $username;
 
     // Validazione base lato server
-    if (empty($username) || empty($password)) {
-        $errors['form'] = "Entrambi i campi username e password sono obbligatori.";
-    } else {
+    if (empty($username)) {
+        $errors['username'] = "Il campo username è obbligatorio.";
+    }
+    if (empty($password)) {
+        $errors['password'] = "Il campo password è obbligatorio.";
+    }
+    
+    if (empty($errors)) {
         $token = AuthService::authenticate($username, $password);
         
         if ($token) {
@@ -33,28 +37,42 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
             exit;
         } else {
-            // Errore di autenticazione
+            // Errore di autenticazione generico, mostrato nel riepilogo
             $errors['form'] = "Username o password non validi. Riprova.";
         }
     }
 }
 
-// Se ci sono errori (da validazione o autenticazione)
+$errorSummaryListItems = '';
+$errorSummaryHidden = 'hidden';
+
 if (!empty($errors)) {
-    $errorSummaryHtml = '<div id="error-summary-container" class="error-summary" role="alert" tabindex="-1">';
-    $errorSummaryHtml .= '<h2>Attenzione, sono presenti errori nel modulo:</h2>';
-    $errorSummaryHtml .= '<ul id="error-summary-list-server">';
-    $errorSummaryHtml .= '<li>' . htmlspecialchars($errors['form']) . '</li>';
-    $errorSummaryHtml .= '</ul></div>';
+    $errorSummaryHidden = ''; // Rendi visibile il contenitore
+    // Popola la lista degli errori
+    if (isset($errors['form'])) {
+         $errorSummaryListItems .= '<li>' . htmlspecialchars($errors['form']) . '</li>';
+    } else {
+        if (isset($errors['username'])) $errorSummaryListItems .= '<li><a href="#username">' . htmlspecialchars($errors['username']) . '</a></li>';
+        if (isset($errors['password'])) $errorSummaryListItems .= '<li><a href="#password">' . htmlspecialchars($errors['password']) . '</a></li>';
+    }
 }
 
+$replacements = [
+    "[[errorSummaryListItems]]" => $errorSummaryListItems,
+    "[[errorSummaryHidden]]" => $errorSummaryHidden,
+    "[[usernameValue]]" => htmlspecialchars($submitted_username),
 
-$currentFile = basename(__FILE__);
-// Passiamo i dati al template per mostrare gli errori e pre-compilare l'username
-$htmlContent = TemplateService::renderHtml($currentFile, [
-    "[[errorSummary]]" => $errorSummaryHtml,
-    "[[usernameValue]]" => htmlspecialchars($submitted_username)
-]);
+    '[[usernameError]]' => isset($errors['username']) ? htmlspecialchars($errors['username']) : '',
+    '[[usernameErrorHidden]]' => isset($errors['username']) ? '' : 'hidden',
+    '[[usernameInvalid]]' => isset($errors['username']) || isset($errors['form']) ? 'aria-invalid="true"' : '',
+
+    '[[passwordError]]' => isset($errors['password']) ? htmlspecialchars($errors['password']) : '',
+    '[[passwordErrorHidden]]' => isset($errors['password']) ? '' : 'hidden',
+    '[[passwordInvalid]]' => isset($errors['password']) || isset($errors['form']) ? 'aria-invalid="true"' : '',
+];
+
+$currentFile = basename(__FILE__, '.php') . '.html';
+$htmlContent = TemplateService::renderHtml($currentFile, $replacements);
 echo $htmlContent;
 
 ?>

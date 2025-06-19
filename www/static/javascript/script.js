@@ -115,76 +115,88 @@ document.addEventListener('DOMContentLoaded', function() {
      * Esegue la validazione su tutti i campi del form.
      * @returns {Array} Un array di oggetti errore. Ogni oggetto ha {id, message}.
      */
-    function validateForm() {
-        const errors = [];
-        const addError = (id, message) => errors.push({ id, message });
+function validateForm() {
+    const errors = [];
+    const addError = (id, message) => errors.push({ id, message });
 
-        if (form.action.includes('Animal.php')) {
-            const textFields = ['name', 'species', 'habitat', 'dimensions', 'lifespan', 'diet', 'description'];
-            textFields.forEach(id => {
-                const input = document.getElementById(id);
-                if (input.value.trim() === '') {
-                    const label = document.querySelector(`label[for="${id}"]`).textContent;
-                    addError(id, `Il campo "${label}" è obbligatorio.`);
-                }
-            });
+    if (form.action.includes('Animal.php')) {
+        const textFields = ['name', 'species', 'habitat', 'dimensions', 'lifespan', 'diet', 'description'];
+        textFields.forEach(id => {
+            const input = document.getElementById(id);
+            if (input.value.trim() === '') {
+                const label = document.querySelector(`label[for="${id}"]`).textContent;
+                addError(id, `Il campo "${label}" è obbligatorio.`);
+            }
+        });
 
-            const ageInput = document.getElementById('age');
-            const ageValue = ageInput.value.trim();
-            if (ageValue === '') {
-                addError('age', 'L\'età è obbligatoria.');
-            } else if (!/^\d+$/.test(ageValue) || parseInt(ageValue, 10) < 0) {
-                addError('age', 'L\'età deve essere un numero intero non negativo.');
-            }
+        const ageInput = document.getElementById('age');
+        const ageValue = ageInput.value.trim();
+        if (ageValue === '') {
+            addError('age', 'L\'età è obbligatoria.');
+        } else if (!/^\d+$/.test(ageValue) || parseInt(ageValue, 10) < 0) {
+            addError('age', 'L\'età deve essere un numero intero non negativo.');
+        }
 
-            const imageInput = document.getElementById('image');
-            
-            if (imageInput.hasAttribute('required') && imageInput.files.length === 0) {
-                addError('image', 'L\'immagine è obbligatoria.');
-            } 
-            
-            if (imageInput.files.length > 0) {
-                const file = imageInput.files[0];
-                if (file.size > MAX_FILE_SIZE) {
-                    addError('image', 'Il file è troppo grande (massimo 5MB).');
-                }
-                if (!ALLOWED_TYPES.includes(file.type)) {
-                    addError('image', 'Formato file non supportato (solo JPEG, PNG, WEBP).');
-                }
+        const imageInput = document.getElementById('image');
+        
+        if (imageInput.hasAttribute('required') && imageInput.files.length === 0) {
+            addError('image', 'L\'immagine è obbligatoria.');
+        } 
+        
+        if (imageInput.files.length > 0) {
+            const file = imageInput.files[0];
+            if (file.size > MAX_FILE_SIZE) {
+                addError('image', 'Il file è troppo grande (massimo 5MB).');
             }
-		} else if (form.action.includes('Booking.php')) {
-			const serviceInput = document.getElementById('service');
-            if (serviceInput && serviceInput.value === '') {
-                addError('service', 'È obbligatorio selezionare un servizio.');
-            }
-			
-			const peopleInput = document.getElementById('numberOfPeople');
-			if (peopleInput.value.trim() === '') {
-			    addError('numberOfPeople', 'Il numero di partecipanti è obbligatorio.');
-			} else {
-                const numPeople = parseInt(peopleInput.value, 10);
-                if (numPeople < 1) {
-                    addError('numberOfPeople', 'Il numero di partecipanti deve essere almeno 1.');
-                }
-                const maxPeople = peopleInput.getAttribute('max');
-                if (maxPeople && numPeople > parseInt(maxPeople, 10)) {
-                    addError('numberOfPeople', `Il numero di partecipanti non può superare ${maxPeople}.`);
-                }
-            }
-
-            const dateInput = document.getElementById('date');
-            const today = new Date();
-            today.setHours(0, 0, 0, 0);
-            const selectedDate = new Date(dateInput.value);
-            
-            if (dateInput.value.trim() === '') {
-                addError('date', 'La data è obbligatoria.');
-            } else if (selectedDate < today) {
-                addError('date', 'La data non può essere nel passato.');
+            if (!ALLOWED_TYPES.includes(file.type)) {
+                addError('image', 'Formato file non supportato (solo JPEG, PNG, WEBP).');
             }
         }
-        return errors;
+    } else if (form.action.includes('Booking.php')) {
+        const serviceInput = document.getElementById('service');
+        if (serviceInput && serviceInput.value === '') {
+            addError('service', 'È obbligatorio selezionare un servizio.');
+        }
+        
+        const peopleInput = document.getElementById('numberOfPeople');
+        if (peopleInput.value.trim() === '') {
+            addError('numberOfPeople', 'Il numero di partecipanti è obbligatorio.');
+        } else {
+            const numPeople = parseInt(peopleInput.value, 10);
+            if (numPeople < 1) {
+                addError('numberOfPeople', 'Il numero di partecipanti deve essere almeno 1.');
+            }
+            const maxPeople = peopleInput.getAttribute('max');
+            if (maxPeople && numPeople > parseInt(maxPeople, 10)) {
+                addError('numberOfPeople', `Il numero di partecipanti non può superare ${maxPeople}.`);
+            }
+        }
+
+        const dateInput = document.getElementById('date');
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+        const selectedDate = new Date(dateInput.value);
+        
+        if (dateInput.value.trim() === '') {
+            addError('date', 'La data è obbligatoria.');
+        } else if (selectedDate < today) {
+            addError('date', 'La data non può essere nel passato.');
+        }
+    
+    } else if (form.action.includes('login.php')) {
+        const usernameInput = document.getElementById('username');
+        if (usernameInput.value.trim() === '') {
+            addError('username', 'Il campo Username è obbligatorio.');
+        }
+
+        const passwordInput = document.getElementById('password');
+        if (passwordInput.value.trim() === '') {
+            addError('password', 'Il campo Password è obbligatorio.');
+        }
     }
+    
+    return errors;
+}
 
     /**
      * Mostra tutti gli errori sul form.

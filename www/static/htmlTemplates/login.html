@@ -53,46 +53,46 @@
         </ol>
     </nav>
     <main id="contenuto" class="full-page">
-    <div class="login-wrapper">
-        <h1><span lang="en">Login</span></h1>
+        <div class="login-wrapper">
+            <h1><span lang="en">Login</span></h1>
 
-        <!-- errori lato server -->
-        [[errorSummary]]
+            <div id="error-summary-container" class="error-summary" role="alert" tabindex="-1" [[errorSummaryHidden]]>
+                <h2>Attenzione, sono presenti errori nel modulo:</h2>
+                <ul id="error-summary-list">
+                    [[errorSummaryListItems]]
+                </ul>
+            </div>
 
-        <!-- errori lato client -->
-        <div id="error-summary-container-client" class="error-summary" role="alert" tabindex="-1" hidden>
-            <h2>Attenzione, sono presenti errori nel modulo:</h2>
-            <ul id="error-summary-list"></ul>
+            <form method="POST" action="login.php" novalidate>
+                <div class="input-wrapper">
+                    <label for="username"><span lang="en">Username:</span></label>
+                    <input 
+                        type="text" 
+                        id="username" 
+                        name="username" 
+                        autocomplete="username" 
+                        required
+                        aria-describedby="username-error"
+                        value="[[usernameValue]]"
+                        [[usernameInvalid]]>
+                    <p id="username-error" class="error-message" role="alert" [[usernameErrorHidden]]>[[usernameError]]</p>
+                </div>
+                <div class="input-wrapper">
+                    <label for="password"><span lang="en">Password:</span></label>
+                    <input 
+                        type="password" 
+                        id="password" 
+                        name="password" 
+                        autocomplete="current-password" 
+                        required
+                        aria-describedby="password-error"
+                        [[passwordInvalid]]>
+                    <p id="password-error" class="error-message" role="alert" [[passwordErrorHidden]]>[[passwordError]]</p>
+                </div>
+                <button type="submit" class="submit-button">Accedi</button>
+            </form>
         </div>
-
-        <form method="POST" action="login.php" novalidate>
-            <div class="input-wrapper">
-                <label for="username"><span lang="en">Username:</span></label>
-                <input 
-                    type="text" 
-                    id="username" 
-                    name="username" 
-                    autocomplete="username" 
-                    required
-                    aria-describedby="username-error"
-                    value="[[usernameValue]]">
-                <p id="username-error" class="error-message" role="alert" hidden></p>
-            </div>
-            <div class="input-wrapper">
-                <label for="password"><span lang="en">Password:</span></label>
-                <input 
-                    type="password" 
-                    id="password" 
-                    name="password" 
-                    autocomplete="current-password" 
-                    required
-                    aria-describedby="password-error">
-                <p id="password-error" class="error-message" role="alert" hidden></p>
-            </div>
-            <button type="submit" class="submit-button">Accedi</button>
-        </form>
-    </div>
-</main>
+    </main>
     <footer id="footer">
         <div class="footer-content">
             <div class="footer-item">
