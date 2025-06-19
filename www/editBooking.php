@@ -1,7 +1,6 @@
 <?php
 require_once 'init.php';
 
-session_start();
 
 use \PTW\Repositories\BookingRepository;
 use \PTW\Repositories\ServiceRepository;
