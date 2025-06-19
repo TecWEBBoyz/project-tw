@@ -902,6 +902,11 @@ main>section>.section-content h2 + .decoration.light {
        Meet Animal Section
    ----------------------- */
 
+.animals-section h1 {
+    padding-bottom: 2rem;
+    text-align: center;
+}
+
 .meet-animal-section .animal-cards-container {
     margin-top: 2rem;
 
