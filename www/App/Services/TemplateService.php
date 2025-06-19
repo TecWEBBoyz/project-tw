@@ -30,6 +30,9 @@ class TemplateService {
             if (basename($callerFile) === 'userDashboard.php') {
                 // Se siamo nella dashboard utente, "Prenotazioni" non è un link
                 $loginNav .= '<li class="current-page"><span aria-current="page">Prenotazioni</span></li>';
+            } else if (basename($callerFile) === 'login.php') {
+                $loginNav .= '<li><a class="menu-link" href="userDashboard.php">Prenotazioni</a></li>';
+                $loginNav .= '<li class="current-page"><span aria-current="page"><span lang="en">Login</span></span></li>';
             } else {
                 $loginNav .= '<li><a class="menu-link" href="userDashboard.php">Prenotazioni</a></li>';
             }
@@ -40,6 +43,9 @@ class TemplateService {
             if (basename($callerFile) === 'adminDashboard.php') {
                 // Se siamo nella dashboard admin, "Gestione" non è un link
                 $loginNav .= '<li class="current-page"><span aria-current="page">Gestione</span></li>';
+            } else if (basename($callerFile) === 'login.php') {
+                $loginNav .= '<li><a class="menu-link" href="adminDashboard.php">Gestione</a></li>';
+                $loginNav .= '<li class="current-page"><span aria-current="page"><span lang="en">Login</span></span></li>';
             } else {
                 $loginNav .= '<li><a class="menu-link" href="adminDashboard.php">Gestione</a></li>';
             }
