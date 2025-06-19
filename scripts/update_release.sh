@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Configuration
-USER=$(basename $(dirname $(pwd)))
+USER=$(echo "$PWD" | awk -F/ '{print $3}')
 USERHOME=$USER # Automatically fetch the username of the user
 DEST_DIR="/home/$USERHOME/public_html"
 VERSION_FILE="/home/$USERHOME/scripts/current_version.txt"
