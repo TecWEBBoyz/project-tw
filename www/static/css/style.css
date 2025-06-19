@@ -1159,6 +1159,11 @@ main>#about-section>.section-content .about-item:nth-child(2n) p {
     transition: visibility 0s 0.2s, opacity 0.4s ease-out, max-height 0.4s ease-out;
 }
 
+.animals-section .animal-list .animal-item-content .animal-item-title {
+    text-align: left;
+    
+}
+
 .animals-section .animal-list .animal-item:hover::after,
 .animals-section .animal-list .animal-item:focus-within::after {
     background-color: rgba(255, 255, 250, 0.9); /* Sfondo chiaro per leggibilità */

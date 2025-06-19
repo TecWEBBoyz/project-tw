@@ -65,37 +65,37 @@
             <form action="createAnimal.php" method="POST" enctype="multipart/form-data" novalidate>
                 <div class="input-wrapper">
                     <label for="name">Nome</label>
-                    <input type="text" id="name" name="name" value="[[oldName]]" required aria-describedby="name-error" [[nameInvalid]]>
+                    <input type="text" id="name" name="name" [[oldName]] required aria-describedby="name-error" [[nameInvalid]]>
                     <p id="name-error" class="error-message" role="alert" [[nameErrorHidden]]>[[nameError]]</p>
                 </div>
                 <div class="input-wrapper">
                     <label for="species">Specie</label>
-                    <input type="text" id="species" name="species" value="[[oldSpecies]]" required aria-describedby="species-error" [[speciesInvalid]]>
+                    <input type="text" id="species" name="species" [[oldSpecies]] required aria-describedby="species-error" [[speciesInvalid]]>
                     <p id="species-error" class="error-message" role="alert" [[speciesErrorHidden]]>[[speciesError]]</p>
                 </div>
                 <div class="input-wrapper">
                     <label for="age">Età (anni)</label>
-                    <input type="number" id="age" name="age" value="[[oldAge]]" required min="0" step="1" aria-describedby="age-error" [[ageInvalid]]>
+                    <input type="number" id="age" name="age" [[oldAge]] required min="0" step="1" aria-describedby="age-error" [[ageInvalid]]>
                     <p id="age-error" class="error-message" role="alert" [[ageErrorHidden]]>[[ageError]]</p>
                 </div>
                 <div class="input-wrapper">
                     <label for="habitat">Habitat</label>
-                    <input type="text" id="habitat" name="habitat" value="[[oldHabitat]]" required aria-describedby="habitat-error" [[habitatInvalid]]>
+                    <input type="text" id="habitat" name="habitat" [[oldHabitat]] required aria-describedby="habitat-error" [[habitatInvalid]]>
                     <p id="habitat-error" class="error-message" role="alert" [[habitatErrorHidden]]>[[habitatError]]</p>
                 </div>
                 <div class="input-wrapper">
                     <label for="dimensions">Dimensioni (es. 1,5 metri, 100kg)</label>
-                    <input type="text" id="dimensions" name="dimensions" value="[[oldDimensions]]" required aria-describedby="dimensions-error" [[dimensionsInvalid]]>
+                    <input type="text" id="dimensions" name="dimensions" [[oldDimensions]] required aria-describedby="dimensions-error" [[dimensionsInvalid]]>
                     <p id="dimensions-error" class="error-message" role="alert" [[dimensionsErrorHidden]]>[[dimensionsError]]</p>
                 </div>
                 <div class="input-wrapper">
                     <label for="lifespan">Aspettativa di vita (es. 10-15 anni)</label>
-                    <input type="text" id="lifespan" name="lifespan" value="[[oldLifespan]]" required aria-describedby="lifespan-error" [[lifespanInvalid]]>
+                    <input type="text" id="lifespan" name="lifespan" [[oldLifespan]] required aria-describedby="lifespan-error" [[lifespanInvalid]]>
                     <p id="lifespan-error" class="error-message" role="alert" [[lifespanErrorHidden]]>[[lifespanError]]</p>
                 </div>
                 <div class="input-wrapper">
                     <label for="diet">Dieta</label>
-                    <input type="text" id="diet" name="diet" value="[[oldDiet]]" required aria-describedby="diet-error" [[dietInvalid]]>
+                    <input type="text" id="diet" name="diet" [[oldDiet]] required aria-describedby="diet-error" [[dietInvalid]]>
                     <p id="diet-error" class="error-message" role="alert" [[dietErrorHidden]]>[[dietError]]</p>
                 </div>
                 <div class="input-wrapper">

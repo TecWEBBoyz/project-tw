@@ -159,7 +159,13 @@ $form_fields = ['name', 'species', 'age', 'habitat', 'dimensions', 'lifespan', '
 
 foreach ($form_fields as $field) {
     $uc_field = ucfirst($field);
-    $base_replacements["[[old{$uc_field}]]"] = isset($old_data[$field]) ? htmlspecialchars($old_data[$field]) : '';
+
+    if ($form_fields == "description") {
+        $base_replacements["[[old{$uc_field}]]"] = isset($old_data[$field]) ? htmlspecialchars($old_data[$field]) : '';
+    } else {
+        $base_replacements["[[old{$uc_field}]]"] = isset($old_data[$field]) ? 'value="' . htmlspecialchars($old_data[$field]) . '"' : '';
+    }
+
     $base_replacements["[[{$field}Error]]"] = isset($errors[$field]) ? htmlspecialchars($errors[$field]) : '';
     $base_replacements["[[{$field}ErrorHidden]]"] = isset($errors[$field]) ? '' : 'hidden';
     $base_replacements["[[{$field}Invalid]]"] = isset($errors[$field]) ? 'aria-invalid="true"' : '';
