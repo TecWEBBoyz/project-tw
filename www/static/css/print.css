@@ -152,7 +152,6 @@ table th {
     border: 1.5pt solid #000;
 }
 
-/* Bordi rinforzati per contorno tabella */
 table th:first-child,
 table td:first-child {
     border-left: 2pt solid #000;
@@ -171,7 +170,6 @@ table tbody tr:last-child td {
     border-bottom: 2pt solid #000;
 }
 
-/* Righe alternate per migliore leggibilità */
 table tbody tr:nth-child(even) {
     background-color: #f8f8f8;
 }
@@ -180,7 +178,7 @@ table tbody tr:nth-child(odd) {
     background-color: #ffffff;
 }
 
-/* Caption tabella */
+
 table caption {
     font-size: 14pt;
     font-weight: bold;
@@ -190,38 +188,33 @@ table caption {
     color: #000;
 }
 
-/* Gestione specifica per celle con contenuto lungo */
+
 table td {
     overflow-wrap: break-word;
     word-break: break-word;
     hyphens: auto;
-    max-width: 0; /* Forza il wrap del testo */
+    max-width: 0;
 }
 
-/* Evita interruzioni inappropriate */
 table thead tr,
 table tbody tr {
     page-break-inside: avoid;
     break-inside: avoid;
 }
 
-/* Assicura che l'header sia ripetuto su ogni pagina */
 table thead {
     display: table-header-group;
 }
 
-/* Nascondi elementi con classe print-muted in stampa */
 table th.print-muted,
 table td.print-muted {
     display: none;
 }
 
-/* Gestione pulsanti nelle tabelle */
 table .booking-actions {
-    display: none; /* Nasconde i pulsanti di azione in stampa */
+    display: none;
 }
 
-/* Sostituisce i pulsanti con testo descrittivo se necessario */
 table .booking-actions::after {
     content: "[Azione non disponibile in stampa]";
     font-style: italic;
@@ -275,12 +268,14 @@ table .booking-actions::after {
     content: "";
 }
 
-/* Non mostrare URL */
+.breadcrumb a {
+    color:var(--muted)
+}
+
 .breadcrumb a::after {
     content: none;
 }
 
-/* Non mostrare URL per i link del breadcrumb */
 .breadcrumb a[href]:after,
 nav.breadcrumb a[href]:after {
     content: "";
