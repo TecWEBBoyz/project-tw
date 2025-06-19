@@ -6,7 +6,7 @@
 
     <!-- SEO Meta Tags -->
     <meta name="description" content="Accedi al tuo account Zoo Animalia per gestire prenotazioni, recensioni e servizi personalizzati.">
-    <meta name="keywords" content="login zoo, accesso utenti, Zoo Animalia, area personale, accedi al profilo">
+    <meta name="keywords" content="login, Zoo Animalia, accedi">
     <meta name="author" content="Zoo Animalia">
     <link rel="canonical" href="https://www.zooanimalia.it/login.php">
     <meta name="robots" content="noindex, nofollow">
@@ -48,13 +48,13 @@
     </header>
     <nav aria-label="Breadcrumb" class="breadcrumb">
         <ol>
-            <li><a href="index.php">Home</a></li>
+            <li><a href="index.php"><span lang="en">Home</span></a></li>
             <li>Login</li>
         </ol>
     </nav>
     <main id="contenuto" class="full-page">
     <div class="login-wrapper">
-        <h1>Login</h1>
+        <h1><span lang="en">Login</span></h1>
 
         <!-- errori lato server -->
         [[errorSummary]]
@@ -67,7 +67,7 @@
 
         <form method="POST" action="login.php" novalidate>
             <div class="input-wrapper">
-                <label for="username">Username:</label>
+                <label for="username"><span lang="en">Username:</span></label>
                 <input 
                     type="text" 
                     id="username" 
@@ -79,7 +79,7 @@
                 <p id="username-error" class="error-message" role="alert" hidden></p>
             </div>
             <div class="input-wrapper">
-                <label for="password">Password:</label>
+                <label for="password"><span lang="en">Password:</span></label>
                 <input 
                     type="password" 
                     id="password" 
@@ -89,7 +89,7 @@
                     aria-describedby="password-error">
                 <p id="password-error" class="error-message" role="alert" hidden></p>
             </div>
-            <button type="submit" class="submit-button">Login</button>
+            <button type="submit" class="submit-button">Accedi</button>
         </form>
     </div>
 </main>
