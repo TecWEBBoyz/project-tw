@@ -277,11 +277,11 @@ a {
 }
 
 a:hover {
-    color: var(--accent-2)
+    color: var(--dark)
 }
 
 a:visited {
-    color: var(--accent-2)
+    color: var(--dark)
 }
 
 a.menu-link {
@@ -293,11 +293,11 @@ a.menu-link {
 }
 
 a.menu-link:hover {
-    color: var(--accent-2);
+    color: var(--dark);
 }
 
 a.menu-link:visited {
-    color: var(--accent-2);
+    color: var(--dark);
 }
 
 a.light-link {
@@ -310,11 +310,11 @@ a.light-link {
 }
 
 a.light-link:hover {
-    color: var(--accent-2);
+    color: var(--dark);
 }
 
 a.light-link:visited {
-    color: var(--accent-2);
+    color: var(--dark);
 }
 
 a.light-link:after {
@@ -329,12 +329,12 @@ a.light-link:after {
 }
 
 a.light-link:visited:after {
-    background-color: var(--accent-2);
+    background-color: var(--dark);
 }
 
 a.light-link:hover:after {
     width: 0%;
-    background-color: var(--accent-2);/*HERE*/
+    background-color: var(--dark);/*HERE*/
 }
 
 /* -----------------------
@@ -1084,6 +1084,12 @@ main>#about-section>.section-content .about-item:nth-child(2n) p {
     border: 2px solid var(--accent-2);
 }
 
+.animals-section .animal-list .animal-item:hover,
+.animals-section .animal-list .animal-item:focus {
+    transform: translateY(-10px);
+    transition: transform 0.4s ease-out;
+}
+
 .animal-item .animal-item-image {
     position: absolute;
     top: 0;
@@ -1131,7 +1137,7 @@ main>#about-section>.section-content .about-item:nth-child(2n) p {
     padding: 1rem;
     width: 100%;
     background-color: var(--light);
-    color: var(--dark);
+    color: var(--accent-2);
     z-index: 3;
     transition: all 0.4s ease-out;
 }
@@ -1957,9 +1963,9 @@ body > main {
 }
 
 .breadcrumb a:hover {
-    color: var(--accent-2)
+    color: var(--dark)
 }
 
 .breadcrumb a:visited {
-    color: var(--accent-2)
+    color: var(--dark)
 }
