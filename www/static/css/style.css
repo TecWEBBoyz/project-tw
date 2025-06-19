@@ -1234,7 +1234,7 @@ main>#about-section>.section-content .about-item:nth-child(2n) p {
 .animal-description p {
     margin: 0;
     line-height: 1.8;
-    text-align: justify;
+    text-align: left;
 }
 
 .animal-identikit {
